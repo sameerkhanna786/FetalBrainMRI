@@ -1,0 +1,517 @@
+/*
+ * Validation & worked-examples page.
+ *
+ * Style note: keeps the "Editorial Clinical" design language used in Home —
+ * journal-style headers (font-display), small caps for metadata, monospace
+ * numerics, and the deep-teal accent. All numeric tables are *computed live
+ * from the same engine* the calculator uses, so anything published here is
+ * exactly what users see in the worksheet.
+ */
+import { Link } from "wouter";
+import { ArrowLeft, BookOpen } from "lucide-react";
+
+import {
+  PARAMETERS,
+  PARAM_THIRD_V,
+  GROUP_ORDER,
+  mu,
+  sigma,
+  zscore,
+  formatZ,
+  formatPct,
+} from "@/lib/biometry";
+
+const GA_GRID = [22, 26, 30, 34, 38];
+
+/* ---------- Worked examples ----------
+ *
+ * Each row is *manually authored* but the z and centile columns are computed
+ * by the same `zscore()` function the worksheet uses, so the page stays in
+ * lock-step with the engine even if the coefficients are ever updated.
+ */
+type Worked = {
+  paramId: string;
+  ga: { weeks: number; days: number };
+  value: number;
+  expectation: string;
+  source: string;
+};
+
+const WORKED: Worked[] = [
+  {
+    paramId: "skull_bpd",
+    ga: { weeks: 22, days: 0 },
+    value: 53.0,
+    expectation: "near 50th centile (Tilea 2009 reports mean ≈ 53 mm at 22 w)",
+    source: "Tilea 2009, Table 2",
+  },
+  {
+    paramId: "tcd",
+    ga: { weeks: 30, days: 0 },
+    value: 36.1,
+    expectation: "near 50th centile (Xia 2021 reports 50th = 36.1 mm at 30 w)",
+    source: "Xia 2021, Table 2c",
+  },
+  {
+    paramId: "tcd",
+    ga: { weeks: 22, days: 0 },
+    value: 22.3,
+    expectation: "near 50th centile (Xia 2021 reports 50th = 22.3 mm at 22 w)",
+    source: "Xia 2021, Table 2c",
+  },
+  {
+    paramId: "pons_ap",
+    ga: { weeks: 28, days: 0 },
+    value: 9.96,
+    expectation:
+      "near 50th centile per Dovjak 2021 linear model (k=0.38, d=−0.68 → 9.96 mm)",
+    source: "Dovjak 2021, Table 1 (50th)",
+  },
+  {
+    paramId: "vermis_cc",
+    ga: { weeks: 28, days: 0 },
+    value: 15.62,
+    expectation:
+      "near 50th centile per Dovjak 2021 (k=0.84, d=−7.90 → 15.62 mm)",
+    source: "Dovjak 2021, Table 1 (50th)",
+  },
+  {
+    paramId: "atrial_left",
+    ga: { weeks: 30, days: 0 },
+    value: 6.7,
+    expectation: "near 50th centile; threshold for VM remains a fixed 10 mm",
+    source: "Cardoza 1988; Salomon 2007",
+  },
+  {
+    paramId: "csp_width",
+    ga: { weeks: 30, days: 0 },
+    value: 7.7,
+    expectation: "near 50th centile per Kertes 2021 (~6–8 mm at 28–34 w)",
+    source: "Kertes 2021",
+  },
+  {
+    paramId: "cc_length",
+    ga: { weeks: 28, days: 0 },
+    value: 33.4,
+    expectation:
+      "near 50th centile per Conte 2018 / Tilea 2009 (~33 mm at 28 w)",
+    source: "Conte 2018",
+  },
+  // An intentional "abnormal" worked case
+  {
+    paramId: "atrial_left",
+    ga: { weeks: 24, days: 0 },
+    value: 17.0,
+    expectation:
+      "severe ventriculomegaly trigger (≥15 mm); engine should fire DX_SEVERE_VM",
+    source: "Cardoza 1988",
+  },
+  {
+    paramId: "pons_ap",
+    ga: { weeks: 28, days: 0 },
+    value: 6.5,
+    expectation:
+      "z ≈ −5; engine should fire pontocerebellar-hypoplasia DX (PCH)",
+    source: "Dovjak 2021 — below 5th percentile",
+  },
+];
+
+const ALL_PARAMS = [...PARAMETERS, PARAM_THIRD_V];
+const findParam = (id: string) => ALL_PARAMS.find((p) => p.id === id)!;
+
+const fmtMm = (v: number) => v.toFixed(2);
+
+export default function Validation() {
+  return (
+    <div className="min-h-screen bg-[color:var(--paper)] text-[color:var(--ink)]">
+      {/* Banner */}
+      <div className="border-b border-[color:var(--rule)] bg-[color:var(--paper)]/70 backdrop-blur-sm sticky top-0 z-30">
+        <div className="container py-4 flex items-center gap-6">
+          <Link
+            href="/"
+            className="text-sm text-[color:var(--ink-soft)] hover:text-[color:var(--teal)] flex items-center gap-1.5"
+          >
+            <ArrowLeft className="h-4 w-4" /> Back to worksheet
+          </Link>
+          <div className="ml-auto flex items-center gap-4">
+            <Link
+              href="/methodology"
+              className="text-xs smallcaps text-[color:var(--ink-soft)] hover:text-[color:var(--teal)] flex items-center gap-1.5"
+            >
+              <BookOpen className="h-3 w-3" /> Methodology
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      <main className="container py-12 max-w-[920px]">
+        <div className="smallcaps text-[color:var(--teal)]">
+          Validation &amp; provenance
+        </div>
+        <h1 className="font-display text-[44px] leading-[1.05] tracking-tight mt-1">
+          What the numbers mean — and where they come from.
+        </h1>
+        <p className="text-[15px] text-[color:var(--ink-soft)] mt-4 max-w-[58ch]">
+          Every measurement entered into the worksheet is converted to a z-score
+          and centile using the published normative model from{" "}
+          <a
+            href="https://link.springer.com/article/10.1007/s00247-025-06403-2"
+            className="cite"
+          >
+            Luis 2025 (auto-proc-SVRTK)
+          </a>
+          . This page documents the exact coefficients used, shows the resulting
+          growth references at standard ages, and prints a battery of worked
+          examples so anyone can reproduce the calculation by hand.
+        </p>
+
+        {/* §1 model */}
+        <section className="mt-14">
+          <div className="smallcaps text-[color:var(--ink-soft)]">§ 1</div>
+          <h2 className="font-display text-[28px] mt-1">The model</h2>
+          <p className="text-[15px] mt-3 max-w-[58ch]">
+            For every parameter and every gestational age (decimal weeks):
+          </p>
+          <pre className="mt-4 px-5 py-4 text-[13.5px] font-numeric whitespace-pre-wrap bg-white border border-[color:var(--rule)] rounded-sm">
+{`mean(GA) = a · GA² + b · GA + c        (quadratic mean curve)
+SD(GA)   = a5 · GA + b5                (linear, heteroscedastic SD)
+z        = (value_mm − mean) / SD
+percentile = Φ(z) × 100                (standard normal CDF)`}
+          </pre>
+          <p className="text-[14px] text-[color:var(--ink-soft)] mt-4 max-w-[58ch]">
+            Coefficients are taken verbatim from the Luis 2025 open-source
+            pipeline (see{" "}
+            <a
+              href="https://github.com/SVRTK/auto-proc-svrtk/blob/main/scripts/auto-reporting-brain-biometry.py"
+              className="cite"
+            >
+              auto-reporting-brain-biometry.py
+            </a>
+            ). The cohort comprises 406 normative datasets across 19–40 weeks
+            GA. We treat 20–40 w as the validated range; results outside this
+            window are flagged as <em>extrapolated</em>. The third-ventricle
+            width uses Birnbaum 2018 instead, since Luis does not include it.
+          </p>
+        </section>
+
+        {/* §2 coefficients */}
+        <section className="mt-14">
+          <div className="smallcaps text-[color:var(--ink-soft)]">§ 2</div>
+          <h2 className="font-display text-[28px] mt-1">Models &amp; sources in use</h2>
+          <p className="text-[14px] text-[color:var(--ink-soft)] mt-3 max-w-[58ch]">
+            Each parameter records the published model used to compute its
+            z-score and the secondary independent reference shown alongside
+            for cross-validation. Three model families are supported:
+            quadratic-mean / linear-SD (Luis 2025), per-percentile linear
+            equations (Dovjak 2021, with σ derived as <span className="font-numeric">(p<sub>95</sub>−p<sub>5</sub>) / (2·1.645)</span>),
+            and linear-mean / constant-SD (Birnbaum 2018).
+          </p>
+          <div className="overflow-x-auto mt-4 border border-[color:var(--rule)] rounded-sm bg-white">
+            <table className="w-full text-[13px] font-numeric">
+              <thead className="bg-[color:var(--paper)]">
+                <tr className="text-left">
+                  {["Parameter", "Primary model", "Equation form", "Cross-check"].map((h) => (
+                    <th key={h} className="px-3 py-2 smallcaps text-[color:var(--ink-soft)] font-normal border-b border-[color:var(--rule)]">
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {ALL_PARAMS.map((p) => {
+                  const m = p.model;
+                  let form = "";
+                  if (m.kind === "luis-quadratic") {
+                    form = `μ = ${m.a.toFixed(4)}·GA² ${m.b >= 0 ? "+" : "−"} ${Math.abs(m.b).toFixed(4)}·GA ${m.c >= 0 ? "+" : "−"} ${Math.abs(m.c).toFixed(4)}; σ = ${m.a5.toFixed(4)}·GA ${m.b5 >= 0 ? "+" : "−"} ${Math.abs(m.b5).toFixed(4)}`;
+                  } else if (m.kind === "dovjak-percentile") {
+                    form = `p₅ = ${m.p5.k.toFixed(2)}·GA ${m.p5.d >= 0 ? "+" : "−"} ${Math.abs(m.p5.d).toFixed(2)}; p₉₅ = ${m.p95.k.toFixed(2)}·GA ${m.p95.d >= 0 ? "+" : "−"} ${Math.abs(m.p95.d).toFixed(2)}`;
+                  } else {
+                    form = `μ = ${m.mMu.toFixed(2)}·GA ${m.bMu >= 0 ? "+" : "−"} ${Math.abs(m.bMu).toFixed(2)}; σ = ${m.sigma.toFixed(2)} mm`;
+                  }
+                  return (
+                    <tr key={p.id} className="border-b border-[color:var(--rule)]/60 last:border-0 align-top">
+                      <td className="px-3 py-2 font-sans">{p.short}</td>
+                      <td className="px-3 py-2 font-sans text-[12px]">
+                        {p.primary.label}
+                      </td>
+                      <td className="px-3 py-2 text-[12px]">{form}</td>
+                      <td className="px-3 py-2 font-sans text-[12px] text-[color:var(--ink-soft)]">
+                        {p.secondary?.label ?? "—"}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* §3 growth charts */}
+        <section className="mt-14">
+          <div className="smallcaps text-[color:var(--ink-soft)]">§ 3</div>
+          <h2 className="font-display text-[28px] mt-1">
+            Growth references at standard ages
+          </h2>
+          <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
+            Mean ± 1.645·SD (i.e. 5th–95th centiles) at five reference
+            gestational ages, computed live by the engine.
+          </p>
+
+          {GROUP_ORDER.map((group) => {
+            const inGroup = ALL_PARAMS.filter((p) => p.group === group);
+            if (inGroup.length === 0) return null;
+            return (
+              <div key={group} className="mt-8">
+                <h3 className="font-display text-[18px]">§ {group}</h3>
+                <div className="overflow-x-auto mt-2 border border-[color:var(--rule)] rounded-sm bg-white">
+                  <table className="w-full text-[12.5px] font-numeric">
+                    <thead className="bg-[color:var(--paper)]">
+                      <tr className="text-left">
+                        <th className="px-3 py-2 smallcaps text-[color:var(--ink-soft)] font-normal border-b border-[color:var(--rule)]">
+                          Parameter
+                        </th>
+                        {GA_GRID.map((g) => (
+                          <th
+                            key={g}
+                            colSpan={2}
+                            className="px-3 py-2 smallcaps text-center text-[color:var(--ink-soft)] font-normal border-b border-l border-[color:var(--rule)]"
+                          >
+                            {g} w
+                          </th>
+                        ))}
+                      </tr>
+                      <tr className="text-left text-[10.5px]">
+                        <th className="px-3 py-1 border-b border-[color:var(--rule)]" />
+                        {GA_GRID.map((g) => (
+                          <>
+                            <th
+                              key={`${g}-mu`}
+                              className="px-3 py-1 smallcaps text-center text-[color:var(--ink-soft)] font-normal border-b border-l border-[color:var(--rule)]"
+                            >
+                              μ
+                            </th>
+                            <th
+                              key={`${g}-band`}
+                              className="px-3 py-1 smallcaps text-center text-[color:var(--ink-soft)] font-normal border-b border-[color:var(--rule)]"
+                            >
+                              5–95
+                            </th>
+                          </>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {inGroup.map((p) => (
+                        <tr
+                          key={p.id}
+                          className="border-b border-[color:var(--rule)]/60 last:border-0"
+                        >
+                          <td className="px-3 py-2 font-sans">{p.short}</td>
+                          {GA_GRID.map((g) => {
+                            const m = mu(p, g);
+                            const s = sigma(p, g);
+                            const lo = m - 1.645 * s;
+                            const hi = m + 1.645 * s;
+                            return (
+                              <>
+                                <td
+                                  key={`${p.id}-${g}-mu`}
+                                  className="px-3 py-2 text-center border-l border-[color:var(--rule)]/30"
+                                >
+                                  {fmtMm(m)}
+                                </td>
+                                <td
+                                  key={`${p.id}-${g}-band`}
+                                  className="px-3 py-2 text-center text-[color:var(--ink-soft)]"
+                                >
+                                  {fmtMm(lo)}–{fmtMm(hi)}
+                                </td>
+                              </>
+                            );
+                          })}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            );
+          })}
+        </section>
+
+        {/* §4 worked examples */}
+        <section className="mt-14">
+          <div className="smallcaps text-[color:var(--ink-soft)]">§ 4</div>
+          <h2 className="font-display text-[28px] mt-1">Worked examples</h2>
+          <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
+            Each row was constructed by reading a known reference value from a
+            primary publication and then asking the engine what z-score it
+            produces. Because the calculator uses the Luis 2025 model, we
+            expect normal-mean values to land near z = 0, and below-5th /
+            above-95th values to land at |z| ≥ 1.645.
+          </p>
+          <div className="overflow-x-auto mt-4 border border-[color:var(--rule)] rounded-sm bg-white">
+            <table className="w-full text-[13px] font-numeric">
+              <thead className="bg-[color:var(--paper)]">
+                <tr className="text-left">
+                  {[
+                    "Parameter",
+                    "GA",
+                    "Value (mm)",
+                    "μ(GA)",
+                    "SD(GA)",
+                    "z",
+                    "Centile",
+                    "Expected behaviour",
+                    "Source",
+                  ].map((h) => (
+                    <th
+                      key={h}
+                      className="px-3 py-2 smallcaps text-[color:var(--ink-soft)] font-normal border-b border-[color:var(--rule)] whitespace-nowrap"
+                    >
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {WORKED.map((w, i) => {
+                  const p = findParam(w.paramId);
+                  const r = zscore(p, w.ga, w.value);
+                  if (!r) return null;
+                  const tone =
+                    r.band === "normal"
+                      ? "var(--state-normal)"
+                      : r.band === "note"
+                        ? "var(--state-note)"
+                        : r.band === "watch"
+                          ? "var(--state-watch)"
+                          : "var(--state-rare)";
+                  return (
+                    <tr
+                      key={i}
+                      className="border-b border-[color:var(--rule)]/60 last:border-0"
+                    >
+                      <td className="px-3 py-2 font-sans">{p.short}</td>
+                      <td className="px-3 py-2">
+                        {w.ga.weeks}w {w.ga.days}d
+                      </td>
+                      <td className="px-3 py-2">{w.value.toFixed(2)}</td>
+                      <td className="px-3 py-2">{r.mu.toFixed(2)}</td>
+                      <td className="px-3 py-2">{r.sigma.toFixed(2)}</td>
+                      <td
+                        className="px-3 py-2"
+                        style={{ color: tone }}
+                      >
+                        {formatZ(r.z)}
+                      </td>
+                      <td className="px-3 py-2">{formatPct(r.percentile)}</td>
+                      <td className="px-3 py-2 font-sans text-[12px] text-[color:var(--ink-soft)] max-w-[260px]">
+                        {w.expectation}
+                      </td>
+                      <td className="px-3 py-2 font-sans text-[11.5px] text-[color:var(--ink-soft)] whitespace-nowrap">
+                        {w.source}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* §5 differential triggers */}
+        <section className="mt-14">
+          <div className="smallcaps text-[color:var(--ink-soft)]">§ 5</div>
+          <h2 className="font-display text-[28px] mt-1">
+            Differential-diagnosis triggers
+          </h2>
+          <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
+            Triggers fire on either fixed millimetre thresholds (independent of
+            GA) or on z-score thresholds against the model above. The same
+            evidence-based table is used regardless of GA.
+          </p>
+          <div className="overflow-x-auto mt-4 border border-[color:var(--rule)] rounded-sm bg-white">
+            <table className="w-full text-[13px] font-numeric">
+              <thead className="bg-[color:var(--paper)]">
+                <tr className="text-left">
+                  {["Trigger", "Condition", "Type"].map((h) => (
+                    <th
+                      key={h}
+                      className="px-3 py-2 smallcaps text-[color:var(--ink-soft)] font-normal border-b border-[color:var(--rule)]"
+                    >
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="font-sans">
+                {[
+                  ["Severe ventriculomegaly", "max(atrial L, atrial R) ≥ 15 mm", "fixed mm"],
+                  ["Mild–moderate VM", "max(atrial L, atrial R) ≥ 10 mm", "fixed mm"],
+                  ["Asymmetric ventricles", "|atrial L − atrial R| > 2 mm", "fixed mm"],
+                  ["Absent / narrow CSP", "CSP width < 1 mm", "fixed mm"],
+                  ["Enlarged CSP", "CSP width > 10 mm", "fixed mm"],
+                  ["Short CC", "CC length z < −1.645 (5th centile)", "z-score"],
+                  ["Small pons", "Pons AP z < −1.645", "z-score"],
+                  ["Small TCD", "TCD z < −1.645", "z-score"],
+                  ["Wide third ventricle", "3rd-V width > 3.5 mm", "fixed mm"],
+                ].map(([t, c, k]) => (
+                  <tr key={t} className="border-b border-[color:var(--rule)]/60 last:border-0">
+                    <td className="px-3 py-2">{t}</td>
+                    <td className="px-3 py-2 font-numeric text-[12.5px]">{c}</td>
+                    <td className="px-3 py-2 text-[color:var(--ink-soft)]">{k}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* §6 limitations */}
+        <section className="mt-14">
+          <div className="smallcaps text-[color:var(--ink-soft)]">§ 6</div>
+          <h2 className="font-display text-[28px] mt-1">Known limitations</h2>
+          <ul className="mt-4 space-y-3 text-[15px] max-w-[60ch]">
+            <li>
+              <strong>GA range.</strong> The Luis 2025 coefficients are
+              validated for 20–40 w GA. Inputs at 18–20 w extrapolate the
+              quadratic outside the fitting domain and the result is flagged
+              accordingly in the worksheet.
+            </li>
+            <li>
+              <strong>Field strength &amp; acquisition.</strong> The pipeline
+              was developed on 0.55–3 T T2-weighted reconstructed volumes.
+              Z-scores derived from native (non-reconstructed) 2D HASTE may
+              differ slightly because of partial-volume effects.
+            </li>
+            <li>
+              <strong>Population specificity.</strong> The cohort is largely
+              UK / European fetuses; ethnic and population variation is not
+              modelled. The cross-validation column in §2 lists the
+              parameter-specific primary references that can serve as a
+              second opinion when local growth differs.
+            </li>
+            <li>
+              <strong>Atrial diameter is laterality-symmetric in the model.</strong>{" "}
+              Luis 2025 uses the same coefficients for left and right atrial
+              diameters; the asymmetry trigger compares the raw millimetre
+              values, not the z-scores.
+            </li>
+            <li>
+              <strong>Differential engine is rules-based.</strong> Triggers
+              encode published thresholds and named differentials but do not
+              attempt to compute Bayesian posterior probabilities from the
+              full constellation of measurements.
+            </li>
+          </ul>
+        </section>
+
+        <div className="mt-16 border-t border-[color:var(--rule)] pt-6 text-[12px] text-[color:var(--ink-soft)]">
+          Coefficients last cross-checked against the published source on
+          27 Apr 2026.
+        </div>
+      </main>
+    </div>
+  );
+}
