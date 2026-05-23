@@ -171,6 +171,13 @@ export function generateReport(ctx: ReportContext): string {
       !dxs.some(dx => dx.id === "pch-pattern")
         ? "Isolated brainstem (pontine) hypoplasia — non-PCH; consider PMM2-CDG and other isolated brainstem disorders."
         : undefined;
+    const isolatedThirdVentricleImpression =
+      dxs.some(dx => dx.id === "third-v-wide") &&
+      !dxs.some(dx => dx.id === "mild-vm") &&
+      !dxs.some(dx => dx.id === "severe-vm") &&
+      !dxs.some(dx => dx.id === "hydrocephalus-pattern")
+        ? "Isolated third ventricle prominence — uncommon; consider early aqueductal stenosis or measurement-technique error; recommend short-interval follow-up."
+        : undefined;
     const deterministicImpression = dxs.reduce<Differential | undefined>(
       (best, dx) => {
         if (!dx.impressionLine) return best;
@@ -189,6 +196,7 @@ export function generateReport(ctx: ReportContext): string {
       overgrowthThickCallosumImpression ||
       overgrowthPonsCallosumImpression ||
       isolatedPonsHypoplasiaImpression ||
+      isolatedThirdVentricleImpression ||
       deterministicImpression?.impressionLine
     ) {
       lines.push(
@@ -199,6 +207,7 @@ export function generateReport(ctx: ReportContext): string {
           overgrowthThickCallosumImpression ??
           overgrowthPonsCallosumImpression ??
           isolatedPonsHypoplasiaImpression ??
+          isolatedThirdVentricleImpression ??
           deterministicImpression!.impressionLine!
       );
       lines.push("");

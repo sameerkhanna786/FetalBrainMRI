@@ -179,3 +179,9 @@
 - Add Vitest coverage for TEST.md §20 Case MA3 / §13 Case TC2: macrocephaly with thick corpus callosum should fire both `macrocephaly` and `cc-thick`.
 - Assert the report impression flags the pair as an overgrowth-syndrome combined pattern.
 - Add a report-level overgrowth combined-pattern impression for `macrocephaly` plus `cc-thick`.
+
+## Isolated third-ventricle report increment
+
+- Add Vitest coverage for TEST.md §21 Case TV2: isolated third-ventricle dilatation at 30w0d should fire `third-v-wide` without ventriculomegaly or aqueductal-stenosis cards.
+- Assert the report impression suggests isolated third-ventricle prominence, early aqueductal stenosis or measurement-technique error, and short-interval follow-up.
+- Add report-level isolated `third-v-wide` wording that is suppressed by hydrocephalus / aqueductal-stenosis patterns.

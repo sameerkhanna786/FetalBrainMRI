@@ -406,3 +406,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Isolated Third-Ventricle Report Increment
+
+- Implemented TEST.md §21 Case TV2 report behavior for isolated third-ventricle prominence at 30w0d.
+- Added Vitest coverage that third-ventricle width 4.0 mm fires `third-v-wide` without mild/severe ventriculomegaly or `hydrocephalus-pattern`.
+- Added a report-level isolated third-ventricle impression recommending consideration of early aqueductal stenosis or measurement-technique error with short-interval follow-up.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
