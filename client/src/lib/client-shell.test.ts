@@ -53,6 +53,21 @@ describe("SPEC §4.9 client privacy shell", () => {
     expect(findForbiddenSourcePatterns(forbidden)).toEqual([]);
   });
 
+  it("does not declare generic HTTP client dependencies", () => {
+    const packageJson = JSON.parse(
+      readFileSync(resolve(process.cwd(), "package.json"), "utf8")
+    ) as {
+      dependencies?: Record<string, string>;
+      devDependencies?: Record<string, string>;
+    };
+    const declaredPackages = {
+      ...packageJson.dependencies,
+      ...packageJson.devDependencies,
+    };
+
+    expect(declaredPackages).not.toHaveProperty("axios");
+  });
+
   it("does not include dynamic external script or map loaders", () => {
     const forbidden = [
       {

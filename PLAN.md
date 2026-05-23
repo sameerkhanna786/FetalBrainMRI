@@ -502,3 +502,9 @@
 - Add Vitest coverage proving third-ventricle report source details disclose the approximation tier and cross-modality caveat.
 - Render verification tier and verification date in per-source report detail for every measured row.
 - Append source caveat text only when the registry entry carries one, preserving existing consensus and DDx behavior.
+
+## SPEC 4.9 Unused HTTP Dependency Removal Increment
+
+- Add client-shell coverage proving the production package does not declare a generic HTTP client dependency.
+- Remove the unused Axios dependency so the stateless client surface has no bundled HTTP helper library.
+- Keep source-level network API checks unchanged; this increment tightens package-level privacy posture.

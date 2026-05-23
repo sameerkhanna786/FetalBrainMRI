@@ -1101,3 +1101,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/report.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.9 Unused HTTP Dependency Removal Increment
+
+- Added client-shell privacy coverage proving the package does not declare a generic HTTP client dependency.
+- Removed the unused Axios production dependency and its lockfile entries.
+- Preserved existing source-level network/script/storage guards while tightening the package-level privacy surface.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 90 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check package.json PLAN.md client/src/lib/client-shell.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
