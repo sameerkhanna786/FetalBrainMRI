@@ -123,6 +123,13 @@ export function generateReport(ctx: ReportContext): string {
   if (!anyAbnormal && Object.values(values).some(v => v != null)) {
     lines.push("No abnormal biometric findings.");
   } else if (anyAbnormal) {
+    const accImpression = dxs.find(
+      dx => dx.id === "acc-pattern"
+    )?.impressionLine;
+    const accDwmImpression =
+      accImpression && dxs.some(dx => dx.id === "dwm-pattern")
+        ? `${accImpression} Dandy-Walker spectrum with elevated tegmento-vermian angle is also present.`
+        : undefined;
     const combinedCerebellarHypoplasiaImpression =
       dxs.some(dx => dx.id === "vermis-small") &&
       dxs.some(dx => dx.id === "tcd-small") &&
@@ -140,11 +147,13 @@ export function generateReport(ctx: ReportContext): string {
       undefined
     );
     if (
+      accDwmImpression ||
       combinedCerebellarHypoplasiaImpression ||
       deterministicImpression?.impressionLine
     ) {
       lines.push(
-        combinedCerebellarHypoplasiaImpression ??
+        accDwmImpression ??
+          combinedCerebellarHypoplasiaImpression ??
           deterministicImpression!.impressionLine!
       );
       lines.push("");

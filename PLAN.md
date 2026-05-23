@@ -125,3 +125,9 @@
 - Add Vitest coverage for TEST.md §7 Case D1: small vermis, small TCD, small pons, and markedly elevated TVA should fire the Dandy-Walker composite card.
 - Change the DWM composite trigger from third-ventricle dilatation to elevated tegmento-vermian angle with small vermis.
 - Update DWM card wording to describe the TVA-based posterior-fossa pattern.
+
+## ACC plus Dandy-Walker report increment
+
+- Add Vitest coverage for TEST.md §7 Case D3: ACC and Dandy-Walker composite cards should fire simultaneously.
+- Add deterministic Dandy-Walker report wording for DWM-only cases.
+- Add report handling so ACC plus DWM enumerates both combined-pattern diagnoses instead of hiding DWM behind the ACC impression priority.

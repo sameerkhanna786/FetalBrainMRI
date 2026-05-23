@@ -2686,6 +2686,9 @@ const CARDS: CardSpec[] = [
     oneLine: "Small vermis + elevated TVA — DWM pattern.",
     severity: "urgent",
     relatedParamIds: ["vermis_cc"],
+    impressionLine:
+      "Dandy-Walker spectrum with elevated tegmento-vermian angle; recommend posterior-fossa-focused MRI review and genetic counselling.",
+    impressionPriority: 85,
     summary:
       "Small vermis with elevated tegmento-vermian angle is suggestive of the Dandy-Walker spectrum.",
     rows: [

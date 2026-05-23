@@ -476,6 +476,41 @@ describe("Dandy-Walker spectrum trigger", () => {
   });
 });
 
+describe("combined ACC and Dandy-Walker report impression", () => {
+  it("enumerates both TEST.md Case D3 combined-pattern diagnoses", () => {
+    const ga = { weeks: 28, days: 0 };
+    const values = {
+      atrial_right: 16,
+      atrial_left: 16,
+      csp_width: 0,
+      cc_length: 0,
+      vermis_cc: 7,
+      vermis_ap: 3,
+      tva: 95,
+      tcd: 28,
+      pons_ap: 6.5,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toEqual(
+      expect.arrayContaining(["severe-vm", "acc-pattern", "dwm-pattern"])
+    );
+    expect(report).toContain("Complete agenesis of the corpus callosum");
+    expect(report).toContain(
+      "Dandy-Walker spectrum with elevated tegmento-vermian angle"
+    );
+  });
+});
+
 describe("Chiari II / open NTD discriminator", () => {
   it("matches the SPEC §6.5.2 TDPF and CSA worked example", () => {
     const ga = { weeks: 24, days: 0 };
