@@ -2901,6 +2901,52 @@ const CARDS: CardSpec[] = [
     },
   },
   {
+    id: "mega-cisterna-magna",
+    title: "Mega cisterna magna / Blake's pouch cyst differential",
+    oneLine: "Cisterna magna depth >10 mm — posterior-fossa cystic variant.",
+    severity: "watch",
+    impressionLine:
+      "Isolated mega cisterna magna with persistent Blake's pouch — likely benign normal variant.",
+    impressionPriority: 8,
+    summary:
+      "A cisterna magna depth above 10 mm raises the differential of isolated mega cisterna magna, persistent Blake's pouch cyst, and arachnoid cyst.",
+    rows: [
+      {
+        dx: "Isolated mega cisterna magna",
+        likelihood: "Most common if vermis normal",
+        rationale: "Often benign when vermis, TVA, and brainstem are normal.",
+      },
+      {
+        dx: "Persistent Blake's pouch cyst",
+        likelihood: "Common differential",
+        rationale:
+          "Correlate with vermian rotation and fourth-ventricle outlet.",
+      },
+      {
+        dx: "Posterior-fossa arachnoid cyst",
+        likelihood: "Less common",
+        rationale: "Look for mass effect and communication pattern.",
+      },
+    ],
+    nextSteps:
+      "Review vermian size and rotation, fourth-ventricle communication, and posterior-fossa mass effect.",
+    limitations:
+      "Raw depth threshold requires imaging-plane correlation and does not replace posterior-fossa morphology review.",
+    primary: {
+      label: "Pishjoo 2025",
+      full: "Pishjoo M, et al. Mega Cisterna Magna: Current Perspectives and Future Directions. Cureus. 2025.",
+      url: "https://www.cureus.com/",
+    },
+    match: ({ values }) => {
+      const depth = values.cisterna_magna_depth;
+      if (depth == null || depth <= 10) return null;
+      return {
+        prior: 0.4,
+        triggerLabel: `cisterna magna depth ${fmt1(depth)} mm`,
+      };
+    },
+  },
+  {
     id: "pch-pattern",
     title: "Pontocerebellar hypoplasia pattern",
     oneLine: "Small pons + small cerebellum or vermis — PCH spectrum likely.",

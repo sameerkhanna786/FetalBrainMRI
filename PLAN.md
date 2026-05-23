@@ -393,3 +393,9 @@
 - Add Vitest coverage for SPEC.md §4.7 rhombencephalosynapsis detection using small TCD plus an entered absent-primary-fissure qualitative flag.
 - Assert the qualitative flag is required: small TCD alone still does not fire the RES composite card.
 - Add a minimal `res-pattern` differential card that shares the TCD smallness logic and links the qualitative primary-fissure finding in its trigger label.
+
+## SPEC 4.7 Cisterna-Magna Depth Increment
+
+- Add Vitest coverage for SPEC.md §4.7 numeric cisterna magna depth: >10 mm should trigger the mega cisterna magna / Blake's pouch differential.
+- Assert the threshold is strict so exactly 10 mm remains negative.
+- Add a minimal `mega-cisterna-magna` card with deterministic benign-variant report wording.

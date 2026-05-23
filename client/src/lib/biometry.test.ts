@@ -1601,6 +1601,19 @@ describe("combined ACC and Dandy-Walker report impression", () => {
 });
 
 describe("mega cisterna magna qualitative report impression", () => {
+  it("fires the SPEC §4.7 numeric cisterna-magna-depth threshold", () => {
+    const ga = { weeks: 28, days: 0 };
+    const negative = evaluateAll({ cisterna_magna_depth: 10 }, ga).dxs.map(
+      dx => dx.id
+    );
+    const positive = evaluateAll({ cisterna_magna_depth: 10.1 }, ga).dxs.map(
+      dx => dx.id
+    );
+
+    expect(negative).not.toContain("mega-cisterna-magna");
+    expect(positive).toContain("mega-cisterna-magna");
+  });
+
   it("uses the TEST.md Case BP3 qualitative Blake's pouch impression", () => {
     const ga = { weeks: 28, days: 0 };
     const gaWeeks = 28;

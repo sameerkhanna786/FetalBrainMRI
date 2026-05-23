@@ -866,3 +866,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, SPEC 4.7 Cisterna-Magna Depth Increment
+
+- Implemented SPEC.md §4.7 cisterna magna depth support so depth >10 mm fires the `mega-cisterna-magna` differential card.
+- Added Vitest coverage proving the threshold is strict: 10 mm remains negative, while 10.1 mm fires the card.
+- Added deterministic benign-variant report wording for isolated mega cisterna magna with persistent Blake's pouch.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 74 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
