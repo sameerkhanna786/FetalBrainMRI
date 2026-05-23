@@ -699,6 +699,75 @@ export function sourceRegistryFor(param: Parameter): SourceRegistryEntry[] {
   return registryOverrides[param.id] ?? [singleRegistryEntry(param)];
 }
 
+export type SourceRegistryValidationFailure = {
+  candidateSource: string;
+  existingSource: string;
+  gaWeeks: number;
+  delta: number;
+};
+
+export type SourceRegistryValidationResult = {
+  accepted: boolean;
+  maxDelta: number;
+  failures: SourceRegistryValidationFailure[];
+};
+
+export function validateSourceRegistryExtension(
+  param: Parameter,
+  candidate: SourceRegistryEntry,
+  maxAllowedDelta = 0.5
+): SourceRegistryValidationResult {
+  let maxDelta = 0;
+  const failures: SourceRegistryValidationFailure[] = [];
+
+  for (const existing of sourceRegistryFor(param)) {
+    const overlapStart = Math.max(candidate.gaRange[0], existing.gaRange[0]);
+    const overlapEnd = Math.min(candidate.gaRange[1], existing.gaRange[1]);
+    if (overlapStart > overlapEnd) continue;
+
+    const firstSample = Math.ceil(overlapStart * 2) / 2;
+    const lastSample = Math.floor(overlapEnd * 2) / 2;
+    let worst: SourceRegistryValidationFailure | null = null;
+
+    for (
+      let gaWeeks = firstSample;
+      gaWeeks <= lastSample + Number.EPSILON;
+      gaWeeks += 0.5
+    ) {
+      const newSigma = sigmaOfModel(candidate.model, gaWeeks);
+      const existingSigma = sigmaOfModel(existing.model, gaWeeks);
+      const denominator = Math.max(newSigma, existingSigma);
+      const delta =
+        denominator > 0
+          ? Math.abs(
+              muOfModel(candidate.model, gaWeeks) -
+                muOfModel(existing.model, gaWeeks)
+            ) / denominator
+          : Number.POSITIVE_INFINITY;
+
+      if (delta > maxDelta) maxDelta = delta;
+      if (!worst || delta > worst.delta) {
+        worst = {
+          candidateSource: candidate.source.label,
+          existingSource: existing.source.label,
+          gaWeeks,
+          delta,
+        };
+      }
+    }
+
+    if (worst && worst.delta > maxAllowedDelta) {
+      failures.push(worst);
+    }
+  }
+
+  return {
+    accepted: failures.length === 0,
+    maxDelta,
+    failures,
+  };
+}
+
 /**
  * Returns the model that should drive the z-score for `param` under the active
  * reference set, plus the source label that should be displayed for that model.

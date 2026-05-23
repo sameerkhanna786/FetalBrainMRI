@@ -1,6 +1,12 @@
 import { describe, expect, it } from "vitest";
 
-import { PARAMETERS_ALL, evaluateAll, zscore } from "./biometry";
+import {
+  PARAMETERS_ALL,
+  evaluateAll,
+  sourceRegistryFor,
+  validateSourceRegistryExtension,
+  zscore,
+} from "./biometry";
 import { generateReport } from "./report";
 
 const byId = (id: string) => {
@@ -94,5 +100,48 @@ describe("Chiari II / open NTD discriminator", () => {
     expect(dxs[0]?.id).toBe("chiari-ii-ontd");
     expect(dxs[0]?.triggerLabel).toContain("ONTD posterior");
     expect(dxs[0]?.severity).toBe("urgent");
+  });
+});
+
+describe("source-registry acceptance criterion", () => {
+  it("accepts an identical source over the overlapping GA window", () => {
+    const skullBpd = byId("skull_bpd");
+    const existing = sourceRegistryFor(skullBpd)[0];
+    const result = validateSourceRegistryExtension(skullBpd, {
+      ...existing,
+      source: {
+        ...existing.source,
+        label: "Duplicate Luis 2025",
+      },
+    });
+
+    expect(result.accepted).toBe(true);
+    expect(result.maxDelta).toBe(0);
+    expect(result.failures).toHaveLength(0);
+  });
+
+  it("rejects a candidate whose mean curve diverges by more than 0.5 SD", () => {
+    const skullBpd = byId("skull_bpd");
+    const existing = sourceRegistryFor(skullBpd)[0];
+    const result = validateSourceRegistryExtension(skullBpd, {
+      ...existing,
+      source: {
+        ...existing.source,
+        label: "Shifted candidate",
+      },
+      model: {
+        ...existing.model,
+        c:
+          existing.model.kind === "luis-quadratic" ? existing.model.c + 10 : 10,
+      },
+    });
+
+    expect(result.accepted).toBe(false);
+    expect(result.maxDelta).toBeGreaterThan(0.5);
+    expect(result.failures[0]).toMatchObject({
+      candidateSource: "Shifted candidate",
+      existingSource: "Luis 2025",
+    });
+    expect(result.failures[0].gaWeeks).toBeGreaterThanOrEqual(20);
   });
 });

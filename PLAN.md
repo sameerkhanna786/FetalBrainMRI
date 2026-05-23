@@ -13,3 +13,9 @@
 - Extend the parameter model and UI/report rendering so a parameter can use degree units, not only millimetres.
 - Add TDPF and CSA source-registry entries using the Woitek 2014 quadratic mean / linear SD coefficients and validated 21-37 week window.
 - Implement the Mahalanobis posterior helper and DDx card using consensus z-scores.
+
+## Source-registry acceptance increment
+
+- Add Vitest coverage for SPEC §4.10.1 using skull BPD: an identical candidate source should pass with zero standardized divergence.
+- Add Vitest coverage for SPEC §4.10.1 rejection: a candidate shifted well above the existing mean curve should fail and report the offending source, GA, and delta.
+- Implement a source-registry extension validator that samples half-week increments over each overlap and computes max |mu_new - mu_existing| / max(sigma_new, sigma_existing).
