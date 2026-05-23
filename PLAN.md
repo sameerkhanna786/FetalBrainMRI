@@ -303,3 +303,9 @@
 - Add Vitest coverage for TEST.md §10 macrocerebellum behavior using a registry-derived TCD value between +1.645 and +2 SD.
 - Assert `tcd-large` fires at the 95th-percentile threshold while unrelated overgrowth combination cards remain absent.
 - Lower the large-TCD matcher and card wording from +2 SD to the TEST.md §10 +1.645 SD threshold.
+
+## Thick-CC 95th-Percentile Threshold Increment
+
+- Add Vitest coverage for TEST.md §13 thick corpus callosum behavior using a registry-derived CC value between +1.645 and +2 SD.
+- Assert `cc-thick` fires at the 95th-percentile threshold without unrelated macrocephaly or large-pons cards.
+- Lower the thick-CC matcher and card wording from +2 SD to the TEST.md §13 +1.645 SD threshold.

@@ -670,3 +670,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Thick-CC 95th-Percentile Threshold Increment
+
+- Implemented TEST.md §13 thick corpus callosum threshold behavior so `cc-thick` fires above the 95th percentile rather than only above +2 SD.
+- Added Vitest coverage using a registry-derived CC length between +1.645 and +2 SD that fires `cc-thick` without unrelated macrocephaly or large-pons cards.
+- Updated the thick-CC card title and one-line summary to describe the 95th-percentile threshold.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 59 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

@@ -896,6 +896,26 @@ describe("large TCD 95th-percentile threshold", () => {
   });
 });
 
+describe("thick CC 95th-percentile threshold", () => {
+  it("fires TEST.md §13 thick corpus callosum between +1.645 and +2 SD", () => {
+    const ga = { weeks: 30, days: 0 };
+    const gaWeeks = 30;
+    const values = {
+      cc_length:
+        mu(byId("cc_length"), gaWeeks) +
+        1.8 * sigma(byId("cc_length"), gaWeeks),
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(zs.cc_length?.z).toBeGreaterThan(1.6448536269514722);
+    expect(zs.cc_length?.z).toBeLessThan(2);
+    expect(dxIds).toContain("cc-thick");
+    expect(dxIds).not.toContain("macrocephaly");
+    expect(dxIds).not.toContain("pons-large");
+  });
+});
+
 describe("macrocerebellum plus macrocephaly report impression", () => {
   it("uses the TEST.md Case LC2 overgrowth-syndrome impression", () => {
     const ga = { weeks: 30, days: 0 };

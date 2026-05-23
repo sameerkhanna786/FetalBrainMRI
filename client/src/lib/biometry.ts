@@ -2006,8 +2006,8 @@ const CARDS: CardSpec[] = [
   },
   {
     id: "cc-thick",
-    title: "Thick corpus callosum (z > +2)",
-    oneLine: "CC above the 97.5th percentile — uncommon.",
+    title: "Thick corpus callosum (>95th percentile)",
+    oneLine: "CC above the 95th percentile — uncommon.",
     severity: "watch",
     relatedParamIds: ["cc_length"],
     summary:
@@ -2032,7 +2032,7 @@ const CARDS: CardSpec[] = [
       const zr = zs.cc_length;
       const v = values.cc_length;
       if (zr == null || v == null) return null;
-      return zr.z > 2
+      return zr.z > 1.6448536269514722
         ? {
             prior: 0.3,
             triggerLabel: `CC = ${fmt1(v)} mm (z ${formatZ(zr.z)})`,
