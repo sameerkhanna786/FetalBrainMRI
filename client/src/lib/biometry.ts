@@ -128,6 +128,12 @@ export type SourceRegistryEntry = {
   model: Model;
   /** Validated GA range (weeks) for this source and parameter. */
   gaRange: [number, number];
+  verificationTier?:
+    | "byte-identical"
+    | "transcribed"
+    | "derived"
+    | "approximation";
+  verificationDate?: string;
   /** Rendered when the normative source is not fetal MRI. */
   crossModality?: boolean;
   caveat?: string;
@@ -616,10 +622,37 @@ const LUIS_OVERRIDES: Record<string, LuisQuadratic> = {
 const THIRD_V_CROSS_MODALITY_CAVEAT =
   "Cross-modality reference: Birnbaum 2018 is a 3-D transvaginal ultrasound cohort; fetal-MRI normative data remain a Phase 2 deliverable.";
 
+const VERIFICATION_DATE = "2026-05-23";
+
+const defaultVerificationTier = (
+  param: Parameter
+): Pick<SourceRegistryEntry, "verificationTier" | "verificationDate"> => {
+  if (param.primary.label === "Luis 2025") {
+    return {
+      verificationTier: "byte-identical",
+      verificationDate: VERIFICATION_DATE,
+    };
+  }
+  if (param.primary.label === "Birnbaum 2018") {
+    return {
+      verificationTier: "approximation",
+      verificationDate: VERIFICATION_DATE,
+    };
+  }
+  if (param.primary.label === "Woitek 2014") {
+    return { verificationTier: "derived", verificationDate: VERIFICATION_DATE };
+  }
+  return {
+    verificationTier: "transcribed",
+    verificationDate: VERIFICATION_DATE,
+  };
+};
+
 const singleRegistryEntry = (param: Parameter): SourceRegistryEntry => ({
   source: param.primary,
   model: param.model,
   gaRange: param.gaRange,
+  ...defaultVerificationTier(param),
   ...(param.id === "third_ventricle"
     ? {
         crossModality: true,
@@ -634,6 +667,8 @@ const registryOverrides: Record<string, SourceRegistryEntry[]> = {
       source: S_LUIS,
       model: LUIS_OVERRIDES.tcd,
       gaRange: [20, 40],
+      verificationTier: "byte-identical",
+      verificationDate: VERIFICATION_DATE,
     },
     {
       source: S_DOVJAK,
@@ -643,6 +678,8 @@ const registryOverrides: Record<string, SourceRegistryEntry[]> = {
         p95: { k: 1.85, d: -15.23 },
       },
       gaRange: [14, 39.3],
+      verificationTier: "transcribed",
+      verificationDate: VERIFICATION_DATE,
     },
   ],
   vermis_cc: [
@@ -650,6 +687,8 @@ const registryOverrides: Record<string, SourceRegistryEntry[]> = {
       source: S_LUIS,
       model: LUIS_OVERRIDES.vermis_cc,
       gaRange: [20, 40],
+      verificationTier: "byte-identical",
+      verificationDate: VERIFICATION_DATE,
     },
     {
       source: S_DOVJAK,
@@ -659,6 +698,8 @@ const registryOverrides: Record<string, SourceRegistryEntry[]> = {
         p95: { k: 0.95, d: -8.93 },
       },
       gaRange: [14, 39],
+      verificationTier: "transcribed",
+      verificationDate: VERIFICATION_DATE,
     },
   ],
   vermis_ap: [
@@ -666,6 +707,8 @@ const registryOverrides: Record<string, SourceRegistryEntry[]> = {
       source: S_LUIS,
       model: LUIS_OVERRIDES.vermis_ap,
       gaRange: [20, 40],
+      verificationTier: "byte-identical",
+      verificationDate: VERIFICATION_DATE,
     },
     {
       source: S_DOVJAK,
@@ -675,6 +718,8 @@ const registryOverrides: Record<string, SourceRegistryEntry[]> = {
         p95: { k: 0.7, d: -6.99 },
       },
       gaRange: [14, 39],
+      verificationTier: "transcribed",
+      verificationDate: VERIFICATION_DATE,
     },
   ],
   pons_ap: [
@@ -682,6 +727,8 @@ const registryOverrides: Record<string, SourceRegistryEntry[]> = {
       source: S_LUIS,
       model: LUIS_OVERRIDES.pons_ap,
       gaRange: [20, 40],
+      verificationTier: "byte-identical",
+      verificationDate: VERIFICATION_DATE,
     },
     {
       source: S_DOVJAK,
@@ -691,6 +738,8 @@ const registryOverrides: Record<string, SourceRegistryEntry[]> = {
         p95: { k: 0.44, d: -0.78 },
       },
       gaRange: [14, 39],
+      verificationTier: "transcribed",
+      verificationDate: VERIFICATION_DATE,
     },
   ],
 };
@@ -816,6 +865,8 @@ export type SourceEvaluation = {
   extrapolated: boolean;
   crossModality: boolean;
   caveat?: string;
+  verificationTier?: SourceRegistryEntry["verificationTier"];
+  verificationDate?: string;
   z: number;
   percentile: number;
   mu: number;
@@ -867,6 +918,124 @@ export const sigmaOfModel = (m: Model, gaWeeks: number): number => {
   const hi = m.p95.k * gaWeeks + m.p95.d;
   return (hi - lo) / (2 * 1.6448536269514722);
 };
+
+export type CrossValidationAuditStatus = "pass" | "partial-fail" | "fail";
+
+export type CrossValidationAuditSample = {
+  gaWeeks: number;
+  maxDelta: number;
+  means: Record<string, number>;
+  sigmas: Record<string, number>;
+};
+
+export type CrossValidationAudit = {
+  parameterId: string;
+  parameterName: string;
+  sources: {
+    label: string;
+    verificationTier?: SourceRegistryEntry["verificationTier"];
+    verificationDate?: string;
+  }[];
+  overlap: [number, number];
+  samples: CrossValidationAuditSample[];
+  maxDelta: number;
+  maxContiguousExcursions: number;
+  status: CrossValidationAuditStatus;
+};
+
+export function computeCrossValidationAudits(
+  params: Parameter[] = PARAMETERS_ALL
+): CrossValidationAudit[] {
+  return params.flatMap(param => {
+    const entries = sourceRegistryFor(param);
+    if (entries.length < 2) return [];
+
+    const overlapStart = Math.max(...entries.map(entry => entry.gaRange[0]));
+    const overlapEnd = Math.min(...entries.map(entry => entry.gaRange[1]));
+    if (overlapStart > overlapEnd) return [];
+
+    const firstSample = Math.ceil(overlapStart * 2) / 2;
+    const lastSample = Math.floor(overlapEnd * 2) / 2;
+    const samples: CrossValidationAuditSample[] = [];
+
+    for (
+      let gaWeeks = firstSample;
+      gaWeeks <= lastSample + Number.EPSILON;
+      gaWeeks += 0.5
+    ) {
+      const means: Record<string, number> = {};
+      const sigmas: Record<string, number> = {};
+      for (const entry of entries) {
+        means[entry.source.label] = muOfModel(entry.model, gaWeeks);
+        sigmas[entry.source.label] = sigmaOfModel(entry.model, gaWeeks);
+      }
+
+      let maxDelta = 0;
+      for (let i = 0; i < entries.length; i++) {
+        for (let j = i + 1; j < entries.length; j++) {
+          const left = entries[i];
+          const right = entries[j];
+          const denominator = Math.max(
+            sigmas[left.source.label],
+            sigmas[right.source.label]
+          );
+          const delta =
+            denominator > 0
+              ? Math.abs(means[left.source.label] - means[right.source.label]) /
+                denominator
+              : Number.POSITIVE_INFINITY;
+          if (delta > maxDelta) maxDelta = delta;
+        }
+      }
+
+      samples.push({
+        gaWeeks,
+        maxDelta,
+        means,
+        sigmas,
+      });
+    }
+
+    let currentRun = 0;
+    let maxContiguousExcursions = 0;
+    for (const sample of samples) {
+      if (sample.maxDelta > 0.5) {
+        currentRun += 1;
+        maxContiguousExcursions = Math.max(maxContiguousExcursions, currentRun);
+      } else {
+        currentRun = 0;
+      }
+    }
+
+    const maxDelta = samples.reduce(
+      (max, sample) => Math.max(max, sample.maxDelta),
+      0
+    );
+    const status: CrossValidationAuditStatus =
+      maxDelta <= 0.5
+        ? "pass"
+        : maxContiguousExcursions > 3
+          ? "fail"
+          : "partial-fail";
+
+    return [
+      {
+        parameterId: param.id,
+        parameterName: param.name,
+        sources: entries.map(entry => ({
+          label: entry.source.label,
+          verificationTier: entry.verificationTier,
+          verificationDate: entry.verificationDate,
+        })),
+        overlap: [firstSample, lastSample] as [number, number],
+        samples,
+        maxDelta,
+        maxContiguousExcursions,
+        status,
+      },
+    ];
+  });
+}
 
 /** Mean curve μ(GA) for a parameter under the active reference set. */
 export const mu = (
@@ -932,6 +1101,8 @@ export function zscore(
         extrapolated: !inRange,
         crossModality: Boolean(entry.crossModality),
         caveat: entry.caveat,
+        verificationTier: entry.verificationTier,
+        verificationDate: entry.verificationDate,
         z,
         mu: m,
         sigma: s,

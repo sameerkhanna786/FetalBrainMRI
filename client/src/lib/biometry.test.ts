@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   PARAMETERS_ALL,
+  computeCrossValidationAudits,
   evaluateAll,
   sourceRegistryFor,
   validateSourceRegistryExtension,
@@ -143,5 +144,26 @@ describe("source-registry acceptance criterion", () => {
       existingSource: "Luis 2025",
     });
     expect(result.failures[0].gaWeeks).toBeGreaterThanOrEqual(20);
+  });
+});
+
+describe("periodic cross-validation audit", () => {
+  it("derives half-week audit samples for every multi-source parameter", () => {
+    const audits = computeCrossValidationAudits();
+    const tcd = audits.find(audit => audit.parameterId === "tcd");
+
+    expect(audits.map(audit => audit.parameterId)).toEqual(
+      expect.arrayContaining(["tcd", "vermis_cc", "vermis_ap", "pons_ap"])
+    );
+    expect(tcd).toBeDefined();
+    expect(tcd!.sources.map(source => source.label)).toEqual([
+      "Luis 2025",
+      "Dovjak 2021",
+    ]);
+    expect(tcd!.samples[0].gaWeeks).toBe(20);
+    expect(tcd!.samples[1].gaWeeks).toBe(20.5);
+    expect(tcd!.samples.at(-1)!.gaWeeks).toBeLessThanOrEqual(39.3);
+    expect(tcd!.maxDelta).toBeGreaterThan(0);
+    expect(["pass", "partial-fail", "fail"]).toContain(tcd!.status);
   });
 });

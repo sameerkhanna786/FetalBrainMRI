@@ -6,8 +6,31 @@
 import { Link } from "wouter";
 import { ArrowLeft } from "lucide-react";
 import ZScoreBar from "@/components/ZScoreBar";
+import {
+  PARAMETERS_ALL,
+  computeCrossValidationAudits,
+  sourceRegistryFor,
+} from "@/lib/biometry";
+
+const tierLabel = (tier?: string) => tier ?? "unclassified";
+
+const statusClass = (status: string) => {
+  if (status === "pass") return "text-[color:var(--state-normal)]";
+  if (status === "partial-fail") return "text-[color:var(--state-watch)]";
+  return "text-[color:var(--state-rare)]";
+};
 
 export default function Methodology() {
+  const audits = computeCrossValidationAudits();
+  const verificationRows = PARAMETERS_ALL.flatMap(param =>
+    sourceRegistryFor(param).map(entry => ({
+      parameter: param.short,
+      source: entry.source.label,
+      tier: entry.verificationTier,
+      date: entry.verificationDate,
+    }))
+  );
+
   return (
     <div className="min-h-screen">
       <header className="border-b border-[color:var(--rule)]">
@@ -33,8 +56,8 @@ export default function Methodology() {
         </h1>
         <p className="text-[color:var(--ink-soft)] text-lg leading-relaxed mb-10">
           A single number, on its own, almost never tells you whether something
-          is normal. This calculator converts every biometric measurement into
-          a <em>z-score</em> — a common, unit-free language that lets a 22-week
+          is normal. This calculator converts every biometric measurement into a{" "}
+          <em>z-score</em> — a common, unit-free language that lets a 22-week
           vermis and a 34-week corpus callosum be judged on the same ruler.
         </p>
 
@@ -42,8 +65,8 @@ export default function Methodology() {
           <h2 className="font-display text-2xl">What a z-score is</h2>
           <p>
             Every normative fetal-MRI dataset tells us, for a given gestational
-            age, what the <em>typical</em> measurement (μ) and the <em>spread</em> (σ)
-            of that measurement are. The z-score is simply:
+            age, what the <em>typical</em> measurement (μ) and the{" "}
+            <em>spread</em> (σ) of that measurement are. The z-score is simply:
           </p>
           <div className="border border-[color:var(--rule)] rounded-sm p-6 flex items-center justify-center font-numeric text-2xl text-[color:var(--teal)]">
             z = (x − μ) / σ
@@ -51,8 +74,8 @@ export default function Methodology() {
           <p>
             A z of 0 means the measurement sits exactly at the mean. A z of +1
             means one standard deviation above, −1 means one below. Because
-            z-scores are unitless, they allow every parameter in the study to
-            be compared on the same chart, regardless of scale.
+            z-scores are unitless, they allow every parameter in the study to be
+            compared on the same chart, regardless of scale.
           </p>
         </section>
 
@@ -91,10 +114,7 @@ export default function Methodology() {
                 zv: 3.1,
               },
             ].map((row, i) => (
-              <div
-                key={i}
-                className="grid grid-cols-12 gap-4 p-4 items-center"
-              >
+              <div key={i} className="grid grid-cols-12 gap-4 p-4 items-center">
                 <div className="col-span-3 font-numeric text-sm">{row.z}</div>
                 <div className="col-span-2">
                   <ZScoreBar z={row.zv} band={row.band} compact />
@@ -107,8 +127,8 @@ export default function Methodology() {
             ))}
           </div>
           <p className="text-sm text-[color:var(--ink-soft)]">
-            This mapping is simply the familiar 68-95-99.7 rule, re-expressed
-            as a decision aid for reading-room workflow.
+            This mapping is simply the familiar 68-95-99.7 rule, re-expressed as
+            a decision aid for reading-room workflow.
           </p>
         </section>
 
@@ -117,8 +137,8 @@ export default function Methodology() {
             Where the reference curves come from
           </h2>
           <p>
-            Every μ(GA) and σ(GA) curve in the calculator is taken verbatim
-            from a peer-reviewed paper, with no spline smoothing or simplified
+            Every μ(GA) and σ(GA) curve in the calculator is taken verbatim from
+            a peer-reviewed paper, with no spline smoothing or simplified
             re-fitting. Three model forms are used:
           </p>
           <ul className="list-disc pl-6 space-y-2">
@@ -130,45 +150,151 @@ export default function Methodology() {
             </li>
             <li>
               <strong>Dovjak 2021</strong> publishes per-percentile linear
-              equations for transcerebellar diameter, vermian height,
-              vermian AP, and pons AP, validated 14–40 weeks. μ(GA) is
-              taken as the midpoint of the 5th and 95th centile lines and
-              σ(GA) as (p₉₅ − p₅) / (2·1.6449), assuming Gaussianity.
+              equations for transcerebellar diameter, vermian height, vermian
+              AP, and pons AP, validated 14–40 weeks. μ(GA) is taken as the
+              midpoint of the 5th and 95th centile lines and σ(GA) as
+              (p₉₅ − p₅) / (2·1.6449), assuming Gaussianity.
             </li>
             <li>
-              <strong>Birnbaum 2018</strong> drives the third-ventricle
-              width with a linear mean and a constant standard deviation.
+              <strong>Birnbaum 2018</strong> drives the third-ventricle width
+              with a linear mean and a constant standard deviation, flagged as a
+              cross-modality approximation.
+            </li>
+            <li>
+              <strong>Woitek 2014</strong> drives the TDPF and
+              clivus-supraocciput angle models used by the Chiari II / open
+              neural tube defect discriminator.
             </li>
           </ul>
           <p>
-            The <em>Reference set</em> control on the calculator lets you
-            choose between two interchangeable strategies for assembling these
-            curves:
+            The calculator always operates in multi-source consensus mode. Every
+            applicable source in a parameter registry is evaluated, the
+            consensus z-score is the mean across in-range sources, and any
+            in-range source spread of Delta z ≥ 1.0 is surfaced as a
+            disagreement badge and report note.
           </p>
-          <ul className="list-disc pl-6 space-y-2">
-            <li>
-              <strong>Multi-source (best per-parameter evidence)</strong>:
-              Luis 2025 for the global, ventricular, and midline parameters;
-              Dovjak 2021 for the posterior fossa and brainstem; Birnbaum
-              2018 for the third ventricle. This is the default and gives
-              each parameter the model best supported by its primary
-              literature.
-            </li>
-            <li>
-              <strong>Luis 2025 only (single-cohort consistency)</strong>:
-              every parameter Luis publishes is computed from the Luis
-              quadratic-mean / linear-SD coefficients, including TCD, vermis
-              height, vermis AP, and pons AP. This trades parameter-specific
-              evidence for a single internally-consistent normative cohort.
-              Birnbaum 2018 is retained for the third ventricle because Luis
-              does not publish it.
-            </li>
-          </ul>
+        </section>
+
+        <section className="space-y-5 mb-12">
+          <h2 className="font-display text-2xl">
+            Periodic source cross-validation audit
+          </h2>
           <p>
-            Each parameter row in the calculator labels which paper drove its
-            z-score under the active reference set, and the structured report
-            records the same provenance per measurement.
+            On every release, parameters with more than one registry source are
+            sampled at half-week increments across the overlap. The line glyphs
+            show per-source mean curves, while the bars show the standardized
+            mean divergence against the 0.5 SD acceptance threshold.
           </p>
+          <div className="space-y-4">
+            {audits.map(audit => {
+              const allMeans = audit.samples.flatMap(sample =>
+                Object.values(sample.means)
+              );
+              const minMean = Math.min(...allMeans);
+              const maxMean = Math.max(...allMeans);
+              const yFor = (value: number) => {
+                if (maxMean === minMean) return 30;
+                return 54 - ((value - minMean) / (maxMean - minMean)) * 48;
+              };
+              const xFor = (index: number) =>
+                audit.samples.length <= 1
+                  ? 0
+                  : (index / (audit.samples.length - 1)) * 220;
+
+              return (
+                <article
+                  key={audit.parameterId}
+                  className="border border-[color:var(--rule)] rounded-sm p-4"
+                >
+                  <div className="flex flex-wrap items-baseline justify-between gap-3">
+                    <h3 className="font-display text-xl">
+                      {audit.parameterName}
+                    </h3>
+                    <div className={`smallcaps ${statusClass(audit.status)}`}>
+                      {audit.status} · max Delta {audit.maxDelta.toFixed(2)}
+                    </div>
+                  </div>
+                  <p className="text-sm text-[color:var(--ink-soft)] mt-1">
+                    Overlap {audit.overlap[0]}–{audit.overlap[1]} weeks ·{" "}
+                    {audit.sources.map(source => source.label).join(" vs ")}
+                  </p>
+                  <svg
+                    viewBox="0 0 220 60"
+                    className="w-full h-20 mt-3 border border-[color:var(--rule)] bg-white"
+                    role="img"
+                    aria-label={`${audit.parameterName} source mean curves`}
+                  >
+                    {audit.sources.map((source, sourceIndex) => (
+                      <polyline
+                        key={source.label}
+                        fill="none"
+                        stroke={
+                          sourceIndex === 0 ? "var(--teal)" : "var(--ink-soft)"
+                        }
+                        strokeWidth="2"
+                        points={audit.samples
+                          .map(
+                            (sample, index) =>
+                              `${xFor(index).toFixed(1)},${yFor(
+                                sample.means[source.label]
+                              ).toFixed(1)}`
+                          )
+                          .join(" ")}
+                      />
+                    ))}
+                  </svg>
+                  <div
+                    className="mt-2 grid items-end gap-px h-10"
+                    style={{
+                      gridTemplateColumns: `repeat(${audit.samples.length}, minmax(2px, 1fr))`,
+                    }}
+                    aria-label={`${audit.parameterName} disagreement bars`}
+                  >
+                    {audit.samples.map(sample => (
+                      <span
+                        key={sample.gaWeeks}
+                        title={`${sample.gaWeeks}w: Delta ${sample.maxDelta.toFixed(2)}`}
+                        className={
+                          sample.maxDelta > 0.5
+                            ? "bg-[color:var(--state-watch)]"
+                            : "bg-[color:var(--state-normal)]"
+                        }
+                        style={{
+                          height: `${Math.max(3, Math.min(40, sample.maxDelta * 22))}px`,
+                        }}
+                      />
+                    ))}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
+        <section className="space-y-4 mb-12">
+          <h2 className="font-display text-2xl">Source verification tiers</h2>
+          <p>
+            Each registry line carries a verification tier so the provenance of
+            every displayed z-score remains visible: byte-identical,
+            transcribed, derived, or approximation.
+          </p>
+          <div className="border border-[color:var(--rule)] rounded-sm divide-y divide-[color:var(--rule)] max-h-[360px] overflow-auto">
+            {verificationRows.map(row => (
+              <div
+                key={`${row.parameter}-${row.source}`}
+                className="grid grid-cols-12 gap-3 p-3 text-sm"
+              >
+                <div className="col-span-3 font-display">{row.parameter}</div>
+                <div className="col-span-3">{row.source}</div>
+                <div className="col-span-3 smallcaps">
+                  {tierLabel(row.tier)}
+                </div>
+                <div className="col-span-3 font-numeric text-[color:var(--ink-soft)]">
+                  {row.date ?? "not dated"}
+                </div>
+              </div>
+            ))}
+          </div>
         </section>
 
         <section className="space-y-4 mb-12">
@@ -179,11 +305,11 @@ export default function Methodology() {
             When a measurement crosses a clinically recognized threshold —
             ventriculomegaly at 10 mm, for example, or an absent cavum septum
             pellucidum — the calculator surfaces a curated, citation-grounded
-            differential diagnosis drawn from peer-reviewed literature
-            (Malinger 2005, Pagani 2014, Giorgione 2022, van Dijk 2018, Sun
-            2024, Hertzberg 1997, and others). Every likelihood shown is
-            accompanied by its primary source so the clinician can audit the
-            reasoning before dictating a report.
+            differential diagnosis drawn from peer-reviewed literature (Malinger
+            2005, Pagani 2014, Giorgione 2022, van Dijk 2018, Sun 2024,
+            Hertzberg 1997, and others). Every likelihood shown is accompanied
+            by its primary source so the clinician can audit the reasoning
+            before dictating a report.
           </p>
         </section>
 
