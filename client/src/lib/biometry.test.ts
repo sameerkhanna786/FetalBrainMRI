@@ -481,6 +481,33 @@ describe("isolated small TCD report impression", () => {
   });
 });
 
+describe("macrocerebellum plus macrocephaly report impression", () => {
+  it("uses the TEST.md Case LC2 overgrowth-syndrome impression", () => {
+    const ga = { weeks: 30, days: 0 };
+    const values = {
+      skull_bpd: 90,
+      tcd: 42,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toEqual(
+      expect.arrayContaining(["tcd-large", "macrocephaly"])
+    );
+    expect(report).toContain(
+      "Macrocerebellum with macrocephaly raises concern for fetal overgrowth syndromes such as Sotos or Beckwith-Wiedemann syndrome."
+    );
+  });
+});
+
 describe("Dandy-Walker spectrum trigger", () => {
   it("fires the TEST.md Case D1 TVA-based DWM composite card", () => {
     const { dxs } = evaluateAll(

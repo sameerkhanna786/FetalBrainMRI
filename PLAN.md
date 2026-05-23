@@ -143,3 +143,9 @@
 - Add Vitest coverage for TEST.md §9 Case CH3: isolated small TCD with preserved vermis and pons at 32w0d should fire `tcd-small` only among posterior-fossa small-structure cards.
 - Assert the report impression suggests unilateral cerebellar hypoplasia or cerebellar disruption injury and recommends postnatal MRI for laterality assessment.
 - Add deterministic report wording to the `tcd-small` card below higher-priority DWM/PCH/combined-cerebellar impressions.
+
+## Macrocerebellum plus macrocephaly report increment
+
+- Add Vitest coverage for TEST.md §10 Case LC2: macrocerebellum with macrocephaly at 30w0d should fire both `tcd-large` and `macrocephaly`.
+- Assert the report impression suggests fetal overgrowth syndromes, including Sotos and Beckwith-Wiedemann syndrome.
+- Add a report-level combined-pattern impression for `tcd-large` plus `macrocephaly`, while allowing hydrocephalus-specific impressions to remain higher priority.

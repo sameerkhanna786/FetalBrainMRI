@@ -327,3 +327,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Macrocerebellum Plus Macrocephaly Report Increment
+
+- Implemented TEST.md §10 Case LC2 report behavior for macrocerebellum with macrocephaly at 30w0d.
+- Added Vitest coverage that TCD 42.0 mm and skull BPD 90.0 mm fire `tcd-large` and `macrocephaly` together.
+- Added a report-level combined-pattern impression that raises concern for fetal overgrowth syndromes such as Sotos or Beckwith-Wiedemann syndrome, while preserving hydrocephalus-specific report priority.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

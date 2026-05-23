@@ -142,6 +142,12 @@ export function generateReport(ctx: ReportContext): string {
       !dxs.some(dx => dx.id === "dwm-pattern")
         ? "Combined small TCD and small vermis pattern raises concern for cerebellar agenesis or pontocerebellar hypoplasia."
         : undefined;
+    const overgrowthMacrocerebellumImpression =
+      dxs.some(dx => dx.id === "tcd-large") &&
+      dxs.some(dx => dx.id === "macrocephaly") &&
+      !dxs.some(dx => dx.id === "hydrocephalus-pattern")
+        ? "Macrocerebellum with macrocephaly raises concern for fetal overgrowth syndromes such as Sotos or Beckwith-Wiedemann syndrome."
+        : undefined;
     const deterministicImpression = dxs.reduce<Differential | undefined>(
       (best, dx) => {
         if (!dx.impressionLine) return best;
@@ -155,11 +161,13 @@ export function generateReport(ctx: ReportContext): string {
     if (
       accDwmImpression ||
       combinedCerebellarHypoplasiaImpression ||
+      overgrowthMacrocerebellumImpression ||
       deterministicImpression?.impressionLine
     ) {
       lines.push(
         accDwmImpression ??
           combinedCerebellarHypoplasiaImpression ??
+          overgrowthMacrocerebellumImpression ??
           deterministicImpression!.impressionLine!
       );
       lines.push("");
