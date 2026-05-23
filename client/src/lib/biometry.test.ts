@@ -314,6 +314,29 @@ describe("HPE pattern report impression", () => {
   });
 });
 
+describe("mixed-tier asymmetric ventriculomegaly triggers", () => {
+  it("fires severe VM, mild VM, and asymmetry for TEST.md Case S4", () => {
+    const { dxs } = evaluateAll(
+      {
+        atrial_right: 15.5,
+        atrial_left: 11,
+        csp_width: 4.7,
+        cc_length: 36,
+        third_ventricle: 1.7,
+      },
+      { weeks: 30, days: 0 }
+    );
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toEqual(
+      expect.arrayContaining(["severe-vm", "mild-vm", "asym-vent"])
+    );
+    expect(dxIds).not.toContain("hydrocephalus-pattern");
+    expect(dxIds).not.toContain("acc-pattern");
+    expect(dxIds).not.toContain("hpe-pattern");
+  });
+});
+
 describe("Chiari II / open NTD discriminator", () => {
   it("matches the SPEC §6.5.2 TDPF and CSA worked example", () => {
     const ga = { weeks: 24, days: 0 };

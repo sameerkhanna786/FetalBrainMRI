@@ -89,3 +89,9 @@
 - Add Vitest coverage for TEST.md §4 Case S5: severe VM with absent CSP/CC and microcephaly at 32w0d should fire the HPE composite and suppress ACC.
 - Add the Malinger 2013 HPE counselling impression to the HPE composite with the highest current report priority.
 - Tighten the ACC composite so the HPE microcephaly pattern is not simultaneously labelled as ACC.
+
+## Mixed-tier asymmetric VM increment
+
+- Add Vitest coverage for TEST.md §4 Case S4: right severe VM with left mild VM should fire severe VM, mild VM, and asymmetric ventricles together.
+- Change mild/moderate VM tier matching from max-only logic to side-aware logic so a contralateral lower-tier ventricle is not hidden by the more severe side.
+- Preserve existing severe, mild, and asymmetric report-impression priority behavior.

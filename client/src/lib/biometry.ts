@@ -1422,9 +1422,21 @@ const CARDS: CardSpec[] = [
     match: ({ values }) => {
       const L = values.atrial_left,
         R = values.atrial_right;
-      const max = Math.max(L ?? -Infinity, R ?? -Infinity);
-      if (!Number.isFinite(max) || max <= 12 || max >= 15) return null;
-      return { prior: 0.7, triggerLabel: `max(atrial) = ${fmt1(max)} mm` };
+      const candidates = [
+        { side: "L", value: L },
+        { side: "R", value: R },
+      ].filter(
+        (candidate): candidate is { side: string; value: number } =>
+          candidate.value != null &&
+          candidate.value > 12 &&
+          candidate.value < 15
+      );
+      const highest = candidates.sort((a, b) => b.value - a.value)[0];
+      if (!highest) return null;
+      return {
+        prior: 0.7,
+        triggerLabel: `Atrial ${highest.side} = ${fmt1(highest.value)} mm`,
+      };
     },
   },
   {
@@ -1487,9 +1499,21 @@ const CARDS: CardSpec[] = [
     match: ({ values }) => {
       const L = values.atrial_left,
         R = values.atrial_right;
-      const max = Math.max(L ?? -Infinity, R ?? -Infinity);
-      if (!Number.isFinite(max) || max < 10 || max > 12) return null;
-      return { prior: 0.55, triggerLabel: `max(atrial) = ${fmt1(max)} mm` };
+      const candidates = [
+        { side: "L", value: L },
+        { side: "R", value: R },
+      ].filter(
+        (candidate): candidate is { side: string; value: number } =>
+          candidate.value != null &&
+          candidate.value >= 10 &&
+          candidate.value <= 12
+      );
+      const highest = candidates.sort((a, b) => b.value - a.value)[0];
+      if (!highest) return null;
+      return {
+        prior: 0.55,
+        triggerLabel: `Atrial ${highest.side} = ${fmt1(highest.value)} mm`,
+      };
     },
   },
   {
