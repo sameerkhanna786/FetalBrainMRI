@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   AUXILIARY_MEASUREMENTS,
   PARAMETERS_ALL,
+  QUALITATIVE_FINDINGS,
   computeCrossValidationAudits,
   evaluateAll,
   fitLinearMeanSdSource,
@@ -40,6 +41,47 @@ describe("SPEC §4.7 auxiliary posterior-fossa inputs", () => {
     );
     expect(PARAMETERS_ALL.map(param => param.id)).not.toEqual(
       expect.arrayContaining(["cisterna_magna_depth", "tva"])
+    );
+  });
+});
+
+describe("qualitative/context UI finding registry", () => {
+  it("surfaces every manual engine/report flag outside the numeric registries", () => {
+    const ids = QUALITATIVE_FINDINGS.map(finding => finding.id);
+    const numericIds = new Set([
+      ...PARAMETERS_ALL.map(param => param.id),
+      ...AUXILIARY_MEASUREMENTS.map(field => field.id),
+    ]);
+
+    expect(ids).toEqual(
+      expect.arrayContaining([
+        "qualitative_heterotopia_panel",
+        "qualitative_interhemispheric_cyst_panel",
+        "qualitative_sod_panel",
+        "qualitative_cavum_vergae_panel",
+        "qualitative_hpe_panel",
+        "qualitative_cmv_panel",
+        "qualitative_absent_primary_fissure",
+        "qualitative_mcm_panel",
+        "qualitative_blakes_pouch_panel",
+        "growth_restriction_context",
+      ])
+    );
+    expect(new Set(ids).size).toBe(ids.length);
+    for (const id of ids) {
+      expect(numericIds.has(id)).toBe(false);
+    }
+    expect(QUALITATIVE_FINDINGS).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          id: "qualitative_absent_primary_fissure",
+          group: "Posterior fossa",
+        }),
+        expect.objectContaining({
+          id: "growth_restriction_context",
+          group: "Global brain / skull",
+        }),
+      ])
     );
   });
 });

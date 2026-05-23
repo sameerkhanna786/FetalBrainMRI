@@ -466,3 +466,9 @@
 - Add Vitest coverage for TEST.md §19 Case MC5 behavior: microcephaly with mild VM keeps the quantitative cards without a CMV qualitative entry.
 - Assert `qualitative_cmv_panel` adds a congenital-CMV advisory card while preserving the existing CMV impression override.
 - Keep the advisory qualitative-only so it does not alter microcephaly, ventriculomegaly, or brain-volume-loss matching.
+
+## Qualitative Finding UI Controls Increment
+
+- Add Vitest coverage for a UI-facing qualitative/context finding registry containing every manual-entry flag consumed by the engine and report generator.
+- Render those binary findings as checkbox rows in the worksheet sections next to the existing z-scored and auxiliary inputs.
+- Include growth-restriction context in the same registry so report-only context can be entered from the UI instead of hidden test fixtures.

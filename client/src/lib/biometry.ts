@@ -330,6 +330,15 @@ export type AuxiliaryMeasurement = {
   significance: string;
 };
 
+export type QualitativeFinding = {
+  id: string;
+  name: string;
+  short: string;
+  group: ParameterGroup;
+  finding: string;
+  significance: string;
+};
+
 const EXTRA_AXIAL_CSF_MODEL: LuisQuadratic = {
   kind: "luis-quadratic",
   a: -0.01,
@@ -794,6 +803,104 @@ export const AUXILIARY_MEASUREMENTS: AuxiliaryMeasurement[] = [
       "Mid-sagittal T2 image; measure the angle formed by the dorsal brainstem line and the ventral surface of the vermis.",
     significance:
       "Elevation supports persistent vermian rotation and Dandy-Walker spectrum interpretation when combined with vermian and posterior-fossa findings.",
+  },
+];
+
+export const QUALITATIVE_FINDINGS: QualitativeFinding[] = [
+  {
+    id: "growth_restriction_context",
+    name: "Growth-restriction context",
+    short: "IUGR context",
+    group: "Global brain / skull",
+    finding:
+      "Known fetal growth restriction or placental-insufficiency context entered by the radiologist.",
+    significance:
+      "Used in report wording to distinguish symmetric IUGR-associated microcephaly from primary microcephaly.",
+  },
+  {
+    id: "qualitative_cmv_panel",
+    name: "CMV infection findings",
+    short: "CMV findings",
+    group: "Global brain / skull",
+    finding:
+      "Periventricular cysts, calcifications, germinolytic cysts, or other qualitative CMV-supporting findings.",
+    significance:
+      "Adds the congenital CMV advisory and supports the CMV-specific microcephaly/ventriculomegaly impression.",
+  },
+  {
+    id: "qualitative_heterotopia_panel",
+    name: "Heterotopia / cortical malformation",
+    short: "Heterotopia",
+    group: "Midline structures",
+    finding:
+      "Entered gray matter heterotopia or broader malformation of cortical development.",
+    significance:
+      "Adds associated-anomaly context for ACC, ventriculomegaly, and genetic counselling.",
+  },
+  {
+    id: "qualitative_interhemispheric_cyst_panel",
+    name: "Interhemispheric cyst",
+    short: "IHC",
+    group: "Midline structures",
+    finding: "Entered interhemispheric cyst or related midline cystic lesion.",
+    significance:
+      "Adds an ACC-associated interhemispheric-cyst advisory without changing corpus-callosum thresholds.",
+  },
+  {
+    id: "qualitative_sod_panel",
+    name: "Small optic apparatus / SOD",
+    short: "SOD",
+    group: "Midline structures",
+    finding: "Entered small optic nerves or optic chiasm.",
+    significance:
+      "Adds septo-optic dysplasia context while preserving the primary absent-CSP impression.",
+  },
+  {
+    id: "qualitative_cavum_vergae_panel",
+    name: "Cavum vergae",
+    short: "Cavum vergae",
+    group: "Midline structures",
+    finding: "Entered posterior extension of the cavum septum pellucidum.",
+    significance:
+      "Labels cavum vergae as a qualitative add-on in the enlarged-CSP context.",
+  },
+  {
+    id: "qualitative_hpe_panel",
+    name: "Monoventricle / fused thalami",
+    short: "HPE features",
+    group: "Midline structures",
+    finding:
+      "Entered monoventricle, fused thalami, or equivalent qualitative HPE-spectrum finding.",
+    significance:
+      "Allows mild-range ventriculomegaly with absent CSP and microcephaly to fire the HPE pattern.",
+  },
+  {
+    id: "qualitative_absent_primary_fissure",
+    name: "Absent primary fissure",
+    short: "Primary fissure",
+    group: "Posterior fossa",
+    finding: "Entered absent cerebellar primary fissure.",
+    significance:
+      "Combines with small TCD to support the rhombencephalosynapsis pattern.",
+  },
+  {
+    id: "qualitative_mcm_panel",
+    name: "Mega cisterna magna / persistent Blake's pouch context",
+    short: "MCM context",
+    group: "Posterior fossa",
+    finding:
+      "Entered qualitative isolated mega cisterna magna or persistent Blake's pouch context.",
+    significance:
+      "Adds benign-variant report wording when the radiologist enters this qualitative posterior-fossa context.",
+  },
+  {
+    id: "qualitative_blakes_pouch_panel",
+    name: "Blake's pouch advisory",
+    short: "Blake's pouch",
+    group: "Posterior fossa",
+    finding: "Entered elevated TVA with normal vermian size/morphology.",
+    significance:
+      "Adds a Blake pouch advisory while guarding against Dandy-Walker calls when the vermis is normal.",
   },
 ];
 

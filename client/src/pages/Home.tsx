@@ -26,6 +26,7 @@ import {
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AuxiliaryMeasurementRow from "@/components/AuxiliaryMeasurementRow";
 import ParameterRow from "@/components/ParameterRow";
+import QualitativeFindingRow from "@/components/QualitativeFindingRow";
 import DifferentialCard, {
   DifferentialRailItem,
 } from "@/components/DifferentialCard";
@@ -34,6 +35,7 @@ import {
   GA,
   GROUP_ORDER,
   PARAMETERS_ALL,
+  QUALITATIVE_FINDINGS,
   evaluateAll,
   gaToDecimalWeeks,
   parseGestationalAge,
@@ -145,10 +147,13 @@ function DifferentialPanel({ dxs }: { dxs: Differential[] }) {
 const EMPTY_VALUES: Record<string, number | null> = Object.fromEntries([
   ...PARAMETERS_ALL.map(p => [p.id, null]),
   ...AUXILIARY_MEASUREMENTS.map(field => [field.id, null]),
+  ...QUALITATIVE_FINDINGS.map(finding => [finding.id, null]),
 ]);
 
 const TOTAL_MEASUREMENT_FIELDS =
-  PARAMETERS_ALL.length + AUXILIARY_MEASUREMENTS.length;
+  PARAMETERS_ALL.length +
+  AUXILIARY_MEASUREMENTS.length +
+  QUALITATIVE_FINDINGS.length;
 
 // Reference cases for the prototype's sample loader.
 //
@@ -590,6 +595,18 @@ export default function Home() {
                     value={values[field.id] ?? null}
                     onChange={v =>
                       setValues(prev => ({ ...prev, [field.id]: v }))
+                    }
+                  />
+                ))}
+                {QUALITATIVE_FINDINGS.filter(
+                  finding => finding.group === group
+                ).map(finding => (
+                  <QualitativeFindingRow
+                    key={finding.id}
+                    finding={finding}
+                    value={values[finding.id] ?? null}
+                    onChange={v =>
+                      setValues(prev => ({ ...prev, [finding.id]: v }))
                     }
                   />
                 ))}

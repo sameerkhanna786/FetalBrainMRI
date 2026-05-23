@@ -1023,3 +1023,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes after formatting `client/src/lib/biometry.test.ts`.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, Qualitative Finding UI Controls Increment
+
+- Added a UI-facing `QUALITATIVE_FINDINGS` registry for every manual engine/report flag, including growth-restriction context.
+- Added Vitest coverage proving the qualitative/context registry is distinct from z-scored parameters and auxiliary numeric inputs.
+- Rendered the registry as worksheet checkbox rows by anatomical group so qualitative add-ons can be entered from the app instead of hidden fixtures.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 84 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts client/src/pages/Home.tsx client/src/components/QualitativeFindingRow.tsx` passes after formatting `client/src/components/QualitativeFindingRow.tsx`.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
