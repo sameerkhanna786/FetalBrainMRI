@@ -2347,6 +2347,9 @@ const CARDS: CardSpec[] = [
     title: "Triventricular hydrocephalus pattern",
     oneLine: "Severe VM + dilated 3rd V — aqueductal stenosis pattern.",
     severity: "urgent",
+    impressionLine:
+      "Severe triventricular hydrocephalus with preserved CSP and macrocephaly — pattern most consistent with congenital aqueductal stenosis.",
+    impressionPriority: 80,
     summary:
       "Concurrent severe lateral-ventricular and third-ventricular dilatation with normal 4th ventricle is the classic obstructive (triventricular) pattern of aqueductal stenosis.",
     rows: [

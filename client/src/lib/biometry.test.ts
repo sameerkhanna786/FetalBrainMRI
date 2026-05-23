@@ -186,6 +186,49 @@ describe("isolated severe ventriculomegaly report impression", () => {
   });
 });
 
+describe("aqueductal-stenosis pattern report impression", () => {
+  it("uses the TEST.md Case S1 triventricular hydrocephalus impression line", () => {
+    const ga = { weeks: 26, days: 0 };
+    const values = {
+      skull_bpd: 72,
+      skull_ofd: 100,
+      brain_bpd: 65.5,
+      brain_ofd_left: 88,
+      brain_ofd_right: 88.1,
+      atrial_right: 18,
+      atrial_left: 18,
+      csp_width: 3.9,
+      cc_length: 28,
+      third_ventricle: 4.5,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toEqual(
+      expect.arrayContaining([
+        "severe-vm",
+        "third-v-wide",
+        "macrocephaly",
+        "hydrocephalus-pattern",
+      ])
+    );
+    expect(dxIds).not.toContain("mild-vm");
+    expect(dxIds).not.toContain("acc-pattern");
+    expect(dxIds).not.toContain("hpe-pattern");
+    expect(report).toContain(
+      "Severe triventricular hydrocephalus with preserved CSP and macrocephaly — pattern most consistent with congenital aqueductal stenosis."
+    );
+  });
+});
+
 describe("Chiari II / open NTD discriminator", () => {
   it("matches the SPEC §6.5.2 TDPF and CSA worked example", () => {
     const ga = { weeks: 24, days: 0 };

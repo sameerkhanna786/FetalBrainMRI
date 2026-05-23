@@ -71,3 +71,9 @@
 - Add Vitest coverage for TEST.md §4 Case S3: bilateral 17.5 mm atria at 28w0d with otherwise normal measured context should fire severe VM only and emit the Carta 2018 isolated severe-VM impression.
 - Add card-specific deterministic impression text to the severe ventriculomegaly card.
 - Assign severe VM an impression priority above generic mild/moderate VM but below future combined-pattern impressions.
+
+## Aqueductal-stenosis impression increment
+
+- Add Vitest coverage for TEST.md §4 Case S1: severe bilateral VM with third-ventricle dilatation and macrocephaly at 26w0d should fire the triventricular hydrocephalus pattern.
+- Assert the combined-pattern report impression exactly matches the Heaphy-Henault aqueductal-stenosis wording.
+- Add a high-priority deterministic impression to the hydrocephalus composite card so it overrides the generic severe-VM impression.
