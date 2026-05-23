@@ -878,6 +878,24 @@ describe("isolated small TCD report impression", () => {
   });
 });
 
+describe("large TCD 95th-percentile threshold", () => {
+  it("fires TEST.md §10 macrocerebellum between +1.645 and +2 SD", () => {
+    const ga = { weeks: 26, days: 0 };
+    const gaWeeks = 26;
+    const values = {
+      tcd: mu(byId("tcd"), gaWeeks) + 1.8 * sigma(byId("tcd"), gaWeeks),
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(zs.tcd?.z).toBeGreaterThan(1.6448536269514722);
+    expect(zs.tcd?.z).toBeLessThan(2);
+    expect(dxIds).toContain("tcd-large");
+    expect(dxIds).not.toContain("macrocephaly");
+    expect(dxIds).not.toContain("cc-thick");
+  });
+});
+
 describe("macrocerebellum plus macrocephaly report impression", () => {
   it("uses the TEST.md Case LC2 overgrowth-syndrome impression", () => {
     const ga = { weeks: 30, days: 0 };

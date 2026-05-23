@@ -2188,8 +2188,8 @@ const CARDS: CardSpec[] = [
   },
   {
     id: "tcd-large",
-    title: "TCD > +2 SD — macrocerebellum",
-    oneLine: "TCD above 97.5th percentile — rare.",
+    title: "TCD > 95th percentile — macrocerebellum",
+    oneLine: "TCD above 95th percentile — rare.",
     severity: "watch",
     relatedParamIds: ["tcd"],
     summary:
@@ -2211,7 +2211,7 @@ const CARDS: CardSpec[] = [
     primary: S_VATANSEVER,
     match: ({ zs, values }) => {
       const zr = zs.tcd;
-      if (zr == null || zr.z <= 2) return null;
+      if (zr == null || zr.z <= 1.6448536269514722) return null;
       return {
         prior: 0.2,
         triggerLabel: `TCD = ${fmt1(values.tcd)} mm (z ${formatZ(zr.z)})`,

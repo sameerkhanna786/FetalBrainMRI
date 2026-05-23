@@ -657,3 +657,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Large-TCD 95th-Percentile Threshold Increment
+
+- Implemented TEST.md §10 macrocerebellum threshold behavior so `tcd-large` fires above the 95th percentile rather than only above +2 SD.
+- Added Vitest coverage using a registry-derived TCD value between +1.645 and +2 SD that fires `tcd-large` without unrelated overgrowth combination cards.
+- Updated the large-TCD card title and one-line summary to describe the 95th-percentile threshold.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 58 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

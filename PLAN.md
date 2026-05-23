@@ -297,3 +297,9 @@
 - Add Vitest coverage for TEST.md §24 boundary behavior using brain-OFD left/right values separated by 1.6 SD.
 - Assert `brain-asym` does not fire below the specified >2 SD discordance threshold even when the raw percent difference exceeds 5%.
 - Update the hemispheric-asymmetry card title, summary trigger, and matcher to use left/right consensus z-score delta.
+
+## Large-TCD 95th-Percentile Threshold Increment
+
+- Add Vitest coverage for TEST.md §10 macrocerebellum behavior using a registry-derived TCD value between +1.645 and +2 SD.
+- Assert `tcd-large` fires at the 95th-percentile threshold while unrelated overgrowth combination cards remain absent.
+- Lower the large-TCD matcher and card wording from +2 SD to the TEST.md §10 +1.645 SD threshold.
