@@ -357,3 +357,9 @@
 - Add Vitest coverage for TEST.md §16 Case HPE3 behavior: mild-range VM plus absent CSP and microcephaly should not fire `hpe-pattern` unless qualitative HPE findings are entered.
 - Introduce a `qualitative_hpe_panel` matcher path, mirroring the existing qualitative CMV/MCM test values.
 - Keep the existing severe-VM quantitative HPE path and 3rd-percentile microcephaly threshold intact.
+
+## HA1 Hemispheric-Disruption Report Increment
+
+- Add Vitest coverage for TEST.md §24 Case HA1 using right brain-OFD reduction with right-sided ventricular enlargement and marked ventricular asymmetry.
+- Assert `brain-asym`, `asym-vent`, and a VM card fire together and the report suggests unilateral encephaloclastic insult or porencephaly.
+- Add a report-level combined-pattern impression that outranks generic asymmetric ventriculomegaly wording when cerebral hemispheric asymmetry is present.

@@ -327,6 +327,37 @@ describe("hemispheric asymmetry z-delta boundary", () => {
   });
 });
 
+describe("hemispheric disruption report impression", () => {
+  it("uses TEST.md Case HA1 combined asymmetry plus ventriculomegaly wording", () => {
+    const ga = { weeks: 28, days: 0 };
+    const gaWeeks = 28;
+    const brainOfd = byId("brain_ofd_right");
+    const values = {
+      brain_ofd_left: mu(byId("brain_ofd_left"), gaWeeks),
+      brain_ofd_right: mu(brainOfd, gaWeeks) - 2.2 * sigma(brainOfd, gaWeeks),
+      atrial_right: 12,
+      atrial_left: 8,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toEqual(
+      expect.arrayContaining(["brain-asym", "asym-vent", "mild-vm"])
+    );
+    expect(report).toContain(
+      "Right cerebral hemispheric asymmetry with ipsilateral ventriculomegaly suggests unilateral encephaloclastic insult or porencephaly."
+    );
+  });
+});
+
 describe("unilateral severe VM asymmetry report impression", () => {
   it("uses the TEST.md Case AS6 unilateral destructive-insult wording", () => {
     const ga = { weeks: 32, days: 0 };

@@ -198,6 +198,25 @@ export function generateReport(ctx: ReportContext): string {
       dxs.some(dx => dx.id === "cc-thick")
         ? "Large pons with thick corpus callosum strongly suggests a fetal overgrowth-syndrome pattern."
         : undefined;
+    const hemisphericSide =
+      values.brain_ofd_left != null && values.brain_ofd_right != null
+        ? values.brain_ofd_left > values.brain_ofd_right
+          ? "Right"
+          : values.brain_ofd_right > values.brain_ofd_left
+            ? "Left"
+            : "Unilateral"
+        : "Unilateral";
+    const hemisphericDisruptionImpression =
+      dxs.some(dx => dx.id === "brain-asym") &&
+      dxs.some(dx => dx.id === "asym-vent") &&
+      (dxs.some(dx => dx.id === "mild-vm") ||
+        dxs.some(dx => dx.id === "mod-vm") ||
+        dxs.some(dx => dx.id === "severe-vm")) &&
+      !dxs.some(dx => dx.id === "hydrocephalus-pattern") &&
+      !dxs.some(dx => dx.id === "acc-pattern") &&
+      !dxs.some(dx => dx.id === "hpe-pattern")
+        ? `${hemisphericSide} cerebral hemispheric asymmetry with ipsilateral ventriculomegaly suggests unilateral encephaloclastic insult or porencephaly.`
+        : undefined;
     const unilateralSevereVmImpression =
       dxs.some(dx => dx.id === "severe-vm") &&
       dxs.some(dx => dx.id === "asym-vent") &&
@@ -242,6 +261,7 @@ export function generateReport(ctx: ReportContext): string {
       overgrowthMacrocephalyCallosumImpression ||
       overgrowthThickCallosumImpression ||
       overgrowthPonsCallosumImpression ||
+      hemisphericDisruptionImpression ||
       unilateralSevereVmImpression ||
       isolatedPonsHypoplasiaImpression ||
       isolatedThirdVentricleImpression ||
@@ -258,6 +278,7 @@ export function generateReport(ctx: ReportContext): string {
           overgrowthMacrocephalyCallosumImpression ??
           overgrowthThickCallosumImpression ??
           overgrowthPonsCallosumImpression ??
+          hemisphericDisruptionImpression ??
           unilateralSevereVmImpression ??
           isolatedPonsHypoplasiaImpression ??
           isolatedThirdVentricleImpression ??
