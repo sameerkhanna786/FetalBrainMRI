@@ -905,3 +905,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, TEST 8 Blake's-Pouch Advisory Toggle Increment
+
+- Implemented TEST.md §8 qualitative Blake's pouch advisory support with a low-severity `blakes-pouch-dd` card.
+- Added Vitest coverage proving elevated TVA with registry-normal vermis/TCD/pons stays negative without `qualitative_blakes_pouch_panel`, then fires the advisory card with the toggle while preserving no-DWM behavior.
+- Added deterministic report wording for the advisory card and guarded against firing it when the entered vermis is already small.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 77 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

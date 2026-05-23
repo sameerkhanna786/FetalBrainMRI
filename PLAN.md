@@ -411,3 +411,9 @@
 - Add Vitest coverage for the SPEC.md §4.7 anterior/posterior ventricle comparison: atrial diameter >10 mm plus a normal same-side frontal horn should fire a colpocephaly card.
 - Add negative controls so atrial diameter alone and atrial diameter with an enlarged frontal horn do not fire the colpocephaly card.
 - Add raw frontal-horn auxiliary inputs and a minimal colpocephaly differential card without changing existing ACC or ventriculomegaly thresholds.
+
+## TEST 8 Blake's-Pouch Advisory Toggle Increment
+
+- Add Vitest coverage for TEST.md §8 Blake's pouch guidance: elevated TVA with normal vermis should stay negative without the qualitative advisory toggle.
+- Assert `qualitative_blakes_pouch_panel` fires a low-severity Blake's pouch differential card while preserving the existing no-DWM behavior.
+- Add deterministic report wording for the advisory card without turning TVA alone into a quantitative trigger.

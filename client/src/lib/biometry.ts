@@ -3050,6 +3050,60 @@ const CARDS: CardSpec[] = [
     },
   },
   {
+    id: "blakes-pouch-dd",
+    title: "Blake's pouch cyst differential",
+    oneLine: "Elevated TVA with normal vermis size — Blake's pouch advisory.",
+    severity: "info",
+    impressionLine:
+      "Blake's pouch cyst differential: elevated TVA with normal vermis size; generally favorable prognosis, but confirm vermian formation and fourth-ventricle communication.",
+    impressionPriority: 7,
+    summary:
+      "The qualitative elevated-TVA and normal-vermis entry supports a Blake's pouch cyst / persistent Blake's pouch advisory rather than a Dandy-Walker call.",
+    rows: [
+      {
+        dx: "Persistent Blake's pouch cyst",
+        likelihood: "Favored when vermis is normal",
+        rationale:
+          "Mild TVA elevation with normal vermian size is the classic benign-remnant pattern.",
+      },
+      {
+        dx: "Mega cisterna magna",
+        likelihood: "Overlap differential",
+        rationale:
+          "Correlate with cisterna magna depth and absence of posterior-fossa mass effect.",
+      },
+      {
+        dx: "Dandy-Walker spectrum",
+        likelihood: "Less likely if vermis normal",
+        rationale:
+          "Dandy-Walker requires abnormal vermian development or rotation beyond an isolated advisory toggle.",
+      },
+    ],
+    nextSteps:
+      "Confirm normal vermian size and morphology, review fourth-ventricle communication, and correlate with cisterna magna depth.",
+    limitations:
+      "Advisory qualitative card; TVA alone remains insufficient for a Dandy-Walker diagnosis without supporting posterior-fossa findings.",
+    primary: {
+      label: "Pinto 2016",
+      full: "Pinto J, Paladini D, Marrocco G, et al. Persistent Blake's pouch cyst: prenatal diagnosis, fetal MRI, and outcome. Childs Nerv Syst. 2016;32(2):311-318.",
+      url: "https://doi.org/10.1007/s00381-015-2901-5",
+    },
+    match: ({ values, zs }) => {
+      if ((values.qualitative_blakes_pouch_panel ?? 0) <= 0) return null;
+      const tva = values.tva;
+      if (tva != null && tva <= 23) return null;
+      const vermis = lowestEnteredVermisAxis(values, zs);
+      if (vermis && vermis.zr.z < -1.6448536269514722) return null;
+      return {
+        prior: 0.35,
+        triggerLabel:
+          tva == null
+            ? "qualitative elevated TVA + normal vermis"
+            : `TVA ${fmt1(tva)} degrees + normal vermis`,
+      };
+    },
+  },
+  {
     id: "mega-cisterna-magna",
     title: "Mega cisterna magna / Blake's pouch cyst differential",
     oneLine: "Cisterna magna depth >10 mm — posterior-fossa cystic variant.",

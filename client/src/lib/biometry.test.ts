@@ -1690,6 +1690,43 @@ describe("mega cisterna magna qualitative report impression", () => {
   });
 });
 
+describe("Blake's pouch advisory toggle", () => {
+  it("uses the TEST.md §8 elevated-TVA normal-vermis qualitative advisory", () => {
+    const ga = { weeks: 24, days: 5 };
+    const gaWeeks = 24 + 5 / 7;
+    const baseValues = {
+      vermis_cc: mu(byId("vermis_cc"), gaWeeks),
+      vermis_ap: mu(byId("vermis_ap"), gaWeeks),
+      tcd: mu(byId("tcd"), gaWeeks),
+      pons_ap: mu(byId("pons_ap"), gaWeeks),
+      tva: 33,
+    };
+    const baseIds = evaluateAll(baseValues, ga).dxs.map(dx => dx.id);
+    const { zs, dxs } = evaluateAll(
+      { ...baseValues, qualitative_blakes_pouch_panel: 1 },
+      ga
+    );
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values: { ...baseValues, qualitative_blakes_pouch_panel: 1 },
+      zs,
+      dxs,
+    });
+    const toggledIds = dxs.map(dx => dx.id);
+
+    expect(baseIds).not.toContain("blakes-pouch-dd");
+    expect(baseIds).not.toContain("dwm-pattern");
+    expect(toggledIds).toContain("blakes-pouch-dd");
+    expect(toggledIds).not.toContain("dwm-pattern");
+    expect(toggledIds).not.toContain("vermis-small");
+    expect(report).toContain(
+      "Blake's pouch cyst differential: elevated TVA with normal vermis size; generally favorable prognosis, but confirm vermian formation and fourth-ventricle communication."
+    );
+  });
+});
+
 describe("Chiari II / open NTD discriminator", () => {
   it("matches the SPEC §6.5.2 TDPF and CSA worked example", () => {
     const ga = { weeks: 24, days: 0 };
