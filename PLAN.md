@@ -107,3 +107,9 @@
 - Add Vitest coverage for TEST.md §6 Case V5's combined-pattern requirement: severe vermian hypoplasia with a registry-threshold small TCD should fire both `vermis-small` and `tcd-small`.
 - Assert the report flags the combined small-TCD plus small-vermis concern for cerebellar agenesis or pontocerebellar hypoplasia.
 - Add a report-level combined-pattern impression override without introducing a formal new DDx card.
+
+## Centile-table fitting increment
+
+- Add Vitest coverage for SPEC §4.2.5: per-week 5th/95th centile rows should fit into the per-percentile linear model family by ordinary least squares.
+- Return the fitted model coefficients plus retained residual RMSE values for auditability.
+- Reject underdetermined or malformed centile tables rather than silently producing unstable registry entries.

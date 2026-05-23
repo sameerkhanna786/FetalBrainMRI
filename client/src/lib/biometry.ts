@@ -158,6 +158,82 @@ type LinearMeanSd = {
 
 export type Model = LuisQuadratic | DovjakPercentile | LinearMeanSd;
 
+export type PerPercentileCentileRow = {
+  gaWeeks: number;
+  centile5: number;
+  centile95: number;
+};
+
+export type PerPercentileLinearFit = {
+  model: DovjakPercentile;
+  residualRmse: {
+    p5: number;
+    p95: number;
+  };
+};
+
+const fitLinear = (
+  points: { x: number; y: number }[]
+): { k: number; d: number; rmse: number } => {
+  const n = points.length;
+  const meanX = points.reduce((sum, point) => sum + point.x, 0) / n;
+  const meanY = points.reduce((sum, point) => sum + point.y, 0) / n;
+  const denominator = points.reduce(
+    (sum, point) => sum + (point.x - meanX) ** 2,
+    0
+  );
+  if (denominator === 0) {
+    throw new Error("Centile rows must span at least two gestational ages");
+  }
+  const k =
+    points.reduce(
+      (sum, point) => sum + (point.x - meanX) * (point.y - meanY),
+      0
+    ) / denominator;
+  const d = meanY - k * meanX;
+  const rmse = Math.sqrt(
+    points.reduce((sum, point) => sum + (point.y - (k * point.x + d)) ** 2, 0) /
+      n
+  );
+  return { k, d, rmse };
+};
+
+export function fitPerPercentileLinearSource(
+  rows: PerPercentileCentileRow[]
+): PerPercentileLinearFit {
+  if (rows.length < 2) {
+    throw new Error("At least two centile rows are required");
+  }
+  for (const row of rows) {
+    if (
+      !Number.isFinite(row.gaWeeks) ||
+      !Number.isFinite(row.centile5) ||
+      !Number.isFinite(row.centile95)
+    ) {
+      throw new Error("Centile rows must contain finite numeric values");
+    }
+    if (row.centile95 <= row.centile5) {
+      throw new Error("Centile 95 must exceed centile 5");
+    }
+  }
+
+  const p5 = fitLinear(rows.map(row => ({ x: row.gaWeeks, y: row.centile5 })));
+  const p95 = fitLinear(
+    rows.map(row => ({ x: row.gaWeeks, y: row.centile95 }))
+  );
+  return {
+    model: {
+      kind: "dovjak-percentile",
+      p5: { k: p5.k, d: p5.d },
+      p95: { k: p95.k, d: p95.d },
+    },
+    residualRmse: {
+      p5: p5.rmse,
+      p95: p95.rmse,
+    },
+  };
+}
+
 export type SourceRegistryEntry = {
   source: Source;
   model: Model;

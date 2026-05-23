@@ -4,6 +4,7 @@ import {
   PARAMETERS_ALL,
   computeCrossValidationAudits,
   evaluateAll,
+  fitPerPercentileLinearSource,
   parseGestationalAge,
   sourceRegistryFor,
   validateSourceRegistryExtension,
@@ -59,6 +60,32 @@ describe("gestational-age parsing", () => {
 
   it("rejects invalid day values", () => {
     expect(parseGestationalAge("24+7")).toBeNull();
+  });
+});
+
+describe("centile-table source fitting", () => {
+  it("fits SPEC §4.2.5 per-week centile rows into a per-percentile linear model", () => {
+    const fit = fitPerPercentileLinearSource([
+      { gaWeeks: 20, centile5: 18, centile95: 30 },
+      { gaWeeks: 24, centile5: 22, centile95: 36 },
+      { gaWeeks: 28, centile5: 26, centile95: 42 },
+    ]);
+
+    expect(fit.model).toEqual({
+      kind: "dovjak-percentile",
+      p5: { k: 1, d: -2 },
+      p95: { k: 1.5, d: 0 },
+    });
+    expect(fit.residualRmse.p5).toBeCloseTo(0, 12);
+    expect(fit.residualRmse.p95).toBeCloseTo(0, 12);
+  });
+
+  it("rejects underdetermined centile tables", () => {
+    expect(() =>
+      fitPerPercentileLinearSource([
+        { gaWeeks: 20, centile5: 18, centile95: 30 },
+      ])
+    ).toThrow("At least two centile rows are required");
   });
 });
 
