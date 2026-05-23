@@ -1036,3 +1036,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts client/src/pages/Home.tsx client/src/components/QualitativeFindingRow.tsx` passes after formatting `client/src/components/QualitativeFindingRow.tsx`.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.9 Stateless Browser-Storage Hardening Increment
+
+- Extended client-shell privacy coverage to reject browser persistence APIs in client source, including `localStorage`, `sessionStorage`, IndexedDB, and cookie writes.
+- Removed theme `localStorage` persistence so theme state remains runtime-only.
+- Removed sidebar cookie persistence so UI state is not retained through browser storage.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 85 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/client-shell.test.ts client/src/contexts/ThemeContext.tsx client/src/components/ui/sidebar.tsx` passes after formatting `client/src/lib/client-shell.test.ts` and `client/src/components/ui/sidebar.tsx`.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

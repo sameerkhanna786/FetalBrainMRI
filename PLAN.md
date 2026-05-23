@@ -472,3 +472,9 @@
 - Add Vitest coverage for a UI-facing qualitative/context finding registry containing every manual-entry flag consumed by the engine and report generator.
 - Render those binary findings as checkbox rows in the worksheet sections next to the existing z-scored and auxiliary inputs.
 - Include growth-restriction context in the same registry so report-only context can be entered from the UI instead of hidden test fixtures.
+
+## SPEC 4.9 Stateless Browser-Storage Hardening Increment
+
+- Extend client-shell privacy coverage to scan client source for browser persistence APIs such as `localStorage`, `sessionStorage`, IndexedDB, and cookie writes.
+- Remove theme and sidebar persistence hooks so refreshes do not retain client-side state through browser storage.
+- Keep runtime-only React state for UI preferences and preserve the existing no-analytics/no-external-font shell checks.
