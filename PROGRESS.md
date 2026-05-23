@@ -393,3 +393,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Macrocephaly Plus Thick-CC Report Increment
+
+- Implemented TEST.md §20 Case MA3 / §13 Case TC2 report behavior for macrocephaly with thick corpus callosum.
+- Added Vitest coverage that skull BPD 96.0 mm, brain BPD 94.0 mm, and corpus callosum length 47.0 mm fire `macrocephaly` and `cc-thick` together.
+- Added a report-level overgrowth combined-pattern impression for `macrocephaly` plus `cc-thick`.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

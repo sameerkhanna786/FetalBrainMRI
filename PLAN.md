@@ -173,3 +173,9 @@
 - Add Vitest coverage for TEST.md §18 Case LP6: large pons with thick corpus callosum at 26w0d should fire both `pons-large` and `cc-thick`.
 - Assert the report impression flags the pair as a strong overgrowth-syndrome pattern.
 - Add a report-level overgrowth combined-pattern impression for `pons-large` plus `cc-thick`.
+
+## Macrocephaly plus thick-CC report increment
+
+- Add Vitest coverage for TEST.md §20 Case MA3 / §13 Case TC2: macrocephaly with thick corpus callosum should fire both `macrocephaly` and `cc-thick`.
+- Assert the report impression flags the pair as an overgrowth-syndrome combined pattern.
+- Add a report-level overgrowth combined-pattern impression for `macrocephaly` plus `cc-thick`.

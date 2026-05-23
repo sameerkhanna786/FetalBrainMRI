@@ -148,6 +148,11 @@ export function generateReport(ctx: ReportContext): string {
       !dxs.some(dx => dx.id === "hydrocephalus-pattern")
         ? "Macrocerebellum with macrocephaly raises concern for fetal overgrowth syndromes such as Sotos or Beckwith-Wiedemann syndrome."
         : undefined;
+    const overgrowthMacrocephalyCallosumImpression =
+      dxs.some(dx => dx.id === "macrocephaly") &&
+      dxs.some(dx => dx.id === "cc-thick")
+        ? "Macrocephaly with thick corpus callosum raises concern for a fetal overgrowth-syndrome combined pattern."
+        : undefined;
     const overgrowthThickCallosumImpression =
       dxs.some(dx => dx.id === "tcd-large") &&
       dxs.some(dx => dx.id === "cc-thick") &&
@@ -180,6 +185,7 @@ export function generateReport(ctx: ReportContext): string {
       accDwmImpression ||
       combinedCerebellarHypoplasiaImpression ||
       overgrowthMacrocerebellumImpression ||
+      overgrowthMacrocephalyCallosumImpression ||
       overgrowthThickCallosumImpression ||
       overgrowthPonsCallosumImpression ||
       isolatedPonsHypoplasiaImpression ||
@@ -189,6 +195,7 @@ export function generateReport(ctx: ReportContext): string {
         accDwmImpression ??
           combinedCerebellarHypoplasiaImpression ??
           overgrowthMacrocerebellumImpression ??
+          overgrowthMacrocephalyCallosumImpression ??
           overgrowthThickCallosumImpression ??
           overgrowthPonsCallosumImpression ??
           isolatedPonsHypoplasiaImpression ??
