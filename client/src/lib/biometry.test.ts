@@ -401,6 +401,29 @@ describe("isolated absent CSP report impression", () => {
   });
 });
 
+describe("isolated enlarged CSP report impression", () => {
+  it("uses the TEST.md Case CSP-E1 benign-variant impression", () => {
+    const ga = { weeks: 32, days: 0 };
+    const values = {
+      csp_width: 11.5,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+
+    expect(dxs.map(dx => dx.id)).toEqual(["enlarged-csp"]);
+    expect(report).toContain(
+      "Isolated enlarged CSP / cavum vergae is usually benign; correlate for cavum velum interpositum cyst or associated anomalies."
+    );
+  });
+});
+
 describe("short corpus callosum report impression", () => {
   it("uses the TEST.md Case A4 partial corpus-callosum impression", () => {
     const ga = { weeks: 28, days: 0 };

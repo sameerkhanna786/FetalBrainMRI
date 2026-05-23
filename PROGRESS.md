@@ -445,3 +445,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Isolated Enlarged-CSP Report Increment
+
+- Implemented TEST.md §15 Case CSP-E1 report behavior for isolated enlarged CSP at 32w0d.
+- Added Vitest coverage that `enlarged-csp` fires alone for CSP width 11.5 mm.
+- Added a low-priority deterministic `enlarged-csp` impression describing the finding as usually benign while recommending correlation for cavum velum interpositum cyst or associated anomalies.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

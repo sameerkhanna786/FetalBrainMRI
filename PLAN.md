@@ -197,3 +197,9 @@
 - Add Vitest coverage for TEST.md §14 Case CSP-A3: absent CSP with preserved corpus callosum should fire `absent-csp` without ACC or HPE composites.
 - Assert the report impression recommends evaluation for septo-optic dysplasia, corpus callosum abnormality, and mild HPE-spectrum findings.
 - Add deterministic `absent-csp` impression wording below ACC/HPE composite priorities.
+
+## Isolated enlarged-CSP report increment
+
+- Add Vitest coverage for TEST.md §15 Case CSP-E1: isolated enlarged CSP at 32w0d should fire `enlarged-csp` without other DDx cards.
+- Assert the report impression describes the finding as usually benign while noting cavum vergae / velum interpositum cyst and associated-anomaly correlation.
+- Add deterministic `enlarged-csp` impression wording for isolated watch-level cases.

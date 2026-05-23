@@ -1766,6 +1766,9 @@ const CARDS: CardSpec[] = [
     title: "Enlarged / cystic CSP (> 10 mm)",
     oneLine: "CSP > 10 mm — typically benign; rarely obstructive.",
     severity: "watch",
+    impressionLine:
+      "Isolated enlarged CSP / cavum vergae is usually benign; correlate for cavum velum interpositum cyst or associated anomalies.",
+    impressionPriority: 8,
     summary:
       "Often isolated and benign; can coexist with cavum vergae or velum interpositi cyst; rarely causes obstructive hydrocephalus.",
     rows: [
