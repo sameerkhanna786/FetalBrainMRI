@@ -1315,6 +1315,28 @@ describe("isolated small pons report impression", () => {
   });
 });
 
+describe("PCH vermian-support trigger", () => {
+  it("fires TEST.md §17 pch-pattern with small pons plus small vermis despite preserved TCD", () => {
+    const ga = { weeks: 28, days: 0 };
+    const gaWeeks = 28;
+    const values = {
+      pons_ap:
+        mu(byId("pons_ap"), gaWeeks) - 1.9 * sigma(byId("pons_ap"), gaWeeks),
+      vermis_cc:
+        mu(byId("vermis_cc"), gaWeeks) -
+        1.9 * sigma(byId("vermis_cc"), gaWeeks),
+      tcd: mu(byId("tcd"), gaWeeks),
+    };
+    const { dxs } = evaluateAll(values, ga);
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toEqual(
+      expect.arrayContaining(["pons-small", "vermis-small", "pch-pattern"])
+    );
+    expect(dxIds).not.toContain("tcd-small");
+  });
+});
+
 describe("combined ACC and Dandy-Walker report impression", () => {
   it("enumerates both TEST.md Case D3 combined-pattern diagnoses", () => {
     const ga = { weeks: 28, days: 0 };

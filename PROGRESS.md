@@ -749,3 +749,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, PCH Vermis-Support Increment
+
+- Implemented TEST.md §17 wording that `pch-pattern` can fire from small pons plus vermian hypoplasia even when TCD is preserved.
+- Added Vitest coverage using registry-derived pons and vermis values below the fifth percentile with registry-mean TCD; `pons-small`, `vermis-small`, and `pch-pattern` fire while `tcd-small` remains absent.
+- Updated the PCH composite card wording, related-parameter metadata, trigger label, and boost rules so vermian support is surfaced consistently.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 65 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

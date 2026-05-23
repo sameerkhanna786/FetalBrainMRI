@@ -339,3 +339,9 @@
 - Add Vitest coverage for an HPE-pattern boundary case with absent CSP, severe VM, preserved CC, and skull BPD between -2 SD and the 3rd percentile.
 - Assert `microcephaly` and `hpe-pattern` both fire at the shared TEST.md §19/§16 microcephaly threshold.
 - Align the HPE composite and ACC-vs-HPE suppression threshold with the 3rd-percentile microcephaly cutoff.
+
+## PCH Vermis-Support Increment
+
+- Add Vitest coverage for TEST.md §17 wording that small pons combined with vermian reduction can trigger `pch-pattern` even when TCD is preserved.
+- Use registry-derived pons and vermis values below the fifth percentile with a normal TCD to isolate the vermis-support path.
+- Update the PCH composite matcher and trigger label to accept small pons plus either small TCD or the lowest entered small vermis axis.

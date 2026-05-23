@@ -2853,11 +2853,11 @@ const CARDS: CardSpec[] = [
   {
     id: "pch-pattern",
     title: "Pontocerebellar hypoplasia pattern",
-    oneLine: "Small pons + small TCD — PCH spectrum likely.",
+    oneLine: "Small pons + small cerebellum or vermis — PCH spectrum likely.",
     severity: "urgent",
-    relatedParamIds: ["pons_ap", "tcd"],
+    relatedParamIds: ["pons_ap", "tcd", "vermis_cc", "vermis_ap"],
     summary:
-      "Concurrent small pons and small cerebellum strongly suggests pontocerebellar hypoplasia (PCH).",
+      "Concurrent small pons with small cerebellum or vermis strongly suggests pontocerebellar hypoplasia (PCH).",
     rows: [
       {
         dx: "PCH Type 2 (TSEN54-related)",
@@ -2888,14 +2888,23 @@ const CARDS: CardSpec[] = [
       full: "van Dijk T, et al. Orphanet J Rare Dis. 2018;13:92.",
       url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6003036/",
     },
-    match: ({ zs }) => {
-      const zp = zs.pons_ap?.z,
-        zt = zs.tcd?.z;
-      if (zp == null || zt == null) return null;
-      if (!(zp < -1.6448536269514722 && zt < -1.6448536269514722)) return null;
+    match: ({ zs, values }) => {
+      const zp = zs.pons_ap?.z;
+      const zt = zs.tcd?.z;
+      const vermis = lowestEnteredVermisAxis(values, zs);
+      const tcdSmall = zt != null && zt < -1.6448536269514722;
+      const vermisSmall = vermis != null && vermis.zr.z < -1.6448536269514722;
+      if (zp == null) return null;
+      if (!(zp < -1.6448536269514722 && (tcdSmall || vermisSmall))) return null;
+      const supportLabels = [
+        tcdSmall && zt != null ? `TCD z ${formatZ(zt)}` : null,
+        vermisSmall && vermis != null
+          ? `${vermis.label} z ${formatZ(vermis.zr.z)}`
+          : null,
+      ].filter((label): label is string => label != null);
       return {
         prior: 0.85,
-        triggerLabel: `Pons z ${formatZ(zp)} + TCD z ${formatZ(zt)}`,
+        triggerLabel: `Pons z ${formatZ(zp)} + ${supportLabels.join(" + ")}`,
       };
     },
   },
@@ -2955,7 +2964,7 @@ const BOOSTS: {
     mult: 1.1,
     reason: "Macrocephaly may be hydrocephalus-driven.",
   },
-  // PCH pattern raises small-pons / small-TCD.
+  // PCH pattern raises small-pons and its posterior-fossa support cards.
   {
     when: "pch-pattern",
     affects: "pons-small",
@@ -2965,6 +2974,12 @@ const BOOSTS: {
   {
     when: "pch-pattern",
     affects: "tcd-small",
+    mult: 1.1,
+    reason: "Combined finding reinforces PCH spectrum.",
+  },
+  {
+    when: "pch-pattern",
+    affects: "vermis-small",
     mult: 1.1,
     reason: "Combined finding reinforces PCH spectrum.",
   },
