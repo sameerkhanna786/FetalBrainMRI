@@ -523,6 +523,32 @@ describe("CMV qualitative microcephaly report impression", () => {
   });
 });
 
+describe("growth-restriction microcephaly report impression", () => {
+  it("uses the TEST.md Case MC6 growth-restriction context impression", () => {
+    const ga = { weeks: 30, days: 0 };
+    const values = {
+      skull_bpd: 72,
+      brain_bpd: 70,
+      growth_restriction_context: 1,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toContain("microcephaly");
+    expect(report).toContain(
+      "Microcephaly with entered growth-restriction context favors symmetric IUGR-associated microcephaly over primary microcephaly."
+    );
+  });
+});
+
 describe("mixed-tier asymmetric ventriculomegaly triggers", () => {
   it("fires severe VM, mild VM, and asymmetry for TEST.md Case S4", () => {
     const { dxs } = evaluateAll(

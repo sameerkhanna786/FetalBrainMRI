@@ -209,3 +209,9 @@
 - Add Vitest coverage for TEST.md §19 Case MC5's qualitative CMV report requirement using registry-consistent microcephaly plus mild VM measurements.
 - Assert the quantitative cards remain `microcephaly` plus `mild-vm` while a manual qualitative CMV panel drives the CMV impression.
 - Add report-level `qualitative_cmv_panel` handling without introducing a quantitative CMV DDx card.
+
+## Growth-restriction microcephaly report increment
+
+- Add Vitest coverage for TEST.md §19 Case MC6's growth-restriction-context report requirement using registry-consistent microcephaly measurements.
+- Assert `microcephaly` fires while a manual growth-restriction context value drives the IUGR-associated impression.
+- Add report-level growth-restriction context handling without introducing a quantitative IUGR DDx card.

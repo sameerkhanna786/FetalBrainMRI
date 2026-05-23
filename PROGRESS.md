@@ -471,3 +471,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Growth-Restriction Microcephaly Report Increment
+
+- Implemented TEST.md §19 Case MC6 growth-restriction-context report behavior for microcephaly.
+- Added Vitest coverage using registry-consistent measurements that fire `microcephaly` while a manual `growth_restriction_context` value drives the IUGR-associated impression.
+- Added report-level growth-restriction context handling without adding a quantitative IUGR DDx card.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

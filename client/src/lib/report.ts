@@ -149,6 +149,12 @@ export function generateReport(ctx: ReportContext): string {
       !dxs.some(dx => dx.id === "hpe-pattern")
         ? "Microcephaly with ventriculomegaly and qualitative CMV findings suggests congenital CMV infection."
         : undefined;
+    const growthRestrictionMicrocephalyImpression =
+      (values.growth_restriction_context ?? 0) > 0 &&
+      dxs.some(dx => dx.id === "microcephaly") &&
+      !qualitativeCmvImpression
+        ? "Microcephaly with entered growth-restriction context favors symmetric IUGR-associated microcephaly over primary microcephaly."
+        : undefined;
     const overgrowthMacrocerebellumImpression =
       dxs.some(dx => dx.id === "tcd-large") &&
       dxs.some(dx => dx.id === "macrocephaly") &&
@@ -199,6 +205,7 @@ export function generateReport(ctx: ReportContext): string {
       accDwmImpression ||
       combinedCerebellarHypoplasiaImpression ||
       qualitativeCmvImpression ||
+      growthRestrictionMicrocephalyImpression ||
       overgrowthMacrocerebellumImpression ||
       overgrowthMacrocephalyCallosumImpression ||
       overgrowthThickCallosumImpression ||
@@ -211,6 +218,7 @@ export function generateReport(ctx: ReportContext): string {
         accDwmImpression ??
           combinedCerebellarHypoplasiaImpression ??
           qualitativeCmvImpression ??
+          growthRestrictionMicrocephalyImpression ??
           overgrowthMacrocerebellumImpression ??
           overgrowthMacrocephalyCallosumImpression ??
           overgrowthThickCallosumImpression ??
