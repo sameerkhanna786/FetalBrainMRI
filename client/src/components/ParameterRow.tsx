@@ -3,7 +3,13 @@
  *   [label + info marginalia]  [input mm]  [z bell]  [z value]  [percentile]
  * Hairline bottom border. No rounded cards. Serif emphasizes label name.
  */
-import { Parameter, ZResult, formatPct, formatZ } from "@/lib/biometry";
+import {
+  Parameter,
+  ZResult,
+  formatPct,
+  formatZ,
+  sourceRegistryFor,
+} from "@/lib/biometry";
 import ZScoreBar from "./ZScoreBar";
 import {
   HoverCard,
@@ -35,12 +41,15 @@ const BAND_TEXT_COLOR: Record<NonNullable<ZResult>["band"], string> = {
   rare: "text-[color:var(--state-rare)]",
 };
 
-export default function ParameterRow({
-  param,
-  value,
-  zr,
-  onChange,
-}: Props) {
+export default function ParameterRow({ param, value, zr, onChange }: Props) {
+  const sourceCount =
+    zr?.sourceDetails.length ?? sourceRegistryFor(param).length;
+  const agreementLabel = zr
+    ? zr.disagreementWidth == null
+      ? zr.agreementState
+      : `${zr.agreementState} Delta z ${zr.disagreementWidth.toFixed(2)}`
+    : null;
+
   return (
     <div className="grid grid-cols-12 gap-x-3 gap-y-2 items-center py-3 border-b border-[color:var(--rule)]">
       {/* Name + tooltip */}
@@ -53,10 +62,21 @@ export default function ParameterRow({
             {param.group} · {param.short} ·
             <span
               className="ml-1 text-[color:var(--teal)]"
-              title={`Z-score model from ${zr?.sourceLabel ?? param.primary.label}`}
+              title="Runtime scoring uses all applicable source-registry entries"
             >
-              {zr?.sourceLabel ?? param.primary.label}
+              {sourceCount} source{sourceCount === 1 ? "" : "s"}
             </span>
+            {agreementLabel && (
+              <span
+                className={`ml-2 ${
+                  zr?.agreementState === "disagree"
+                    ? "text-[color:var(--state-rare)]"
+                    : "text-[color:var(--ink-soft)]"
+                }`}
+              >
+                {agreementLabel}
+              </span>
+            )}
           </div>
         </div>
         <HoverCard openDelay={120} closeDelay={80}>
@@ -115,6 +135,13 @@ export default function ParameterRow({
               <p className="text-[11px] smallcaps text-[color:var(--ink-soft)] pt-1">
                 Validated GA range: {param.gaRange[0]}–{param.gaRange[1]} weeks
               </p>
+              {param.id === "third_ventricle" && (
+                <p className="text-[11px] text-[color:var(--state-watch)] leading-snug">
+                  Cross-modality reference: the current normative source is
+                  ultrasound rather than fetal MRI; fetal-MRI third-ventricle
+                  normative data remain a Phase 2 deliverable.
+                </p>
+              )}
             </div>
           </HoverCardContent>
         </HoverCard>
@@ -127,7 +154,7 @@ export default function ParameterRow({
             inputMode="decimal"
             placeholder="—"
             value={value ?? ""}
-            onChange={(e) => {
+            onChange={e => {
               const raw = e.target.value.trim();
               if (raw === "") return onChange(null);
               const n = parseFloat(raw);
@@ -143,11 +170,7 @@ export default function ParameterRow({
 
       {/* Bell-curve glyph */}
       <div className="col-span-3 md:col-span-2 flex justify-center">
-        <ZScoreBar
-          z={zr?.z ?? null}
-          band={zr?.band ?? null}
-          compact
-        />
+        <ZScoreBar z={zr?.z ?? null} band={zr?.band ?? null} compact />
       </div>
 
       {/* Z + percentile */}
@@ -179,6 +202,34 @@ export default function ParameterRow({
           </div>
         )}
       </div>
+
+      {zr && (
+        <details className="col-span-12 text-[11px] text-[color:var(--ink-soft)]">
+          <summary className="cursor-pointer smallcaps text-[color:var(--teal)]">
+            Source breakdown
+          </summary>
+          <div className="mt-2 grid gap-1">
+            {zr.sourceDetails.map(source => (
+              <div key={source.sourceLabel} className="font-numeric">
+                <span className="text-[color:var(--ink)]">
+                  {source.sourceLabel}
+                </span>
+                {": "}z {formatZ(source.z)} · {formatPct(source.percentile)} ·
+                mu {source.mu.toFixed(2)} · sigma {source.sigma.toFixed(2)} ·{" "}
+                {source.inRange
+                  ? `in range ${source.gaRange[0]}-${source.gaRange[1]}w`
+                  : `extrapolated ${source.gaRange[0]}-${source.gaRange[1]}w`}
+                {source.crossModality && (
+                  <span className="text-[color:var(--state-watch)]">
+                    {" "}
+                    · cross-modality
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        </details>
+      )}
     </div>
   );
 }

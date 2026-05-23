@@ -9,13 +9,7 @@ import { useMemo, useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
-import {
-  ChevronDown,
-  Copy,
-  RotateCcw,
-  BookOpen,
-  Sparkles,
-} from "lucide-react";
+import { ChevronDown, Copy, RotateCcw, BookOpen, Sparkles } from "lucide-react";
 
 import {
   Collapsible,
@@ -31,18 +25,17 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ParameterRow from "@/components/ParameterRow";
-import DifferentialCard, { DifferentialRailItem } from "@/components/DifferentialCard";
+import DifferentialCard, {
+  DifferentialRailItem,
+} from "@/components/DifferentialCard";
 import {
   GA,
   GROUP_ORDER,
   PARAMETERS,
   PARAMETERS_ALL,
-  REFERENCE_SETS,
-  REFERENCE_SET_BY_ID,
   evaluateAll,
   gaToDecimalWeeks,
 } from "@/lib/biometry";
-import type { ReferenceSetId } from "@/lib/biometry";
 import { generateReport } from "@/lib/report";
 import type { Differential } from "@/lib/biometry";
 
@@ -58,7 +51,7 @@ function DifferentialPanel({ dxs }: { dxs: Differential[] }) {
       if (selectedId !== null) setSelectedId(null);
       return;
     }
-    if (!selectedId || !dxs.some((d) => d.id === selectedId)) {
+    if (!selectedId || !dxs.some(d => d.id === selectedId)) {
       setSelectedId(dxs[0].id);
     }
   }, [dxs, selectedId]);
@@ -66,7 +59,9 @@ function DifferentialPanel({ dxs }: { dxs: Differential[] }) {
   return (
     <section>
       <div className="flex items-center justify-between mb-3">
-        <h2 className="font-display text-[22px]">Differential diagnosis engine</h2>
+        <h2 className="font-display text-[22px]">
+          Differential diagnosis engine
+        </h2>
         <span className="smallcaps text-[color:var(--ink-soft)]">
           {dxs.length} card{dxs.length === 1 ? "" : "s"} · ranked by likelihood
         </span>
@@ -81,11 +76,11 @@ function DifferentialPanel({ dxs }: { dxs: Differential[] }) {
             exit={{ opacity: 0 }}
             className="border border-dashed border-[color:var(--rule)] rounded-sm p-6 text-sm text-[color:var(--ink-soft)]"
           >
-            No abnormal thresholds tripped. As measurements cross
-            evidence-based clinical thresholds (atrial diameter ≥ 10 mm,
-            CSP &lt; 1 mm or &gt; 10 mm, corpus callosum below the 5th
-            percentile, small pons or TCD, etc.), citation-grounded
-            differential cards will appear here — sorted by likelihood.
+            No abnormal thresholds tripped. As measurements cross evidence-based
+            clinical thresholds (atrial diameter ≥ 10 mm, CSP &lt; 1 mm or &gt;
+            10 mm, corpus callosum below the 5th percentile, small pons or TCD,
+            etc.), citation-grounded differential cards will appear here —
+            sorted by likelihood.
           </motion.div>
         ) : dxs.length <= 2 ? (
           <div key="stack" className="space-y-5">
@@ -121,20 +116,20 @@ function DifferentialPanel({ dxs }: { dxs: Differential[] }) {
                 ))}
               </ul>
               <div className="px-4 py-3 text-[10.5px] text-[color:var(--ink-soft)] border-t border-[color:var(--rule)]">
-                Likelihood is computed from each finding’s prior in the
-                source paper, then re-weighted when companion findings
-                fire (e.g.&nbsp;an absent CSP raises the rank of a short
-                corpus callosum).
+                Likelihood is computed from each finding’s prior in the source
+                paper, then re-weighted when companion findings fire
+                (e.g.&nbsp;an absent CSP raises the rank of a short corpus
+                callosum).
               </div>
             </nav>
             <div className="col-span-12 md:col-span-7 min-w-0">
               {dxs
-                .filter((d) => d.id === selectedId)
-                .map((dx) => (
+                .filter(d => d.id === selectedId)
+                .map(dx => (
                   <DifferentialCard
                     key={dx.id}
                     dx={dx}
-                    rank={dxs.findIndex((d) => d.id === dx.id) + 1}
+                    rank={dxs.findIndex(d => d.id === dx.id) + 1}
                   />
                 ))}
             </div>
@@ -145,9 +140,8 @@ function DifferentialPanel({ dxs }: { dxs: Differential[] }) {
   );
 }
 
-
 const EMPTY_VALUES: Record<string, number | null> = Object.fromEntries(
-  PARAMETERS_ALL.map((p) => [p.id, null]),
+  PARAMETERS_ALL.map(p => [p.id, null])
 );
 
 // Reference cases for the prototype's sample loader.
@@ -158,37 +152,37 @@ const EMPTY_VALUES: Record<string, number | null> = Object.fromEntries(
 // breaks a threshold (atrial dilatation, absent CSP, short CC, small pons,
 // small TCD, wide third ventricle, brain-OFD asymmetry).
 const SAMPLE_NORMAL: Record<string, number | null> = {
-  skull_bpd:        78.6,  // mean(30) per Luis: -0.0527·900 + 5.7605·30 - 46.436
-  skull_ofd:        95.5,
-  brain_bpd:        66.4,
-  brain_ofd_left:   85.5,
-  brain_ofd_right:  85.5,
-  atrial_left:      6.7,
-  atrial_right:     6.7,
-  tcd:              35.5,
-  vermis_cc:        15.9,
-  vermis_ap:        10.7,
-  pons_ap:          9.9,
-  cc_length:        35.4,
-  csp_width:        7.7,
-  third_ventricle:  1.8,
+  skull_bpd: 78.6, // mean(30) per Luis: -0.0527·900 + 5.7605·30 - 46.436
+  skull_ofd: 95.5,
+  brain_bpd: 66.4,
+  brain_ofd_left: 85.5,
+  brain_ofd_right: 85.5,
+  atrial_left: 6.7,
+  atrial_right: 6.7,
+  tcd: 35.5,
+  vermis_cc: 15.9,
+  vermis_ap: 10.7,
+  pons_ap: 9.9,
+  cc_length: 35.4,
+  csp_width: 7.7,
+  third_ventricle: 1.8,
 };
 
 const SAMPLE_ABNORMAL: Record<string, number | null> = {
-  skull_bpd:        70.0,
-  skull_ofd:        86.0,
-  brain_bpd:        62.0,
-  brain_ofd_left:   78.0,
-  brain_ofd_right:  78.0,
-  atrial_left:      16.0,    // severe VM
-  atrial_right:     12.5,    // asymmetric (>2 mm) and mild VM on R
-  cc_length:        20.0,    // short CC
-  csp_width:        0.5,     // absent CSP
-  tcd:              25.0,    // small TCD (z ≈ −2.5 at 26 w)
-  vermis_cc:        14.0,
-  vermis_ap:         9.0,
-  pons_ap:           6.0,    // small pons (z ≈ −4 at 26 w)
-  third_ventricle:  5.0,     // wide 3rd V
+  skull_bpd: 70.0,
+  skull_ofd: 86.0,
+  brain_bpd: 62.0,
+  brain_ofd_left: 78.0,
+  brain_ofd_right: 78.0,
+  atrial_left: 16.0, // severe VM
+  atrial_right: 12.5, // asymmetric (>2 mm) and mild VM on R
+  cc_length: 20.0, // short CC
+  csp_width: 0.5, // absent CSP
+  tcd: 25.0, // small TCD (z ≈ −2.5 at 26 w)
+  vermis_cc: 14.0,
+  vermis_ap: 9.0,
+  pons_ap: 6.0, // small pons (z ≈ −4 at 26 w)
+  third_ventricle: 5.0, // wide 3rd V
 };
 
 export default function Home() {
@@ -198,14 +192,9 @@ export default function Home() {
   const [contextOpen, setContextOpen] = useState(false);
   const [fieldStrength, setFieldStrength] = useState("1.5T");
   const [motionSeverity, setMotionSeverity] = useState("None");
-  const [referenceSet, setReferenceSet] = useState<ReferenceSetId>("multi-source");
-  const referenceSetMeta = REFERENCE_SET_BY_ID[referenceSet];
   const [focusedGroup, setFocusedGroup] = useState<string>("All");
 
-  const { zs, dxs } = useMemo(
-    () => evaluateAll(values, ga, referenceSet),
-    [values, ga, referenceSet],
-  );
+  const { zs, dxs } = useMemo(() => evaluateAll(values, ga), [values, ga]);
 
   const report = useMemo(
     () =>
@@ -213,16 +202,15 @@ export default function Home() {
         ga,
         fieldStrength,
         motion: motionSeverity,
-        referenceSet: referenceSetMeta.label,
         values,
         zs,
         dxs,
       }),
-    [ga, fieldStrength, motionSeverity, referenceSet, values, zs, dxs],
+    [ga, fieldStrength, motionSeverity, values, zs, dxs]
   );
 
-  const measuredCount = Object.values(values).filter((v) => v != null).length;
-  const abnormalCount = PARAMETERS_ALL.filter((p) => {
+  const measuredCount = Object.values(values).filter(v => v != null).length;
+  const abnormalCount = PARAMETERS_ALL.filter(p => {
     const z = zs[p.id];
     return z != null && Math.abs(z.z) > 2;
   }).length;
@@ -242,9 +230,18 @@ export default function Home() {
   };
 
   const loadSample = (kind: "normal" | "abnormal") => {
-    setValues(kind === "normal" ? { ...SAMPLE_NORMAL } : { ...SAMPLE_ABNORMAL });
-    setGa({ weeks: kind === "normal" ? 30 : 24, days: kind === "normal" ? 0 : 4 });
-    toast(kind === "normal" ? "Sample loaded: 30w0d, all within range" : "Sample loaded: 24w4d, flagged findings");
+    setValues(
+      kind === "normal" ? { ...SAMPLE_NORMAL } : { ...SAMPLE_ABNORMAL }
+    );
+    setGa({
+      weeks: kind === "normal" ? 30 : 24,
+      days: kind === "normal" ? 0 : 4,
+    });
+    toast(
+      kind === "normal"
+        ? "Sample loaded: 30w0d, all within range"
+        : "Sample loaded: 24w4d, flagged findings"
+    );
   };
 
   const filteredGroups = focusedGroup === "All" ? GROUP_ORDER : [focusedGroup];
@@ -252,10 +249,10 @@ export default function Home() {
   // Highlight GA label on first render
   const gaPillRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    gaPillRef.current?.animate(
-      [{ opacity: 0 }, { opacity: 1 }],
-      { duration: 240, easing: "ease-out" },
-    );
+    gaPillRef.current?.animate([{ opacity: 0 }, { opacity: 1 }], {
+      duration: 240,
+      easing: "ease-out",
+    });
   }, []);
 
   return (
@@ -304,14 +301,18 @@ export default function Home() {
             <div className="flex items-center gap-1 border border-[color:var(--rule)] rounded-sm bg-white px-2 py-1">
               <Select
                 value={String(ga.weeks)}
-                onValueChange={(v) => setGa((g) => ({ ...g, weeks: +v }))}
+                onValueChange={v => setGa(g => ({ ...g, weeks: +v }))}
               >
                 <SelectTrigger className="h-7 min-w-[68px] border-0 shadow-none font-numeric text-[15px] px-1">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {Array.from({ length: 23 }, (_, i) => 18 + i).map((w) => (
-                    <SelectItem key={w} value={String(w)} className="font-numeric">
+                  {Array.from({ length: 23 }, (_, i) => 18 + i).map(w => (
+                    <SelectItem
+                      key={w}
+                      value={String(w)}
+                      className="font-numeric"
+                    >
                       {w} w
                     </SelectItem>
                   ))}
@@ -320,14 +321,18 @@ export default function Home() {
               <span className="text-[color:var(--ink-soft)]">·</span>
               <Select
                 value={String(ga.days)}
-                onValueChange={(v) => setGa((g) => ({ ...g, days: +v }))}
+                onValueChange={v => setGa(g => ({ ...g, days: +v }))}
               >
                 <SelectTrigger className="h-7 min-w-[60px] border-0 shadow-none font-numeric text-[15px] px-1">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {Array.from({ length: 7 }, (_, i) => i).map((d) => (
-                    <SelectItem key={d} value={String(d)} className="font-numeric">
+                  {Array.from({ length: 7 }, (_, i) => i).map(d => (
+                    <SelectItem
+                      key={d}
+                      value={String(d)}
+                      className="font-numeric"
+                    >
                       {d} d
                     </SelectItem>
                   ))}
@@ -390,7 +395,7 @@ export default function Home() {
                   </span>
                   <span className="text-xs text-[color:var(--ink-soft)]">
                     {fieldStrength} · motion {motionSeverity.toLowerCase()} ·{" "}
-                    {referenceSetMeta.short}
+                    multi-source consensus
                   </span>
                 </div>
                 <ChevronDown
@@ -411,7 +416,7 @@ export default function Home() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        {["0.55T", "1.5T", "3T"].map((v) => (
+                        {["0.55T", "1.5T", "3T"].map(v => (
                           <SelectItem key={v} value={v}>
                             {v}
                           </SelectItem>
@@ -423,12 +428,15 @@ export default function Home() {
                     <div className="smallcaps text-[color:var(--ink-soft)] mb-2">
                       Motion severity
                     </div>
-                    <Select value={motionSeverity} onValueChange={setMotionSeverity}>
+                    <Select
+                      value={motionSeverity}
+                      onValueChange={setMotionSeverity}
+                    >
                       <SelectTrigger className="w-full bg-white border-[color:var(--rule)]">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        {["None", "Mild", "Moderate", "Severe"].map((v) => (
+                        {["None", "Mild", "Moderate", "Severe"].map(v => (
                           <SelectItem key={v} value={v}>
                             {v}
                           </SelectItem>
@@ -438,25 +446,16 @@ export default function Home() {
                   </div>
                   <div>
                     <div className="smallcaps text-[color:var(--ink-soft)] mb-2">
-                      Reference set
+                      Consensus mode
                     </div>
-                    <Select
-                      value={referenceSet}
-                      onValueChange={(v) => setReferenceSet(v as ReferenceSetId)}
-                    >
-                      <SelectTrigger className="w-full bg-white border-[color:var(--rule)]">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {REFERENCE_SETS.map((r) => (
-                          <SelectItem key={r.id} value={r.id}>
-                            {r.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <div className="w-full bg-white border border-[color:var(--rule)] rounded-sm px-3 py-2 text-sm text-[color:var(--ink)]">
+                      Multi-source consensus
+                    </div>
                     <p className="text-[11px] text-[color:var(--ink-soft)] leading-snug mt-2">
-                      {referenceSetMeta.description}
+                      Every measurement is evaluated against all applicable
+                      source-registry entries. Consensus is the mean of in-range
+                      z-scores; Delta z &gt;= 1.0 is flagged as source
+                      disagreement.
                     </p>
                   </div>
                 </div>
@@ -501,9 +500,13 @@ export default function Home() {
             </div>
           </div>
 
-          <Tabs value={focusedGroup} onValueChange={setFocusedGroup} className="mb-4 -mx-1 px-1 overflow-x-auto">
+          <Tabs
+            value={focusedGroup}
+            onValueChange={setFocusedGroup}
+            className="mb-4 -mx-1 px-1 overflow-x-auto"
+          >
             <TabsList className="bg-transparent p-0 gap-1 h-auto flex-nowrap sm:flex-wrap">
-              {["All", ...GROUP_ORDER].map((g) => (
+              {["All", ...GROUP_ORDER].map(g => (
                 <TabsTrigger
                   key={g}
                   value={g}
@@ -531,20 +534,18 @@ export default function Home() {
           </div>
 
           <div>
-            {filteredGroups.map((group) => (
+            {filteredGroups.map(group => (
               <div key={group} className="pt-4">
                 <h3 className="font-display text-[19px] text-[color:var(--ink)] mb-1">
                   § {group}
                 </h3>
-                {PARAMETERS_ALL.filter((p) => p.group === group).map((p) => (
+                {PARAMETERS_ALL.filter(p => p.group === group).map(p => (
                   <ParameterRow
                     key={p.id}
                     param={p}
                     value={values[p.id]}
                     zr={zs[p.id]}
-                    onChange={(v) =>
-                      setValues((prev) => ({ ...prev, [p.id]: v }))
-                    }
+                    onChange={v => setValues(prev => ({ ...prev, [p.id]: v }))}
                     ga={ga}
                   />
                 ))}
@@ -553,12 +554,18 @@ export default function Home() {
           </div>
 
           <div className="mt-8 text-[11px] text-[color:var(--ink-soft)] leading-relaxed border-t border-[color:var(--rule)] pt-4">
-            Active reference set:{" "}
-            <span className="text-[color:var(--ink)]">{referenceSetMeta.label}</span>.{" "}
-            {referenceSetMeta.description} Switch sets in the imaging-context
-            panel above; per-row source labels and the structured report update
-            live. See the{" "}
-            <Link href="/validation" className="underline decoration-[color:var(--teal)]">validation page</Link>{" "}
+            Active mode:{" "}
+            <span className="text-[color:var(--ink)]">
+              multi-source consensus
+            </span>
+            . Per-row source labels, agreement badges, and the structured report
+            update live as gestational age or measurements change. See the{" "}
+            <Link
+              href="/validation"
+              className="underline decoration-[color:var(--teal)]"
+            >
+              validation page
+            </Link>{" "}
             for worked examples and per-parameter cross-checks.
           </div>
         </section>
@@ -598,11 +605,11 @@ export default function Home() {
           <div className="max-w-xl">
             Prototype of a workflow-integrated fetal brain MRI biometry
             calculator. Normative reference data: Luis&nbsp;2025
-            (auto-proc-SVRTK), with cross-validation against
-            Tilea&nbsp;2009, Kyriakopoulou&nbsp;2017, Vatansever&nbsp;2013,
-            Dovjak&nbsp;2021, Kertes&nbsp;2021, Conte&nbsp;2018, and
-            Birnbaum&nbsp;2018. No patient data is transmitted or stored;
-            refreshing the page clears all inputs.
+            (auto-proc-SVRTK), with cross-validation against Tilea&nbsp;2009,
+            Kyriakopoulou&nbsp;2017, Vatansever&nbsp;2013, Dovjak&nbsp;2021,
+            Kertes&nbsp;2021, Conte&nbsp;2018, and Birnbaum&nbsp;2018. No
+            patient data is transmitted or stored; refreshing the page clears
+            all inputs.
           </div>
           <div className="flex items-center gap-5">
             <Link href="/methodology" className="cite">

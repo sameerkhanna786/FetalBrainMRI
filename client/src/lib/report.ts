@@ -8,7 +8,7 @@ import {
   GA,
   GROUP_ORDER,
   Parameter,
-  PARAMETERS,
+  PARAMETERS_ALL,
   ZResult,
   formatPct,
   formatZ,
@@ -19,7 +19,6 @@ export type ReportContext = {
   ga: GA;
   fieldStrength: string; // "1.5T" | "3T" | "0.55T"
   motion: string; // "None" | "Mild" | "Moderate" | "Severe"
-  referenceSet: string;
   values: Record<string, number | null>;
   zs: Record<string, ZResult | null>;
   dxs: Differential[];
@@ -33,77 +32,114 @@ const bandPhrase = (z: number) => {
   return "markedly deviated from the expected mean";
 };
 
-const paramLine = (
-  p: Parameter,
-  x: number,
-  zr: ZResult,
-): string => {
-  const flag = zr.extrapolated ? " [extrapolated outside validated GA range]" : "";
-  return `${p.name}: ${x.toFixed(1)} mm (z ${formatZ(zr.z)}, ${formatPct(
-    zr.percentile,
-  )} percentile, model: ${zr.sourceLabel})${flag} — ${bandPhrase(zr.z)}.`;
+const paramLine = (p: Parameter, x: number, zr: ZResult): string => {
+  const flag = zr.extrapolated ? " [case GA outside every source range]" : "";
+  const agreement =
+    zr.disagreementWidth == null
+      ? `agreement: ${zr.agreementState}`
+      : `agreement: ${zr.agreementState}, Delta z ${zr.disagreementWidth.toFixed(2)}`;
+  const sources = zr.sourceDetails
+    .map(source => {
+      const range = `${source.gaRange[0]}-${source.gaRange[1]}w`;
+      const rangeTag = source.inRange
+        ? `in-range ${range}`
+        : `extrapolated ${range}`;
+      const modalityTag = source.crossModality ? ", cross-modality" : "";
+      return `${source.sourceLabel} z ${formatZ(source.z)} (${formatPct(
+        source.percentile
+      )}, mu ${source.mu.toFixed(2)}, sigma ${source.sigma.toFixed(
+        2
+      )}, ${rangeTag}${modalityTag})`;
+    })
+    .join("; ");
+  return `${p.name}: ${x.toFixed(1)} mm (consensus z ${formatZ(
+    zr.z
+  )}, ${formatPct(zr.percentile)} percentile; ${agreement})${flag} - ${bandPhrase(
+    zr.z
+  )}. Sources: ${sources}.`;
 };
 
 export function generateReport(ctx: ReportContext): string {
-  const { ga, fieldStrength, motion, referenceSet, values, zs, dxs } = ctx;
+  const { ga, fieldStrength, motion, values, zs, dxs } = ctx;
   const gaLabel = `${ga.weeks}w ${ga.days}d (${gaToDecimalWeeks(ga).toFixed(1)} weeks)`;
 
   const lines: string[] = [];
   lines.push("CLINICAL INDICATION");
   lines.push(
-    `Fetal brain MRI at ${gaLabel} for evaluation of brain development.`,
+    `Fetal brain MRI at ${gaLabel} for evaluation of brain development.`
   );
   lines.push("");
 
   lines.push("TECHNIQUE");
   lines.push(
-    `Multiplanar T2-weighted single-shot fast spin-echo imaging of the fetal brain at ${fieldStrength}. Motion artefact: ${motion.toLowerCase()}. Reference set: ${referenceSet}.`,
+    `Multiplanar T2-weighted single-shot fast spin-echo imaging of the fetal brain at ${fieldStrength}. Motion artefact: ${motion.toLowerCase()}. Calculator operated in multi-source consensus mode: consensus z-score is the arithmetic mean across in-range sources, and source disagreement is flagged at Delta z >= 1.0 SD between in-range sources.`
   );
   lines.push("");
 
   lines.push("FINDINGS");
+  const disagreeingRows: { parameter: Parameter; result: ZResult }[] = [];
   for (const group of GROUP_ORDER) {
-    const inGroup = PARAMETERS.filter((p) => p.group === group);
-    const measured = inGroup.filter((p) => values[p.id] != null);
+    const inGroup = PARAMETERS_ALL.filter(p => p.group === group);
+    const measured = inGroup.filter(p => values[p.id] != null);
     if (measured.length === 0) continue;
     lines.push(`— ${group.toUpperCase()} —`);
     for (const p of measured) {
       const x = values[p.id]!;
       const zr = zs[p.id]!;
+      if (zr.agreementState === "disagree") {
+        disagreeingRows.push({ parameter: p, result: zr });
+      }
       lines.push(`  • ${paramLine(p, x, zr)}`);
     }
     lines.push("");
   }
 
+  if (disagreeingRows.length > 0) {
+    lines.push("SOURCE-AGREEMENT NOTES");
+    for (const row of disagreeingRows) {
+      const detail = row.result.sourceDetails
+        .map(source => `${source.sourceLabel} z ${formatZ(source.z)}`)
+        .join("; ");
+      lines.push(
+        `${row.parameter.name} Delta z ${row.result.disagreementWidth?.toFixed(
+          2
+        )}: ${detail}.`
+      );
+    }
+    lines.push("");
+  }
+
   lines.push("IMPRESSION");
-  const anyAbnormal = PARAMETERS.some((p) => {
+  const anyAbnormal = PARAMETERS_ALL.some(p => {
     const z = zs[p.id];
     return z != null && Math.abs(z.z) > 2;
   });
-  if (!anyAbnormal && Object.values(values).some((v) => v != null)) {
+  if (!anyAbnormal && Object.values(values).some(v => v != null)) {
     lines.push(
-      "All measured fetal brain biometric parameters are within the central 95% reference range for the stated gestational age. No quantitative evidence of biometric abnormality.",
+      "All measured fetal brain biometric parameters are within the central 95% reference range for the stated gestational age. No quantitative evidence of biometric abnormality."
     );
   } else if (anyAbnormal) {
     lines.push(
-      "Biometric deviations were identified (see FINDINGS). The following differential considerations are suggested by the calculator's evidence-based trigger engine, ranked by likelihood:",
+      "Biometric deviations were identified (see FINDINGS). The following differential considerations are suggested by the calculator's evidence-based trigger engine, ranked by likelihood:"
     );
     dxs.forEach((dx, i) => {
-      lines.push(`  ${i + 1}. ${dx.title} — ${dx.severity.toUpperCase()} — ${dx.oneLine}`);
+      lines.push(
+        `  ${i + 1}. ${dx.title} — ${dx.severity.toUpperCase()} — ${dx.oneLine}`
+      );
     });
     lines.push("");
     lines.push(
-      "Correlation with detailed neurosonography, maternal history, genetic testing, and TORCH screening is recommended as clinically appropriate.",
+      "Correlation with detailed neurosonography, maternal history, genetic testing, and TORCH screening is recommended as clinically appropriate."
     );
   } else {
     lines.push(
-      "No measurements entered. Please enter biometric values to generate an impression.",
+      "No measurements entered. Please enter biometric values to generate an impression."
     );
   }
 
   lines.push("");
   lines.push(
-    "— Generated by the Fetal Brain MRI Biometry Calculator (prototype). Deterministic string interpolation; no PHI stored.",
+    "— Generated by the Fetal Brain MRI Biometry Calculator (prototype). Deterministic string interpolation; no PHI stored."
   );
 
   return lines.join("\n");
