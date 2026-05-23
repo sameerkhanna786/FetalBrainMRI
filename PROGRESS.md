@@ -314,3 +314,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Isolated Small-TCD Report Increment
+
+- Implemented TEST.md §9 Case CH3 report behavior for isolated small transcerebellar diameter at 32w0d.
+- Added Vitest coverage that TCD 33.0 mm fires `tcd-small` without `vermis-small`, `pons-small`, or `dwm-pattern`.
+- Added a deterministic `tcd-small` impression recommending consideration of unilateral cerebellar hypoplasia or cerebellar disruption injury, with postnatal MRI for laterality assessment.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

@@ -2048,6 +2048,9 @@ const CARDS: CardSpec[] = [
     oneLine: "Transcerebellar diameter below 5th percentile.",
     severity: "concern",
     relatedParamIds: ["tcd"],
+    impressionLine:
+      "Unilateral cerebellar hypoplasia or cerebellar disruption injury should be considered; postnatal MRI is recommended for laterality assessment.",
+    impressionPriority: 12,
     summary:
       "A small TCD suggests cerebellar hypoplasia; consider chromosomal, genetic, and infectious aetiologies.",
     rows: [

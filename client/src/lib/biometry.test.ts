@@ -451,6 +451,36 @@ describe("combined cerebellar hypoplasia report impression", () => {
   });
 });
 
+describe("isolated small TCD report impression", () => {
+  it("uses the TEST.md Case CH3 unilateral cerebellar hypoplasia impression", () => {
+    const ga = { weeks: 32, days: 0 };
+    const values = {
+      tcd: 33,
+      vermis_cc: 19.5,
+      vermis_ap: 8.5,
+      pons_ap: 11.5,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toContain("tcd-small");
+    expect(dxIds).not.toContain("vermis-small");
+    expect(dxIds).not.toContain("pons-small");
+    expect(dxIds).not.toContain("dwm-pattern");
+    expect(report).toContain(
+      "Unilateral cerebellar hypoplasia or cerebellar disruption injury should be considered; postnatal MRI is recommended for laterality assessment."
+    );
+  });
+});
+
 describe("Dandy-Walker spectrum trigger", () => {
   it("fires the TEST.md Case D1 TVA-based DWM composite card", () => {
     const { dxs } = evaluateAll(

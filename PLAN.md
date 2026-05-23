@@ -137,3 +137,9 @@
 - Add Vitest coverage for TEST.md §8 Case BP3: when the qualitative MCM/Blake's pouch panel is toggled with otherwise normal quantitative measurements, no DDx cards should fire.
 - Add report handling for the qualitative panel so the IMPRESSION mentions isolated mega cisterna magna with persistent Blake's pouch as a likely benign normal variant.
 - Keep the qualitative panel separate from quantitative DDx card firing.
+
+## Isolated small-TCD report increment
+
+- Add Vitest coverage for TEST.md §9 Case CH3: isolated small TCD with preserved vermis and pons at 32w0d should fire `tcd-small` only among posterior-fossa small-structure cards.
+- Assert the report impression suggests unilateral cerebellar hypoplasia or cerebellar disruption injury and recommends postnatal MRI for laterality assessment.
+- Add deterministic report wording to the `tcd-small` card below higher-priority DWM/PCH/combined-cerebellar impressions.
