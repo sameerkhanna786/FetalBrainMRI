@@ -424,3 +424,9 @@
 - Keep the fallback narrower than generic PCH by requiring small vermis, small TCD, small pons, and third-ventricle dilation when TVA is unavailable.
 - Align the approximate direct extra-axial CSF curve so the TEST.md §27 STRESS5 5.5 mm value at 26 weeks fires `extra-axial-wide`.
 - Preserve existing TVA-based Dandy-Walker paths and the PCH-only fixtures without third-ventricle support.
+
+## SPEC 4.9 No-Analytics Shell Increment
+
+- Add Vitest coverage that the client HTML shell contains no analytics, Umami, or `data-website-id` telemetry hooks.
+- Remove the placeholder analytics script from `client/index.html` to satisfy SPEC.md §4.9 no-transmission requirements.
+- Verify the build no longer emits the analytics-placeholder warnings while preserving the existing application entrypoint.

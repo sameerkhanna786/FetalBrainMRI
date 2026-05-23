@@ -932,3 +932,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, SPEC 4.9 No-Analytics Shell Increment
+
+- Implemented SPEC.md §4.9 no-transmission hardening by removing the placeholder Umami analytics script from the client HTML shell.
+- Added Vitest coverage proving `client/index.html` contains no analytics, Umami, or `data-website-id` telemetry hooks.
+- Preserved the Vite application entrypoint and confirmed the production build no longer emits analytics-placeholder warnings.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 79 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/index.html client/src/lib/client-shell.test.ts` passes after formatting `client/index.html`.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
