@@ -81,6 +81,21 @@ const S_BIRNBAUM: Source = {
   full: "Birnbaum R, Parodi S, Donarini G, et al. The third ventricle of the human fetal brain: normative data and pathologic correlation. Prenat Diagn. 2018;38(9):664–672.",
   url: "https://doi.org/10.1002/pd.5292",
 };
+const S_WOITEK: Source = {
+  label: "Woitek 2014",
+  full: "Woitek R, Prayer D, Weber M, et al. MR-based morphometry of the posterior fossa in fetuses with neural tube defects of the spine. PLOS One. 2014;9(11):e112585.",
+  url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC4231033/",
+};
+const S_AERTSEN: Source = {
+  label: "Aertsen 2019",
+  full: "Aertsen M, Verduyckt J, De Keyzer F, et al. Reliability of MR Imaging-Based Posterior Fossa and Brain Stem Measurements in Open Spinal Dysraphism in the Era of Fetal Surgery. AJNR Am J Neuroradiol. 2019;40(1):191-198.",
+  url: "https://www.ajnr.org/content/40/1/191",
+};
+const S_DADDARIO: Source = {
+  label: "D'Addario 2001",
+  full: "D'Addario V, Pinto V, Di Cagno L, Pintucci A. The clivus-supraocciput angle: a useful measurement to evaluate the shape and size of the fetal posterior fossa and to diagnose Chiari II malformation. Ultrasound Obstet Gynecol. 2001;18(2):146-149.",
+  url: "https://obgyn.onlinelibrary.wiley.com/doi/abs/10.1046/j.1469-0705.2001.00409.x",
+};
 
 /* ---------- Parameter models ---------- */
 
@@ -122,7 +137,7 @@ export type Parameter = {
   id: string;
   name: string;
   short: string;
-  unit: "mm";
+  unit: "mm" | "degrees";
   group: ParameterGroup;
   definition: string;
   measurement: string;
@@ -399,6 +414,54 @@ export const PARAMETERS: Parameter[] = [
       p95: { k: 0.44, d: -0.78 },
     },
     gaRange: [14, 40],
+  },
+  {
+    id: "tdpf",
+    name: "Maximum transverse diameter of the posterior fossa",
+    short: "TDPF",
+    unit: "mm",
+    group: "Posterior fossa",
+    definition:
+      "Widest distance across the posterior cranial fossa between the inner tables of the occipital bones.",
+    measurement:
+      "Axial T2 slice containing the cerebellar hemispheres, brainstem, and occipital inner table; measure the maximum transverse posterior-fossa extent inner-table to inner-table.",
+    significance:
+      "Reduced TDPF is a high-yield cranial marker of Chiari II malformation and should prompt dedicated fetal-spine evaluation.",
+    primary: S_WOITEK,
+    secondary: S_AERTSEN,
+    model: {
+      kind: "luis-quadratic",
+      a: -0.01307,
+      b: 2.55571,
+      c: -21.71,
+      a5: 0.06716,
+      b5: 0.547,
+    },
+    gaRange: [21, 37],
+  },
+  {
+    id: "csa",
+    name: "Clivus-supraocciput angle",
+    short: "CSA",
+    unit: "degrees",
+    group: "Posterior fossa",
+    definition:
+      "Angle between the dorsal clivus and the inner table of the supraocciput on a strict mid-sagittal fetal brain image.",
+    measurement:
+      "Draw one line along the dorsal cortical surface of the clivus and a second along the inner table of the supraocciput; measure the cranial angle between them.",
+    significance:
+      "A reduced CSA is a shape-based marker that helps distinguish Chiari II / open neural tube defect from other small-posterior-fossa patterns.",
+    primary: S_WOITEK,
+    secondary: S_DADDARIO,
+    model: {
+      kind: "luis-quadratic",
+      a: -0.04767,
+      b: 4.20404,
+      c: 1.73,
+      a5: 0.01814,
+      b5: 5.821,
+    },
+    gaRange: [21, 37],
   },
   {
     id: "cc_length",
@@ -869,6 +932,71 @@ export const formatPct = (p: number) => {
             ? "rd"
             : "th";
   return `${r}${suffix}`;
+};
+
+export type ChiariPosterior = {
+  controls: number;
+  ontd: number;
+  cntd: number;
+};
+
+const mahalanobis2 = (
+  point: [number, number],
+  mean: [number, number],
+  covariance: [[number, number], [number, number]]
+): number => {
+  const dx = point[0] - mean[0];
+  const dy = point[1] - mean[1];
+  const [[a, b], [c, d]] = covariance;
+  const det = a * d - b * c;
+  if (det <= 0) return Number.POSITIVE_INFINITY;
+  const inv00 = d / det;
+  const inv01 = -b / det;
+  const inv10 = -c / det;
+  const inv11 = a / det;
+  return dx * (inv00 * dx + inv01 * dy) + dy * (inv10 * dx + inv11 * dy);
+};
+
+export const chiariOntdPosterior = (
+  zTdpf: number,
+  zCsa: number
+): ChiariPosterior => {
+  const point: [number, number] = [zTdpf, zCsa];
+  const distances = {
+    controls: mahalanobis2(
+      point,
+      [0, 0],
+      [
+        [1, 0],
+        [0, 1],
+      ]
+    ),
+    ontd: mahalanobis2(
+      point,
+      [-3.6, -2.6],
+      [
+        [0.9 * 0.9, 0.54],
+        [0.54, 1.1 * 1.1],
+      ]
+    ),
+    cntd: mahalanobis2(
+      point,
+      [-1.4, -0.6],
+      [
+        [1, 0],
+        [0, 1],
+      ]
+    ),
+  };
+  const controls = Math.exp(-distances.controls / 2);
+  const ontd = Math.exp(-distances.ontd / 2);
+  const cntd = Math.exp(-distances.cntd / 2);
+  const total = controls + ontd + cntd;
+  return {
+    controls: controls / total,
+    ontd: ontd / total,
+    cntd: cntd / total,
+  };
 };
 
 /* ---------- Differential-diagnosis catalogue & engine ---------- */
@@ -1603,6 +1731,61 @@ const CARDS: CardSpec[] = [
       return {
         prior: 0.2,
         triggerLabel: `Vermis CC = ${fmt1(values.vermis_cc)} mm (z ${formatZ(zr.z)})`,
+      };
+    },
+  },
+  {
+    id: "chiari-ii-ontd",
+    title: "Chiari II / open neural tube defect pattern",
+    oneLine:
+      "Small posterior fossa with reduced clivus-supraocciput angle — open spinal dysraphism pattern.",
+    severity: "urgent",
+    summary:
+      "A small posterior fossa with a closed clivus-supraocciput angle is the cranial signature of Chiari II malformation and should prompt dedicated fetal-spine evaluation for open neural tube defect.",
+    rows: [
+      {
+        dx: "Chiari II malformation due to open neural tube defect",
+        likelihood: "~85-90% when both z-scores below -2",
+        rationale:
+          "TDPF below -2 SD with CSA below -2 SD has ~91% sensitivity and ~93% specificity for open NTD versus controls in Woitek 2014.",
+      },
+      {
+        dx: "Closed neural tube defect",
+        likelihood: "~5-10%",
+        rationale:
+          "Closed NTDs cause milder posterior-fossa changes and are usually less likely when both z-scores are below -2.",
+      },
+      {
+        dx: "Severe vermian hypoplasia / Dandy-Walker spectrum",
+        likelihood: "~3-5%",
+        rationale:
+          "Small posterior fossa can occur in DWM, but CSA is typically preserved or increased rather than reduced.",
+      },
+      {
+        dx: "Benign small posterior fossa",
+        likelihood: "<1%",
+        rationale:
+          "Rarely do both TDPF and CSA fall below -2 SD in healthy controls.",
+      },
+    ],
+    nextSteps:
+      "Dedicated sagittal and axial fetal-spine MRI, referral to a fetal-surgery-capable centre, genetic counselling, and amniocentesis with chromosomal microarray as clinically appropriate.",
+    limitations:
+      "Research-mode discriminator trained on Woitek 2014 and externally supported by Aertsen 2019; posterior probabilities should be interpreted with direct spine imaging and motion quality.",
+    primary: S_WOITEK,
+    secondary: S_AERTSEN,
+    match: ({ zs }) => {
+      const zTdpf = zs.tdpf?.z;
+      const zCsa = zs.csa?.z;
+      if (zTdpf == null || zCsa == null) return null;
+      if (!(zTdpf < -2 && zCsa < -2)) return null;
+      const posterior = chiariOntdPosterior(zTdpf, zCsa);
+      if (posterior.ontd <= 0.5) return null;
+      return {
+        prior: Math.max(0.86, posterior.ontd),
+        triggerLabel: `TDPF z ${formatZ(zTdpf)} + CSA z ${formatZ(
+          zCsa
+        )}; ONTD posterior ${(posterior.ontd * 100).toFixed(0)}%`,
       };
     },
   },

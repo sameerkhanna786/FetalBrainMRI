@@ -44,6 +44,7 @@ const BAND_TEXT_COLOR: Record<NonNullable<ZResult>["band"], string> = {
 export default function ParameterRow({ param, value, zr, onChange }: Props) {
   const sourceCount =
     zr?.sourceDetails.length ?? sourceRegistryFor(param).length;
+  const unitLabel = param.unit === "degrees" ? "deg" : "mm";
   const agreementLabel = zr
     ? zr.disagreementWidth == null
       ? zr.agreementState
@@ -163,7 +164,7 @@ export default function ParameterRow({ param, value, zr, onChange }: Props) {
             className="font-numeric text-[17px] w-full bg-transparent border-0 border-b border-[color:var(--rule)] focus:border-[color:var(--teal)] outline-none px-0.5 py-1 text-right tracking-tight text-[color:var(--ink)] placeholder:text-[color:var(--ink-soft)]/40"
           />
           <span className="text-[11px] smallcaps text-[color:var(--ink-soft)]">
-            mm
+            {unitLabel}
           </span>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { PARAMETERS_ALL, zscore } from "./biometry";
+import { PARAMETERS_ALL, evaluateAll, zscore } from "./biometry";
 import { generateReport } from "./report";
 
 const byId = (id: string) => {
@@ -63,5 +63,36 @@ describe("structured report source provenance", () => {
     expect(report).toContain("Dovjak 2021 z -0.06");
     expect(report).toContain("SOURCE-AGREEMENT NOTES");
     expect(report).toContain("Transcerebellar diameter Delta z 1.03");
+  });
+});
+
+describe("Chiari II / open NTD discriminator", () => {
+  it("matches the SPEC §6.5.2 TDPF and CSA worked example", () => {
+    const ga = { weeks: 24, days: 0 };
+    const tdpf = zscore(byId("tdpf"), ga, 24);
+    const csa = zscore(byId("csa"), ga, 55);
+
+    expect(tdpf).not.toBeNull();
+    expect(csa).not.toBeNull();
+    expect(tdpf!.agreementState).toBe("single");
+    expect(csa!.agreementState).toBe("single");
+    expect(tdpf!.sourceDetails[0].sourceLabel).toBe("Woitek 2014");
+    expect(csa!.sourceDetails[0].sourceLabel).toBe("Woitek 2014");
+    expect(tdpf!.z).toBeCloseTo(-3.8, 1);
+    expect(csa!.z).toBeCloseTo(-3.23, 1);
+  });
+
+  it("fires the Chiari II / open neural tube defect card for the worked example", () => {
+    const { dxs } = evaluateAll(
+      {
+        tdpf: 24,
+        csa: 55,
+      },
+      { weeks: 24, days: 0 }
+    );
+
+    expect(dxs[0]?.id).toBe("chiari-ii-ontd");
+    expect(dxs[0]?.triggerLabel).toContain("ONTD posterior");
+    expect(dxs[0]?.severity).toBe("urgent");
   });
 });

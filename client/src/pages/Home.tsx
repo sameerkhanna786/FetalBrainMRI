@@ -478,9 +478,9 @@ export default function Home() {
                 Measure, convert, interpret.
               </h1>
               <p className="text-[color:var(--ink-soft)] text-[15px] max-w-[48ch] mt-3">
-                Enter any subset of the fourteen standard fetal brain
-                parameters. Z-scores and percentiles compute live against the
-                selected reference curves.
+                Enter any subset of the sixteen standard fetal brain and
+                posterior-fossa parameters. Z-scores and percentiles compute
+                live against the source registry.
               </p>
             </div>
 
@@ -523,7 +523,7 @@ export default function Home() {
               Parameter
             </div>
             <div className="col-span-2 smallcaps text-[color:var(--ink-soft)] text-right">
-              Value (mm)
+              Value
             </div>
             <div className="col-span-2 smallcaps text-[color:var(--ink-soft)] text-center">
               Distribution

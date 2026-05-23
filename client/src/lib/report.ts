@@ -34,6 +34,7 @@ const bandPhrase = (z: number) => {
 
 const paramLine = (p: Parameter, x: number, zr: ZResult): string => {
   const flag = zr.extrapolated ? " [case GA outside every source range]" : "";
+  const unit = p.unit === "degrees" ? "degrees" : "mm";
   const agreement =
     zr.disagreementWidth == null
       ? `agreement: ${zr.agreementState}`
@@ -52,7 +53,7 @@ const paramLine = (p: Parameter, x: number, zr: ZResult): string => {
       )}, ${rangeTag}${modalityTag})`;
     })
     .join("; ");
-  return `${p.name}: ${x.toFixed(1)} mm (consensus z ${formatZ(
+  return `${p.name}: ${x.toFixed(1)} ${unit} (consensus z ${formatZ(
     zr.z
   )}, ${formatPct(zr.percentile)} percentile; ${agreement})${flag} - ${bandPhrase(
     zr.z
