@@ -2752,6 +2752,51 @@ const CARDS: CardSpec[] = [
     },
   },
   {
+    id: "cmv-dd",
+    title: "Congenital CMV qualitative add-on",
+    oneLine:
+      "Entered periventricular cysts, calcifications, or germinolytic cysts - congenital CMV advisory.",
+    severity: "concern",
+    impressionLine:
+      "Congenital CMV qualitative add-on; entered periventricular cysts, calcifications, or germinolytic cysts should guide infection workup.",
+    impressionPriority: 6,
+    summary:
+      "The entered qualitative infection findings support congenital CMV consideration, especially when microcephaly and ventriculomegaly are also present.",
+    rows: [
+      {
+        dx: "Congenital CMV infection",
+        likelihood: "Entered qualitative finding",
+        rationale:
+          "Cannie 2016 describes the contribution and timing of fetal MRI in congenital CMV, including brain findings that accompany infection.",
+      },
+      {
+        dx: "Other congenital infection",
+        likelihood: "Differential consideration",
+        rationale:
+          "TORCH infections can overlap in fetal brain injury patterns and require laboratory correlation.",
+      },
+      {
+        dx: "Noninfectious destructive insult",
+        likelihood: "Differential consideration",
+        rationale:
+          "If infectious testing is negative, consider vascular or other intrauterine destructive processes.",
+      },
+    ],
+    nextSteps:
+      "Correlate with maternal and amniotic-fluid CMV testing, review for calcifications/cysts and cortical injury, and consider infectious-disease counselling.",
+    limitations:
+      "Qualitative add-on only; the calculator does not infer calcifications, cysts, or infection status from biometry.",
+    primary: {
+      label: "Cannie 2016",
+      full: "Cannie MM, Devlieger R, Leyder M, et al. Congenital cytomegalovirus infection: contribution and best timing of prenatal MR imaging. Eur Radiol. 2016;26(10):3760-3769.",
+      url: "https://doi.org/10.1007/s00330-015-4187-0",
+    },
+    match: ({ values }) =>
+      (values.qualitative_cmv_panel ?? 0) > 0
+        ? { prior: 0.25, triggerLabel: "entered qualitative CMV findings" }
+        : null,
+  },
+  {
     id: "macrocephaly",
     title: "Macrocephaly (brain BPD or skull BPD >97th percentile)",
     oneLine: "Brain or skull BPD above 97th percentile — large head.",

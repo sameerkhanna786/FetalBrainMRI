@@ -1010,3 +1010,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, TEST 19 CMV Qualitative Add-On Increment
+
+- Implemented TEST.md §19 Case MC5 qualitative CMV support with a `cmv-dd` advisory card for entered periventricular cysts, calcifications, or germinolytic cysts.
+- Extended the existing CMV report test to prove microcephaly with mild VM stays on quantitative cards without the toggle, then adds `cmv-dd` and preserves the CMV impression when `qualitative_cmv_panel` is entered.
+- Kept the card qualitative-only so it does not alter microcephaly, ventriculomegaly, or brain-volume-loss matching.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 83 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes after formatting `client/src/lib/biometry.test.ts`.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

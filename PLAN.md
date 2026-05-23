@@ -460,3 +460,9 @@
 - Add Vitest coverage for TEST.md §14 Case CSP-A3 behavior: isolated absent CSP keeps the existing absent-CSP impression without a SOD manual entry.
 - Assert `qualitative_sod_panel` adds a low-priority septo-optic dysplasia advisory when small optic apparatus is entered.
 - Keep the advisory below the absent-CSP impression so it does not become a new quantitative combined-pattern trigger.
+
+## TEST 19 CMV Qualitative Add-On Increment
+
+- Add Vitest coverage for TEST.md §19 Case MC5 behavior: microcephaly with mild VM keeps the quantitative cards without a CMV qualitative entry.
+- Assert `qualitative_cmv_panel` adds a congenital-CMV advisory card while preserving the existing CMV impression override.
+- Keep the advisory qualitative-only so it does not alter microcephaly, ventriculomegaly, or brain-volume-loss matching.

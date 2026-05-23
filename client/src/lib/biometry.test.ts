@@ -991,15 +991,19 @@ describe("combined HPE and Dandy-Walker report impression", () => {
 });
 
 describe("CMV qualitative microcephaly report impression", () => {
-  it("uses the TEST.md Case MC5 qualitative CMV impression", () => {
+  it("uses the TEST.md Case MC5 qualitative CMV add-on and impression", () => {
     const ga = { weeks: 32, days: 0 };
-    const values = {
+    const baseValues = {
       skull_bpd: 76,
       brain_bpd: 70,
       atrial_right: 12,
       atrial_left: 12,
+    };
+    const values = {
+      ...baseValues,
       qualitative_cmv_panel: 1,
     };
+    const baseIds = evaluateAll(baseValues, ga).dxs.map(dx => dx.id);
     const { zs, dxs } = evaluateAll(values, ga);
     const report = generateReport({
       ga,
@@ -1011,10 +1015,17 @@ describe("CMV qualitative microcephaly report impression", () => {
     });
     const dxIds = dxs.map(dx => dx.id);
 
-    expect(dxIds).toEqual(expect.arrayContaining(["microcephaly", "mild-vm"]));
+    expect(baseIds).toEqual(
+      expect.arrayContaining(["microcephaly", "mild-vm"])
+    );
+    expect(baseIds).not.toContain("cmv-dd");
+    expect(dxIds).toEqual(
+      expect.arrayContaining(["microcephaly", "mild-vm", "cmv-dd"])
+    );
     expect(report).toContain(
       "Microcephaly with ventriculomegaly and qualitative CMV findings suggests congenital CMV infection."
     );
+    expect(report).toContain("Congenital CMV qualitative add-on");
   });
 });
 
