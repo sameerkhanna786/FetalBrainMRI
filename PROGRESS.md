@@ -630,3 +630,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Isolated DWM With Preserved Pons Increment
+
+- Implemented TEST.md §7 Case D5 behavior for isolated Dandy-Walker spectrum with TVA 80 degrees, small vermis, small TCD, and preserved pons.
+- Added Vitest coverage using a registry-normal pons value that fires `vermis-small`, `tcd-small`, and `dwm-pattern` while keeping `pons-small` absent.
+- Relaxed the DWM support rule for TVA 60-89 degrees so either small TCD or small pons can support the combined pattern; TVA 35-59 degrees still requires both support features, and TVA >= 90 remains sufficient.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 55 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

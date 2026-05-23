@@ -285,3 +285,9 @@
 - Add Vitest coverage for TEST.md §7 Dandy-Walker spectrum behavior with normal vermis CC, AP-only vermis hypoplasia, and markedly elevated TVA.
 - Assert `dwm-pattern` fires alongside `vermis-small` without requiring small TCD or pons when TVA is markedly elevated.
 - Update the Dandy-Walker matcher to use the same lowest entered vermis-axis logic as the small-vermis card.
+
+## Isolated DWM With Preserved Pons Increment
+
+- Add Vitest coverage for TEST.md §7 Case D5 using small vermis, TVA 80 degrees, small TCD, and registry-normal pons.
+- Assert `dwm-pattern` fires with `vermis-small` and `tcd-small` while `pons-small` remains absent.
+- Relax the moderate-TVA DWM support rule so TVA in the 60-89 degree range can be supported by either small TCD or small pons, while lower borderline TVA still requires both.

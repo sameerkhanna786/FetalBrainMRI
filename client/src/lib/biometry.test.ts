@@ -1070,6 +1070,25 @@ describe("Dandy-Walker spectrum trigger", () => {
       ])
     );
   });
+
+  it("fires the TEST.md Case D5 isolated DWM pattern with preserved pons", () => {
+    const ga = { weeks: 32, days: 0 };
+    const gaWeeks = 32;
+    const values = {
+      vermis_cc: 9,
+      vermis_ap: 3.5,
+      tva: 80,
+      tcd: 36,
+      pons_ap: mu(byId("pons_ap"), gaWeeks),
+    };
+    const { dxs } = evaluateAll(values, ga);
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toEqual(
+      expect.arrayContaining(["vermis-small", "tcd-small", "dwm-pattern"])
+    );
+    expect(dxIds).not.toContain("pons-small");
+  });
 });
 
 describe("isolated small pons report impression", () => {
