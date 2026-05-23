@@ -827,3 +827,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, LP4 Pons-Macrocerebellum Overgrowth Report Increment
+
+- Implemented TEST.md §18 Case LP4 report behavior for large pons plus macrocerebellum as an overgrowth-pattern combination.
+- Added Vitest coverage using registry-derived pons AP and TCD values above the relevant thresholds; `pons-large` and `tcd-large` fire without macrocephaly or thick CC.
+- Added a report-level overgrowth impression for large pons plus macrocerebellum.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 71 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

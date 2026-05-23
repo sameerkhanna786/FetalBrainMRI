@@ -375,3 +375,9 @@
 - Add Vitest coverage for TEST.md §18 Case LP2 using registry-derived large pons and macrocephaly values.
 - Assert `pons-large` and `macrocephaly` fire together without hydrocephalus.
 - Add a report-level overgrowth impression for large pons plus macrocephaly, keeping hydrocephalus-driven macrocephaly suppressed.
+
+## LP4 Pons-Macrocerebellum Overgrowth Report Increment
+
+- Add Vitest coverage for TEST.md §18 Case LP4 using registry-derived large pons and large TCD values.
+- Assert `pons-large` and `tcd-large` fire together without macrocephaly or thick CC.
+- Add a report-level overgrowth impression for large pons plus macrocerebellum.
