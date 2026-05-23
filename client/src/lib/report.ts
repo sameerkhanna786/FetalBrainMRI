@@ -205,6 +205,12 @@ export function generateReport(ctx: ReportContext): string {
       dxs.some(dx => dx.id === "cc-thick")
         ? "Large pons with thick corpus callosum strongly suggests a fetal overgrowth-syndrome pattern."
         : undefined;
+    const overgrowthPonsMacrocephalyImpression =
+      dxs.some(dx => dx.id === "pons-large") &&
+      dxs.some(dx => dx.id === "macrocephaly") &&
+      !dxs.some(dx => dx.id === "hydrocephalus-pattern")
+        ? "Large pons with macrocephaly raises concern for a fetal overgrowth-syndrome pattern."
+        : undefined;
     const hemisphericSide =
       values.brain_ofd_left != null && values.brain_ofd_right != null
         ? values.brain_ofd_left > values.brain_ofd_right
@@ -269,6 +275,7 @@ export function generateReport(ctx: ReportContext): string {
       overgrowthMacrocephalyCallosumImpression ||
       overgrowthThickCallosumImpression ||
       overgrowthPonsCallosumImpression ||
+      overgrowthPonsMacrocephalyImpression ||
       hemisphericDisruptionImpression ||
       unilateralSevereVmImpression ||
       isolatedPonsHypoplasiaImpression ||
@@ -287,6 +294,7 @@ export function generateReport(ctx: ReportContext): string {
           overgrowthMacrocephalyCallosumImpression ??
           overgrowthThickCallosumImpression ??
           overgrowthPonsCallosumImpression ??
+          overgrowthPonsMacrocephalyImpression ??
           hemisphericDisruptionImpression ??
           unilateralSevereVmImpression ??
           isolatedPonsHypoplasiaImpression ??

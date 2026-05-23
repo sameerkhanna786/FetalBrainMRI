@@ -814,3 +814,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, LP2 Pons-Macrocephaly Overgrowth Report Increment
+
+- Implemented TEST.md §18 Case LP2 report behavior for large pons plus macrocephaly as an overgrowth-pattern combination.
+- Added Vitest coverage using registry-derived pons AP and skull BPD values above the relevant thresholds; `pons-large` and `macrocephaly` fire without `hydrocephalus-pattern`.
+- Added a report-level overgrowth impression for large pons plus macrocephaly, suppressed when macrocephaly is part of a hydrocephalus composite.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 70 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

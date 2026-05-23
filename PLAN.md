@@ -369,3 +369,9 @@
 - Add Vitest coverage for a TEST.md §16/§27 simultaneous HPE and Dandy-Walker case using registry-derived microcephaly and vermian hypoplasia values.
 - Assert `hpe-pattern` and `dwm-pattern` both fire and the report impression mentions both combined patterns.
 - Add an HPE+DWM report override parallel to the existing ACC+DWM combined-pattern wording.
+
+## LP2 Pons-Macrocephaly Overgrowth Report Increment
+
+- Add Vitest coverage for TEST.md §18 Case LP2 using registry-derived large pons and macrocephaly values.
+- Assert `pons-large` and `macrocephaly` fire together without hydrocephalus.
+- Add a report-level overgrowth impression for large pons plus macrocephaly, keeping hydrocephalus-driven macrocephaly suppressed.

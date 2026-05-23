@@ -1241,6 +1241,38 @@ describe("large pons plus thick corpus callosum report impression", () => {
   });
 });
 
+describe("large pons plus macrocephaly report impression", () => {
+  it("uses the TEST.md Case LP2 overgrowth-syndrome impression", () => {
+    const ga = { weeks: 32, days: 0 };
+    const gaWeeks = 32;
+    const values = {
+      skull_bpd:
+        mu(byId("skull_bpd"), gaWeeks) +
+        1.9 * sigma(byId("skull_bpd"), gaWeeks),
+      pons_ap:
+        mu(byId("pons_ap"), gaWeeks) + 1.9 * sigma(byId("pons_ap"), gaWeeks),
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toEqual(
+      expect.arrayContaining(["pons-large", "macrocephaly"])
+    );
+    expect(dxIds).not.toContain("hydrocephalus-pattern");
+    expect(report).toContain(
+      "Large pons with macrocephaly raises concern for a fetal overgrowth-syndrome pattern."
+    );
+  });
+});
+
 describe("macrocephaly plus thick corpus callosum report impression", () => {
   it("uses the TEST.md Case MA3 overgrowth-syndrome impression", () => {
     const ga = { weeks: 32, days: 0 };
