@@ -273,3 +273,9 @@
 - Add Vitest coverage for TEST.md §6 Case V2 boundary behavior using small vermis, borderline TVA, and registry-normal TCD/pons values.
 - Assert `vermis-small` fires while `dwm-pattern`, `tcd-small`, and `pons-small` remain absent.
 - Tighten the Dandy-Walker matcher so borderline TVA requires additional small TCD and small pons support, while markedly elevated TVA remains sufficient.
+
+## Vermian-AP hypoplasia trigger increment
+
+- Add Vitest coverage for the TEST.md §6 small-vermis rule using a normal vermis CC value and an AP-only low vermis measurement.
+- Assert `vermis-small` fires without unrelated posterior-fossa cards when the AP axis is below the fifth percentile.
+- Update the small-vermis matcher and linked parameter metadata so either entered vermis axis can support the card.

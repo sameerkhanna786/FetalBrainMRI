@@ -2193,7 +2193,7 @@ const CARDS: CardSpec[] = [
     title: "Small vermis — Dandy-Walker / vermian hypoplasia spectrum",
     oneLine: "Vermis below 5th percentile — posterior fossa anomaly likely.",
     severity: "concern",
-    relatedParamIds: ["vermis_cc"],
+    relatedParamIds: ["vermis_cc", "vermis_ap"],
     impressionLine:
       "Findings suggest inferior vermian hypoplasia; Limperopoulos 2006 cautions that fetal MRI before 24 weeks can substantially over-call inferior vermian hypoplasia, so correlate with gestational age and follow-up imaging.",
     impressionPriority: 15,
@@ -2228,11 +2228,36 @@ const CARDS: CardSpec[] = [
     primary: S_VATANSEVER,
     secondary: S_DOVJAK,
     match: ({ zs, values }) => {
-      const zr = zs.vermis_cc;
-      if (zr == null || zr.z >= -1.6448536269514722) return null;
+      const candidates = [
+        {
+          label: "Vermis CC",
+          value: values.vermis_cc,
+          zr: zs.vermis_cc,
+        },
+        {
+          label: "Vermis AP",
+          value: values.vermis_ap,
+          zr: zs.vermis_ap,
+        },
+      ].filter(
+        (
+          candidate
+        ): candidate is { label: string; value: number; zr: ZResult } =>
+          candidate.zr != null && candidate.value != null
+      );
+      const smallest = candidates.reduce<
+        { label: string; value: number; zr: ZResult } | undefined
+      >(
+        (currentSmallest, candidate) =>
+          currentSmallest == null || candidate.zr.z < currentSmallest.zr.z
+            ? candidate
+            : currentSmallest,
+        undefined
+      );
+      if (smallest == null || smallest.zr.z >= -1.6448536269514722) return null;
       return {
         prior: 0.65,
-        triggerLabel: `Vermis CC = ${fmt1(values.vermis_cc)} mm (z ${formatZ(zr.z)})`,
+        triggerLabel: `${smallest.label} = ${fmt1(smallest.value)} mm (z ${formatZ(smallest.zr.z)})`,
       };
     },
   },

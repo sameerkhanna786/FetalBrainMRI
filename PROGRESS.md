@@ -602,3 +602,17 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Vermian-AP Hypoplasia Trigger Increment
+
+- Implemented the TEST.md §6 small-vermis rule for vermian AP-only hypoplasia, aligning the matcher with the SPEC trigger wording that allows vermian height or AP diameter below the fifth percentile.
+- Added Vitest coverage using a registry-normal vermis CC value and an AP-only low vermis value that fires `vermis-small` without unrelated posterior-fossa cards.
+- Updated the small-vermis card metadata and trigger label so either entered vermis axis can support and explain the card.
+- Adjusted older isolated-TCD and qualitative Blake's pouch fixtures to use registry-normal vermis AP values, preserving their intended non-vermis-hypoplasia behavior after AP support was added.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 53 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

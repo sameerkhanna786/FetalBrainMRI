@@ -709,6 +709,29 @@ describe("vermian hypoplasia report impression", () => {
   });
 });
 
+describe("vermian AP hypoplasia trigger", () => {
+  it("fires the TEST.md §6 small-vermis rule when only vermis AP is below the fifth percentile", () => {
+    const ga = { weeks: 26, days: 0 };
+    const gaWeeks = 26;
+    const values = {
+      vermis_cc: mu(byId("vermis_cc"), gaWeeks),
+      vermis_ap:
+        mu(byId("vermis_ap"), gaWeeks) - 2 * sigma(byId("vermis_ap"), gaWeeks),
+      tcd: mu(byId("tcd"), gaWeeks),
+      pons_ap: mu(byId("pons_ap"), gaWeeks),
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(zs.vermis_cc?.z).toBeGreaterThan(-1.6448536269514722);
+    expect(zs.vermis_ap?.z).toBeLessThan(-1.6448536269514722);
+    expect(dxIds).toContain("vermis-small");
+    expect(dxIds).not.toContain("tcd-small");
+    expect(dxIds).not.toContain("pons-small");
+    expect(dxIds).not.toContain("dwm-pattern");
+  });
+});
+
 describe("vermian hypoplasia DWM boundary", () => {
   it("does not fire DWM for TEST.md Case V2-type borderline TVA without small TCD or pons", () => {
     const ga = { weeks: 24, days: 5 };
@@ -764,10 +787,11 @@ describe("combined cerebellar hypoplasia report impression", () => {
 describe("isolated small TCD report impression", () => {
   it("uses the TEST.md Case CH3 unilateral cerebellar hypoplasia impression", () => {
     const ga = { weeks: 32, days: 0 };
+    const gaWeeks = 32;
     const values = {
       tcd: 33,
       vermis_cc: 19.5,
-      vermis_ap: 8.5,
+      vermis_ap: mu(byId("vermis_ap"), gaWeeks),
       pons_ap: 11.5,
     };
     const { zs, dxs } = evaluateAll(values, ga);
@@ -1091,9 +1115,10 @@ describe("combined ACC and Dandy-Walker report impression", () => {
 describe("mega cisterna magna qualitative report impression", () => {
   it("uses the TEST.md Case BP3 qualitative Blake's pouch impression", () => {
     const ga = { weeks: 28, days: 0 };
+    const gaWeeks = 28;
     const values = {
       vermis_cc: 16,
-      vermis_ap: 7.3,
+      vermis_ap: mu(byId("vermis_ap"), gaWeeks),
       tcd: 34.5,
       pons_ap: 9.5,
       tva: 30,
