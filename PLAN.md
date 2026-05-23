@@ -405,3 +405,9 @@
 - Add Vitest coverage that the UI-facing auxiliary measurement registry includes `cisterna_magna_depth` in millimetres and `tva` in degrees.
 - Keep these auxiliary inputs separate from the z-scored `PARAMETERS_ALL` registry so stress fixtures and source-consensus reporting remain unchanged.
 - Render the auxiliary rows in the posterior-fossa worksheet section using raw-value input rows that can feed existing threshold-based DDx logic.
+
+## SPEC 4.7 Colpocephaly Comparison Increment
+
+- Add Vitest coverage for the SPEC.md §4.7 anterior/posterior ventricle comparison: atrial diameter >10 mm plus a normal same-side frontal horn should fire a colpocephaly card.
+- Add negative controls so atrial diameter alone and atrial diameter with an enlarged frontal horn do not fire the colpocephaly card.
+- Add raw frontal-horn auxiliary inputs and a minimal colpocephaly differential card without changing existing ACC or ventriculomegaly thresholds.

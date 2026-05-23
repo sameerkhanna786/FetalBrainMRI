@@ -44,6 +44,31 @@ describe("SPEC §4.7 auxiliary posterior-fossa inputs", () => {
   });
 });
 
+describe("SPEC §4.7 colpocephaly comparison", () => {
+  it("requires atrial dilation with a normal same-side frontal horn", () => {
+    expect(AUXILIARY_MEASUREMENTS.map(field => field.id)).toEqual(
+      expect.arrayContaining(["frontal_horn_left", "frontal_horn_right"])
+    );
+
+    const ga = { weeks: 28, days: 0 };
+    const atriumOnly = evaluateAll({ atrial_left: 10.1 }, ga).dxs.map(
+      dx => dx.id
+    );
+    const enlargedFrontalHorn = evaluateAll(
+      { atrial_left: 10.1, frontal_horn_left: 10 },
+      ga
+    ).dxs.map(dx => dx.id);
+    const colpocephaly = evaluateAll(
+      { atrial_left: 10.1, frontal_horn_left: 9.9 },
+      ga
+    ).dxs.map(dx => dx.id);
+
+    expect(atriumOnly).not.toContain("colpocephaly-pattern");
+    expect(enlargedFrontalHorn).not.toContain("colpocephaly-pattern");
+    expect(colpocephaly).toContain("colpocephaly-pattern");
+  });
+});
+
 describe("multi-source consensus reconciliation", () => {
   it("evaluates every TCD source and computes consensus from in-range sources", () => {
     const result = zscore(byId("tcd"), { weeks: 28, days: 0 }, 33);

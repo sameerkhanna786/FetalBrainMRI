@@ -744,6 +744,32 @@ export const PARAMETERS_ALL: Parameter[] = [...PARAMETERS, PARAM_THIRD_V];
 
 export const AUXILIARY_MEASUREMENTS: AuxiliaryMeasurement[] = [
   {
+    id: "frontal_horn_left",
+    name: "Frontal horn width — left",
+    short: "Frontal horn L",
+    unit: "mm",
+    group: "Ventricular system",
+    definition:
+      "Anterior lateral-ventricle frontal horn width on the left side.",
+    measurement:
+      "Axial image through the frontal horns; measure the maximal inner-to-inner width of the left frontal horn.",
+    significance:
+      "Compared with the atrial diameter to detect disproportionate posterior ventricular enlargement consistent with colpocephaly.",
+  },
+  {
+    id: "frontal_horn_right",
+    name: "Frontal horn width — right",
+    short: "Frontal horn R",
+    unit: "mm",
+    group: "Ventricular system",
+    definition:
+      "Anterior lateral-ventricle frontal horn width on the right side.",
+    measurement:
+      "Axial image through the frontal horns; measure the maximal inner-to-inner width of the right frontal horn.",
+    significance:
+      "Compared with the atrial diameter to detect disproportionate posterior ventricular enlargement consistent with colpocephaly.",
+  },
+  {
     id: "cisterna_magna_depth",
     name: "Cisterna magna depth",
     short: "CM depth",
@@ -1575,6 +1601,39 @@ const lowestTcdZ = (zs: EngineInput["zs"]): number => {
     : Math.min(tcd.z, ...tcd.sourceDetails.map(detail => detail.z));
 };
 
+type ColpocephalyCandidate = {
+  side: "L" | "R";
+  atrium: number;
+  frontalHorn: number;
+};
+
+const colpocephalyCandidate = (
+  values: EngineInput["values"]
+): ColpocephalyCandidate | undefined => {
+  const pairs: ColpocephalyCandidate[] = [
+    {
+      side: "L",
+      atrium: values.atrial_left ?? NaN,
+      frontalHorn: values.frontal_horn_left ?? NaN,
+    },
+    {
+      side: "R",
+      atrium: values.atrial_right ?? NaN,
+      frontalHorn: values.frontal_horn_right ?? NaN,
+    },
+  ];
+  const candidates = pairs.filter(
+    candidate =>
+      Number.isFinite(candidate.atrium) &&
+      candidate.atrium > 10 &&
+      Number.isFinite(candidate.frontalHorn) &&
+      candidate.frontalHorn < 10
+  );
+  return candidates.sort(
+    (a, b) => b.atrium - b.frontalHorn - (a.atrium - a.frontalHorn)
+  )[0];
+};
+
 /* ---------- Card specs ---------- */
 
 const CARDS: CardSpec[] = [
@@ -1835,6 +1894,56 @@ const CARDS: CardSpec[] = [
         prior: 0.55,
         triggerLabel: `|L−R| = ${Math.abs(L - R).toFixed(1)} mm`,
         impressionLine,
+      };
+    },
+  },
+  {
+    id: "colpocephaly-pattern",
+    title: "Colpocephaly pattern",
+    oneLine:
+      "Posterior-predominant lateral ventricle enlargement with normal frontal horn.",
+    severity: "concern",
+    relatedParamIds: ["atrial_left", "atrial_right"],
+    impressionLine:
+      "Colpocephaly pattern: disproportionate occipital-horn enlargement with normal frontal horn; evaluate for corpus-callosum agenesis and malformation of cortical development.",
+    impressionPriority: 35,
+    summary:
+      "Atrial diameter above 10 mm with a normal same-side frontal horn indicates posterior-predominant ventricular enlargement.",
+    rows: [
+      {
+        dx: "Agenesis / dysgenesis of the corpus callosum",
+        likelihood: "Common association",
+        rationale:
+          "Colpocephaly is a classic ventricular morphology in complete or partial ACC.",
+      },
+      {
+        dx: "Malformation of cortical development",
+        likelihood: "Important differential",
+        rationale:
+          "Posterior-predominant ventricular enlargement can accompany abnormal cortical development.",
+      },
+      {
+        dx: "Isolated ventriculomegaly morphology",
+        likelihood: "Diagnosis of exclusion",
+        rationale:
+          "Consider only after the corpus callosum and cortical mantle are well assessed.",
+      },
+    ],
+    nextSteps:
+      "Review mid-sagittal corpus callosum, CSP, cingulate sulcus orientation, and cortical morphology.",
+    limitations:
+      "Requires entered frontal-horn width and does not replace qualitative ventricular-shape assessment.",
+    primary: {
+      label: "Tang 2009",
+      full: "Tang PH, Bartha AI, Norton ME, Barkovich AJ, Sherr EH, Glenn OA. Agenesis of the corpus callosum: an MR imaging analysis of associated abnormalities in the fetus. AJNR Am J Neuroradiol. 2009;30(2):257-263.",
+      url: "https://www.ajnr.org/content/30/2/257",
+    },
+    match: ({ values }) => {
+      const candidate = colpocephalyCandidate(values);
+      if (!candidate) return null;
+      return {
+        prior: 0.55,
+        triggerLabel: `Atrial ${candidate.side} ${fmt1(candidate.atrium)} mm + frontal horn ${fmt1(candidate.frontalHorn)} mm`,
       };
     },
   },

@@ -892,3 +892,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts client/src/pages/Home.tsx client/src/components/AuxiliaryMeasurementRow.tsx` passes after formatting `Home.tsx`.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, SPEC 4.7 Colpocephaly Comparison Increment
+
+- Implemented SPEC.md §4.7 anterior/posterior ventricle comparison support using raw same-side frontal-horn auxiliary inputs.
+- Added Vitest coverage proving atrial diameter >10 mm plus a normal same-side frontal horn fires `colpocephaly-pattern`, while atrial dilation alone and atrial dilation with an enlarged frontal horn do not.
+- Added a qualitative colpocephaly differential card focused on corpus-callosum agenesis and malformations of cortical development without changing existing ACC or ventriculomegaly thresholds.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 76 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
