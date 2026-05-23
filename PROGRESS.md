@@ -1049,3 +1049,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/client-shell.test.ts client/src/contexts/ThemeContext.tsx client/src/components/ui/sidebar.tsx` passes after formatting `client/src/lib/client-shell.test.ts` and `client/src/components/ui/sidebar.tsx`.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.9 No External Script Loader Increment
+
+- Extended client-shell privacy coverage to reject dynamic script creation, script `src` assignment, Google Maps integration hooks, and Forge maps proxy hooks in client source.
+- Removed the unused `client/src/components/Map.tsx` Google Maps component that dynamically injected a remote script.
+- Preserved citation/source URLs while blocking executable third-party script-loader code paths.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 86 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/client-shell.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

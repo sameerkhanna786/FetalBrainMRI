@@ -3,6 +3,28 @@ import { relative, resolve } from "node:path";
 
 import { describe, expect, it } from "vitest";
 
+const sourceRoot = resolve(process.cwd(), "client/src");
+
+const collectSourceFiles = (dir: string): string[] =>
+  readdirSync(dir).flatMap(entry => {
+    const path = resolve(dir, entry);
+    if (statSync(path).isDirectory()) return collectSourceFiles(path);
+    if (!/\.[cm]?[jt]sx?$/.test(path) || /\.test\.[cm]?[jt]sx?$/.test(path)) {
+      return [];
+    }
+    return [path];
+  });
+
+const findForbiddenSourcePatterns = (
+  forbidden: { label: string; pattern: RegExp }[]
+) =>
+  collectSourceFiles(sourceRoot).flatMap(path => {
+    const text = readFileSync(path, "utf8");
+    return forbidden
+      .filter(rule => rule.pattern.test(text))
+      .map(rule => `${relative(sourceRoot, path)}: ${rule.label}`);
+  });
+
 describe("SPEC §4.9 client privacy shell", () => {
   it("does not include analytics or telemetry script hooks", () => {
     const htmlPath = [
@@ -18,19 +40,6 @@ describe("SPEC §4.9 client privacy shell", () => {
   });
 
   it("does not persist client state through browser storage APIs", () => {
-    const sourceRoot = resolve(process.cwd(), "client/src");
-    const collectSourceFiles = (dir: string): string[] =>
-      readdirSync(dir).flatMap(entry => {
-        const path = resolve(dir, entry);
-        if (statSync(path).isDirectory()) return collectSourceFiles(path);
-        if (
-          !/\.[cm]?[jt]sx?$/.test(path) ||
-          /\.test\.[cm]?[jt]sx?$/.test(path)
-        ) {
-          return [];
-        }
-        return [path];
-      });
     const forbidden = [
       { label: "localStorage", pattern: new RegExp("local" + "Storage") },
       { label: "sessionStorage", pattern: new RegExp("session" + "Storage") },
@@ -40,13 +49,30 @@ describe("SPEC §4.9 client privacy shell", () => {
         pattern: new RegExp("document\\s*\\.\\s*" + "cookie\\s*="),
       },
     ];
-    const offenders = collectSourceFiles(sourceRoot).flatMap(path => {
-      const text = readFileSync(path, "utf8");
-      return forbidden
-        .filter(rule => rule.pattern.test(text))
-        .map(rule => `${relative(sourceRoot, path)}: ${rule.label}`);
-    });
 
-    expect(offenders).toEqual([]);
+    expect(findForbiddenSourcePatterns(forbidden)).toEqual([]);
+  });
+
+  it("does not include dynamic external script or map loaders", () => {
+    const forbidden = [
+      {
+        label: "dynamic script creation",
+        pattern: /createElement\(\s*["']script["']\s*\)/,
+      },
+      {
+        label: "script src assignment",
+        pattern: /\.src\s*=/,
+      },
+      {
+        label: "Google Maps integration",
+        pattern: /google\.maps|window\.google/i,
+      },
+      {
+        label: "Forge proxy integration",
+        pattern: /VITE_FRONTEND_FORGE|maps\/proxy/i,
+      },
+    ];
+
+    expect(findForbiddenSourcePatterns(forbidden)).toEqual([]);
   });
 });

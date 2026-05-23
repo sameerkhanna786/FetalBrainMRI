@@ -478,3 +478,9 @@
 - Extend client-shell privacy coverage to scan client source for browser persistence APIs such as `localStorage`, `sessionStorage`, IndexedDB, and cookie writes.
 - Remove theme and sidebar persistence hooks so refreshes do not retain client-side state through browser storage.
 - Keep runtime-only React state for UI preferences and preserve the existing no-analytics/no-external-font shell checks.
+
+## SPEC 4.9 No External Script Loader Increment
+
+- Extend client-shell privacy coverage to reject dynamic external script loaders and Google Maps/proxy integration hooks in client source.
+- Remove the unused Google Maps component that injects a remote script through the Forge proxy.
+- Preserve citation URLs and static report source links while blocking executable third-party script loading.
