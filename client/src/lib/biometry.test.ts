@@ -508,6 +508,31 @@ describe("macrocerebellum plus macrocephaly report impression", () => {
   });
 });
 
+describe("macrocerebellum plus thick corpus callosum report impression", () => {
+  it("uses the TEST.md Case LC5 overgrowth-syndrome impression", () => {
+    const ga = { weeks: 30, days: 0 };
+    const values = {
+      tcd: 42.5,
+      cc_length: 44,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toEqual(expect.arrayContaining(["tcd-large", "cc-thick"]));
+    expect(report).toContain(
+      "Macrocerebellum with thick corpus callosum raises concern for a fetal overgrowth syndrome."
+    );
+  });
+});
+
 describe("Dandy-Walker spectrum trigger", () => {
   it("fires the TEST.md Case D1 TVA-based DWM composite card", () => {
     const { dxs } = evaluateAll(

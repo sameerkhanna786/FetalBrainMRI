@@ -340,3 +340,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Macrocerebellum Plus Thick-CC Report Increment
+
+- Implemented TEST.md §10 Case LC5 report behavior for macrocerebellum with thick corpus callosum at 30w0d.
+- Added Vitest coverage that TCD 42.5 mm and corpus callosum length 44.0 mm fire `tcd-large` and `cc-thick` together.
+- Extended the report-level overgrowth combined-pattern impression to include `tcd-large` plus `cc-thick`, while preserving hydrocephalus-specific report priority.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

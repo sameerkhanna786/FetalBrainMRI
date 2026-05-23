@@ -149,3 +149,9 @@
 - Add Vitest coverage for TEST.md §10 Case LC2: macrocerebellum with macrocephaly at 30w0d should fire both `tcd-large` and `macrocephaly`.
 - Assert the report impression suggests fetal overgrowth syndromes, including Sotos and Beckwith-Wiedemann syndrome.
 - Add a report-level combined-pattern impression for `tcd-large` plus `macrocephaly`, while allowing hydrocephalus-specific impressions to remain higher priority.
+
+## Macrocerebellum plus thick-CC report increment
+
+- Add Vitest coverage for TEST.md §10 Case LC5: macrocerebellum with thick corpus callosum at 30w0d should fire both `tcd-large` and `cc-thick`.
+- Assert the report impression flags the combined finding as an overgrowth-syndrome concern.
+- Extend the overgrowth combined-pattern report override to include `tcd-large` plus `cc-thick`.
