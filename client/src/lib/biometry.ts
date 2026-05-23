@@ -172,6 +172,20 @@ export type PerPercentileLinearFit = {
   };
 };
 
+export type MeanSdTableRow = {
+  gaWeeks: number;
+  mean: number;
+  sd: number;
+};
+
+export type LinearMeanSdFit = {
+  model: LinearMeanSd;
+  residualRmse: {
+    mean: number;
+    sd: number;
+  };
+};
+
 const fitLinear = (
   points: { x: number; y: number }[]
 ): { k: number; d: number; rmse: number } => {
@@ -230,6 +244,43 @@ export function fitPerPercentileLinearSource(
     residualRmse: {
       p5: p5.rmse,
       p95: p95.rmse,
+    },
+  };
+}
+
+export function fitLinearMeanSdSource(rows: MeanSdTableRow[]): LinearMeanSdFit {
+  if (rows.length < 2) {
+    throw new Error("At least two mean/SD rows are required");
+  }
+  for (const row of rows) {
+    if (
+      !Number.isFinite(row.gaWeeks) ||
+      !Number.isFinite(row.mean) ||
+      !Number.isFinite(row.sd)
+    ) {
+      throw new Error("Mean/SD rows must contain finite numeric values");
+    }
+    if (row.sd <= 0) {
+      throw new Error("SD values must be positive");
+    }
+  }
+
+  const meanFit = fitLinear(rows.map(row => ({ x: row.gaWeeks, y: row.mean })));
+  const sigma = rows.reduce((sum, row) => sum + row.sd, 0) / rows.length;
+  const sdRmse = Math.sqrt(
+    rows.reduce((sum, row) => sum + (row.sd - sigma) ** 2, 0) / rows.length
+  );
+
+  return {
+    model: {
+      kind: "linear-mean-sd",
+      mMu: meanFit.k,
+      bMu: meanFit.d,
+      sigma,
+    },
+    residualRmse: {
+      mean: meanFit.rmse,
+      sd: sdRmse,
     },
   };
 }

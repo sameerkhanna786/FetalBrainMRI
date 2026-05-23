@@ -4,6 +4,7 @@ import {
   PARAMETERS_ALL,
   computeCrossValidationAudits,
   evaluateAll,
+  fitLinearMeanSdSource,
   fitPerPercentileLinearSource,
   parseGestationalAge,
   sourceRegistryFor,
@@ -86,6 +87,31 @@ describe("centile-table source fitting", () => {
         { gaWeeks: 20, centile5: 18, centile95: 30 },
       ])
     ).toThrow("At least two centile rows are required");
+  });
+});
+
+describe("mean-SD table source fitting", () => {
+  it("fits SPEC §4.2.5 per-week mean/SD rows into a linear-mean constant-SD model", () => {
+    const fit = fitLinearMeanSdSource([
+      { gaWeeks: 20, mean: 41, sd: 1.5 },
+      { gaWeeks: 24, mean: 49, sd: 1.7 },
+      { gaWeeks: 28, mean: 57, sd: 1.6 },
+    ]);
+
+    expect(fit.model.mMu).toBeCloseTo(2, 12);
+    expect(fit.model.bMu).toBeCloseTo(1, 12);
+    expect(fit.model.sigma).toBeCloseTo(1.6, 12);
+    expect(fit.residualRmse.mean).toBeCloseTo(0, 12);
+    expect(fit.residualRmse.sd).toBeCloseTo(Math.sqrt(0.02 / 3), 12);
+  });
+
+  it("rejects non-positive SD rows", () => {
+    expect(() =>
+      fitLinearMeanSdSource([
+        { gaWeeks: 20, mean: 41, sd: 1.5 },
+        { gaWeeks: 24, mean: 49, sd: 0 },
+      ])
+    ).toThrow("SD values must be positive");
   });
 });
 

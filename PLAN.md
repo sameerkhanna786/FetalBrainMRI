@@ -113,3 +113,9 @@
 - Add Vitest coverage for SPEC §4.2.5: per-week 5th/95th centile rows should fit into the per-percentile linear model family by ordinary least squares.
 - Return the fitted model coefficients plus retained residual RMSE values for auditability.
 - Reject underdetermined or malformed centile tables rather than silently producing unstable registry entries.
+
+## Mean-SD table fitting increment
+
+- Add Vitest coverage for SPEC §4.2.5: per-week mean/SD rows should fit into the linear-mean/constant-SD model family.
+- Return fitted mean-line coefficients, average constant sigma, and retained residual RMSE values.
+- Reject underdetermined rows, non-finite values, and non-positive SD inputs.
