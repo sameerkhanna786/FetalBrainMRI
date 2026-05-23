@@ -142,6 +142,13 @@ export function generateReport(ctx: ReportContext): string {
       !dxs.some(dx => dx.id === "dwm-pattern")
         ? "Combined small TCD and small vermis pattern raises concern for cerebellar agenesis or pontocerebellar hypoplasia."
         : undefined;
+    const qualitativeCmvImpression =
+      (values.qualitative_cmv_panel ?? 0) > 0 &&
+      dxs.some(dx => dx.id === "microcephaly") &&
+      dxs.some(dx => dx.id === "mild-vm") &&
+      !dxs.some(dx => dx.id === "hpe-pattern")
+        ? "Microcephaly with ventriculomegaly and qualitative CMV findings suggests congenital CMV infection."
+        : undefined;
     const overgrowthMacrocerebellumImpression =
       dxs.some(dx => dx.id === "tcd-large") &&
       dxs.some(dx => dx.id === "macrocephaly") &&
@@ -191,6 +198,7 @@ export function generateReport(ctx: ReportContext): string {
     if (
       accDwmImpression ||
       combinedCerebellarHypoplasiaImpression ||
+      qualitativeCmvImpression ||
       overgrowthMacrocerebellumImpression ||
       overgrowthMacrocephalyCallosumImpression ||
       overgrowthThickCallosumImpression ||
@@ -202,6 +210,7 @@ export function generateReport(ctx: ReportContext): string {
       lines.push(
         accDwmImpression ??
           combinedCerebellarHypoplasiaImpression ??
+          qualitativeCmvImpression ??
           overgrowthMacrocerebellumImpression ??
           overgrowthMacrocephalyCallosumImpression ??
           overgrowthThickCallosumImpression ??

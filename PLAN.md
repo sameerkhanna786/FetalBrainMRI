@@ -203,3 +203,9 @@
 - Add Vitest coverage for TEST.md §15 Case CSP-E1: isolated enlarged CSP at 32w0d should fire `enlarged-csp` without other DDx cards.
 - Assert the report impression describes the finding as usually benign while noting cavum vergae / velum interpositum cyst and associated-anomaly correlation.
 - Add deterministic `enlarged-csp` impression wording for isolated watch-level cases.
+
+## CMV qualitative microcephaly report increment
+
+- Add Vitest coverage for TEST.md §19 Case MC5's qualitative CMV report requirement using registry-consistent microcephaly plus mild VM measurements.
+- Assert the quantitative cards remain `microcephaly` plus `mild-vm` while a manual qualitative CMV panel drives the CMV impression.
+- Add report-level `qualitative_cmv_panel` handling without introducing a quantitative CMV DDx card.

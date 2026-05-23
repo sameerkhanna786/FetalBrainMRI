@@ -495,6 +495,34 @@ describe("HPE pattern report impression", () => {
   });
 });
 
+describe("CMV qualitative microcephaly report impression", () => {
+  it("uses the TEST.md Case MC5 qualitative CMV impression", () => {
+    const ga = { weeks: 32, days: 0 };
+    const values = {
+      skull_bpd: 76,
+      brain_bpd: 70,
+      atrial_right: 12,
+      atrial_left: 12,
+      qualitative_cmv_panel: 1,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toEqual(expect.arrayContaining(["microcephaly", "mild-vm"]));
+    expect(report).toContain(
+      "Microcephaly with ventriculomegaly and qualitative CMV findings suggests congenital CMV infection."
+    );
+  });
+});
+
 describe("mixed-tier asymmetric ventriculomegaly triggers", () => {
   it("fires severe VM, mild VM, and asymmetry for TEST.md Case S4", () => {
     const { dxs } = evaluateAll(
