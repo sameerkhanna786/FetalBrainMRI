@@ -222,3 +222,10 @@
 - Add an `extra_axial_csf` worksheet parameter with Kyriakopoulou 2017 provenance and an explicitly approximate GA-adjusted reference curve.
 - Update the existing widened extra-axial-space card to prefer the direct measurement and keep the skull/brain BPD proxy as a fallback.
 - Add deterministic external-hydrocephalus / benign macrocrania report wording for the isolated direct-measurement pattern.
+
+## Brain-volume-loss extra-axial report increment
+
+- Add Vitest coverage for TEST.md §25 Case EA2 using registry-consistent microcephaly, mild ventriculomegaly, and widened extra-axial CSF values.
+- Assert `microcephaly`, `mild-vm`, and `extra-axial-wide` fire together without requiring a manual qualitative CMV panel.
+- Add a report-level combined-pattern impression suggesting congenital CMV or another intrauterine destructive insult.
+- Keep the existing qualitative-CMV and growth-restriction context impressions available for their more specific manually entered contexts.

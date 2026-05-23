@@ -790,6 +790,36 @@ describe("direct extra-axial CSF report impression", () => {
   });
 });
 
+describe("brain-volume-loss extra-axial report impression", () => {
+  it("uses the TEST.md Case EA2 destructive-insult impression", () => {
+    const ga = { weeks: 30, days: 0 };
+    const values = {
+      skull_bpd: 72,
+      brain_bpd: 60,
+      atrial_left: 12,
+      atrial_right: 12,
+      extra_axial_csf: 6,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toEqual(
+      expect.arrayContaining(["microcephaly", "mild-vm", "extra-axial-wide"])
+    );
+    expect(report).toContain(
+      "Microcephaly with ventriculomegaly and widened extra-axial CSF suggests congenital CMV or another intrauterine destructive insult."
+    );
+  });
+});
+
 describe("Dandy-Walker spectrum trigger", () => {
   it("fires the TEST.md Case D1 TVA-based DWM composite card", () => {
     const { dxs } = evaluateAll(

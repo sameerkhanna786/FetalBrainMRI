@@ -498,3 +498,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts client/src/pages/Methodology.tsx client/src/pages/Validation.tsx` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Brain-Volume-Loss Extra-Axial Report Increment
+
+- Implemented TEST.md §25 Case EA2 report behavior for the combined microcephaly, mild ventriculomegaly, and widened extra-axial CSF pattern.
+- Added Vitest coverage using registry-consistent values that fire `microcephaly`, `mild-vm`, and `extra-axial-wide` without requiring a manual qualitative CMV panel.
+- Added a report-level brain-volume-loss impression suggesting congenital CMV or another intrauterine destructive insult, while preserving more specific manually entered qualitative-CMV and growth-restriction context impressions.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 45 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
