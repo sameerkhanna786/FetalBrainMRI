@@ -451,6 +451,31 @@ describe("combined cerebellar hypoplasia report impression", () => {
   });
 });
 
+describe("Dandy-Walker spectrum trigger", () => {
+  it("fires the TEST.md Case D1 TVA-based DWM composite card", () => {
+    const { dxs } = evaluateAll(
+      {
+        vermis_cc: 7.67,
+        vermis_ap: 2.83,
+        tcd: 24.71,
+        pons_ap: 5.4,
+        tva: 109.5,
+      },
+      { weeks: 24, days: 5 }
+    );
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toEqual(
+      expect.arrayContaining([
+        "vermis-small",
+        "tcd-small",
+        "pons-small",
+        "dwm-pattern",
+      ])
+    );
+  });
+});
+
 describe("Chiari II / open NTD discriminator", () => {
   it("matches the SPEC §6.5.2 TDPF and CSA worked example", () => {
     const ga = { weeks: 24, days: 0 };

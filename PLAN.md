@@ -119,3 +119,9 @@
 - Add Vitest coverage for SPEC §4.2.5: per-week mean/SD rows should fit into the linear-mean/constant-SD model family.
 - Return fitted mean-line coefficients, average constant sigma, and retained residual RMSE values.
 - Reject underdetermined rows, non-finite values, and non-positive SD inputs.
+
+## Dandy-Walker TVA trigger increment
+
+- Add Vitest coverage for TEST.md §7 Case D1: small vermis, small TCD, small pons, and markedly elevated TVA should fire the Dandy-Walker composite card.
+- Change the DWM composite trigger from third-ventricle dilatation to elevated tegmento-vermian angle with small vermis.
+- Update DWM card wording to describe the TVA-based posterior-fossa pattern.

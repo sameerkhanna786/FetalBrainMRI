@@ -2079,10 +2079,16 @@ const CARDS: CardSpec[] = [
     secondary: S_DOVJAK,
     match: ({ zs, values }) => {
       const zr = zs.tcd;
-      if (zr == null || zr.z >= -1.6448536269514722) return null;
+      const lowestSourceZ =
+        zr == null
+          ? Infinity
+          : Math.min(zr.z, ...zr.sourceDetails.map(detail => detail.z));
+      if (zr == null || lowestSourceZ >= -1.6448536269514722) return null;
       return {
         prior: 0.65,
-        triggerLabel: `TCD = ${fmt1(values.tcd)} mm (z ${formatZ(zr.z)})`,
+        triggerLabel: `TCD = ${fmt1(values.tcd)} mm (lowest source z ${formatZ(
+          lowestSourceZ
+        )})`,
       };
     },
   },
@@ -2677,11 +2683,11 @@ const CARDS: CardSpec[] = [
   {
     id: "dwm-pattern",
     title: "Dandy-Walker malformation pattern",
-    oneLine: "Small vermis + dilated third ventricle — DWM pattern.",
+    oneLine: "Small vermis + elevated TVA — DWM pattern.",
     severity: "urgent",
     relatedParamIds: ["vermis_cc"],
     summary:
-      "Small vermis with associated supratentorial ventricular dilatation is suggestive of the Dandy-Walker spectrum.",
+      "Small vermis with elevated tegmento-vermian angle is suggestive of the Dandy-Walker spectrum.",
     rows: [
       {
         dx: "Dandy-Walker malformation",
@@ -2705,12 +2711,12 @@ const CARDS: CardSpec[] = [
     primary: S_VATANSEVER,
     match: ({ zs, values }) => {
       const zr = zs.vermis_cc;
-      const v3 = values.third_ventricle;
+      const tva = values.tva;
       if (zr == null || zr.z >= -1.6448536269514722) return null;
-      if (v3 == null || v3 <= 3.5) return null;
+      if (tva == null || tva < 35) return null;
       return {
         prior: 0.75,
-        triggerLabel: `Vermis (z ${formatZ(zr.z)}) + 3rd V ${fmt1(v3)}`,
+        triggerLabel: `Vermis (z ${formatZ(zr.z)}) + TVA ${fmt1(tva)} degrees`,
       };
     },
   },
