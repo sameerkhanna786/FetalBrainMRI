@@ -381,3 +381,9 @@
 - Add Vitest coverage for TEST.md §18 Case LP4 using registry-derived large pons and large TCD values.
 - Assert `pons-large` and `tcd-large` fire together without macrocephaly or thick CC.
 - Add a report-level overgrowth impression for large pons plus macrocerebellum.
+
+## STRESS1 Consensus-Zero Mu Increment
+
+- Add Vitest coverage for TEST.md §27 Case STRESS1 by filling every reportable parameter with `mu(parameter, 28w)`.
+- Assert no DDx cards fire and every resulting consensus z-score is within 0.05 SD of zero, including multi-source posterior-fossa rows.
+- Update the exported multi-source `mu`/`sigma` helpers so generated fixtures invert the runtime consensus-z calculation.

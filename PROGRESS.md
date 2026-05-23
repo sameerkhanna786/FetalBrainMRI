@@ -840,3 +840,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, STRESS1 Consensus-Zero Mu Increment
+
+- Implemented TEST.md §27 Case STRESS1 behavior so `mu(parameter, GA)` values produce consensus z-scores within 0.05 SD of zero for every reportable parameter.
+- Added Vitest coverage filling every `PARAMETERS_ALL` row at 28w0d from the exported `mu` helper and asserting no DDx cards fire.
+- Updated multi-source `mu` to return the inverse-SD weighted zero-consensus center and multi-source `sigma` to return the harmonic scale, so `mu + k*sigma` inverts the runtime consensus-z calculation.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 72 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

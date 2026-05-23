@@ -1433,6 +1433,22 @@ describe("extreme-z percentile formatting", () => {
   });
 });
 
+describe("all-z zero stress fixture", () => {
+  it("uses TEST.md Case STRESS1 mu values to produce zero consensus z-scores", () => {
+    const ga = { weeks: 28, days: 0 };
+    const gaWeeks = 28;
+    const values = Object.fromEntries(
+      PARAMETERS_ALL.map(param => [param.id, mu(param, gaWeeks)])
+    );
+    const { zs, dxs } = evaluateAll(values, ga);
+
+    expect(dxs.map(dx => dx.id)).toEqual([]);
+    for (const param of PARAMETERS_ALL) {
+      expect(Math.abs(zs[param.id]!.z)).toBeLessThan(0.05);
+    }
+  });
+});
+
 describe("Dandy-Walker spectrum trigger", () => {
   it("fires the TEST.md Case D1 TVA-based DWM composite card", () => {
     const { dxs } = evaluateAll(

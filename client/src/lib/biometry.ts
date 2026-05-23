@@ -1252,11 +1252,16 @@ export const mu = (
     entry => gaWeeks >= entry.gaRange[0] && gaWeeks <= entry.gaRange[1]
   );
   const contributing = inRange.length > 0 ? inRange : entries;
+  const weighted = contributing
+    .map(entry => {
+      const s = sigmaOfModel(entry.model, gaWeeks);
+      return { mean: muOfModel(entry.model, gaWeeks), invSigma: 1 / s };
+    })
+    .filter(row => Number.isFinite(row.invSigma) && row.invSigma > 0);
+  if (weighted.length === 0) return NaN;
   return (
-    contributing.reduce(
-      (sum, entry) => sum + muOfModel(entry.model, gaWeeks),
-      0
-    ) / contributing.length
+    weighted.reduce((sum, row) => sum + row.mean * row.invSigma, 0) /
+    weighted.reduce((sum, row) => sum + row.invSigma, 0)
   );
 };
 
@@ -1271,11 +1276,12 @@ export const sigma = (
     entry => gaWeeks >= entry.gaRange[0] && gaWeeks <= entry.gaRange[1]
   );
   const contributing = inRange.length > 0 ? inRange : entries;
+  const invSigmas = contributing
+    .map(entry => 1 / sigmaOfModel(entry.model, gaWeeks))
+    .filter(invSigma => Number.isFinite(invSigma) && invSigma > 0);
+  if (invSigmas.length === 0) return NaN;
   return (
-    contributing.reduce(
-      (sum, entry) => sum + sigmaOfModel(entry.model, gaWeeks),
-      0
-    ) / contributing.length
+    invSigmas.length / invSigmas.reduce((sum, invSigma) => sum + invSigma, 0)
   );
 };
 
