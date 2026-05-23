@@ -589,3 +589,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Vermian-Hypoplasia DWM Boundary Increment
+
+- Implemented TEST.md §6 Case V2 boundary behavior for small vermis with borderline TVA and preserved TCD/pons.
+- Added Vitest coverage using registry-normal TCD and pons values that fires `vermis-small` while keeping `dwm-pattern`, `tcd-small`, and `pons-small` absent.
+- Tightened the Dandy-Walker matcher so borderline TVA requires both small TCD and small pons support, while markedly elevated TVA remains sufficient.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 52 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

@@ -709,6 +709,27 @@ describe("vermian hypoplasia report impression", () => {
   });
 });
 
+describe("vermian hypoplasia DWM boundary", () => {
+  it("does not fire DWM for TEST.md Case V2-type borderline TVA without small TCD or pons", () => {
+    const ga = { weeks: 24, days: 5 };
+    const gaWeeks = 24 + 5 / 7;
+    const values = {
+      vermis_cc: 9,
+      vermis_ap: 4.5,
+      tva: 52.13,
+      tcd: mu(byId("tcd"), gaWeeks),
+      pons_ap: mu(byId("pons_ap"), gaWeeks),
+    };
+    const { dxs } = evaluateAll(values, ga);
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toContain("vermis-small");
+    expect(dxIds).not.toContain("tcd-small");
+    expect(dxIds).not.toContain("pons-small");
+    expect(dxIds).not.toContain("dwm-pattern");
+  });
+});
+
 describe("combined cerebellar hypoplasia report impression", () => {
   it("flags the TEST.md Case V5 small TCD plus small vermis pattern", () => {
     const ga = { weeks: 32, days: 0 };

@@ -2797,6 +2797,14 @@ const CARDS: CardSpec[] = [
       const tva = values.tva;
       if (zr == null || zr.z >= -1.6448536269514722) return null;
       if (tva == null || tva < 35) return null;
+      const tcd = zs.tcd;
+      const lowestTcdZ =
+        tcd == null
+          ? Infinity
+          : Math.min(tcd.z, ...tcd.sourceDetails.map(detail => detail.z));
+      const tcdSmall = lowestTcdZ < -1.6448536269514722;
+      const ponsSmall = (zs.pons_ap?.z ?? Infinity) < -1.6448536269514722;
+      if (tva < 90 && !(tcdSmall && ponsSmall)) return null;
       return {
         prior: 0.75,
         triggerLabel: `Vermis (z ${formatZ(zr.z)}) + TVA ${fmt1(tva)} degrees`,

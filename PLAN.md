@@ -267,3 +267,9 @@
 - Add Vitest coverage for TEST.md §5 Case AS6: unilateral severe VM with normal contralateral atrium should fire `severe-vm` plus `asym-vent`.
 - Assert the report suggests unilateral haemorrhage or encephaloclastic insult rather than isolated bilateral severe VM.
 - Add a report-level asymmetric severe-VM impression suppressed by aqueductal-stenosis, ACC, and HPE combined patterns.
+
+## Vermian-hypoplasia DWM boundary increment
+
+- Add Vitest coverage for TEST.md §6 Case V2 boundary behavior using small vermis, borderline TVA, and registry-normal TCD/pons values.
+- Assert `vermis-small` fires while `dwm-pattern`, `tcd-small`, and `pons-small` remain absent.
+- Tighten the Dandy-Walker matcher so borderline TVA requires additional small TCD and small pons support, while markedly elevated TVA remains sufficient.
