@@ -116,10 +116,11 @@ export function generateReport(ctx: ReportContext): string {
   }
 
   lines.push("IMPRESSION");
-  const anyAbnormal = PARAMETERS_ALL.some(p => {
+  const anyZAbnormal = PARAMETERS_ALL.some(p => {
     const z = zs[p.id];
     return z != null && Math.abs(z.z) > 2;
   });
+  const anyAbnormal = anyZAbnormal || dxs.length > 0;
   const qualitativeMcmImpression =
     (values.qualitative_mcm_panel ?? 0) > 0
       ? "Isolated mega cisterna magna with persistent Blake's pouch — likely benign normal variant."

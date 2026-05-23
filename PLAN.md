@@ -255,3 +255,9 @@
 - Add Vitest coverage for TEST.md §3 Case M2: bilateral 14.5 mm atria should fire moderate VM without severe VM.
 - Assert the report explicitly says the atrial dimensions are approaching the severe threshold at 15 mm.
 - Add dynamic moderate-VM impression wording for high-end moderate values while preserving the generic M4 moderate wording.
+
+## Pure ventricular asymmetry report increment
+
+- Add Vitest coverage for TEST.md §5 Case AS1: atrial side-to-side difference > 2 mm should fire `asym-vent` without VM cards.
+- Assert the structured report does not label a fired DDx-card case as having no abnormal biometric findings.
+- Update report abnormality detection so fixed-threshold DDx cards count as abnormal even when all measured z-scores are within ±2.

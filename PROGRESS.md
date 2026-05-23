@@ -563,3 +563,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Pure Ventricular-Asymmetry Report Increment
+
+- Implemented TEST.md §5 Case AS1 report classification behavior for ventricular side-to-side asymmetry without VM.
+- Added Vitest coverage using registry-consistent atrial values that fire `asym-vent` while keeping `mild-vm`, `severe-vm`, and all z-scores below the report abnormality threshold.
+- Updated report abnormality detection so fired DDx cards are treated as abnormal findings even when all measured z-scores are within ±2.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 50 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

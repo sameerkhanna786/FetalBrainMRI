@@ -262,6 +262,32 @@ describe("asymmetric mild ventriculomegaly report impression", () => {
   });
 });
 
+describe("pure ventricular asymmetry report classification", () => {
+  it("uses TEST.md Case AS1 as an abnormal DDx-card case", () => {
+    const ga = { weeks: 28, days: 0 };
+    const values = {
+      atrial_right: 9.3,
+      atrial_left: 7.2,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toContain("asym-vent");
+    expect(dxIds).not.toContain("mild-vm");
+    expect(dxIds).not.toContain("severe-vm");
+    expect(report).not.toContain("No abnormal biometric findings.");
+    expect(report).toContain("Asymmetric lateral ventricles");
+  });
+});
+
 describe("isolated severe ventriculomegaly report impression", () => {
   it("uses the TEST.md Case S3 isolated severe VM impression line", () => {
     const ga = { weeks: 28, days: 0 };
