@@ -2162,6 +2162,28 @@ describe("third-ventricle source metadata", () => {
   });
 });
 
+describe("report source verification caveats", () => {
+  it("renders SPEC §7.5 third-ventricle approximation metadata in source details", () => {
+    const ga = { weeks: 28, days: 0 };
+    const values = { third_ventricle: 4 };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+
+    expect(report).toContain("Birnbaum 2018 z");
+    expect(report).toContain("verification approximation (2026-05-23)");
+    expect(report).toContain(
+      "caveat: Cross-modality reference: Birnbaum 2018 is a 3-D transvaginal ultrasound cohort; fetal-MRI normative data remain a Phase 2 deliverable."
+    );
+  });
+});
+
 describe("research-mode report flags", () => {
   it("flags the Chiari II / ONTD discriminator as research-mode when it fires", () => {
     const ga = { weeks: 24, days: 0 };

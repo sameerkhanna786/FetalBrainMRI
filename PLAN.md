@@ -496,3 +496,9 @@
 - Add Vitest coverage proving entered qualitative/context findings appear in the structured report body.
 - Render manual qualitative findings after numeric findings without z-scores, percentiles, or source-agreement wording.
 - Keep qualitative DDx and impression matching unchanged so this increment only improves report traceability.
+
+## SPEC 7.5 Report Source-Caveat Disclosure Increment
+
+- Add Vitest coverage proving third-ventricle report source details disclose the approximation tier and cross-modality caveat.
+- Render verification tier and verification date in per-source report detail for every measured row.
+- Append source caveat text only when the registry entry carries one, preserving existing consensus and DDx behavior.

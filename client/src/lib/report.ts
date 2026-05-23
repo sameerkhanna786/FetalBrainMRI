@@ -48,11 +48,17 @@ const paramLine = (p: Parameter, x: number, zr: ZResult): string => {
         ? `in-range ${range}`
         : `extrapolated ${range}`;
       const modalityTag = source.crossModality ? ", cross-modality" : "";
+      const verificationTag = source.verificationTier
+        ? `, verification ${source.verificationTier}${
+            source.verificationDate ? ` (${source.verificationDate})` : ""
+          }`
+        : "";
+      const caveatTag = source.caveat ? `, caveat: ${source.caveat}` : "";
       return `${source.sourceLabel} z ${formatZ(source.z)} (${formatPct(
         source.percentile
       )}, mu ${source.mu.toFixed(2)}, sigma ${source.sigma.toFixed(
         2
-      )}, ${rangeTag}${modalityTag})`;
+      )}, ${rangeTag}${modalityTag}${verificationTag}${caveatTag})`;
     })
     .join("; ");
   return `${p.name}: ${x.toFixed(1)} ${unit} (consensus z ${formatZ(

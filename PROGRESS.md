@@ -1088,3 +1088,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/report.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 7.5 Report Source-Caveat Disclosure Increment
+
+- Added report coverage proving third-ventricle source details disclose the approximation verification tier and cross-modality caveat.
+- Rendered source verification tier and verification date in the per-source report detail for measured rows.
+- Appended registry caveat text only for sources that carry a caveat, preserving existing consensus, z-score, and DDx behavior.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 89 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/report.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
