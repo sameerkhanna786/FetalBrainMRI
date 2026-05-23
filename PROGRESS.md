@@ -945,3 +945,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/index.html client/src/lib/client-shell.test.ts` passes after formatting `client/index.html`.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.9 Offline Font Shell Increment
+
+- Implemented SPEC.md §4.9 offline/no-transmission hardening by removing Google Fonts preconnect and stylesheet requests from `client/index.html`.
+- Extended the client-shell Vitest coverage to reject external `http(s)` font links and preconnect hints.
+- Replaced named web-font CSS variables with system serif, sans, and monospace stacks so the UI keeps its typography roles without network font loading.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 79 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/index.html client/src/index.css client/src/lib/client-shell.test.ts` passes after formatting `client/src/index.css`.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

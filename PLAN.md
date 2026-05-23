@@ -430,3 +430,9 @@
 - Add Vitest coverage that the client HTML shell contains no analytics, Umami, or `data-website-id` telemetry hooks.
 - Remove the placeholder analytics script from `client/index.html` to satisfy SPEC.md §4.9 no-transmission requirements.
 - Verify the build no longer emits the analytics-placeholder warnings while preserving the existing application entrypoint.
+
+## SPEC 4.9 Offline Font Shell Increment
+
+- Extend the client-shell privacy test to reject external `http(s)` font links and preconnect hints in `client/index.html`.
+- Remove Google Fonts requests from the HTML shell so the app does not contact third-party font servers.
+- Replace named web-font CSS variables with system serif, sans, and monospace stacks to preserve the layout without network font loading.

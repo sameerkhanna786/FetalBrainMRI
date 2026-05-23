@@ -13,5 +13,7 @@ describe("SPEC §4.9 client privacy shell", () => {
     const html = readFileSync(htmlPath, "utf8");
 
     expect(html).not.toMatch(/VITE_ANALYTICS|umami|data-website-id/i);
+    expect(html).not.toMatch(/https?:\/\/|fonts\.googleapis|fonts\.gstatic/i);
+    expect(html).not.toMatch(/rel="preconnect"/i);
   });
 });
