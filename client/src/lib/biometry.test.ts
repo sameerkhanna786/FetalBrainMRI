@@ -635,6 +635,41 @@ describe("ACC pattern report impression", () => {
   });
 });
 
+describe("ACC heterotopia qualitative add-on", () => {
+  it("uses the TEST.md Case A2 heterotopia toggle without changing ACC thresholds", () => {
+    const ga = { weeks: 36, days: 3 };
+    const baseValues = {
+      csp_width: 0,
+      cc_length: 0,
+      atrial_right: 13,
+      atrial_left: 13,
+    };
+    const baseIds = evaluateAll(baseValues, ga).dxs.map(dx => dx.id);
+    const { zs, dxs } = evaluateAll(
+      { ...baseValues, qualitative_heterotopia_panel: 1 },
+      ga
+    );
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values: { ...baseValues, qualitative_heterotopia_panel: 1 },
+      zs,
+      dxs,
+    });
+    const toggledIds = dxs.map(dx => dx.id);
+
+    expect(baseIds).toContain("acc-pattern");
+    expect(baseIds).not.toContain("heterotopia-dd");
+    expect(toggledIds).toEqual(
+      expect.arrayContaining(["acc-pattern", "heterotopia-dd"])
+    );
+    expect(report).toContain(
+      "Associated heterotopia / cortical malformation qualitative add-on"
+    );
+  });
+});
+
 describe("isolated absent CSP report impression", () => {
   it("uses the TEST.md Case CSP-A3 midline-screening impression", () => {
     const ga = { weeks: 28, days: 0 };

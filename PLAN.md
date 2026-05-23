@@ -436,3 +436,9 @@
 - Extend the client-shell privacy test to reject external `http(s)` font links and preconnect hints in `client/index.html`.
 - Remove Google Fonts requests from the HTML shell so the app does not contact third-party font servers.
 - Replace named web-font CSS variables with system serif, sans, and monospace stacks to preserve the layout without network font loading.
+
+## TEST 11 Heterotopia Qualitative Add-On Increment
+
+- Add Vitest coverage for TEST.md §11 Case A2 behavior: complete ACC stays on the existing quantitative cards without a heterotopia toggle.
+- Assert `qualitative_heterotopia_panel` adds a low-severity heterotopia / cortical-malformation advisory card.
+- Keep the advisory independent of ACC thresholds so it only reflects the radiologist-entered qualitative finding.

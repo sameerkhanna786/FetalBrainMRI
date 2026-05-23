@@ -958,3 +958,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/index.html client/src/index.css client/src/lib/client-shell.test.ts` passes after formatting `client/src/index.css`.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, TEST 11 Heterotopia Qualitative Add-On Increment
+
+- Implemented TEST.md §11 Case A2 qualitative heterotopia support with a low-severity `heterotopia-dd` advisory card.
+- Added Vitest coverage proving complete ACC remains on the existing quantitative cards without the toggle, then adds `heterotopia-dd` when `qualitative_heterotopia_panel` is entered.
+- Kept the card qualitative-only so it does not alter ACC, CSP, CC, or ventriculomegaly thresholds.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 80 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

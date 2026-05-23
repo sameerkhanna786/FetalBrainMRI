@@ -3003,6 +3003,45 @@ const CARDS: CardSpec[] = [
     },
   },
   {
+    id: "heterotopia-dd",
+    title: "Associated heterotopia / cortical malformation qualitative add-on",
+    oneLine:
+      "Entered heterotopia or cortical-malformation finding — associated anomaly context.",
+    severity: "info",
+    impressionLine:
+      "Associated heterotopia / cortical malformation qualitative add-on; include in counselling as an associated CNS anomaly.",
+    impressionPriority: 6,
+    summary:
+      "Heterotopia cannot be inferred from linear biometry, but the entered qualitative finding changes associated-anomaly counselling in ACC and ventriculomegaly cases.",
+    rows: [
+      {
+        dx: "Gray matter heterotopia",
+        likelihood: "Entered qualitative finding",
+        rationale:
+          "Tang 2009 reports heterotopia among associated fetal ACC abnormalities.",
+      },
+      {
+        dx: "Broader malformation of cortical development",
+        likelihood: "Associated differential",
+        rationale:
+          "Review the cortical mantle and sulcation pattern when heterotopia is suspected.",
+      },
+    ],
+    nextSteps:
+      "Document the qualitative cortical finding, review fetal MRI planes for additional cortical malformations, and include the association in genetics counselling.",
+    limitations:
+      "Qualitative add-on only; the calculator does not infer heterotopia from biometric measurements.",
+    primary: {
+      label: "Tang 2009",
+      full: "Tang PH, Bartha AI, Norton ME, Barkovich AJ, Sherr EH, Glenn OA. Agenesis of the corpus callosum: an MR imaging analysis of associated abnormalities in the fetus. AJNR Am J Neuroradiol. 2009;30(2):257-263.",
+      url: "https://www.ajnr.org/content/30/2/257",
+    },
+    match: ({ values }) =>
+      (values.qualitative_heterotopia_panel ?? 0) > 0
+        ? { prior: 0.2, triggerLabel: "entered heterotopia finding" }
+        : null,
+  },
+  {
     id: "dwm-pattern",
     title: "Dandy-Walker malformation pattern",
     oneLine: "Small vermis + elevated TVA — DWM pattern.",
