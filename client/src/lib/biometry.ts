@@ -2549,6 +2549,8 @@ const CARDS: CardSpec[] = [
         values.atrial_right ?? -Infinity
       );
       const v3 = values.third_ventricle;
+      const csp = values.csp_width;
+      if (csp != null && csp < 1) return null;
       if (!(Number.isFinite(max) && max >= 15 && v3 != null && v3 > 3.5))
         return null;
       return {

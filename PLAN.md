@@ -185,3 +185,9 @@
 - Add Vitest coverage for TEST.md §21 Case TV2: isolated third-ventricle dilatation at 30w0d should fire `third-v-wide` without ventriculomegaly or aqueductal-stenosis cards.
 - Assert the report impression suggests isolated third-ventricle prominence, early aqueductal stenosis or measurement-technique error, and short-interval follow-up.
 - Add report-level isolated `third-v-wide` wording that is suppressed by hydrocephalus / aqueductal-stenosis patterns.
+
+## Aqueductal-stenosis absent-CSP negative-control increment
+
+- Add Vitest coverage for TEST.md §22 Case AS-P3: severe VM plus third-ventricle dilatation with absent CSP should not fire `hydrocephalus-pattern`.
+- Preserve `severe-vm`, `absent-csp`, and `third-v-wide` firing for the fixture.
+- Update the hydrocephalus composite matcher so an explicitly absent CSP suppresses aqueductal-stenosis classification.

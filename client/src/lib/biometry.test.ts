@@ -282,6 +282,26 @@ describe("aqueductal-stenosis pattern report impression", () => {
   });
 });
 
+describe("aqueductal-stenosis absent-CSP negative control", () => {
+  it("does not fire hydrocephalus-pattern for TEST.md Case AS-P3", () => {
+    const { dxs } = evaluateAll(
+      {
+        atrial_right: 18,
+        atrial_left: 18,
+        csp_width: 0,
+        third_ventricle: 4,
+      },
+      { weeks: 28, days: 0 }
+    );
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toEqual(
+      expect.arrayContaining(["severe-vm", "absent-csp", "third-v-wide"])
+    );
+    expect(dxIds).not.toContain("hydrocephalus-pattern");
+  });
+});
+
 describe("isolated third-ventricle report impression", () => {
   it("uses the TEST.md Case TV2 short-interval follow-up impression", () => {
     const ga = { weeks: 30, days: 0 };

@@ -419,3 +419,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Aqueductal-Stenosis Absent-CSP Negative-Control Increment
+
+- Implemented TEST.md §22 Case AS-P3 negative-control behavior for severe VM plus third-ventricle dilatation with absent CSP.
+- Added Vitest coverage that `severe-vm`, `absent-csp`, and `third-v-wide` fire while `hydrocephalus-pattern` stays suppressed.
+- Updated the hydrocephalus composite matcher so explicitly absent CSP rules out aqueductal-stenosis classification.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
