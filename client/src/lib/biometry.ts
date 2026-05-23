@@ -2103,8 +2103,8 @@ const CARDS: CardSpec[] = [
   },
   {
     id: "pons-large",
-    title: "Pons AP > +2 SD — pontine bulging",
-    oneLine: "Pons AP above 97.5th percentile — uncommon.",
+    title: "Pons AP >95th percentile — pontine bulging",
+    oneLine: "Pons AP above 95th percentile — uncommon.",
     severity: "watch",
     relatedParamIds: ["pons_ap"],
     summary:
@@ -2126,7 +2126,7 @@ const CARDS: CardSpec[] = [
     primary: S_DOVJAK,
     match: ({ zs, values }) => {
       const zr = zs.pons_ap;
-      if (zr == null || zr.z <= 2) return null;
+      if (zr == null || zr.z <= 1.6448536269514722) return null;
       return {
         prior: 0.2,
         triggerLabel: `Pons = ${fmt1(values.pons_ap)} mm (z ${formatZ(zr.z)})`,

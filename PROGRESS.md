@@ -683,3 +683,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Large-Pons 95th-Percentile Threshold Increment
+
+- Implemented TEST.md §18 large pons threshold behavior so `pons-large` fires above the 95th percentile rather than only above +2 SD.
+- Added Vitest coverage using a registry-derived pons AP value between +1.645 and +2 SD that fires `pons-large` without unrelated macrocephaly or thick-CC cards.
+- Updated the large-pons card title and one-line summary to describe the 95th-percentile threshold.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 60 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

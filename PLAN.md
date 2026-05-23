@@ -309,3 +309,9 @@
 - Add Vitest coverage for TEST.md §13 thick corpus callosum behavior using a registry-derived CC value between +1.645 and +2 SD.
 - Assert `cc-thick` fires at the 95th-percentile threshold without unrelated macrocephaly or large-pons cards.
 - Lower the thick-CC matcher and card wording from +2 SD to the TEST.md §13 +1.645 SD threshold.
+
+## Large-Pons 95th-Percentile Threshold Increment
+
+- Add Vitest coverage for TEST.md §18 large pons behavior using a registry-derived pons AP value between +1.645 and +2 SD.
+- Assert `pons-large` fires at the 95th-percentile threshold without unrelated macrocephaly or thick-CC cards.
+- Lower the large-pons matcher and card wording from +2 SD to the TEST.md §18 +1.645 SD threshold.

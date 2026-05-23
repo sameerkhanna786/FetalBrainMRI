@@ -916,6 +916,25 @@ describe("thick CC 95th-percentile threshold", () => {
   });
 });
 
+describe("large pons 95th-percentile threshold", () => {
+  it("fires TEST.md §18 large pons between +1.645 and +2 SD", () => {
+    const ga = { weeks: 30, days: 0 };
+    const gaWeeks = 30;
+    const values = {
+      pons_ap:
+        mu(byId("pons_ap"), gaWeeks) + 1.8 * sigma(byId("pons_ap"), gaWeeks),
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(zs.pons_ap?.z).toBeGreaterThan(1.6448536269514722);
+    expect(zs.pons_ap?.z).toBeLessThan(2);
+    expect(dxIds).toContain("pons-large");
+    expect(dxIds).not.toContain("macrocephaly");
+    expect(dxIds).not.toContain("cc-thick");
+  });
+});
+
 describe("macrocerebellum plus macrocephaly report impression", () => {
   it("uses the TEST.md Case LC2 overgrowth-syndrome impression", () => {
     const ga = { weeks: 30, days: 0 };
