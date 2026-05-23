@@ -123,9 +123,16 @@ export function generateReport(ctx: ReportContext): string {
   if (!anyAbnormal && Object.values(values).some(v => v != null)) {
     lines.push("No abnormal biometric findings.");
   } else if (anyAbnormal) {
-    lines.push(
-      "Biometric deviations were identified (see FINDINGS). The following differential considerations are suggested by the calculator's evidence-based trigger engine, ranked by likelihood:"
-    );
+    const deterministicImpression = dxs.find(dx => dx.impressionLine);
+    if (deterministicImpression?.impressionLine) {
+      lines.push(deterministicImpression.impressionLine);
+      lines.push("");
+      lines.push("Differential considerations ranked by likelihood:");
+    } else {
+      lines.push(
+        "Biometric deviations were identified (see FINDINGS). The following differential considerations are suggested by the calculator's evidence-based trigger engine, ranked by likelihood:"
+      );
+    }
     dxs.forEach((dx, i) => {
       lines.push(
         `  ${i + 1}. ${dx.title} — ${dx.severity.toUpperCase()} — ${dx.oneLine}`

@@ -104,6 +104,30 @@ describe("normal-control report impression", () => {
   });
 });
 
+describe("mild ventriculomegaly report impression", () => {
+  it("uses the TEST.md Case M1 isolated mild VM impression line", () => {
+    const ga = { weeks: 24, days: 0 };
+    const values = {
+      atrial_left: 11,
+      atrial_right: 11,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+
+    expect(dxs.map(dx => dx.id)).toContain("mild-vm");
+    expect(report).toContain(
+      "Isolated mild ventriculomegaly; consider postnatal MRI follow-up. Pooled neurodevelopmental delay rate ~7.9% (Pagani 2014)."
+    );
+  });
+});
+
 describe("Chiari II / open NTD discriminator", () => {
   it("matches the SPEC §6.5.2 TDPF and CSA worked example", () => {
     const ga = { weeks: 24, days: 0 };

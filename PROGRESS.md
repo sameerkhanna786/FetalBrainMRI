@@ -57,6 +57,20 @@ Verification:
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
 
+## 2026-05-23, Mild-VM Impression Increment
+
+- Implemented TEST.md §3 Case M1 expected impression wording for isolated mild ventriculomegaly.
+- Added `impressionLine` support to fired differential cards and a deterministic report path that prefers a card-specific impression line before generic abnormal-report prose.
+- Added the Pagani 2014 mild-VM impression line to the mild ventriculomegaly card.
+- Added Vitest coverage for bilateral 11 mm atria at 24w0d.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
 ## 2026-05-23, Gestational-Age Parsing Increment
 
 - Implemented TEST.md §1.3 gestational-age parsing for weeks+days and decimal-week input forms.

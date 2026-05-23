@@ -1284,6 +1284,7 @@ export type Differential = {
   oneLine: string; // one-sentence summary used in the rail
   severity: "info" | "watch" | "concern" | "urgent";
   triggerLabel: string; // human-readable trigger description, e.g. "Atrial L 16 mm"
+  impressionLine?: string;
   summary: string;
   rows: DxRow[];
   nextSteps: string;
@@ -1425,6 +1426,8 @@ const CARDS: CardSpec[] = [
     title: "Mild ventriculomegaly (atrial 10–12 mm)",
     oneLine: "Atrial diameter 10–12 mm — soft marker.",
     severity: "watch",
+    impressionLine:
+      "Isolated mild ventriculomegaly; consider postnatal MRI follow-up. Pooled neurodevelopmental delay rate ~7.9% (Pagani 2014).",
     summary:
       "Mild VM may be isolated (favourable prognosis) or a sign of underlying pathology.",
     rows: [
@@ -2670,6 +2673,7 @@ export function evaluateAll(
       title: c.title,
       oneLine: c.oneLine,
       severity: c.severity,
+      impressionLine: c.impressionLine,
       summary: c.summary,
       rows: c.rows,
       nextSteps: c.nextSteps,
