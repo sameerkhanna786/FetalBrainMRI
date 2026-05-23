@@ -984,3 +984,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes after formatting `client/src/lib/biometry.test.ts`.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, TEST 15 Cavum-Vergae Qualitative Label Increment
+
+- Implemented TEST.md §15 Case CSP-E3 qualitative cavum-vergae support with a low-severity `cavum-vergae-dd` advisory card.
+- Added Vitest coverage proving enlarged CSP remains on the quantitative `enlarged-csp` card without the toggle, then adds `cavum-vergae-dd` when `qualitative_cavum_vergae_panel` is entered.
+- Kept the card qualitative-only so it does not alter CSP enlargement or ventriculomegaly thresholds.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 82 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

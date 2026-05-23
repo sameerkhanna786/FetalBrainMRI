@@ -757,6 +757,34 @@ describe("isolated enlarged CSP report impression", () => {
   });
 });
 
+describe("enlarged CSP cavum-vergae qualitative label", () => {
+  it("adds the TEST.md Case CSP-E3 cavum-vergae label only when entered", () => {
+    const ga = { weeks: 28, days: 0 };
+    const baseValues = {
+      csp_width: 13,
+    };
+    const baseIds = evaluateAll(baseValues, ga).dxs.map(dx => dx.id);
+    const toggled = evaluateAll(
+      { ...baseValues, qualitative_cavum_vergae_panel: 1 },
+      ga
+    );
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values: { ...baseValues, qualitative_cavum_vergae_panel: 1 },
+      zs: toggled.zs,
+      dxs: toggled.dxs,
+    });
+
+    expect(baseIds).toEqual(["enlarged-csp"]);
+    expect(toggled.dxs.map(dx => dx.id)).toEqual(
+      expect.arrayContaining(["enlarged-csp", "cavum-vergae-dd"])
+    );
+    expect(report).toContain("Cavum vergae qualitative add-on");
+  });
+});
+
 describe("short corpus callosum report impression", () => {
   it("uses the TEST.md Case A4 partial corpus-callosum impression", () => {
     const ga = { weeks: 28, days: 0 };

@@ -2055,6 +2055,51 @@ const CARDS: CardSpec[] = [
         ? { prior: 0.45, triggerLabel: `CSP = ${fmt1(values.csp_width)} mm` }
         : null,
   },
+  {
+    id: "cavum-vergae-dd",
+    title: "Cavum vergae qualitative add-on",
+    oneLine:
+      "Entered posterior CSP extension - cavum vergae label for the enlarged-CSP context.",
+    severity: "info",
+    impressionLine:
+      "Cavum vergae qualitative add-on; label the posterior CSP extension while correlating for associated anomalies.",
+    impressionPriority: 6,
+    summary:
+      "Cavum vergae is a qualitative posterior extension of the CSP that can accompany an enlarged CSP and should be explicitly labelled when entered.",
+    rows: [
+      {
+        dx: "Cavum vergae",
+        likelihood: "Entered qualitative finding",
+        rationale:
+          "Bronshtein 1992 describes dilated cava septi pellucidi et vergae as a prenatal midline cystic finding.",
+      },
+      {
+        dx: "Isolated enlarged CSP variant",
+        likelihood: "Common context",
+        rationale:
+          "When no other anomalies are present, enlarged CSP / cavum vergae is often a benign variant.",
+      },
+      {
+        dx: "Other midline cystic structure",
+        likelihood: "Differential consideration",
+        rationale:
+          "Differentiate from cavum velum interpositum cyst and other posterosuperior midline cysts.",
+      },
+    ],
+    nextSteps:
+      "Document posterior extension, confirm corpus-callosum anatomy, and correlate for associated CNS or non-CNS anomalies.",
+    limitations:
+      "Qualitative add-on only; the calculator does not infer cavum vergae from CSP width alone.",
+    primary: {
+      label: "Bronshtein 1992",
+      full: "Bronshtein M, Weiner Z. Prenatal diagnosis of dilated cava septi pellucidi et vergae: associated anomalies, differential diagnosis, and pregnancy outcome. Obstet Gynecol. 1992;80(5):838-842.",
+      url: "https://pubmed.ncbi.nlm.nih.gov/1407899/",
+    },
+    match: ({ values }) =>
+      (values.qualitative_cavum_vergae_panel ?? 0) > 0
+        ? { prior: 0.2, triggerLabel: "entered cavum vergae" }
+        : null,
+  },
 
   /* ===== Corpus callosum ===== */
   {

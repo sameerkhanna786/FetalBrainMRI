@@ -448,3 +448,9 @@
 - Add Vitest coverage for TEST.md §11 Case A5 behavior: ACC with severe VM stays on quantitative cards without an interhemispheric-cyst toggle.
 - Assert `qualitative_interhemispheric_cyst_panel` adds a low-severity interhemispheric-cyst advisory card.
 - Keep the advisory qualitative-only so it does not change ACC, ventriculomegaly, or hydrocephalus matching.
+
+## TEST 15 Cavum-Vergae Qualitative Label Increment
+
+- Add Vitest coverage for TEST.md §15 Case CSP-E3 behavior: enlarged CSP fires its quantitative card without a cavum-vergae label.
+- Assert `qualitative_cavum_vergae_panel` adds a low-severity cavum-vergae advisory label when the radiologist enters the finding.
+- Keep the advisory qualitative-only so it does not change the CSP enlargement threshold or ventriculomegaly matching.
