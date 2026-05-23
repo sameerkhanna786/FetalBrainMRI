@@ -696,3 +696,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Macrocephaly 97th-Percentile Threshold Increment
+
+- Implemented TEST.md §20 macrocephaly threshold behavior so `macrocephaly` fires above the 97th percentile rather than only above +2 SD.
+- Added Vitest coverage using a registry-derived skull BPD value between the 97th percentile and +2 SD that fires `macrocephaly` without unrelated overgrowth cards.
+- Updated the macrocephaly card title and one-line summary to describe the 97th-percentile threshold.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 61 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

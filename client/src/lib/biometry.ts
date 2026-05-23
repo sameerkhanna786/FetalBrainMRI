@@ -2460,8 +2460,8 @@ const CARDS: CardSpec[] = [
   },
   {
     id: "macrocephaly",
-    title: "Macrocephaly (brain BPD or skull BPD z > +2)",
-    oneLine: "Brain or skull BPD above 97.5th percentile — large head.",
+    title: "Macrocephaly (brain BPD or skull BPD >97th percentile)",
+    oneLine: "Brain or skull BPD above 97th percentile — large head.",
     severity: "concern",
     relatedParamIds: ["brain_bpd", "skull_bpd"],
     summary:
@@ -2497,7 +2497,7 @@ const CARDS: CardSpec[] = [
       const a = zs.brain_bpd?.z,
         b = zs.skull_bpd?.z;
       const max = Math.max(a ?? -Infinity, b ?? -Infinity);
-      if (!Number.isFinite(max) || max <= 2) return null;
+      if (!Number.isFinite(max) || max <= 1.8807936081512509) return null;
       const which =
         (a ?? -Infinity) >= (b ?? -Infinity)
           ? `brain BPD ${fmt1(values.brain_bpd)} mm (z ${formatZ(a!)})`

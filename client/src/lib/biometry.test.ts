@@ -935,6 +935,25 @@ describe("large pons 95th-percentile threshold", () => {
   });
 });
 
+describe("macrocephaly 97th-percentile threshold", () => {
+  it("fires TEST.md §20 macrocephaly between the 97th percentile and +2 SD", () => {
+    const ga = { weeks: 30, days: 0 };
+    const gaWeeks = 30;
+    const skullBpd = byId("skull_bpd");
+    const values = {
+      skull_bpd: mu(skullBpd, gaWeeks) + 1.9 * sigma(skullBpd, gaWeeks),
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(zs.skull_bpd?.z).toBeGreaterThan(1.8807936081512509);
+    expect(zs.skull_bpd?.z).toBeLessThan(2);
+    expect(dxIds).toContain("macrocephaly");
+    expect(dxIds).not.toContain("tcd-large");
+    expect(dxIds).not.toContain("cc-thick");
+  });
+});
+
 describe("macrocerebellum plus macrocephaly report impression", () => {
   it("uses the TEST.md Case LC2 overgrowth-syndrome impression", () => {
     const ga = { weeks: 30, days: 0 };

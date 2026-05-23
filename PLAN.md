@@ -315,3 +315,9 @@
 - Add Vitest coverage for TEST.md §18 large pons behavior using a registry-derived pons AP value between +1.645 and +2 SD.
 - Assert `pons-large` fires at the 95th-percentile threshold without unrelated macrocephaly or thick-CC cards.
 - Lower the large-pons matcher and card wording from +2 SD to the TEST.md §18 +1.645 SD threshold.
+
+## Macrocephaly 97th-Percentile Threshold Increment
+
+- Add Vitest coverage for TEST.md §20 macrocephaly behavior using a registry-derived skull BPD value between the 97th percentile and +2 SD.
+- Assert `macrocephaly` fires at the 97th-percentile threshold while unrelated overgrowth cards remain absent.
+- Lower the macrocephaly matcher and card wording from +2 SD / 97.5th percentile to the TEST.md §20 97th-percentile threshold.
