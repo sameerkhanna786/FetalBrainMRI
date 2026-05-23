@@ -1558,6 +1558,9 @@ const CARDS: CardSpec[] = [
     title: "Moderate ventriculomegaly (atrial >12 to <15 mm)",
     oneLine: "Atrial diameter >12 and <15 mm — intermediate VM.",
     severity: "concern",
+    impressionLine:
+      "Moderate ventriculomegaly (12–14.9 mm); recommend follow-up imaging to detect progression toward severe ventriculomegaly and evaluate associated anomalies.",
+    impressionPriority: 12,
     summary:
       "Moderate VM carries an intermediate risk of associated anomalies and adverse neurodevelopment.",
     rows: [

@@ -183,6 +183,33 @@ describe("mild ventriculomegaly report impression", () => {
   });
 });
 
+describe("moderate ventriculomegaly report impression", () => {
+  it("uses the TEST.md Case M4 moderate VM follow-up impression line", () => {
+    const ga = { weeks: 26, days: 0 };
+    const values = {
+      atrial_left: 13.5,
+      atrial_right: 13.5,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toContain("mod-vm");
+    expect(dxIds).not.toContain("severe-vm");
+    expect(dxIds).not.toContain("asym-vent");
+    expect(report).toContain(
+      "Moderate ventriculomegaly (12–14.9 mm); recommend follow-up imaging to detect progression toward severe ventriculomegaly and evaluate associated anomalies."
+    );
+  });
+});
+
 describe("asymmetric mild ventriculomegaly report impression", () => {
   it("uses the TEST.md Case M3 asymmetric mild VM impression line", () => {
     const ga = { weeks: 28, days: 0 };

@@ -243,3 +243,9 @@
 - Assert the macrocephaly card fires and the structured report renders a percentile above 99.9 rather than collapsing to `>99th`.
 - Update percentile formatting to expose sub-0.1st and above-99.9th saturation buckets.
 - Keep the existing rounded ordinal formatting for ordinary 1st–99th percentile values.
+
+## Moderate ventriculomegaly report increment
+
+- Add Vitest coverage for TEST.md §3 Case M4: bilateral 13.5 mm atria should fire the moderate ventriculomegaly card without severe VM or ventricular asymmetry.
+- Assert the structured report names the 12–14.9 mm moderate VM sub-band and recommends follow-up imaging for progression.
+- Add deterministic moderate-VM impression wording with priority above isolated mild VM and below severe VM.

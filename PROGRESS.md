@@ -537,3 +537,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Moderate Ventriculomegaly Report Increment
+
+- Implemented TEST.md §3 Case M4 report behavior for bilateral moderate ventriculomegaly in the 12-14.9 mm sub-band.
+- Added Vitest coverage that 13.5 mm bilateral atria fire `mod-vm` without `severe-vm` or `asym-vent`.
+- Added deterministic moderate-VM impression wording recommending follow-up imaging for progression toward severe VM and associated-anomaly evaluation.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 48 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
