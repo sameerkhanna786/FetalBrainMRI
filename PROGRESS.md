@@ -57,6 +57,20 @@ Verification:
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
 
+## 2026-05-23, Gestational-Age Parsing Increment
+
+- Implemented TEST.md §1.3 gestational-age parsing for weeks+days and decimal-week input forms.
+- Added `parseGestationalAge`, accepting examples such as `24+3`, `24w 3d`, and `24.5w`, with invalid day values rejected.
+- Added a compact top-bar quick-entry field that applies parsed GA on Enter or blur while preserving the existing week/day dropdown controls.
+- Added Vitest coverage for accepted and rejected GA strings.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts client/src/pages/Home.tsx` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
 ## 2026-05-23, Methodology Audit Increment
 
 - Implemented SPEC §4.10.2 periodic cross-validation audit computation from the source registry.

@@ -42,3 +42,9 @@
 
 - Add report coverage for SPEC §7.5: when the Chiari II / ONTD card fires, the structured report must explicitly flag that discriminator as research-mode pending local calibration.
 - Add a deterministic report note tied to the fired card id.
+
+## Gestational-age parsing increment
+
+- Add Vitest coverage for TEST.md §1.3: GA input strings must accept weeks+days (`24+3`, `24w 3d`) and decimal weeks (`24.5 w`).
+- Implement a parser that normalizes valid inputs to `{weeks, days}` and rejects out-of-range days.
+- Add a compact top-bar GA text field that applies parsed GA on Enter or blur while preserving the existing week/day dropdown workflow.

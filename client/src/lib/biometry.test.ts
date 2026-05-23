@@ -4,6 +4,7 @@ import {
   PARAMETERS_ALL,
   computeCrossValidationAudits,
   evaluateAll,
+  parseGestationalAge,
   sourceRegistryFor,
   validateSourceRegistryExtension,
   zscore,
@@ -46,6 +47,18 @@ describe("multi-source consensus reconciliation", () => {
     expect(result!.disagreementWidth).toBeGreaterThanOrEqual(1);
     expect(result!.sourceDetails[0].z).toBeCloseTo(0.96, 2);
     expect(result!.sourceDetails[1].z).toBeCloseTo(-0.06, 2);
+  });
+});
+
+describe("gestational-age parsing", () => {
+  it("accepts weeks-plus-days and decimal-week input forms", () => {
+    expect(parseGestationalAge("24+3")).toEqual({ weeks: 24, days: 3 });
+    expect(parseGestationalAge("24w 3d")).toEqual({ weeks: 24, days: 3 });
+    expect(parseGestationalAge("24.5 w")).toEqual({ weeks: 24, days: 4 });
+  });
+
+  it("rejects invalid day values", () => {
+    expect(parseGestationalAge("24+7")).toBeNull();
   });
 });
 

@@ -26,6 +26,41 @@ export type GA = { weeks: number; days: number };
 
 export const gaToDecimalWeeks = (ga: GA) => ga.weeks + ga.days / 7;
 
+export function parseGestationalAge(input: string): GA | null {
+  const normalized = input.trim().toLowerCase();
+  if (normalized === "") return null;
+
+  const weeksDaysMatch = normalized.match(
+    /^(\d{1,2})\s*(?:w|weeks?)?\s*(?:\+|\s)\s*(\d)\s*(?:d|days?)?$/
+  );
+  if (weeksDaysMatch) {
+    const weeks = Number(weeksDaysMatch[1]);
+    const days = Number(weeksDaysMatch[2]);
+    if (!Number.isInteger(weeks) || !Number.isInteger(days) || days > 6) {
+      return null;
+    }
+    return { weeks, days };
+  }
+
+  const compactWeeksDaysMatch = normalized.match(/^(\d{1,2})w\s*(\d)d?$/);
+  if (compactWeeksDaysMatch) {
+    const weeks = Number(compactWeeksDaysMatch[1]);
+    const days = Number(compactWeeksDaysMatch[2]);
+    if (days > 6) return null;
+    return { weeks, days };
+  }
+
+  const decimalMatch = normalized.match(/^(\d{1,2}(?:\.\d+)?)\s*w?$/);
+  if (!decimalMatch) return null;
+
+  const decimalWeeks = Number(decimalMatch[1]);
+  if (!Number.isFinite(decimalWeeks)) return null;
+  const weeks = Math.floor(decimalWeeks);
+  const days = Math.round((decimalWeeks - weeks) * 7);
+  if (days > 6) return { weeks: weeks + 1, days: 0 };
+  return { weeks, days };
+}
+
 export type ParameterGroup =
   | "Global brain / skull"
   | "Ventricular system"

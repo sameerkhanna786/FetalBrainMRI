@@ -35,6 +35,7 @@ import {
   PARAMETERS_ALL,
   evaluateAll,
   gaToDecimalWeeks,
+  parseGestationalAge,
 } from "@/lib/biometry";
 import { generateReport } from "@/lib/report";
 import type { Differential } from "@/lib/biometry";
@@ -193,6 +194,7 @@ export default function Home() {
   const [fieldStrength, setFieldStrength] = useState("1.5T");
   const [motionSeverity, setMotionSeverity] = useState("None");
   const [focusedGroup, setFocusedGroup] = useState<string>("All");
+  const [gaText, setGaText] = useState("");
 
   const { zs, dxs } = useMemo(() => evaluateAll(values, ga), [values, ga]);
 
@@ -227,6 +229,18 @@ export default function Home() {
   const handleClear = () => {
     setValues(EMPTY_VALUES);
     toast("Cleared all measurements");
+  };
+
+  const applyGaText = () => {
+    const raw = gaText.trim();
+    if (raw === "") return;
+    const parsed = parseGestationalAge(raw);
+    if (!parsed || parsed.weeks < 18 || parsed.weeks > 40) {
+      toast.error("Enter GA as 24+3, 24w 3d, or 24.5w");
+      return;
+    }
+    setGa(parsed);
+    setGaText("");
   };
 
   const loadSample = (kind: "normal" | "abnormal") => {
@@ -342,6 +356,19 @@ export default function Home() {
             <div className="font-numeric text-xs text-[color:var(--ink-soft)]">
               = {gaToDecimalWeeks(ga).toFixed(1)} w
             </div>
+            <input
+              aria-label="Quick gestational age entry"
+              value={gaText}
+              onChange={e => setGaText(e.target.value)}
+              onBlur={applyGaText}
+              onKeyDown={e => {
+                if (e.key === "Enter") {
+                  e.currentTarget.blur();
+                }
+              }}
+              placeholder="24+3"
+              className="w-[68px] h-7 bg-white border border-[color:var(--rule)] rounded-sm px-2 font-numeric text-xs text-[color:var(--ink)] placeholder:text-[color:var(--ink-soft)]/50 outline-none focus:border-[color:var(--teal)]"
+            />
           </div>
 
           <div className="w-full sm:w-auto sm:ml-auto flex items-center gap-1.5 sm:gap-2 flex-wrap">
