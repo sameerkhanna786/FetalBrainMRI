@@ -32,3 +32,8 @@
 - Add Vitest coverage for SPEC §4.6: a DDx card triggered from a disagreeing source row must carry source-disagreement metadata.
 - Add related-parameter metadata to z-score-driven DDx cards so the engine can propagate `disagree` rows into the card output.
 - Render source-disagreement badges in expanded cards and rail items.
+
+## Third-ventricle manifest correction
+
+- Add Vitest coverage for SPEC §4.2.2 / §7.3.12 third-ventricle metadata: Birnbaum 2018 must be tagged cross-modality, approximation-tier, and valid over 18-37 weeks.
+- Correct the third-ventricle registry range so 18w is in range and 38w is extrapolated.

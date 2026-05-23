@@ -535,7 +535,7 @@ export const PARAM_THIRD_V: Parameter = {
   // Birnbaum 2018: μ(GA) ≈ 0.02·GA + 1.2 (~1.6 mm at 20w, ~2.0 mm at 40w);
   //                σ ≈ 0.6 mm across the validated range.
   model: { kind: "linear-mean-sd", mMu: 0.02, bMu: 1.2, sigma: 0.6 },
-  gaRange: [20, 38],
+  gaRange: [18, 37],
 };
 
 export const PARAMETERS_ALL: Parameter[] = [...PARAMETERS, PARAM_THIRD_V];

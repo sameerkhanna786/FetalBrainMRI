@@ -189,3 +189,25 @@ describe("DDx source-disagreement propagation", () => {
     ]);
   });
 });
+
+describe("third-ventricle source metadata", () => {
+  it("uses the SPEC cross-modality approximation metadata and 18-37w range", () => {
+    const at18 = zscore(byId("third_ventricle"), { weeks: 18, days: 0 }, 1.6);
+    const at38 = zscore(byId("third_ventricle"), { weeks: 38, days: 0 }, 2.0);
+
+    expect(at18?.sourceDetails[0]).toMatchObject({
+      sourceLabel: "Birnbaum 2018",
+      gaRange: [18, 37],
+      inRange: true,
+      crossModality: true,
+      verificationTier: "approximation",
+    });
+    expect(at18?.extrapolated).toBe(false);
+    expect(at38?.sourceDetails[0]).toMatchObject({
+      gaRange: [18, 37],
+      inRange: false,
+      extrapolated: true,
+    });
+    expect(at38?.extrapolated).toBe(true);
+  });
+});
