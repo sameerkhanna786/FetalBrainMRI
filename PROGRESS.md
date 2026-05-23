@@ -801,3 +801,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, HPE Plus DWM Report Increment
+
+- Implemented TEST.md §16/§27 simultaneous combined-pattern report behavior for HPE plus Dandy-Walker spectrum.
+- Added Vitest coverage using registry-derived microcephaly and vermian hypoplasia values; `hpe-pattern` and `dwm-pattern` both fire and the report impression names both.
+- Added an HPE+DWM report override parallel to the existing ACC+DWM combined-pattern wording.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 69 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

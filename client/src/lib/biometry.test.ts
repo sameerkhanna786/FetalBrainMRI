@@ -765,6 +765,48 @@ describe("HPE pattern report impression", () => {
   });
 });
 
+describe("combined HPE and Dandy-Walker report impression", () => {
+  it("enumerates both TEST.md §16/§27 combined-pattern diagnoses", () => {
+    const ga = { weeks: 26, days: 0 };
+    const gaWeeks = 26;
+    const values = {
+      skull_bpd:
+        mu(byId("skull_bpd"), gaWeeks) -
+        1.9 * sigma(byId("skull_bpd"), gaWeeks),
+      atrial_right: 18,
+      atrial_left: 18,
+      csp_width: 0,
+      cc_length: 0,
+      vermis_cc:
+        mu(byId("vermis_cc"), gaWeeks) -
+        1.9 * sigma(byId("vermis_cc"), gaWeeks),
+      vermis_ap:
+        mu(byId("vermis_ap"), gaWeeks) -
+        1.9 * sigma(byId("vermis_ap"), gaWeeks),
+      tva: 95,
+      tcd: mu(byId("tcd"), gaWeeks),
+      pons_ap: mu(byId("pons_ap"), gaWeeks),
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toEqual(
+      expect.arrayContaining(["hpe-pattern", "dwm-pattern"])
+    );
+    expect(report).toContain(
+      "Alobar holoprosencephaly. Counselling per Malinger 2013: poor prognosis; chromosomal microarray and exome sequencing indicated. Dandy-Walker spectrum with elevated tegmento-vermian angle is also present."
+    );
+  });
+});
+
 describe("CMV qualitative microcephaly report impression", () => {
   it("uses the TEST.md Case MC5 qualitative CMV impression", () => {
     const ga = { weeks: 32, days: 0 };

@@ -363,3 +363,9 @@
 - Add Vitest coverage for TEST.md §24 Case HA1 using right brain-OFD reduction with right-sided ventricular enlargement and marked ventricular asymmetry.
 - Assert `brain-asym`, `asym-vent`, and a VM card fire together and the report suggests unilateral encephaloclastic insult or porencephaly.
 - Add a report-level combined-pattern impression that outranks generic asymmetric ventriculomegaly wording when cerebral hemispheric asymmetry is present.
+
+## HPE Plus DWM Report Increment
+
+- Add Vitest coverage for a TEST.md §16/§27 simultaneous HPE and Dandy-Walker case using registry-derived microcephaly and vermian hypoplasia values.
+- Assert `hpe-pattern` and `dwm-pattern` both fire and the report impression mentions both combined patterns.
+- Add an HPE+DWM report override parallel to the existing ACC+DWM combined-pattern wording.
