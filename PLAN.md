@@ -131,3 +131,9 @@
 - Add Vitest coverage for TEST.md §7 Case D3: ACC and Dandy-Walker composite cards should fire simultaneously.
 - Add deterministic Dandy-Walker report wording for DWM-only cases.
 - Add report handling so ACC plus DWM enumerates both combined-pattern diagnoses instead of hiding DWM behind the ACC impression priority.
+
+## Mega-cisterna-magna qualitative report increment
+
+- Add Vitest coverage for TEST.md §8 Case BP3: when the qualitative MCM/Blake's pouch panel is toggled with otherwise normal quantitative measurements, no DDx cards should fire.
+- Add report handling for the qualitative panel so the IMPRESSION mentions isolated mega cisterna magna with persistent Blake's pouch as a likely benign normal variant.
+- Keep the qualitative panel separate from quantitative DDx card firing.

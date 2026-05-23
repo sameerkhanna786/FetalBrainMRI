@@ -301,3 +301,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Mega-Cisterna-Magna Qualitative Report Increment
+
+- Implemented TEST.md §8 Case BP3 qualitative report behavior for the MCM / Blake's pouch panel.
+- Added a report impression path for `qualitative_mcm_panel` that emits `Isolated mega cisterna magna with persistent Blake's pouch — likely benign normal variant.`
+- Kept the qualitative panel separate from DDx card firing; the BP3 fixture still emits no quantitative DDx cards.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

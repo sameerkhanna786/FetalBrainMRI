@@ -511,6 +511,34 @@ describe("combined ACC and Dandy-Walker report impression", () => {
   });
 });
 
+describe("mega cisterna magna qualitative report impression", () => {
+  it("uses the TEST.md Case BP3 qualitative Blake's pouch impression", () => {
+    const ga = { weeks: 28, days: 0 };
+    const values = {
+      vermis_cc: 16,
+      vermis_ap: 7.3,
+      tcd: 34.5,
+      pons_ap: 9.5,
+      tva: 30,
+      qualitative_mcm_panel: 1,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+
+    expect(dxs).toHaveLength(0);
+    expect(report).toContain(
+      "Isolated mega cisterna magna with persistent Blake's pouch — likely benign normal variant."
+    );
+  });
+});
+
 describe("Chiari II / open NTD discriminator", () => {
   it("matches the SPEC §6.5.2 TDPF and CSA worked example", () => {
     const ga = { weeks: 24, days: 0 };

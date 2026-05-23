@@ -120,7 +120,13 @@ export function generateReport(ctx: ReportContext): string {
     const z = zs[p.id];
     return z != null && Math.abs(z.z) > 2;
   });
-  if (!anyAbnormal && Object.values(values).some(v => v != null)) {
+  const qualitativeMcmImpression =
+    (values.qualitative_mcm_panel ?? 0) > 0
+      ? "Isolated mega cisterna magna with persistent Blake's pouch — likely benign normal variant."
+      : undefined;
+  if (qualitativeMcmImpression) {
+    lines.push(qualitativeMcmImpression);
+  } else if (!anyAbnormal && Object.values(values).some(v => v != null)) {
     lines.push("No abnormal biometric findings.");
   } else if (anyAbnormal) {
     const accImpression = dxs.find(
