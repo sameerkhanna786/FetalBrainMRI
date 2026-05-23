@@ -426,6 +426,42 @@ describe("aqueductal-stenosis pattern report impression", () => {
       "Severe triventricular hydrocephalus with preserved CSP and macrocephaly — pattern most consistent with congenital aqueductal stenosis."
     );
   });
+
+  it("fires the TEST.md Case AS-P2 early-evolving aqueductal-stenosis pattern", () => {
+    const ga = { weeks: 30, days: 0 };
+    const gaWeeks = 30;
+    const values = {
+      atrial_right: 14,
+      atrial_left: 14,
+      csp_width: 4.7,
+      cc_length: 36,
+      third_ventricle: 5.5,
+      skull_bpd: mu(byId("skull_bpd"), gaWeeks),
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toEqual(
+      expect.arrayContaining([
+        "mod-vm",
+        "third-v-wide",
+        "hydrocephalus-pattern",
+      ])
+    );
+    expect(dxIds).not.toContain("severe-vm");
+    expect(dxIds).not.toContain("macrocephaly");
+    expect(report).toContain(
+      "Early triventricular hydrocephalus pattern with preserved CSP; findings may represent evolving aqueductal stenosis."
+    );
+  });
 });
 
 describe("aqueductal-stenosis absent-CSP negative control", () => {

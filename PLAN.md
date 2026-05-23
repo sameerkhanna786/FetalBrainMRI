@@ -327,3 +327,9 @@
 - Add Vitest coverage for TEST.md §19 microcephaly behavior using a registry-derived skull BPD value between -2 SD and the 3rd percentile.
 - Assert `microcephaly` fires at the 3rd-percentile threshold while unrelated ventriculomegaly and posterior-fossa cards remain absent.
 - Raise the microcephaly matcher and card wording from -2 SD / 2.5th percentile to the TEST.md §19 3rd-percentile threshold.
+
+## Early Aqueductal-Stenosis Pattern Increment
+
+- Add Vitest coverage for TEST.md §22 Case AS-P2 using bilateral 14 mm atria, third ventricle 5.5 mm, preserved CSP, and normal skull size.
+- Assert `hydrocephalus-pattern` fires with moderate VM and `third-v-wide` even when `severe-vm` and `macrocephaly` are absent.
+- Add early-evolving triventricular-hydrocephalus impression wording for non-severe VM so the severe-hydrocephalus sentence remains reserved for severe cases.

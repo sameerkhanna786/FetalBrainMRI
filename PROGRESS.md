@@ -722,3 +722,17 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Early Aqueductal-Stenosis Pattern Increment
+
+- Implemented TEST.md §22 Case AS-P2 behavior for pronounced third-ventricle dilatation with moderate bilateral ventriculomegaly and preserved CSP.
+- Added Vitest coverage using bilateral 14 mm atria, third ventricle 5.5 mm, preserved CSP, and registry-normal skull BPD that fires `mod-vm`, `third-v-wide`, and `hydrocephalus-pattern` without `severe-vm` or `macrocephaly`.
+- Relaxed the hydrocephalus composite matcher from severe VM only to any ventriculomegaly-range atrium plus third-ventricle dilatation, while preserving absent-CSP suppression.
+- Added match-time early-evolving aqueductal-stenosis impression wording for non-severe cases so severe-triventricular wording remains reserved for severe VM.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 63 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

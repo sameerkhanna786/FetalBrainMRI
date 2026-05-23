@@ -2614,7 +2614,7 @@ const CARDS: CardSpec[] = [
   {
     id: "hydrocephalus-pattern",
     title: "Triventricular hydrocephalus pattern",
-    oneLine: "Severe VM + dilated 3rd V — aqueductal stenosis pattern.",
+    oneLine: "Ventriculomegaly + dilated 3rd V — aqueductal stenosis pattern.",
     severity: "urgent",
     impressionLine:
       "Severe triventricular hydrocephalus with preserved CSP and macrocephaly — pattern most consistent with congenital aqueductal stenosis.",
@@ -2654,11 +2654,16 @@ const CARDS: CardSpec[] = [
       const v3 = values.third_ventricle;
       const csp = values.csp_width;
       if (csp != null && csp < 1) return null;
-      if (!(Number.isFinite(max) && max >= 15 && v3 != null && v3 > 3.5))
+      if (!(Number.isFinite(max) && max >= 10 && v3 != null && v3 > 3.5))
         return null;
+      const earlyImpression =
+        max < 15
+          ? "Early triventricular hydrocephalus pattern with preserved CSP; findings may represent evolving aqueductal stenosis."
+          : undefined;
       return {
-        prior: 0.85,
+        prior: max >= 15 ? 0.85 : 0.7,
         triggerLabel: `Atrial ${fmt1(max)} + 3rd V ${fmt1(v3)}`,
+        impressionLine: earlyImpression,
       };
     },
   },
