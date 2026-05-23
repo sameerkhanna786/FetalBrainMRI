@@ -762,3 +762,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, BP6 TVA-60 Dandy-Walker Increment
+
+- Implemented TEST.md §8 Case BP6 behavior so small vermis plus TVA 60 degrees fires `dwm-pattern` even with preserved TCD and pons.
+- Added Vitest coverage confirming `vermis-small` and `dwm-pattern` fire while `tcd-small` and `pons-small` remain absent.
+- Preserved the lower-borderline TVA negative control: TVA values from 35 to below 60 degrees still require both small TCD and small pons support.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 66 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

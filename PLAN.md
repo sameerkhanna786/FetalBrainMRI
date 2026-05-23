@@ -345,3 +345,9 @@
 - Add Vitest coverage for TEST.md §17 wording that small pons combined with vermian reduction can trigger `pch-pattern` even when TCD is preserved.
 - Use registry-derived pons and vermis values below the fifth percentile with a normal TCD to isolate the vermis-support path.
 - Update the PCH composite matcher and trigger label to accept small pons plus either small TCD or the lowest entered small vermis axis.
+
+## BP6 TVA-60 Dandy-Walker Increment
+
+- Add Vitest coverage for TEST.md §8 Case BP6: small vermis plus TVA 60 degrees should fire `dwm-pattern` even with preserved TCD and pons.
+- Keep the existing lower-borderline TVA negative control intact so TVA values below 60 degrees still require additional posterior-fossa support.
+- Relax only the Dandy-Walker moderate-TVA support rule at 60 degrees and above.

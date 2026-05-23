@@ -2840,9 +2840,7 @@ const CARDS: CardSpec[] = [
           : Math.min(tcd.z, ...tcd.sourceDetails.map(detail => detail.z));
       const tcdSmall = lowestTcdZ < -1.6448536269514722;
       const ponsSmall = (zs.pons_ap?.z ?? Infinity) < -1.6448536269514722;
-      const hasPosteriorFossaSupport =
-        tva >= 90 ||
-        (tva >= 60 ? tcdSmall || ponsSmall : tcdSmall && ponsSmall);
+      const hasPosteriorFossaSupport = tva >= 60 || (tcdSmall && ponsSmall);
       if (!hasPosteriorFossaSupport) return null;
       return {
         prior: 0.75,

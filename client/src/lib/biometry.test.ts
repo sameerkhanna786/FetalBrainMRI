@@ -877,6 +877,31 @@ describe("vermian hypoplasia DWM boundary", () => {
   });
 });
 
+describe("BP6 TVA-60 Dandy-Walker boundary", () => {
+  it("fires TEST.md Case BP6 DWM with small vermis and TVA 60 despite preserved TCD and pons", () => {
+    const ga = { weeks: 28, days: 0 };
+    const gaWeeks = 28;
+    const values = {
+      vermis_cc:
+        mu(byId("vermis_cc"), gaWeeks) -
+        1.9 * sigma(byId("vermis_cc"), gaWeeks),
+      vermis_ap:
+        mu(byId("vermis_ap"), gaWeeks) -
+        1.9 * sigma(byId("vermis_ap"), gaWeeks),
+      tva: 60,
+      tcd: mu(byId("tcd"), gaWeeks),
+      pons_ap: mu(byId("pons_ap"), gaWeeks),
+    };
+    const { dxs } = evaluateAll(values, ga);
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toContain("vermis-small");
+    expect(dxIds).toContain("dwm-pattern");
+    expect(dxIds).not.toContain("tcd-small");
+    expect(dxIds).not.toContain("pons-small");
+  });
+});
+
 describe("combined cerebellar hypoplasia report impression", () => {
   it("flags the TEST.md Case V5 small TCD plus small vermis pattern", () => {
     const ga = { weeks: 32, days: 0 };
