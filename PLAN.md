@@ -417,3 +417,10 @@
 - Add Vitest coverage for TEST.md §8 Blake's pouch guidance: elevated TVA with normal vermis should stay negative without the qualitative advisory toggle.
 - Assert `qualitative_blakes_pouch_panel` fires a low-severity Blake's pouch differential card while preserving the existing no-DWM behavior.
 - Add deterministic report wording for the advisory card without turning TVA alone into a quantitative trigger.
+
+## TEST 27 STRESS5 DWM Fallback Increment
+
+- Add Vitest coverage for TEST.md §27 Case STRESS5, asserting the multi-card severe-malformation fixture includes `dwm-pattern` alongside HPE and PCH.
+- Keep the fallback narrower than generic PCH by requiring small vermis, small TCD, small pons, and third-ventricle dilation when TVA is unavailable.
+- Align the approximate direct extra-axial CSF curve so the TEST.md §27 STRESS5 5.5 mm value at 26 weeks fires `extra-axial-wide`.
+- Preserve existing TVA-based Dandy-Walker paths and the PCH-only fixtures without third-ventricle support.

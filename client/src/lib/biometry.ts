@@ -334,7 +334,7 @@ const EXTRA_AXIAL_CSF_MODEL: LuisQuadratic = {
   kind: "luis-quadratic",
   a: -0.01,
   b: 0.6,
-  c: -4.65,
+  c: -5,
   a5: 0,
   b5: 1,
 };
@@ -3038,14 +3038,23 @@ const CARDS: CardSpec[] = [
       const vermis = lowestEnteredVermisAxis(values, zs);
       const tva = values.tva;
       if (vermis == null || vermis.zr.z >= -1.6448536269514722) return null;
-      if (tva == null || tva < 35) return null;
       const tcdSmall = lowestTcdZ(zs) < -1.6448536269514722;
       const ponsSmall = (zs.pons_ap?.z ?? Infinity) < -1.6448536269514722;
-      const hasPosteriorFossaSupport = tva >= 60 || (tcdSmall && ponsSmall);
+      const thirdVentricularSupport =
+        tva == null &&
+        (values.third_ventricle ?? -Infinity) > 3.5 &&
+        tcdSmall &&
+        ponsSmall;
+      const hasPosteriorFossaSupport =
+        (tva != null && tva >= 60) ||
+        (tva != null && tva >= 35 && tcdSmall && ponsSmall) ||
+        thirdVentricularSupport;
       if (!hasPosteriorFossaSupport) return null;
       return {
         prior: 0.75,
-        triggerLabel: `${vermis.label} (z ${formatZ(vermis.zr.z)}) + TVA ${fmt1(tva)} degrees`,
+        triggerLabel: thirdVentricularSupport
+          ? `${vermis.label} (z ${formatZ(vermis.zr.z)}) + third ventricle ${fmt1(values.third_ventricle)} mm + small TCD/pons`
+          : `${vermis.label} (z ${formatZ(vermis.zr.z)}) + TVA ${fmt1(tva)} degrees`,
       };
     },
   },

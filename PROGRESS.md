@@ -918,3 +918,17 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, TEST 27 STRESS5 DWM Fallback Increment
+
+- Implemented TEST.md §27 Case STRESS5 multi-card behavior so the severe-malformation fixture fires `dwm-pattern` alongside HPE and PCH even when TVA is unavailable.
+- Added Vitest coverage for the 26w STRESS5 fixture, asserting at least 10 cards including severe VM, absent CSP, absent CC, small TCD, vermian hypoplasia, small pons, microcephaly, third-ventricle dilation, hemispheric asymmetry, extra-axial widening, HPE, PCH, and DWM.
+- Kept the new DWM fallback narrow: it requires small vermis, small TCD, small pons, and third-ventricle dilation when TVA is missing; TVA-measured cases still use the existing TVA thresholds.
+- Adjusted the approximate direct extra-axial CSF curve so the documented STRESS5 5.5 mm value at 26w crosses the 95th-percentile trigger while preserving existing negative controls.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 78 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

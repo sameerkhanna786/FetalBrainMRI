@@ -1518,6 +1518,51 @@ describe("all-z zero stress fixture", () => {
   });
 });
 
+describe("multi-card severe-malformation stress fixture", () => {
+  it("uses TEST.md Case STRESS5 to fire HPE, PCH, and DWM without TVA", () => {
+    const { dxs } = evaluateAll(
+      {
+        skull_bpd: 60,
+        skull_ofd: 80,
+        brain_bpd: 56,
+        brain_ofd_left: 78,
+        brain_ofd_right: 65,
+        atrial_right: 18,
+        atrial_left: 18,
+        csp_width: 0,
+        cc_length: 0,
+        tcd: 25,
+        vermis_cc: 9,
+        vermis_ap: 4,
+        pons_ap: 6.5,
+        third_ventricle: 4.5,
+        extra_axial_csf: 5.5,
+      },
+      { weeks: 26, days: 0 }
+    );
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds.length).toBeGreaterThanOrEqual(10);
+    expect(dxIds).toEqual(
+      expect.arrayContaining([
+        "severe-vm",
+        "absent-csp",
+        "cc-absent",
+        "tcd-small",
+        "vermis-small",
+        "pons-small",
+        "microcephaly",
+        "third-v-wide",
+        "brain-asym",
+        "extra-axial-wide",
+        "hpe-pattern",
+        "pch-pattern",
+        "dwm-pattern",
+      ])
+    );
+  });
+});
+
 describe("Dandy-Walker spectrum trigger", () => {
   it("fires the TEST.md Case D1 TVA-based DWM composite card", () => {
     const { dxs } = evaluateAll(
