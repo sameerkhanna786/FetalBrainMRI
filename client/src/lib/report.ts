@@ -164,6 +164,17 @@ export function generateReport(ctx: ReportContext): string {
       !qualitativeCmvImpression
         ? "Microcephaly with entered growth-restriction context favors symmetric IUGR-associated microcephaly over primary microcephaly."
         : undefined;
+    const extraAxialIugrImpression =
+      !qualitativeCmvImpression &&
+      !brainVolumeLossImpression &&
+      !growthRestrictionMicrocephalyImpression &&
+      dxs.some(dx => dx.id === "microcephaly") &&
+      dxs.some(dx => dx.id === "extra-axial-wide") &&
+      !dxs.some(dx => dx.id === "mild-vm") &&
+      !dxs.some(dx => dx.id === "severe-vm") &&
+      !dxs.some(dx => dx.id === "hpe-pattern")
+        ? "Microcephaly with widened extra-axial CSF suggests IUGR-associated extra-axial-space prominence; correlate with fetal growth parameters and placental insufficiency."
+        : undefined;
     const overgrowthMacrocerebellumImpression =
       dxs.some(dx => dx.id === "tcd-large") &&
       dxs.some(dx => dx.id === "macrocephaly") &&
@@ -216,6 +227,7 @@ export function generateReport(ctx: ReportContext): string {
       qualitativeCmvImpression ||
       brainVolumeLossImpression ||
       growthRestrictionMicrocephalyImpression ||
+      extraAxialIugrImpression ||
       overgrowthMacrocerebellumImpression ||
       overgrowthMacrocephalyCallosumImpression ||
       overgrowthThickCallosumImpression ||
@@ -230,6 +242,7 @@ export function generateReport(ctx: ReportContext): string {
           qualitativeCmvImpression ??
           brainVolumeLossImpression ??
           growthRestrictionMicrocephalyImpression ??
+          extraAxialIugrImpression ??
           overgrowthMacrocerebellumImpression ??
           overgrowthMacrocephalyCallosumImpression ??
           overgrowthThickCallosumImpression ??

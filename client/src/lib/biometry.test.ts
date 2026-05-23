@@ -820,6 +820,34 @@ describe("brain-volume-loss extra-axial report impression", () => {
   });
 });
 
+describe("IUGR extra-axial report impression", () => {
+  it("uses the TEST.md Case EA4 growth-restriction impression", () => {
+    const ga = { weeks: 28, days: 0 };
+    const values = {
+      skull_bpd: 65,
+      extra_axial_csf: 6,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toEqual(
+      expect.arrayContaining(["microcephaly", "extra-axial-wide"])
+    );
+    expect(dxIds).not.toContain("mild-vm");
+    expect(report).toContain(
+      "Microcephaly with widened extra-axial CSF suggests IUGR-associated extra-axial-space prominence; correlate with fetal growth parameters and placental insufficiency."
+    );
+  });
+});
+
 describe("Dandy-Walker spectrum trigger", () => {
   it("fires the TEST.md Case D1 TVA-based DWM composite card", () => {
     const { dxs } = evaluateAll(

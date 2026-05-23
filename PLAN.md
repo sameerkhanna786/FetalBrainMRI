@@ -229,3 +229,10 @@
 - Assert `microcephaly`, `mild-vm`, and `extra-axial-wide` fire together without requiring a manual qualitative CMV panel.
 - Add a report-level combined-pattern impression suggesting congenital CMV or another intrauterine destructive insult.
 - Keep the existing qualitative-CMV and growth-restriction context impressions available for their more specific manually entered contexts.
+
+## IUGR extra-axial report increment
+
+- Add Vitest coverage for TEST.md §25 Case EA4 using registry-consistent microcephaly plus widened extra-axial CSF values at 28w0d.
+- Assert `microcephaly` and `extra-axial-wide` fire without the mild-VM brain-volume-loss pattern.
+- Add a report-level impression that references IUGR-associated extra-axial-space prominence.
+- Preserve the manual growth-restriction context impression as the higher-specificity wording when that context is entered.

@@ -511,3 +511,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, IUGR Extra-Axial Report Increment
+
+- Implemented TEST.md §25 Case EA4 report behavior for microcephaly with widened extra-axial CSF and no ventriculomegaly.
+- Added Vitest coverage using registry-consistent values that fire `microcephaly` and `extra-axial-wide` while keeping `mild-vm` absent.
+- Added a report-level IUGR-associated extra-axial-space prominence impression, with manual qualitative-CMV, brain-volume-loss, and entered growth-restriction context paths remaining higher specificity.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 46 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
