@@ -337,6 +337,36 @@ describe("mixed-tier asymmetric ventriculomegaly triggers", () => {
   });
 });
 
+describe("vermian hypoplasia report impression", () => {
+  it("uses the TEST.md Case V3 Limperopoulos caveat", () => {
+    const ga = { weeks: 26, days: 0 };
+    const values = {
+      vermis_cc: 11.5,
+      vermis_ap: 5.3,
+      tcd: 30.5,
+      pons_ap: 8.4,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toContain("vermis-small");
+    expect(dxIds).not.toContain("tcd-small");
+    expect(dxIds).not.toContain("pons-small");
+    expect(report).toContain("Limperopoulos 2006");
+    expect(report).toContain(
+      "fetal MRI before 24 weeks can substantially over-call inferior vermian hypoplasia"
+    );
+  });
+});
+
 describe("Chiari II / open NTD discriminator", () => {
   it("matches the SPEC §6.5.2 TDPF and CSA worked example", () => {
     const ga = { weeks: 24, days: 0 };

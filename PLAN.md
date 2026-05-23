@@ -95,3 +95,9 @@
 - Add Vitest coverage for TEST.md §4 Case S4: right severe VM with left mild VM should fire severe VM, mild VM, and asymmetric ventricles together.
 - Change mild/moderate VM tier matching from max-only logic to side-aware logic so a contralateral lower-tier ventricle is not hidden by the more severe side.
 - Preserve existing severe, mild, and asymmetric report-impression priority behavior.
+
+## Vermian-hypoplasia caveat increment
+
+- Add Vitest coverage for TEST.md §6 Case V3: isolated inferior vermian hypoplasia at 26w0d should fire the vermis-small card without small-TCD or small-pons cards.
+- Assert the report impression references Limperopoulos 2006's warning that early fetal MRI can over-call inferior vermian hypoplasia.
+- Add a deterministic impression line to the vermis-small card below higher-priority combined-pattern impressions.

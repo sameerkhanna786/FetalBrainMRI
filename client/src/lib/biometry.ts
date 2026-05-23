@@ -1997,6 +1997,9 @@ const CARDS: CardSpec[] = [
     oneLine: "Vermis below 5th percentile — posterior fossa anomaly likely.",
     severity: "concern",
     relatedParamIds: ["vermis_cc"],
+    impressionLine:
+      "Findings suggest inferior vermian hypoplasia; Limperopoulos 2006 cautions that fetal MRI before 24 weeks can substantially over-call inferior vermian hypoplasia, so correlate with gestational age and follow-up imaging.",
+    impressionPriority: 15,
     summary:
       "Small vermis raises concern for Dandy-Walker malformation, vermian hypoplasia, Joubert syndrome, or Blake's pouch remnant.",
     rows: [
