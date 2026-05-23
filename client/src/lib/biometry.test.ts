@@ -700,6 +700,38 @@ describe("HPE pattern report impression", () => {
     );
     expect(dxIds).not.toContain("acc-pattern");
   });
+
+  it("requires qualitative TEST.md Case HPE3 findings for mild-range HPE pattern", () => {
+    const ga = { weeks: 30, days: 0 };
+    const gaWeeks = 30;
+    const baseValues = {
+      skull_bpd:
+        mu(byId("skull_bpd"), gaWeeks) -
+        1.9 * sigma(byId("skull_bpd"), gaWeeks),
+      atrial_right: 12,
+      atrial_left: 12,
+      csp_width: 0,
+      cc_length: mu(byId("cc_length"), gaWeeks),
+    };
+    const withoutQualitative = evaluateAll(baseValues, ga).dxs.map(dx => dx.id);
+    const withQualitative = evaluateAll(
+      { ...baseValues, qualitative_hpe_panel: 1 },
+      ga
+    ).dxs.map(dx => dx.id);
+
+    expect(withoutQualitative).toEqual(
+      expect.arrayContaining(["mild-vm", "absent-csp", "microcephaly"])
+    );
+    expect(withoutQualitative).not.toContain("hpe-pattern");
+    expect(withQualitative).toEqual(
+      expect.arrayContaining([
+        "mild-vm",
+        "absent-csp",
+        "microcephaly",
+        "hpe-pattern",
+      ])
+    );
+  });
 });
 
 describe("CMV qualitative microcephaly report impression", () => {

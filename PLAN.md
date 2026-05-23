@@ -351,3 +351,9 @@
 - Add Vitest coverage for TEST.md §8 Case BP6: small vermis plus TVA 60 degrees should fire `dwm-pattern` even with preserved TCD and pons.
 - Keep the existing lower-borderline TVA negative control intact so TVA values below 60 degrees still require additional posterior-fossa support.
 - Relax only the Dandy-Walker moderate-TVA support rule at 60 degrees and above.
+
+## HPE Qualitative-Toggle Increment
+
+- Add Vitest coverage for TEST.md §16 Case HPE3 behavior: mild-range VM plus absent CSP and microcephaly should not fire `hpe-pattern` unless qualitative HPE findings are entered.
+- Introduce a `qualitative_hpe_panel` matcher path, mirroring the existing qualitative CMV/MCM test values.
+- Keep the existing severe-VM quantitative HPE path and 3rd-percentile microcephaly threshold intact.

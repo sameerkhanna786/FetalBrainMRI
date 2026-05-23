@@ -775,3 +775,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, HPE Qualitative-Toggle Increment
+
+- Implemented TEST.md §16 Case HPE3 behavior so `qualitative_hpe_panel` can support `hpe-pattern` when absent CSP and 3rd-percentile microcephaly are present despite only mild-range VM.
+- Added Vitest coverage showing mild VM plus absent CSP and microcephaly remains non-HPE without the qualitative HPE entry, then fires `hpe-pattern` when the entry is present.
+- Preserved the severe-VM quantitative HPE path and the shared 3rd-percentile microcephaly cutoff.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 67 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

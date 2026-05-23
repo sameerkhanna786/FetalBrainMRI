@@ -2670,13 +2670,13 @@ const CARDS: CardSpec[] = [
   {
     id: "hpe-pattern",
     title: "Holoprosencephaly pattern",
-    oneLine: "Absent CSP + severe VM — HPE strongly considered.",
+    oneLine: "Absent CSP + severe VM or qualitative HPE findings.",
     severity: "urgent",
     impressionLine:
       "Alobar holoprosencephaly. Counselling per Malinger 2013: poor prognosis; chromosomal microarray and exome sequencing indicated.",
     impressionPriority: 100,
     summary:
-      "The combination of absent CSP and severe ventriculomegaly is highly suggestive of holoprosencephaly (alobar / semilobar variants).",
+      "The combination of absent CSP, microcephaly, and either severe ventriculomegaly or entered monoventricle/fused-thalami findings is highly suggestive of holoprosencephaly.",
     rows: [
       {
         dx: "Alobar / semilobar HPE",
@@ -2705,6 +2705,7 @@ const CARDS: CardSpec[] = [
     },
     match: ({ values, zs }) => {
       const csp = values.csp_width;
+      const qualitativeHpe = (values.qualitative_hpe_panel ?? 0) > 0;
       const max = Math.max(
         values.atrial_left ?? -Infinity,
         values.atrial_right ?? -Infinity
@@ -2717,18 +2718,20 @@ const CARDS: CardSpec[] = [
         !(
           csp != null &&
           csp < 1 &&
-          Number.isFinite(max) &&
-          max >= 15 &&
+          ((Number.isFinite(max) && max >= 15) || qualitativeHpe) &&
           Number.isFinite(microZ) &&
           microZ < -1.8807936081512509
         )
       )
         return null;
+      const ventricularLabel = qualitativeHpe
+        ? `qualitative HPE findings${
+            Number.isFinite(max) ? ` + atrial ${fmt1(max)}` : ""
+          }`
+        : `atrial ${fmt1(max)}`;
       return {
         prior: 0.85,
-        triggerLabel: `CSP ${fmt1(csp)} + atrial ${fmt1(
-          max
-        )} + microcephaly z ${formatZ(microZ)}`,
+        triggerLabel: `CSP ${fmt1(csp)} + ${ventricularLabel} + microcephaly z ${formatZ(microZ)}`,
       };
     },
   },
