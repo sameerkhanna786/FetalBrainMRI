@@ -288,6 +288,45 @@ describe("pure ventricular asymmetry report classification", () => {
   });
 });
 
+describe("hemispheric asymmetry z-delta boundary", () => {
+  it("does not fire TEST.md §24 hemispheric asymmetry below the >2 SD threshold", () => {
+    const ga = { weeks: 30, days: 0 };
+    const gaWeeks = 30;
+    const left = byId("brain_ofd_left");
+    const right = byId("brain_ofd_right");
+    const values = {
+      brain_ofd_left: mu(left, gaWeeks) + 0.8 * sigma(left, gaWeeks),
+      brain_ofd_right: mu(right, gaWeeks) - 0.8 * sigma(right, gaWeeks),
+    };
+    const rawPct =
+      Math.abs(values.brain_ofd_left - values.brain_ofd_right) /
+      ((values.brain_ofd_left + values.brain_ofd_right) / 2);
+    const { zs, dxs } = evaluateAll(values, ga);
+    const deltaZ = Math.abs(zs.brain_ofd_left!.z - zs.brain_ofd_right!.z);
+
+    expect(rawPct).toBeGreaterThan(0.05);
+    expect(deltaZ).toBeGreaterThan(1.5);
+    expect(deltaZ).toBeLessThan(2);
+    expect(dxs.map(dx => dx.id)).not.toContain("brain-asym");
+  });
+
+  it("fires TEST.md §24 hemispheric asymmetry above the >2 SD threshold", () => {
+    const ga = { weeks: 30, days: 0 };
+    const gaWeeks = 30;
+    const left = byId("brain_ofd_left");
+    const right = byId("brain_ofd_right");
+    const values = {
+      brain_ofd_left: mu(left, gaWeeks) + 1.1 * sigma(left, gaWeeks),
+      brain_ofd_right: mu(right, gaWeeks) - 1.1 * sigma(right, gaWeeks),
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const deltaZ = Math.abs(zs.brain_ofd_left!.z - zs.brain_ofd_right!.z);
+
+    expect(deltaZ).toBeGreaterThan(2);
+    expect(dxs.map(dx => dx.id)).toContain("brain-asym");
+  });
+});
+
 describe("unilateral severe VM asymmetry report impression", () => {
   it("uses the TEST.md Case AS6 unilateral destructive-insult wording", () => {
     const ga = { weeks: 32, days: 0 };

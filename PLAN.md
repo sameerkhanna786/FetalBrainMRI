@@ -291,3 +291,9 @@
 - Add Vitest coverage for TEST.md §7 Case D5 using small vermis, TVA 80 degrees, small TCD, and registry-normal pons.
 - Assert `dwm-pattern` fires with `vermis-small` and `tcd-small` while `pons-small` remains absent.
 - Relax the moderate-TVA DWM support rule so TVA in the 60-89 degree range can be supported by either small TCD or small pons, while lower borderline TVA still requires both.
+
+## Hemispheric-Asymmetry Z-Delta Increment
+
+- Add Vitest coverage for TEST.md §24 boundary behavior using brain-OFD left/right values separated by 1.6 SD.
+- Assert `brain-asym` does not fire below the specified >2 SD discordance threshold even when the raw percent difference exceeds 5%.
+- Update the hemispheric-asymmetry card title, summary trigger, and matcher to use left/right consensus z-score delta.

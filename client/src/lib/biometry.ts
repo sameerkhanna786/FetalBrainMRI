@@ -2561,9 +2561,9 @@ const CARDS: CardSpec[] = [
   },
   {
     id: "brain-asym",
-    title: "Cerebral hemispheric asymmetry (brain OFD L vs R > 5%)",
+    title: "Cerebral hemispheric asymmetry (brain OFD L vs R Δz > 2)",
     oneLine:
-      "Hemispheric OFD difference > 5% — possible unilateral malformation.",
+      "Hemispheric OFD z-score difference > 2 — possible unilateral malformation.",
     severity: "concern",
     summary:
       "Significant L-R asymmetry of cerebral OFD raises concern for hemimegalencephaly, unilateral cortical malformation, or porencephaly.",
@@ -2594,17 +2594,18 @@ const CARDS: CardSpec[] = [
     limitations:
       "Plane obliquity can falsely create asymmetry; re-measure with care.",
     primary: S_TILEA,
-    match: ({ values }) => {
+    match: ({ values, zs }) => {
       const l = values.brain_ofd_left,
         r = values.brain_ofd_right;
       if (l == null || r == null) return null;
-      const mean = (l + r) / 2;
-      if (mean === 0) return null;
-      const pct = Math.abs(l - r) / mean;
-      if (pct <= 0.05) return null;
+      const zl = zs.brain_ofd_left?.z,
+        zr = zs.brain_ofd_right?.z;
+      if (zl == null || zr == null) return null;
+      const deltaZ = Math.abs(zl - zr);
+      if (deltaZ <= 2) return null;
       return {
         prior: 0.55,
-        triggerLabel: `|ΔOFD|/mean = ${(pct * 100).toFixed(1)}%`,
+        triggerLabel: `Brain OFD Δz = ${deltaZ.toFixed(2)}`,
       };
     },
   },

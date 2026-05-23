@@ -643,3 +643,17 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Hemispheric-Asymmetry Z-Delta Increment
+
+- Implemented TEST.md §24 boundary behavior for hemispheric asymmetry using brain-OFD left/right consensus z-score delta rather than raw percent difference.
+- Added Vitest coverage showing a 1.6 SD left/right brain-OFD gap does not fire `brain-asym` even when the raw percent gap exceeds 5%.
+- Added positive Vitest coverage showing a >2 SD left/right brain-OFD gap still fires `brain-asym`.
+- Updated the hemispheric-asymmetry card title, one-line summary, and trigger label to describe the z-delta threshold.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 57 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
