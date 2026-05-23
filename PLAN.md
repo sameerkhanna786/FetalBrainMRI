@@ -77,3 +77,9 @@
 - Add Vitest coverage for TEST.md §4 Case S1: severe bilateral VM with third-ventricle dilatation and macrocephaly at 26w0d should fire the triventricular hydrocephalus pattern.
 - Assert the combined-pattern report impression exactly matches the Heaphy-Henault aqueductal-stenosis wording.
 - Add a high-priority deterministic impression to the hydrocephalus composite card so it overrides the generic severe-VM impression.
+
+## ACC severe-VM impression increment
+
+- Add Vitest coverage for TEST.md §4 Case S2: severe bilateral VM with absent CSP and absent CC at 24w0d should fire the ACC composite and not the HPE or aqueductal-stenosis composites.
+- Add the Santo 2012 ACC counselling impression to the ACC composite with priority above standalone severe VM.
+- Tighten the HPE composite trigger so absent CSP plus severe VM alone does not misclassify the ACC fixture as HPE.

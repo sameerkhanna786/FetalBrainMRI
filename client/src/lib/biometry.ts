@@ -2424,17 +2424,32 @@ const CARDS: CardSpec[] = [
       full: "Malinger G, et al. Ultrasound Obstet Gynecol. 2005;25(1):42–49.",
       url: "https://obgyn.onlinelibrary.wiley.com/doi/full/10.1002/uog.1787",
     },
-    match: ({ values }) => {
+    match: ({ values, zs }) => {
       const csp = values.csp_width;
       const max = Math.max(
         values.atrial_left ?? -Infinity,
         values.atrial_right ?? -Infinity
       );
-      if (!(csp != null && csp < 1 && Number.isFinite(max) && max >= 15))
+      const microZ = Math.min(
+        zs.brain_bpd?.z ?? Infinity,
+        zs.skull_bpd?.z ?? Infinity
+      );
+      if (
+        !(
+          csp != null &&
+          csp < 1 &&
+          Number.isFinite(max) &&
+          max >= 15 &&
+          Number.isFinite(microZ) &&
+          microZ < -2
+        )
+      )
         return null;
       return {
         prior: 0.85,
-        triggerLabel: `CSP ${fmt1(csp)} + atrial ${fmt1(max)}`,
+        triggerLabel: `CSP ${fmt1(csp)} + atrial ${fmt1(
+          max
+        )} + microcephaly z ${formatZ(microZ)}`,
       };
     },
   },
@@ -2444,6 +2459,9 @@ const CARDS: CardSpec[] = [
     oneLine: "Absent CSP + short / absent CC — ACC strongly considered.",
     severity: "urgent",
     relatedParamIds: ["cc_length"],
+    impressionLine:
+      "Complete agenesis of the corpus callosum with associated colpocephaly. Counselling per Santo 2012: 65–75% normal neurodevelopment when isolated; 30% monogenic aetiology.",
+    impressionPriority: 90,
     summary:
       "Absent CSP combined with a short or absent corpus callosum is the classic ACC pattern; colpocephaly may also be evident.",
     rows: [

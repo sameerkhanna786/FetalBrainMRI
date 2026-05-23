@@ -229,6 +229,49 @@ describe("aqueductal-stenosis pattern report impression", () => {
   });
 });
 
+describe("ACC pattern report impression", () => {
+  it("uses the TEST.md Case S2 complete ACC impression line", () => {
+    const ga = { weeks: 24, days: 0 };
+    const values = {
+      skull_bpd: 60.6,
+      skull_ofd: 84.5,
+      brain_bpd: 58.4,
+      brain_ofd_left: 79.5,
+      brain_ofd_right: 79.6,
+      atrial_right: 16,
+      atrial_left: 16,
+      csp_width: 0,
+      cc_length: 0,
+      third_ventricle: 1.5,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toEqual(
+      expect.arrayContaining([
+        "severe-vm",
+        "absent-csp",
+        "cc-absent",
+        "acc-pattern",
+      ])
+    );
+    expect(dxIds).not.toContain("mild-vm");
+    expect(dxIds).not.toContain("hydrocephalus-pattern");
+    expect(dxIds).not.toContain("hpe-pattern");
+    expect(report).toContain(
+      "Complete agenesis of the corpus callosum with associated colpocephaly. Counselling per Santo 2012: 65–75% normal neurodevelopment when isolated; 30% monogenic aetiology."
+    );
+  });
+});
+
 describe("Chiari II / open NTD discriminator", () => {
   it("matches the SPEC §6.5.2 TDPF and CSA worked example", () => {
     const ga = { weeks: 24, days: 0 };
