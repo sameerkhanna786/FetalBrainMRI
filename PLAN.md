@@ -279,3 +279,9 @@
 - Add Vitest coverage for the TEST.md §6 small-vermis rule using a normal vermis CC value and an AP-only low vermis measurement.
 - Assert `vermis-small` fires without unrelated posterior-fossa cards when the AP axis is below the fifth percentile.
 - Update the small-vermis matcher and linked parameter metadata so either entered vermis axis can support the card.
+
+## Vermian-AP DWM trigger increment
+
+- Add Vitest coverage for TEST.md §7 Dandy-Walker spectrum behavior with normal vermis CC, AP-only vermis hypoplasia, and markedly elevated TVA.
+- Assert `dwm-pattern` fires alongside `vermis-small` without requiring small TCD or pons when TVA is markedly elevated.
+- Update the Dandy-Walker matcher to use the same lowest entered vermis-axis logic as the small-vermis card.

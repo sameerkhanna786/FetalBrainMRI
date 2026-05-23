@@ -1492,6 +1492,36 @@ const fmt1 = (x: number | null | undefined) =>
 
 const z = (zs: Record<string, ZResult | null>, id: string) => zs[id]?.z ?? null;
 
+type VermisAxisCandidate = { label: string; value: number; zr: ZResult };
+
+const lowestEnteredVermisAxis = (
+  values: EngineInput["values"],
+  zs: EngineInput["zs"]
+): VermisAxisCandidate | undefined => {
+  const candidates = [
+    {
+      label: "Vermis CC",
+      value: values.vermis_cc,
+      zr: zs.vermis_cc,
+    },
+    {
+      label: "Vermis AP",
+      value: values.vermis_ap,
+      zr: zs.vermis_ap,
+    },
+  ].filter(
+    (candidate): candidate is VermisAxisCandidate =>
+      candidate.zr != null && candidate.value != null
+  );
+  return candidates.reduce<VermisAxisCandidate | undefined>(
+    (currentSmallest, candidate) =>
+      currentSmallest == null || candidate.zr.z < currentSmallest.zr.z
+        ? candidate
+        : currentSmallest,
+    undefined
+  );
+};
+
 /* ---------- Card specs ---------- */
 
 const CARDS: CardSpec[] = [
@@ -2228,32 +2258,7 @@ const CARDS: CardSpec[] = [
     primary: S_VATANSEVER,
     secondary: S_DOVJAK,
     match: ({ zs, values }) => {
-      const candidates = [
-        {
-          label: "Vermis CC",
-          value: values.vermis_cc,
-          zr: zs.vermis_cc,
-        },
-        {
-          label: "Vermis AP",
-          value: values.vermis_ap,
-          zr: zs.vermis_ap,
-        },
-      ].filter(
-        (
-          candidate
-        ): candidate is { label: string; value: number; zr: ZResult } =>
-          candidate.zr != null && candidate.value != null
-      );
-      const smallest = candidates.reduce<
-        { label: string; value: number; zr: ZResult } | undefined
-      >(
-        (currentSmallest, candidate) =>
-          currentSmallest == null || candidate.zr.z < currentSmallest.zr.z
-            ? candidate
-            : currentSmallest,
-        undefined
-      );
+      const smallest = lowestEnteredVermisAxis(values, zs);
       if (smallest == null || smallest.zr.z >= -1.6448536269514722) return null;
       return {
         prior: 0.65,
@@ -2790,7 +2795,7 @@ const CARDS: CardSpec[] = [
     title: "Dandy-Walker malformation pattern",
     oneLine: "Small vermis + elevated TVA — DWM pattern.",
     severity: "urgent",
-    relatedParamIds: ["vermis_cc"],
+    relatedParamIds: ["vermis_cc", "vermis_ap"],
     impressionLine:
       "Dandy-Walker spectrum with elevated tegmento-vermian angle; recommend posterior-fossa-focused MRI review and genetic counselling.",
     impressionPriority: 85,
@@ -2818,9 +2823,9 @@ const CARDS: CardSpec[] = [
     limitations: "Vermian rotation can mimic hypoplasia.",
     primary: S_VATANSEVER,
     match: ({ zs, values }) => {
-      const zr = zs.vermis_cc;
+      const vermis = lowestEnteredVermisAxis(values, zs);
       const tva = values.tva;
-      if (zr == null || zr.z >= -1.6448536269514722) return null;
+      if (vermis == null || vermis.zr.z >= -1.6448536269514722) return null;
       if (tva == null || tva < 35) return null;
       const tcd = zs.tcd;
       const lowestTcdZ =
@@ -2832,7 +2837,7 @@ const CARDS: CardSpec[] = [
       if (tva < 90 && !(tcdSmall && ponsSmall)) return null;
       return {
         prior: 0.75,
-        triggerLabel: `Vermis (z ${formatZ(zr.z)}) + TVA ${fmt1(tva)} degrees`,
+        triggerLabel: `${vermis.label} (z ${formatZ(vermis.zr.z)}) + TVA ${fmt1(tva)} degrees`,
       };
     },
   },

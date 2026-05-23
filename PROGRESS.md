@@ -616,3 +616,17 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Vermian-AP DWM Trigger Increment
+
+- Implemented TEST.md §7 Dandy-Walker spectrum behavior for AP-only vermian hypoplasia with markedly elevated TVA.
+- Added Vitest coverage using registry-normal vermis CC, TCD, and pons values with low vermis AP and TVA 95 degrees; `vermis-small` and `dwm-pattern` fire without `tcd-small` or `pons-small`.
+- Refactored the vermis-axis selection into a shared helper so both `vermis-small` and `dwm-pattern` use the lowest entered vermis-axis z-score and expose the triggering axis in the label.
+- Updated the Dandy-Walker card metadata to link both vermis CC and vermis AP.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 54 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

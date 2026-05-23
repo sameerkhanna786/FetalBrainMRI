@@ -732,6 +732,30 @@ describe("vermian AP hypoplasia trigger", () => {
   });
 });
 
+describe("vermian AP Dandy-Walker trigger", () => {
+  it("uses AP-only vermis hypoplasia for TEST.md §7 DWM when TVA is markedly elevated", () => {
+    const ga = { weeks: 28, days: 0 };
+    const gaWeeks = 28;
+    const values = {
+      vermis_cc: mu(byId("vermis_cc"), gaWeeks),
+      vermis_ap:
+        mu(byId("vermis_ap"), gaWeeks) - 2 * sigma(byId("vermis_ap"), gaWeeks),
+      tva: 95,
+      tcd: mu(byId("tcd"), gaWeeks),
+      pons_ap: mu(byId("pons_ap"), gaWeeks),
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(zs.vermis_cc?.z).toBeGreaterThan(-1.6448536269514722);
+    expect(zs.vermis_ap?.z).toBeLessThan(-1.6448536269514722);
+    expect(dxIds).toContain("vermis-small");
+    expect(dxIds).toContain("dwm-pattern");
+    expect(dxIds).not.toContain("tcd-small");
+    expect(dxIds).not.toContain("pons-small");
+  });
+});
+
 describe("vermian hypoplasia DWM boundary", () => {
   it("does not fire DWM for TEST.md Case V2-type borderline TVA without small TCD or pons", () => {
     const ga = { weeks: 24, days: 5 };
