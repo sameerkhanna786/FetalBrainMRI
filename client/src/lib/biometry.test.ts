@@ -367,6 +367,37 @@ describe("vermian hypoplasia report impression", () => {
   });
 });
 
+describe("combined cerebellar hypoplasia report impression", () => {
+  it("flags the TEST.md Case V5 small TCD plus small vermis pattern", () => {
+    const ga = { weeks: 32, days: 0 };
+    const values = {
+      vermis_cc: 11,
+      vermis_ap: 5,
+      tcd: 36,
+      pons_ap: 10,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toEqual(
+      expect.arrayContaining(["vermis-small", "tcd-small"])
+    );
+    expect(dxIds).not.toContain("pons-small");
+    expect(dxIds).not.toContain("dwm-pattern");
+    expect(report).toContain(
+      "Combined small TCD and small vermis pattern raises concern for cerebellar agenesis or pontocerebellar hypoplasia."
+    );
+  });
+});
+
 describe("Chiari II / open NTD discriminator", () => {
   it("matches the SPEC §6.5.2 TDPF and CSA worked example", () => {
     const ga = { weeks: 24, days: 0 };

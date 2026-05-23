@@ -123,6 +123,12 @@ export function generateReport(ctx: ReportContext): string {
   if (!anyAbnormal && Object.values(values).some(v => v != null)) {
     lines.push("No abnormal biometric findings.");
   } else if (anyAbnormal) {
+    const combinedCerebellarHypoplasiaImpression =
+      dxs.some(dx => dx.id === "vermis-small") &&
+      dxs.some(dx => dx.id === "tcd-small") &&
+      !dxs.some(dx => dx.id === "dwm-pattern")
+        ? "Combined small TCD and small vermis pattern raises concern for cerebellar agenesis or pontocerebellar hypoplasia."
+        : undefined;
     const deterministicImpression = dxs.reduce<Differential | undefined>(
       (best, dx) => {
         if (!dx.impressionLine) return best;
@@ -133,8 +139,14 @@ export function generateReport(ctx: ReportContext): string {
       },
       undefined
     );
-    if (deterministicImpression?.impressionLine) {
-      lines.push(deterministicImpression.impressionLine);
+    if (
+      combinedCerebellarHypoplasiaImpression ||
+      deterministicImpression?.impressionLine
+    ) {
+      lines.push(
+        combinedCerebellarHypoplasiaImpression ??
+          deterministicImpression!.impressionLine!
+      );
       lines.push("");
       lines.push("Differential considerations ranked by likelihood:");
     } else {

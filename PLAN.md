@@ -101,3 +101,9 @@
 - Add Vitest coverage for TEST.md §6 Case V3: isolated inferior vermian hypoplasia at 26w0d should fire the vermis-small card without small-TCD or small-pons cards.
 - Assert the report impression references Limperopoulos 2006's warning that early fetal MRI can over-call inferior vermian hypoplasia.
 - Add a deterministic impression line to the vermis-small card below higher-priority combined-pattern impressions.
+
+## Combined cerebellar hypoplasia report increment
+
+- Add Vitest coverage for TEST.md §6 Case V5's combined-pattern requirement: severe vermian hypoplasia with a registry-threshold small TCD should fire both `vermis-small` and `tcd-small`.
+- Assert the report flags the combined small-TCD plus small-vermis concern for cerebellar agenesis or pontocerebellar hypoplasia.
+- Add a report-level combined-pattern impression override without introducing a formal new DDx card.
