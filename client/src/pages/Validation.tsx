@@ -117,7 +117,7 @@ const WORKED: Worked[] = [
 ];
 
 const ALL_PARAMS = [...PARAMETERS, PARAM_THIRD_V];
-const findParam = (id: string) => ALL_PARAMS.find((p) => p.id === id)!;
+const findParam = (id: string) => ALL_PARAMS.find(p => p.id === id)!;
 
 const fmtMm = (v: number) => v.toFixed(2);
 
@@ -153,16 +153,19 @@ export default function Validation() {
         </h1>
         <p className="text-[15px] text-[color:var(--ink-soft)] mt-4 max-w-[58ch]">
           Every measurement entered into the worksheet is converted to a z-score
-          and centile using the published normative model from{" "}
+          and centile using its source-registry model. Most standard brain
+          measurements use{" "}
           <a
             href="https://link.springer.com/article/10.1007/s00247-025-06403-2"
             className="cite"
           >
             Luis 2025 (auto-proc-SVRTK)
           </a>
-          . This page documents the exact coefficients used, shows the resulting
-          growth references at standard ages, and prints a battery of worked
-          examples so anyone can reproduce the calculation by hand.
+          , while posterior-fossa, third-ventricle, Chiari-marker, and
+          extra-axial CSF rows use their own cited sources. This page documents
+          the exact coefficients used, shows the resulting growth references at
+          standard ages, and prints a battery of worked examples so anyone can
+          reproduce the calculation by hand.
         </p>
 
         {/* §1 model */}
@@ -173,7 +176,7 @@ export default function Validation() {
             For every parameter and every gestational age (decimal weeks):
           </p>
           <pre className="mt-4 px-5 py-4 text-[13.5px] font-numeric whitespace-pre-wrap bg-white border border-[color:var(--rule)] rounded-sm">
-{`mean(GA) = a · GA² + b · GA + c        (quadratic mean curve)
+            {`mean(GA) = a · GA² + b · GA + c        (quadratic mean curve)
 SD(GA)   = a5 · GA + b5                (linear, heteroscedastic SD)
 z        = (value_mm − mean) / SD
 percentile = Φ(z) × 100                (standard normal CDF)`}
@@ -190,35 +193,52 @@ percentile = Φ(z) × 100                (standard normal CDF)`}
             ). The cohort comprises 406 normative datasets across 19–40 weeks
             GA. We treat 20–40 w as the validated range; results outside this
             window are flagged as <em>extrapolated</em>. The third-ventricle
-            width uses Birnbaum 2018 instead, since Luis does not include it.
+            width, TDPF/CSA, posterior-fossa consensus rows, and extra-axial CSF
+            rows use their own source records where Luis does not provide the
+            active model.
           </p>
         </section>
 
         {/* §2 coefficients */}
         <section className="mt-14">
           <div className="smallcaps text-[color:var(--ink-soft)]">§ 2</div>
-          <h2 className="font-display text-[28px] mt-1">Models &amp; sources in use</h2>
+          <h2 className="font-display text-[28px] mt-1">
+            Models &amp; sources in use
+          </h2>
           <p className="text-[14px] text-[color:var(--ink-soft)] mt-3 max-w-[58ch]">
             Each parameter records the published model used to compute its
-            z-score and the secondary independent reference shown alongside
-            for cross-validation. Three model families are supported:
-            quadratic-mean / linear-SD (Luis 2025), per-percentile linear
-            equations (Dovjak 2021, with σ derived as <span className="font-numeric">(p<sub>95</sub>−p<sub>5</sub>) / (2·1.645)</span>),
-            and linear-mean / constant-SD (Birnbaum 2018).
+            z-score and the secondary independent reference shown alongside for
+            cross-validation. Three model families are supported: quadratic-mean
+            / linear-SD (Luis 2025), per-percentile linear equations (Dovjak
+            2021, with σ derived as{" "}
+            <span className="font-numeric">
+              (p<sub>95</sub>−p<sub>5</sub>) / (2·1.645)
+            </span>
+            ), and linear-mean / constant-SD (Birnbaum 2018). The extra-axial
+            CSF row is explicitly marked as a Kyriakopoulou 2017 approximation
+            until the exact fetal-centiles coefficients are encoded.
           </p>
           <div className="overflow-x-auto mt-4 border border-[color:var(--rule)] rounded-sm bg-white">
             <table className="w-full text-[13px] font-numeric">
               <thead className="bg-[color:var(--paper)]">
                 <tr className="text-left">
-                  {["Parameter", "Primary model", "Equation form", "Cross-check"].map((h) => (
-                    <th key={h} className="px-3 py-2 smallcaps text-[color:var(--ink-soft)] font-normal border-b border-[color:var(--rule)]">
+                  {[
+                    "Parameter",
+                    "Primary model",
+                    "Equation form",
+                    "Cross-check",
+                  ].map(h => (
+                    <th
+                      key={h}
+                      className="px-3 py-2 smallcaps text-[color:var(--ink-soft)] font-normal border-b border-[color:var(--rule)]"
+                    >
                       {h}
                     </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {ALL_PARAMS.map((p) => {
+                {ALL_PARAMS.map(p => {
                   const m = p.model;
                   let form = "";
                   if (m.kind === "luis-quadratic") {
@@ -229,7 +249,10 @@ percentile = Φ(z) × 100                (standard normal CDF)`}
                     form = `μ = ${m.mMu.toFixed(2)}·GA ${m.bMu >= 0 ? "+" : "−"} ${Math.abs(m.bMu).toFixed(2)}; σ = ${m.sigma.toFixed(2)} mm`;
                   }
                   return (
-                    <tr key={p.id} className="border-b border-[color:var(--rule)]/60 last:border-0 align-top">
+                    <tr
+                      key={p.id}
+                      className="border-b border-[color:var(--rule)]/60 last:border-0 align-top"
+                    >
                       <td className="px-3 py-2 font-sans">{p.short}</td>
                       <td className="px-3 py-2 font-sans text-[12px]">
                         {p.primary.label}
@@ -257,8 +280,8 @@ percentile = Φ(z) × 100                (standard normal CDF)`}
             gestational ages, computed live by the engine.
           </p>
 
-          {GROUP_ORDER.map((group) => {
-            const inGroup = ALL_PARAMS.filter((p) => p.group === group);
+          {GROUP_ORDER.map(group => {
+            const inGroup = ALL_PARAMS.filter(p => p.group === group);
             if (inGroup.length === 0) return null;
             return (
               <div key={group} className="mt-8">
@@ -270,7 +293,7 @@ percentile = Φ(z) × 100                (standard normal CDF)`}
                         <th className="px-3 py-2 smallcaps text-[color:var(--ink-soft)] font-normal border-b border-[color:var(--rule)]">
                           Parameter
                         </th>
-                        {GA_GRID.map((g) => (
+                        {GA_GRID.map(g => (
                           <th
                             key={g}
                             colSpan={2}
@@ -282,7 +305,7 @@ percentile = Φ(z) × 100                (standard normal CDF)`}
                       </tr>
                       <tr className="text-left text-[10.5px]">
                         <th className="px-3 py-1 border-b border-[color:var(--rule)]" />
-                        {GA_GRID.map((g) => (
+                        {GA_GRID.map(g => (
                           <>
                             <th
                               key={`${g}-mu`}
@@ -301,13 +324,13 @@ percentile = Φ(z) × 100                (standard normal CDF)`}
                       </tr>
                     </thead>
                     <tbody>
-                      {inGroup.map((p) => (
+                      {inGroup.map(p => (
                         <tr
                           key={p.id}
                           className="border-b border-[color:var(--rule)]/60 last:border-0"
                         >
                           <td className="px-3 py-2 font-sans">{p.short}</td>
-                          {GA_GRID.map((g) => {
+                          {GA_GRID.map(g => {
                             const m = mu(p, g);
                             const s = sigma(p, g);
                             const lo = m - 1.645 * s;
@@ -346,9 +369,9 @@ percentile = Φ(z) × 100                (standard normal CDF)`}
           <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
             Each row was constructed by reading a known reference value from a
             primary publication and then asking the engine what z-score it
-            produces. Because the calculator uses the Luis 2025 model, we
-            expect normal-mean values to land near z = 0, and below-5th /
-            above-95th values to land at |z| ≥ 1.645.
+            produces. Because the calculator uses parameter-specific registry
+            models, normal-mean values should land near z = 0, and below-5th /
+            above-95th values should land at |z| ≥ 1.645.
           </p>
           <div className="overflow-x-auto mt-4 border border-[color:var(--rule)] rounded-sm bg-white">
             <table className="w-full text-[13px] font-numeric">
@@ -364,7 +387,7 @@ percentile = Φ(z) × 100                (standard normal CDF)`}
                     "Centile",
                     "Expected behaviour",
                     "Source",
-                  ].map((h) => (
+                  ].map(h => (
                     <th
                       key={h}
                       className="px-3 py-2 smallcaps text-[color:var(--ink-soft)] font-normal border-b border-[color:var(--rule)] whitespace-nowrap"
@@ -399,10 +422,7 @@ percentile = Φ(z) × 100                (standard normal CDF)`}
                       <td className="px-3 py-2">{w.value.toFixed(2)}</td>
                       <td className="px-3 py-2">{r.mu.toFixed(2)}</td>
                       <td className="px-3 py-2">{r.sigma.toFixed(2)}</td>
-                      <td
-                        className="px-3 py-2"
-                        style={{ color: tone }}
-                      >
+                      <td className="px-3 py-2" style={{ color: tone }}>
                         {formatZ(r.z)}
                       </td>
                       <td className="px-3 py-2">{formatPct(r.percentile)}</td>
@@ -435,7 +455,7 @@ percentile = Φ(z) × 100                (standard normal CDF)`}
             <table className="w-full text-[13px] font-numeric">
               <thead className="bg-[color:var(--paper)]">
                 <tr className="text-left">
-                  {["Trigger", "Condition", "Type"].map((h) => (
+                  {["Trigger", "Condition", "Type"].map(h => (
                     <th
                       key={h}
                       className="px-3 py-2 smallcaps text-[color:var(--ink-soft)] font-normal border-b border-[color:var(--rule)]"
@@ -447,20 +467,44 @@ percentile = Φ(z) × 100                (standard normal CDF)`}
               </thead>
               <tbody className="font-sans">
                 {[
-                  ["Severe ventriculomegaly", "max(atrial L, atrial R) ≥ 15 mm", "fixed mm"],
-                  ["Mild–moderate VM", "max(atrial L, atrial R) ≥ 10 mm", "fixed mm"],
-                  ["Asymmetric ventricles", "|atrial L − atrial R| > 2 mm", "fixed mm"],
+                  [
+                    "Severe ventriculomegaly",
+                    "max(atrial L, atrial R) ≥ 15 mm",
+                    "fixed mm",
+                  ],
+                  [
+                    "Mild–moderate VM",
+                    "max(atrial L, atrial R) ≥ 10 mm",
+                    "fixed mm",
+                  ],
+                  [
+                    "Asymmetric ventricles",
+                    "|atrial L − atrial R| > 2 mm",
+                    "fixed mm",
+                  ],
                   ["Absent / narrow CSP", "CSP width < 1 mm", "fixed mm"],
                   ["Enlarged CSP", "CSP width > 10 mm", "fixed mm"],
                   ["Short CC", "CC length z < −1.645 (5th centile)", "z-score"],
                   ["Small pons", "Pons AP z < −1.645", "z-score"],
                   ["Small TCD", "TCD z < −1.645", "z-score"],
                   ["Wide third ventricle", "3rd-V width > 3.5 mm", "fixed mm"],
+                  [
+                    "Widened extra-axial CSF",
+                    "Extra-axial CSF z > +1.645",
+                    "z-score",
+                  ],
                 ].map(([t, c, k]) => (
-                  <tr key={t} className="border-b border-[color:var(--rule)]/60 last:border-0">
+                  <tr
+                    key={t}
+                    className="border-b border-[color:var(--rule)]/60 last:border-0"
+                  >
                     <td className="px-3 py-2">{t}</td>
-                    <td className="px-3 py-2 font-numeric text-[12.5px]">{c}</td>
-                    <td className="px-3 py-2 text-[color:var(--ink-soft)]">{k}</td>
+                    <td className="px-3 py-2 font-numeric text-[12.5px]">
+                      {c}
+                    </td>
+                    <td className="px-3 py-2 text-[color:var(--ink-soft)]">
+                      {k}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -486,14 +530,16 @@ percentile = Φ(z) × 100                (standard normal CDF)`}
               differ slightly because of partial-volume effects.
             </li>
             <li>
-              <strong>Population specificity.</strong> The cohort is largely
-              UK / European fetuses; ethnic and population variation is not
+              <strong>Population specificity.</strong> The cohort is largely UK
+              / European fetuses; ethnic and population variation is not
               modelled. The cross-validation column in §2 lists the
-              parameter-specific primary references that can serve as a
-              second opinion when local growth differs.
+              parameter-specific primary references that can serve as a second
+              opinion when local growth differs.
             </li>
             <li>
-              <strong>Atrial diameter is laterality-symmetric in the model.</strong>{" "}
+              <strong>
+                Atrial diameter is laterality-symmetric in the model.
+              </strong>{" "}
               Luis 2025 uses the same coefficients for left and right atrial
               diameters; the asymmetry trigger compares the raw millimetre
               values, not the z-scores.
@@ -501,15 +547,15 @@ percentile = Φ(z) × 100                (standard normal CDF)`}
             <li>
               <strong>Differential engine is rules-based.</strong> Triggers
               encode published thresholds and named differentials but do not
-              attempt to compute Bayesian posterior probabilities from the
-              full constellation of measurements.
+              attempt to compute Bayesian posterior probabilities from the full
+              constellation of measurements.
             </li>
           </ul>
         </section>
 
         <div className="mt-16 border-t border-[color:var(--rule)] pt-6 text-[12px] text-[color:var(--ink-soft)]">
-          Coefficients last cross-checked against the published source on
-          27 Apr 2026.
+          Coefficients last cross-checked against the published source on 27 Apr
+          2026.
         </div>
       </main>
     </div>

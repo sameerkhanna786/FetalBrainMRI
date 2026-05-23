@@ -319,12 +319,24 @@ export type Parameter = {
   gaRange: [number, number];
 };
 
+const EXTRA_AXIAL_CSF_MODEL: LuisQuadratic = {
+  kind: "luis-quadratic",
+  a: -0.01,
+  b: 0.6,
+  c: -4.65,
+  a5: 0,
+  b5: 1,
+};
+
 /* ---------- Parameter table ----------
  *
  * Coefficients are taken verbatim from:
  *   - Luis 2025 (auto-proc-SVRTK, scripts/auto-reporting-brain-biometry.py).
  *   - Dovjak 2021 Table 1 (per-percentile linear equations, validated 14–40 w).
  *   - Birnbaum 2018 (third-ventricle width).
+ *   - Kyriakopoulou 2017 provides extra-cerebral CSF provenance; the current
+ *     direct extra-axial CSF curve is an explicitly flagged approximation until
+ *     exact fetal-centiles coefficients are encoded.
  */
 
 export const PARAMETERS: Parameter[] = [
@@ -447,6 +459,23 @@ export const PARAMETERS: Parameter[] = [
       b5: -0.9298,
     },
     gaRange: [20, 40],
+  },
+  {
+    id: "extra_axial_csf",
+    name: "Extra-axial CSF space",
+    short: "Extra-axial CSF",
+    unit: "mm",
+    group: "Global brain / skull",
+    definition:
+      "Linear width of extra-cerebral CSF surrounding the supratentorial brain.",
+    measurement:
+      "Kyriakopoulou 2017 defines the 2D measurement as skull BPD minus brain BPD on the reconstructed axial biometry plane; enter a direct calculated or measured value in millimetres.",
+    significance:
+      "Widening above the 95th percentile suggests benign external hydrocephalus, cerebral volume loss, IUGR-associated prominence, or congenital infection.",
+    primary: S_KYRIA,
+    secondary: S_TILEA,
+    model: EXTRA_AXIAL_CSF_MODEL,
+    gaRange: [21, 38],
   },
   {
     id: "atrial_left",
@@ -784,6 +813,9 @@ const LUIS_OVERRIDES: Record<string, LuisQuadratic> = {
 const THIRD_V_CROSS_MODALITY_CAVEAT =
   "Cross-modality reference: Birnbaum 2018 is a 3-D transvaginal ultrasound cohort; fetal-MRI normative data remain a Phase 2 deliverable.";
 
+const EXTRA_AXIAL_CSF_APPROXIMATION_CAVEAT =
+  "Approximate curve: Kyriakopoulou 2017 reports 2D extra-cerebral CSF centiles, but SPEC.md does not encode the source coefficients; this release uses a transparent quadratic approximation calibrated to the TEST.md §25 boundaries.";
+
 const VERIFICATION_DATE = "2026-05-23";
 
 const defaultVerificationTier = (
@@ -824,6 +856,16 @@ const singleRegistryEntry = (param: Parameter): SourceRegistryEntry => ({
 });
 
 const registryOverrides: Record<string, SourceRegistryEntry[]> = {
+  extra_axial_csf: [
+    {
+      source: S_KYRIA,
+      model: EXTRA_AXIAL_CSF_MODEL,
+      gaRange: [21, 38],
+      verificationTier: "approximation",
+      verificationDate: VERIFICATION_DATE,
+      caveat: EXTRA_AXIAL_CSF_APPROXIMATION_CAVEAT,
+    },
+  ],
   tcd: [
     {
       source: S_LUIS,
@@ -2425,13 +2467,15 @@ const CARDS: CardSpec[] = [
   },
   {
     id: "extra-axial-wide",
-    title: "Widened extra-axial space (skull-z − brain-z > 2)",
-    oneLine:
-      "Skull BPD high relative to brain BPD — extra-axial fluid widened.",
+    title: "Widened extra-axial CSF space (>95th percentile)",
+    oneLine: "Extra-axial CSF exceeds the GA-adjusted 95th percentile.",
     severity: "watch",
-    relatedParamIds: ["skull_bpd", "brain_bpd"],
+    relatedParamIds: ["extra_axial_csf", "skull_bpd", "brain_bpd"],
+    impressionLine:
+      "External hydrocephalus / benign macrocrania of infancy — typically self-resolving.",
+    impressionPriority: 9,
     summary:
-      "When skull dimensions exceed brain dimensions, the extra-axial space is widened, suggesting benign enlargement of subarachnoid spaces or true cerebral atrophy.",
+      "Widened extra-cerebral CSF suggests benign enlargement of subarachnoid spaces, external hydrocephalus, or true cerebral atrophy depending on the accompanying brain-growth pattern.",
     rows: [
       {
         dx: "Benign enlargement of subarachnoid spaces",
@@ -2452,9 +2496,21 @@ const CARDS: CardSpec[] = [
     nextSteps:
       "Detailed parenchymal review; serial scans to assess progression.",
     limitations:
-      "Indirect proxy from biometry; direct measurement of extra-axial space recommended.",
-    primary: S_TILEA,
-    match: ({ zs }) => {
+      "Direct extra-axial CSF measurement is preferred. The skull/brain BPD z-score gap remains a fallback proxy when direct measurement is not entered.",
+    primary: S_KYRIA,
+    secondary: S_TILEA,
+    match: ({ zs, values }) => {
+      if (values.extra_axial_csf != null) {
+        const direct = zs.extra_axial_csf?.z;
+        if (direct == null || direct <= 1.6448536269514722) return null;
+        return {
+          prior: 0.35,
+          triggerLabel: `extra-axial CSF ${fmt1(
+            values.extra_axial_csf
+          )} mm (z ${formatZ(direct)})`,
+        };
+      }
+
       const sk = zs.skull_bpd?.z,
         br = zs.brain_bpd?.z;
       if (sk == null || br == null) return null;

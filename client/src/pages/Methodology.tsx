@@ -137,9 +137,11 @@ export default function Methodology() {
             Where the reference curves come from
           </h2>
           <p>
-            Every μ(GA) and σ(GA) curve in the calculator is taken verbatim from
-            a peer-reviewed paper, with no spline smoothing or simplified
-            re-fitting. Three model forms are used:
+            Every μ(GA) and σ(GA) curve in the calculator is tied to a
+            peer-reviewed source record. Most coefficients are transcribed
+            directly from source tables or scripts; source rows marked
+            approximation disclose their caveat in the row-level source detail.
+            Three model forms are used:
           </p>
           <ul className="list-disc pl-6 space-y-2">
             <li>
@@ -164,6 +166,12 @@ export default function Methodology() {
               <strong>Woitek 2014</strong> drives the TDPF and
               clivus-supraocciput angle models used by the Chiari II / open
               neural tube defect discriminator.
+            </li>
+            <li>
+              <strong>Kyriakopoulou 2017</strong> provides the extra-cerebral
+              CSF source provenance; the current extra-axial CSF row is flagged
+              as an approximation until exact centile coefficients are encoded
+              from the fetal-centiles source data.
             </li>
           </ul>
           <p>

@@ -766,6 +766,30 @@ describe("macrocephaly plus thick corpus callosum report impression", () => {
   });
 });
 
+describe("direct extra-axial CSF report impression", () => {
+  it("uses the TEST.md Case EA1 benign external hydrocephalus impression", () => {
+    const ga = { weeks: 32, days: 0 };
+    const values = {
+      extra_axial_csf: 7,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toContain("extra-axial-wide");
+    expect(report).toContain(
+      "External hydrocephalus / benign macrocrania of infancy — typically self-resolving."
+    );
+  });
+});
+
 describe("Dandy-Walker spectrum trigger", () => {
   it("fires the TEST.md Case D1 TVA-based DWM composite card", () => {
     const { dxs } = evaluateAll(

@@ -484,3 +484,17 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Direct Extra-Axial CSF Report Increment
+
+- Implemented TEST.md §25 Case EA1 behavior for direct extra-axial CSF measurement at 32w0d.
+- Added an `extra_axial_csf` worksheet parameter with Kyriakopoulou 2017 provenance and an explicitly flagged approximate quadratic reference curve calibrated to the TEST.md §25 boundaries until exact fetal-centiles coefficients are encoded.
+- Updated the widened extra-axial-space DDx card to prefer direct `extra_axial_csf` z-scores above the 95th percentile while preserving the prior skull/brain BPD z-gap proxy as a fallback.
+- Added deterministic report wording for the external hydrocephalus / benign macrocrania pattern and updated methodology/validation copy to disclose the approximation.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 44 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts client/src/pages/Methodology.tsx client/src/pages/Validation.tsx` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

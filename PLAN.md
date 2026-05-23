@@ -215,3 +215,10 @@
 - Add Vitest coverage for TEST.md §19 Case MC6's growth-restriction-context report requirement using registry-consistent microcephaly measurements.
 - Assert `microcephaly` fires while a manual growth-restriction context value drives the IUGR-associated impression.
 - Add report-level growth-restriction context handling without introducing a quantitative IUGR DDx card.
+
+## Direct extra-axial CSF report increment
+
+- Add Vitest coverage for TEST.md §25 Case EA1: direct extra-axial CSF measurement at 32w0d should fire the widened extra-axial-space card.
+- Add an `extra_axial_csf` worksheet parameter with Kyriakopoulou 2017 provenance and an explicitly approximate GA-adjusted reference curve.
+- Update the existing widened extra-axial-space card to prefer the direct measurement and keep the skull/brain BPD proxy as a fallback.
+- Add deterministic external-hydrocephalus / benign macrocrania report wording for the isolated direct-measurement pattern.
