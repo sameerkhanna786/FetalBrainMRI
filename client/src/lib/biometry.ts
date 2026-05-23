@@ -1330,6 +1330,9 @@ const CARDS: CardSpec[] = [
     title: "Severe ventriculomegaly (atrial ≥ 15 mm)",
     oneLine: "Atrial diameter ≥ 15 mm — significant brain pathology likely.",
     severity: "urgent",
+    impressionLine:
+      "Apparently isolated severe ventriculomegaly. Postnatal MRI is recommended to confirm the absence of associated anomalies. Per Carta 2018: ~80% survival, ~40% normal neurodevelopment among survivors.",
+    impressionPriority: 20,
     summary:
       "Severe VM is a marker of significant underlying brain pathology with a high risk of neurodevelopmental impairment, though survival is relatively high in isolated cases.",
     rows: [

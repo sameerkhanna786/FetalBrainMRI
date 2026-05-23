@@ -154,6 +154,38 @@ describe("asymmetric mild ventriculomegaly report impression", () => {
   });
 });
 
+describe("isolated severe ventriculomegaly report impression", () => {
+  it("uses the TEST.md Case S3 isolated severe VM impression line", () => {
+    const ga = { weeks: 28, days: 0 };
+    const values = {
+      atrial_right: 17.5,
+      atrial_left: 17.5,
+      csp_width: 4.4,
+      cc_length: 32.5,
+      third_ventricle: 2,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toContain("severe-vm");
+    expect(dxIds).not.toContain("mild-vm");
+    expect(dxIds).not.toContain("hydrocephalus-pattern");
+    expect(dxIds).not.toContain("acc-pattern");
+    expect(dxIds).not.toContain("hpe-pattern");
+    expect(report).toContain(
+      "Apparently isolated severe ventriculomegaly. Postnatal MRI is recommended to confirm the absence of associated anomalies. Per Carta 2018: ~80% survival, ~40% normal neurodevelopment among survivors."
+    );
+  });
+});
+
 describe("Chiari II / open NTD discriminator", () => {
   it("matches the SPEC §6.5.2 TDPF and CSA worked example", () => {
     const ga = { weeks: 24, days: 0 };

@@ -65,3 +65,9 @@
 - Add Vitest coverage for TEST.md §3 Case M3: right-sided 12 mm atrium with normal left atrium at 28w0d must use the asymmetric mild-VM impression.
 - Add deterministic impression text to the asymmetric-ventricle card.
 - Add impression priority so specific combined/asymmetric impressions can override generic mild-VM prose even when the mild-VM card ranks higher.
+
+## Isolated severe-VM impression increment
+
+- Add Vitest coverage for TEST.md §4 Case S3: bilateral 17.5 mm atria at 28w0d with otherwise normal measured context should fire severe VM only and emit the Carta 2018 isolated severe-VM impression.
+- Add card-specific deterministic impression text to the severe ventriculomegaly card.
+- Assign severe VM an impression priority above generic mild/moderate VM but below future combined-pattern impressions.

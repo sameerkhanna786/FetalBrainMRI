@@ -154,3 +154,17 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Isolated Severe-VM Impression Increment
+
+- Implemented TEST.md §4 Case S3 expected impression wording for apparently isolated severe ventriculomegaly.
+- Added the Carta 2018 isolated severe-VM impression line to the severe ventriculomegaly card.
+- Assigned severe VM an impression priority above generic mild VM and below future combined-pattern report impressions.
+- Added Vitest coverage for 28w0d with bilateral 17.5 mm atria, normal third ventricle, preserved CSP, and preserved corpus callosum.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
