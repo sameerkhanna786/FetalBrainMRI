@@ -86,6 +86,24 @@ describe("structured report source provenance", () => {
   });
 });
 
+describe("normal-control report impression", () => {
+  it("uses the TEST.md normal-control impression line", () => {
+    const ga = { weeks: 28, days: 0 };
+    const skullBpd = byId("skull_bpd");
+    const zr = zscore(skullBpd, ga, 75.5);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values: { skull_bpd: 75.5 },
+      zs: { skull_bpd: zr },
+      dxs: [],
+    });
+
+    expect(report).toContain("IMPRESSION\nNo abnormal biometric findings.");
+  });
+});
+
 describe("Chiari II / open NTD discriminator", () => {
   it("matches the SPEC §6.5.2 TDPF and CSA worked example", () => {
     const ga = { weeks: 24, days: 0 };

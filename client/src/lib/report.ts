@@ -121,9 +121,7 @@ export function generateReport(ctx: ReportContext): string {
     return z != null && Math.abs(z.z) > 2;
   });
   if (!anyAbnormal && Object.values(values).some(v => v != null)) {
-    lines.push(
-      "All measured fetal brain biometric parameters are within the central 95% reference range for the stated gestational age. No quantitative evidence of biometric abnormality."
-    );
+    lines.push("No abnormal biometric findings.");
   } else if (anyAbnormal) {
     lines.push(
       "Biometric deviations were identified (see FINDINGS). The following differential considerations are suggested by the calculator's evidence-based trigger engine, ranked by likelihood:"

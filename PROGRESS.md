@@ -71,6 +71,19 @@ Verification:
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts client/src/pages/Home.tsx` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
 
+## 2026-05-23, Normal-Control Impression Increment
+
+- Implemented TEST.md §2 expected normal-control impression wording.
+- Replaced the longer prototype normal-impression sentence with the deterministic line `No abnormal biometric findings.`
+- Added Vitest coverage for the report impression when measurements are present and no abnormality is detected.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
 ## 2026-05-23, Methodology Audit Increment
 
 - Implemented SPEC §4.10.2 periodic cross-validation audit computation from the source registry.

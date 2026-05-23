@@ -48,3 +48,8 @@
 - Add Vitest coverage for TEST.md §1.3: GA input strings must accept weeks+days (`24+3`, `24w 3d`) and decimal weeks (`24.5 w`).
 - Implement a parser that normalizes valid inputs to `{weeks, days}` and rejects out-of-range days.
 - Add a compact top-bar GA text field that applies parsed GA on Enter or blur while preserving the existing week/day dropdown workflow.
+
+## Normal-control impression increment
+
+- Add Vitest coverage for TEST.md §2 normal controls: when measurements are present and no abnormal thresholds fire, the report impression must contain the exact sentence `No abnormal biometric findings.`
+- Replace the longer prototype normal-impression sentence with the TEST.md expected line.
