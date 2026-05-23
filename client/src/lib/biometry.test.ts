@@ -288,6 +288,32 @@ describe("pure ventricular asymmetry report classification", () => {
   });
 });
 
+describe("unilateral severe VM asymmetry report impression", () => {
+  it("uses the TEST.md Case AS6 unilateral destructive-insult wording", () => {
+    const ga = { weeks: 32, days: 0 };
+    const values = {
+      atrial_right: 15,
+      atrial_left: 7.6,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toEqual(expect.arrayContaining(["severe-vm", "asym-vent"]));
+    expect(dxIds).not.toContain("mild-vm");
+    expect(report).toContain(
+      "Unilateral severe ventriculomegaly with marked ventricular asymmetry is suspicious for unilateral haemorrhage or encephaloclastic insult."
+    );
+  });
+});
+
 describe("isolated severe ventriculomegaly report impression", () => {
   it("uses the TEST.md Case S3 isolated severe VM impression line", () => {
     const ga = { weeks: 28, days: 0 };

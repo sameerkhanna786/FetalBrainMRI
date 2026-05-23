@@ -261,3 +261,9 @@
 - Add Vitest coverage for TEST.md §5 Case AS1: atrial side-to-side difference > 2 mm should fire `asym-vent` without VM cards.
 - Assert the structured report does not label a fired DDx-card case as having no abnormal biometric findings.
 - Update report abnormality detection so fixed-threshold DDx cards count as abnormal even when all measured z-scores are within ±2.
+
+## Unilateral severe-VM asymmetry report increment
+
+- Add Vitest coverage for TEST.md §5 Case AS6: unilateral severe VM with normal contralateral atrium should fire `severe-vm` plus `asym-vent`.
+- Assert the report suggests unilateral haemorrhage or encephaloclastic insult rather than isolated bilateral severe VM.
+- Add a report-level asymmetric severe-VM impression suppressed by aqueductal-stenosis, ACC, and HPE combined patterns.

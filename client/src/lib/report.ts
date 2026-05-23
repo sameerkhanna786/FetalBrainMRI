@@ -198,6 +198,15 @@ export function generateReport(ctx: ReportContext): string {
       dxs.some(dx => dx.id === "cc-thick")
         ? "Large pons with thick corpus callosum strongly suggests a fetal overgrowth-syndrome pattern."
         : undefined;
+    const unilateralSevereVmImpression =
+      dxs.some(dx => dx.id === "severe-vm") &&
+      dxs.some(dx => dx.id === "asym-vent") &&
+      !dxs.some(dx => dx.id === "mild-vm") &&
+      !dxs.some(dx => dx.id === "hydrocephalus-pattern") &&
+      !dxs.some(dx => dx.id === "acc-pattern") &&
+      !dxs.some(dx => dx.id === "hpe-pattern")
+        ? "Unilateral severe ventriculomegaly with marked ventricular asymmetry is suspicious for unilateral haemorrhage or encephaloclastic insult."
+        : undefined;
     const isolatedPonsHypoplasiaImpression =
       dxs.some(dx => dx.id === "pons-small") &&
       !dxs.some(dx => dx.id === "tcd-small") &&
@@ -233,6 +242,7 @@ export function generateReport(ctx: ReportContext): string {
       overgrowthMacrocephalyCallosumImpression ||
       overgrowthThickCallosumImpression ||
       overgrowthPonsCallosumImpression ||
+      unilateralSevereVmImpression ||
       isolatedPonsHypoplasiaImpression ||
       isolatedThirdVentricleImpression ||
       deterministicImpression?.impressionLine
@@ -248,6 +258,7 @@ export function generateReport(ctx: ReportContext): string {
           overgrowthMacrocephalyCallosumImpression ??
           overgrowthThickCallosumImpression ??
           overgrowthPonsCallosumImpression ??
+          unilateralSevereVmImpression ??
           isolatedPonsHypoplasiaImpression ??
           isolatedThirdVentricleImpression ??
           deterministicImpression!.impressionLine!
