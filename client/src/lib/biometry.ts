@@ -2407,8 +2407,8 @@ const CARDS: CardSpec[] = [
   /* ===== Global brain / skull ===== */
   {
     id: "microcephaly",
-    title: "Microcephaly (brain BPD or skull BPD z < −2)",
-    oneLine: "Brain or skull BPD below 2.5th percentile — small head.",
+    title: "Microcephaly (brain BPD or skull BPD <3rd percentile)",
+    oneLine: "Brain or skull BPD below 3rd percentile — small head.",
     severity: "concern",
     relatedParamIds: ["brain_bpd", "skull_bpd"],
     summary:
@@ -2450,7 +2450,7 @@ const CARDS: CardSpec[] = [
       const a = zs.brain_bpd?.z,
         b = zs.skull_bpd?.z;
       const min = Math.min(a ?? Infinity, b ?? Infinity);
-      if (!Number.isFinite(min) || min >= -2) return null;
+      if (!Number.isFinite(min) || min >= -1.8807936081512509) return null;
       const which =
         (a ?? Infinity) <= (b ?? Infinity)
           ? `brain BPD ${fmt1(values.brain_bpd)} mm (z ${formatZ(a!)})`

@@ -321,3 +321,9 @@
 - Add Vitest coverage for TEST.md §20 macrocephaly behavior using a registry-derived skull BPD value between the 97th percentile and +2 SD.
 - Assert `macrocephaly` fires at the 97th-percentile threshold while unrelated overgrowth cards remain absent.
 - Lower the macrocephaly matcher and card wording from +2 SD / 97.5th percentile to the TEST.md §20 97th-percentile threshold.
+
+## Microcephaly 3rd-Percentile Threshold Increment
+
+- Add Vitest coverage for TEST.md §19 microcephaly behavior using a registry-derived skull BPD value between -2 SD and the 3rd percentile.
+- Assert `microcephaly` fires at the 3rd-percentile threshold while unrelated ventriculomegaly and posterior-fossa cards remain absent.
+- Raise the microcephaly matcher and card wording from -2 SD / 2.5th percentile to the TEST.md §19 3rd-percentile threshold.

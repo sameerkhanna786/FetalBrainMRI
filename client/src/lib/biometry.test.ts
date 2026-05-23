@@ -954,6 +954,25 @@ describe("macrocephaly 97th-percentile threshold", () => {
   });
 });
 
+describe("microcephaly 3rd-percentile threshold", () => {
+  it("fires TEST.md §19 microcephaly between -2 SD and the 3rd percentile", () => {
+    const ga = { weeks: 30, days: 0 };
+    const gaWeeks = 30;
+    const skullBpd = byId("skull_bpd");
+    const values = {
+      skull_bpd: mu(skullBpd, gaWeeks) - 1.9 * sigma(skullBpd, gaWeeks),
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(zs.skull_bpd?.z).toBeLessThan(-1.8807936081512509);
+    expect(zs.skull_bpd?.z).toBeGreaterThan(-2);
+    expect(dxIds).toContain("microcephaly");
+    expect(dxIds).not.toContain("mild-vm");
+    expect(dxIds).not.toContain("tcd-small");
+  });
+});
+
 describe("macrocerebellum plus macrocephaly report impression", () => {
   it("uses the TEST.md Case LC2 overgrowth-syndrome impression", () => {
     const ga = { weeks: 30, days: 0 };

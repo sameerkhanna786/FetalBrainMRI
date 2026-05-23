@@ -709,3 +709,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Microcephaly 3rd-Percentile Threshold Increment
+
+- Implemented TEST.md §19 microcephaly threshold behavior so `microcephaly` fires below the 3rd percentile rather than only below -2 SD.
+- Added Vitest coverage using a registry-derived skull BPD value between -2 SD and the 3rd percentile that fires `microcephaly` without unrelated ventriculomegaly or posterior-fossa cards.
+- Updated the microcephaly card title and one-line summary to describe the 3rd-percentile threshold.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 62 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
