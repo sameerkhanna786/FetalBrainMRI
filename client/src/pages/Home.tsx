@@ -24,14 +24,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import AuxiliaryMeasurementRow from "@/components/AuxiliaryMeasurementRow";
 import ParameterRow from "@/components/ParameterRow";
 import DifferentialCard, {
   DifferentialRailItem,
 } from "@/components/DifferentialCard";
 import {
+  AUXILIARY_MEASUREMENTS,
   GA,
   GROUP_ORDER,
-  PARAMETERS,
   PARAMETERS_ALL,
   evaluateAll,
   gaToDecimalWeeks,
@@ -141,9 +142,13 @@ function DifferentialPanel({ dxs }: { dxs: Differential[] }) {
   );
 }
 
-const EMPTY_VALUES: Record<string, number | null> = Object.fromEntries(
-  PARAMETERS_ALL.map(p => [p.id, null])
-);
+const EMPTY_VALUES: Record<string, number | null> = Object.fromEntries([
+  ...PARAMETERS_ALL.map(p => [p.id, null]),
+  ...AUXILIARY_MEASUREMENTS.map(field => [field.id, null]),
+]);
+
+const TOTAL_MEASUREMENT_FIELDS =
+  PARAMETERS_ALL.length + AUXILIARY_MEASUREMENTS.length;
 
 // Reference cases for the prototype's sample loader.
 //
@@ -505,15 +510,15 @@ export default function Home() {
                 Measure, convert, interpret.
               </h1>
               <p className="text-[color:var(--ink-soft)] text-[15px] max-w-[48ch] mt-3">
-                Enter any subset of the sixteen standard fetal brain and
-                posterior-fossa parameters. Z-scores and percentiles compute
-                live against the source registry.
+                Enter any subset of the fetal brain and posterior-fossa
+                measurements. Z-scores and percentiles compute live against the
+                source registry where normative models are available.
               </p>
             </div>
 
             <div className="shrink-0 sm:text-right">
               <div className="font-numeric text-[13px] text-[color:var(--ink-soft)]">
-                {measuredCount}/{PARAMETERS_ALL.length} measured
+                {measuredCount}/{TOTAL_MEASUREMENT_FIELDS} measured
               </div>
               <div
                 className={`font-numeric text-[13px] ${
@@ -574,6 +579,18 @@ export default function Home() {
                     zr={zs[p.id]}
                     onChange={v => setValues(prev => ({ ...prev, [p.id]: v }))}
                     ga={ga}
+                  />
+                ))}
+                {AUXILIARY_MEASUREMENTS.filter(
+                  field => field.group === group
+                ).map(field => (
+                  <AuxiliaryMeasurementRow
+                    key={field.id}
+                    field={field}
+                    value={values[field.id] ?? null}
+                    onChange={v =>
+                      setValues(prev => ({ ...prev, [field.id]: v }))
+                    }
                   />
                 ))}
               </div>

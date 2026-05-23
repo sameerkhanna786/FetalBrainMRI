@@ -319,6 +319,17 @@ export type Parameter = {
   gaRange: [number, number];
 };
 
+export type AuxiliaryMeasurement = {
+  id: string;
+  name: string;
+  short: string;
+  unit: "mm" | "degrees";
+  group: ParameterGroup;
+  definition: string;
+  measurement: string;
+  significance: string;
+};
+
 const EXTRA_AXIAL_CSF_MODEL: LuisQuadratic = {
   kind: "luis-quadratic",
   a: -0.01,
@@ -730,6 +741,35 @@ export const PARAM_THIRD_V: Parameter = {
 };
 
 export const PARAMETERS_ALL: Parameter[] = [...PARAMETERS, PARAM_THIRD_V];
+
+export const AUXILIARY_MEASUREMENTS: AuxiliaryMeasurement[] = [
+  {
+    id: "cisterna_magna_depth",
+    name: "Cisterna magna depth",
+    short: "CM depth",
+    unit: "mm",
+    group: "Posterior fossa",
+    definition:
+      "Antero-posterior depth of the cisterna magna in the posterior fossa.",
+    measurement:
+      "Mid-sagittal or axial posterior-fossa image; measure the fluid space posterior to the vermis at its maximal depth.",
+    significance:
+      ">10 mm raises the differential of mega cisterna magna, persistent Blake's pouch cyst, and posterior-fossa arachnoid cyst.",
+  },
+  {
+    id: "tva",
+    name: "Tegmento-vermian angle",
+    short: "TVA",
+    unit: "degrees",
+    group: "Posterior fossa",
+    definition:
+      "Angle between the dorsal brainstem tegmentum and the ventral vermian surface on a mid-sagittal image.",
+    measurement:
+      "Mid-sagittal T2 image; measure the angle formed by the dorsal brainstem line and the ventral surface of the vermis.",
+    significance:
+      "Elevation supports persistent vermian rotation and Dandy-Walker spectrum interpretation when combined with vermian and posterior-fossa findings.",
+  },
+];
 
 /* ---------- Legacy reference-set labels ----------
  *

@@ -879,3 +879,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, SPEC 4.7 Posterior-Fossa Auxiliary Inputs Increment
+
+- Implemented SPEC.md §4.7 UI-facing auxiliary inputs for cisterna magna depth and tegmento-vermian angle.
+- Added Vitest coverage that `AUXILIARY_MEASUREMENTS` contains `cisterna_magna_depth` in millimetres and `tva` in degrees while keeping both out of the z-scored `PARAMETERS_ALL` registry.
+- Added a raw auxiliary worksheet row component and rendered the new inputs in the posterior-fossa section so they can feed existing threshold-based DDx logic.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 75 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts client/src/pages/Home.tsx client/src/components/AuxiliaryMeasurementRow.tsx` passes after formatting `Home.tsx`.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

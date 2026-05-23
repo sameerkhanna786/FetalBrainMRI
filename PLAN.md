@@ -399,3 +399,9 @@
 - Add Vitest coverage for SPEC.md §4.7 numeric cisterna magna depth: >10 mm should trigger the mega cisterna magna / Blake's pouch differential.
 - Assert the threshold is strict so exactly 10 mm remains negative.
 - Add a minimal `mega-cisterna-magna` card with deterministic benign-variant report wording.
+
+## SPEC 4.7 Posterior-Fossa Auxiliary Inputs Increment
+
+- Add Vitest coverage that the UI-facing auxiliary measurement registry includes `cisterna_magna_depth` in millimetres and `tva` in degrees.
+- Keep these auxiliary inputs separate from the z-scored `PARAMETERS_ALL` registry so stress fixtures and source-consensus reporting remain unchanged.
+- Render the auxiliary rows in the posterior-fossa worksheet section using raw-value input rows that can feed existing threshold-based DDx logic.

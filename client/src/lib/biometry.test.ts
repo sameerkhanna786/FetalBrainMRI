@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  AUXILIARY_MEASUREMENTS,
   PARAMETERS_ALL,
   computeCrossValidationAudits,
   evaluateAll,
@@ -20,6 +21,28 @@ const byId = (id: string) => {
   if (!param) throw new Error(`Missing parameter ${id}`);
   return param;
 };
+
+describe("SPEC §4.7 auxiliary posterior-fossa inputs", () => {
+  it("surfaces cisterna magna depth and TVA without adding z-scored parameters", () => {
+    expect(AUXILIARY_MEASUREMENTS).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          id: "cisterna_magna_depth",
+          group: "Posterior fossa",
+          unit: "mm",
+        }),
+        expect.objectContaining({
+          id: "tva",
+          group: "Posterior fossa",
+          unit: "degrees",
+        }),
+      ])
+    );
+    expect(PARAMETERS_ALL.map(param => param.id)).not.toEqual(
+      expect.arrayContaining(["cisterna_magna_depth", "tva"])
+    );
+  });
+});
 
 describe("multi-source consensus reconciliation", () => {
   it("evaluates every TCD source and computes consensus from in-range sources", () => {
