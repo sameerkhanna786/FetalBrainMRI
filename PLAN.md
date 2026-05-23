@@ -454,3 +454,9 @@
 - Add Vitest coverage for TEST.md §15 Case CSP-E3 behavior: enlarged CSP fires its quantitative card without a cavum-vergae label.
 - Assert `qualitative_cavum_vergae_panel` adds a low-severity cavum-vergae advisory label when the radiologist enters the finding.
 - Keep the advisory qualitative-only so it does not change the CSP enlargement threshold or ventriculomegaly matching.
+
+## TEST 14 SOD Qualitative Manual-Entry Increment
+
+- Add Vitest coverage for TEST.md §14 Case CSP-A3 behavior: isolated absent CSP keeps the existing absent-CSP impression without a SOD manual entry.
+- Assert `qualitative_sod_panel` adds a low-priority septo-optic dysplasia advisory when small optic apparatus is entered.
+- Keep the advisory below the absent-CSP impression so it does not become a new quantitative combined-pattern trigger.

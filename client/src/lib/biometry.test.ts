@@ -734,6 +734,41 @@ describe("isolated absent CSP report impression", () => {
   });
 });
 
+describe("absent CSP SOD qualitative manual entry", () => {
+  it("adds the TEST.md Case CSP-A3 small-optic-apparatus advisory without replacing absent-CSP wording", () => {
+    const ga = { weeks: 28, days: 0 };
+    const baseValues = {
+      csp_width: 0,
+      cc_length: 32,
+    };
+    const baseIds = evaluateAll(baseValues, ga).dxs.map(dx => dx.id);
+    const toggled = evaluateAll(
+      { ...baseValues, qualitative_sod_panel: 1 },
+      ga
+    );
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values: { ...baseValues, qualitative_sod_panel: 1 },
+      zs: toggled.zs,
+      dxs: toggled.dxs,
+    });
+
+    expect(baseIds).toContain("absent-csp");
+    expect(baseIds).not.toContain("sod-dd");
+    expect(baseIds).not.toContain("acc-pattern");
+    expect(baseIds).not.toContain("hpe-pattern");
+    expect(toggled.dxs.map(dx => dx.id)).toEqual(
+      expect.arrayContaining(["absent-csp", "sod-dd"])
+    );
+    expect(report).toContain(
+      "Absent cavum septum pellucidum; evaluate for septo-optic dysplasia, corpus callosum abnormality, and mild holoprosencephaly-spectrum findings."
+    );
+    expect(report).toContain("Septo-optic dysplasia qualitative add-on");
+  });
+});
+
 describe("isolated enlarged CSP report impression", () => {
   it("uses the TEST.md Case CSP-E1 benign-variant impression", () => {
     const ga = { weeks: 32, days: 0 };

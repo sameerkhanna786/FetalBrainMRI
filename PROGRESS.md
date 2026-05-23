@@ -997,3 +997,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, TEST 14 SOD Qualitative Manual-Entry Increment
+
+- Implemented TEST.md §14 Case CSP-A3 qualitative SOD support with a low-priority `sod-dd` advisory card for entered small optic apparatus.
+- Added Vitest coverage proving isolated absent CSP keeps the existing absent-CSP impression without the toggle, then adds `sod-dd` when `qualitative_sod_panel` is entered.
+- Kept the SOD advisory below the absent-CSP impression so it does not become a new quantitative combined-pattern trigger.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 83 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

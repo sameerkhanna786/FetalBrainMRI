@@ -2006,6 +2006,51 @@ const CARDS: CardSpec[] = [
         : null,
   },
   {
+    id: "sod-dd",
+    title: "Septo-optic dysplasia qualitative add-on",
+    oneLine:
+      "Entered small optic apparatus finding - SOD advisory in the absent-CSP context.",
+    severity: "info",
+    impressionLine:
+      "Septo-optic dysplasia qualitative add-on; entered small optic apparatus should be included in absent-CSP counselling.",
+    impressionPriority: 6,
+    summary:
+      "Small optic nerves or chiasm cannot be inferred from linear fetal brain biometry, but the manual entry changes counselling for absent CSP.",
+    rows: [
+      {
+        dx: "Septo-optic dysplasia",
+        likelihood: "Entered qualitative finding",
+        rationale:
+          "Malinger 2005 includes septo-optic dysplasia in the absent-CSP differential, while prenatal optic hypoplasia is difficult to confirm.",
+      },
+      {
+        dx: "Isolated absent CSP",
+        likelihood: "Differential consideration",
+        rationale:
+          "Absent CSP remains a diagnosis of exclusion if optic apparatus and endocrine findings are not confirmed.",
+      },
+      {
+        dx: "Mild holoprosencephaly spectrum",
+        likelihood: "Overlap differential",
+        rationale:
+          "Review frontal horn configuration, midline facial anatomy, and hypothalamic-septal structures.",
+      },
+    ],
+    nextSteps:
+      "Document optic nerves and chiasm when visualized, review pituitary-hypothalamic anatomy, and recommend postnatal ophthalmologic/endocrine correlation.",
+    limitations:
+      "Qualitative add-on only; the calculator does not infer optic-nerve or optic-chiasm size from biometry.",
+    primary: {
+      label: "Malinger 2005",
+      full: "Malinger G, Lev D, Kidron D, Heredia F, Hershkowitz R, Lerman-Sagie T. Differential diagnosis in fetuses with absent septum pellucidum. Ultrasound Obstet Gynecol. 2005;25(1):42-49.",
+      url: "https://obgyn.onlinelibrary.wiley.com/doi/full/10.1002/uog.1787",
+    },
+    match: ({ values }) =>
+      (values.qualitative_sod_panel ?? 0) > 0
+        ? { prior: 0.2, triggerLabel: "entered small optic apparatus" }
+        : null,
+  },
+  {
     id: "enlarged-csp",
     title: "Enlarged / cystic CSP (> 10 mm)",
     oneLine: "CSP > 10 mm — typically benign; rarely obstructive.",
