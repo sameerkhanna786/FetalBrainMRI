@@ -211,3 +211,22 @@ describe("third-ventricle source metadata", () => {
     expect(at38?.extrapolated).toBe(true);
   });
 });
+
+describe("research-mode report flags", () => {
+  it("flags the Chiari II / ONTD discriminator as research-mode when it fires", () => {
+    const ga = { weeks: 24, days: 0 };
+    const values = { tdpf: 24, csa: 55 };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+
+    expect(dxs.some(dx => dx.id === "chiari-ii-ontd")).toBe(true);
+    expect(report).toContain("Research-mode Chiari II / ONTD discriminator");
+  });
+});

@@ -37,3 +37,8 @@
 
 - Add Vitest coverage for SPEC §4.2.2 / §7.3.12 third-ventricle metadata: Birnbaum 2018 must be tagged cross-modality, approximation-tier, and valid over 18-37 weeks.
 - Correct the third-ventricle registry range so 18w is in range and 38w is extrapolated.
+
+## Chiari research-mode report flag
+
+- Add report coverage for SPEC §7.5: when the Chiari II / ONTD card fires, the structured report must explicitly flag that discriminator as research-mode pending local calibration.
+- Add a deterministic report note tied to the fired card id.

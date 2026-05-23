@@ -75,6 +75,11 @@ export function generateReport(ctx: ReportContext): string {
   lines.push(
     `Multiplanar T2-weighted single-shot fast spin-echo imaging of the fetal brain at ${fieldStrength}. Motion artefact: ${motion.toLowerCase()}. Calculator operated in multi-source consensus mode: consensus z-score is the arithmetic mean across in-range sources, and source disagreement is flagged at Delta z >= 1.0 SD between in-range sources.`
   );
+  if (dxs.some(dx => dx.id === "chiari-ii-ontd")) {
+    lines.push(
+      "Research-mode Chiari II / ONTD discriminator: posterior probabilities are model-derived and require local cohort calibration before clinical reliance."
+    );
+  }
   lines.push("");
 
   lines.push("FINDINGS");

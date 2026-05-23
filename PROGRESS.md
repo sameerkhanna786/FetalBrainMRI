@@ -44,6 +44,19 @@ Verification:
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
 
+## 2026-05-23, Chiari Research-Mode Report Flag
+
+- Implemented SPEC §7.5 report disclosure for the Chiari II / ONTD discriminator.
+- When the `chiari-ii-ontd` card fires, the structured report now adds a deterministic research-mode note stating that model-derived posterior probabilities require local cohort calibration before clinical reliance.
+- Added Vitest coverage for the report flag.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
 ## 2026-05-23, Methodology Audit Increment
 
 - Implemented SPEC §4.10.2 periodic cross-validation audit computation from the source registry.
