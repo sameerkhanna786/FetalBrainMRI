@@ -123,7 +123,16 @@ export function generateReport(ctx: ReportContext): string {
   if (!anyAbnormal && Object.values(values).some(v => v != null)) {
     lines.push("No abnormal biometric findings.");
   } else if (anyAbnormal) {
-    const deterministicImpression = dxs.find(dx => dx.impressionLine);
+    const deterministicImpression = dxs.reduce<Differential | undefined>(
+      (best, dx) => {
+        if (!dx.impressionLine) return best;
+        if (!best) return dx;
+        return (dx.impressionPriority ?? 0) > (best.impressionPriority ?? 0)
+          ? dx
+          : best;
+      },
+      undefined
+    );
     if (deterministicImpression?.impressionLine) {
       lines.push(deterministicImpression.impressionLine);
       lines.push("");

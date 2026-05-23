@@ -59,3 +59,9 @@
 - Add Vitest coverage for TEST.md §3 Case M1: bilateral 11 mm atria at 24w0d should emit the isolated mild ventriculomegaly impression sentence.
 - Add card-specific deterministic impression text for the mild ventriculomegaly DDx card.
 - Update report generation to prefer a fired card's deterministic impression line before the generic abnormal-report fallback.
+
+## Asymmetric mild-VM impression increment
+
+- Add Vitest coverage for TEST.md §3 Case M3: right-sided 12 mm atrium with normal left atrium at 28w0d must use the asymmetric mild-VM impression.
+- Add deterministic impression text to the asymmetric-ventricle card.
+- Add impression priority so specific combined/asymmetric impressions can override generic mild-VM prose even when the mild-VM card ranks higher.

@@ -1285,6 +1285,7 @@ export type Differential = {
   severity: "info" | "watch" | "concern" | "urgent";
   triggerLabel: string; // human-readable trigger description, e.g. "Atrial L 16 mm"
   impressionLine?: string;
+  impressionPriority?: number;
   summary: string;
   rows: DxRow[];
   nextSteps: string;
@@ -1308,7 +1309,9 @@ type EngineInput = {
 type CardSpec = Omit<Differential, "rank" | "triggerLabel"> & {
   relatedParamIds?: string[];
   /** Returns null if not fired, otherwise {prior, triggerLabel}. */
-  match: (input: EngineInput) => { prior: number; triggerLabel: string } | null;
+  match: (
+    input: EngineInput
+  ) => { prior: number; triggerLabel: string; impressionLine?: string } | null;
 };
 
 /* ---------- Helper lookups ---------- */
@@ -1378,8 +1381,8 @@ const CARDS: CardSpec[] = [
   },
   {
     id: "mod-vm",
-    title: "Moderate ventriculomegaly (atrial 12–15 mm)",
-    oneLine: "Atrial diameter 12–15 mm — intermediate VM.",
+    title: "Moderate ventriculomegaly (atrial >12 to <15 mm)",
+    oneLine: "Atrial diameter >12 and <15 mm — intermediate VM.",
     severity: "concern",
     summary:
       "Moderate VM carries an intermediate risk of associated anomalies and adverse neurodevelopment.",
@@ -1417,7 +1420,7 @@ const CARDS: CardSpec[] = [
       const L = values.atrial_left,
         R = values.atrial_right;
       const max = Math.max(L ?? -Infinity, R ?? -Infinity);
-      if (!Number.isFinite(max) || max < 12 || max >= 15) return null;
+      if (!Number.isFinite(max) || max <= 12 || max >= 15) return null;
       return { prior: 0.7, triggerLabel: `max(atrial) = ${fmt1(max)} mm` };
     },
   },
@@ -1428,6 +1431,7 @@ const CARDS: CardSpec[] = [
     severity: "watch",
     impressionLine:
       "Isolated mild ventriculomegaly; consider postnatal MRI follow-up. Pooled neurodevelopmental delay rate ~7.9% (Pagani 2014).",
+    impressionPriority: 10,
     summary:
       "Mild VM may be isolated (favourable prognosis) or a sign of underlying pathology.",
     rows: [
@@ -1481,15 +1485,17 @@ const CARDS: CardSpec[] = [
       const L = values.atrial_left,
         R = values.atrial_right;
       const max = Math.max(L ?? -Infinity, R ?? -Infinity);
-      if (!Number.isFinite(max) || max < 10 || max >= 12) return null;
+      if (!Number.isFinite(max) || max < 10 || max > 12) return null;
       return { prior: 0.55, triggerLabel: `max(atrial) = ${fmt1(max)} mm` };
     },
   },
   {
     id: "asym-vent",
     title: "Asymmetric lateral ventricles (|L − R| > 2 mm)",
-    oneLine: "Lateral ventricle asymmetry > 2 mm without VM on either side.",
+    oneLine:
+      "Lateral ventricle asymmetry > 2 mm, including unilateral VM patterns.",
     severity: "watch",
+    impressionPriority: 50,
     summary:
       "Asymmetric lateral ventricles are common. When isolated and without VM this is often a benign variant; warrants evaluation for associated anomalies.",
     rows: [
@@ -1523,15 +1529,23 @@ const CARDS: CardSpec[] = [
       if (L == null || R == null) return null;
       if (Math.abs(L - R) <= 2) return null;
       const max = Math.max(L, R);
+      const min = Math.min(L, R);
+      const side = R > L ? "Right" : "Left";
+      const impressionLine =
+        max >= 10 && max <= 12 && min < 10
+          ? `${side}-sided mild ventriculomegaly with marked side-to-side asymmetry; recommend dedicated workup for unilateral causes (intra-ventricular obstruction, encephaloclastic insult, germinal matrix haemorrhage).`
+          : undefined;
       // If either side is already in VM range, severe/mild VM cards take priority.
       if (max >= 10)
         return {
           prior: 0.25,
           triggerLabel: `|L−R| = ${Math.abs(L - R).toFixed(1)} mm`,
+          impressionLine,
         };
       return {
         prior: 0.55,
         triggerLabel: `|L−R| = ${Math.abs(L - R).toFixed(1)} mm`,
+        impressionLine,
       };
     },
   },
@@ -2673,7 +2687,8 @@ export function evaluateAll(
       title: c.title,
       oneLine: c.oneLine,
       severity: c.severity,
-      impressionLine: c.impressionLine,
+      impressionLine: r.impressionLine ?? c.impressionLine,
+      impressionPriority: c.impressionPriority,
       summary: c.summary,
       rows: c.rows,
       nextSteps: c.nextSteps,

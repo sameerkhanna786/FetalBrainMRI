@@ -128,6 +128,32 @@ describe("mild ventriculomegaly report impression", () => {
   });
 });
 
+describe("asymmetric mild ventriculomegaly report impression", () => {
+  it("uses the TEST.md Case M3 asymmetric mild VM impression line", () => {
+    const ga = { weeks: 28, days: 0 };
+    const values = {
+      atrial_right: 12,
+      atrial_left: 7.4,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+
+    expect(dxs.map(dx => dx.id)).toEqual(
+      expect.arrayContaining(["mild-vm", "asym-vent"])
+    );
+    expect(report).toContain(
+      "Right-sided mild ventriculomegaly with marked side-to-side asymmetry; recommend dedicated workup for unilateral causes (intra-ventricular obstruction, encephaloclastic insult, germinal matrix haemorrhage)."
+    );
+  });
+});
+
 describe("Chiari II / open NTD discriminator", () => {
   it("matches the SPEC §6.5.2 TDPF and CSA worked example", () => {
     const ga = { weeks: 24, days: 0 };
