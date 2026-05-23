@@ -161,3 +161,9 @@
 - Add Vitest coverage for TEST.md §11 Case A4's partial / hypogenetic corpus-callosum report requirement using a registry-threshold short-CC value with preserved CSP.
 - Assert `cc-short` fires without `cc-absent` or `acc-pattern`.
 - Add deterministic `cc-short` impression wording recommending postnatal MRI confirmation.
+
+## Isolated small-pons report increment
+
+- Add Vitest coverage for TEST.md §17 Case PCH6: isolated small pons with preserved TCD and vermis at 32w0d should fire `pons-small` without `pch-pattern`.
+- Assert the report impression calls this isolated brainstem / pontine hypoplasia rather than classical PCH and recommends considering PMM2-CDG and other isolated brainstem disorders.
+- Add report-level isolated-pons wording that is suppressed whenever the PCH composite fires.

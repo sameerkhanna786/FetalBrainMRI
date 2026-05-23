@@ -154,6 +154,13 @@ export function generateReport(ctx: ReportContext): string {
       !dxs.some(dx => dx.id === "hydrocephalus-pattern")
         ? "Macrocerebellum with thick corpus callosum raises concern for a fetal overgrowth syndrome."
         : undefined;
+    const isolatedPonsHypoplasiaImpression =
+      dxs.some(dx => dx.id === "pons-small") &&
+      !dxs.some(dx => dx.id === "tcd-small") &&
+      !dxs.some(dx => dx.id === "vermis-small") &&
+      !dxs.some(dx => dx.id === "pch-pattern")
+        ? "Isolated brainstem (pontine) hypoplasia — non-PCH; consider PMM2-CDG and other isolated brainstem disorders."
+        : undefined;
     const deterministicImpression = dxs.reduce<Differential | undefined>(
       (best, dx) => {
         if (!dx.impressionLine) return best;
@@ -169,6 +176,7 @@ export function generateReport(ctx: ReportContext): string {
       combinedCerebellarHypoplasiaImpression ||
       overgrowthMacrocerebellumImpression ||
       overgrowthThickCallosumImpression ||
+      isolatedPonsHypoplasiaImpression ||
       deterministicImpression?.impressionLine
     ) {
       lines.push(
@@ -176,6 +184,7 @@ export function generateReport(ctx: ReportContext): string {
           combinedCerebellarHypoplasiaImpression ??
           overgrowthMacrocerebellumImpression ??
           overgrowthThickCallosumImpression ??
+          isolatedPonsHypoplasiaImpression ??
           deterministicImpression!.impressionLine!
       );
       lines.push("");

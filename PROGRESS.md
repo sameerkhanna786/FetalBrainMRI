@@ -367,3 +367,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Isolated Small-Pons Report Increment
+
+- Implemented TEST.md §17 Case PCH6 report behavior for isolated pontine hypoplasia with preserved TCD and vermis at 32w0d.
+- Added Vitest coverage that `pons-small` fires without `tcd-small`, `vermis-small`, or `pch-pattern`.
+- Added a report-level isolated brainstem / pontine hypoplasia impression that is suppressed when the PCH composite or accompanying small TCD/vermis cards fire.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

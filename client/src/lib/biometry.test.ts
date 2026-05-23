@@ -587,6 +587,35 @@ describe("Dandy-Walker spectrum trigger", () => {
   });
 });
 
+describe("isolated small pons report impression", () => {
+  it("uses the TEST.md Case PCH6 non-PCH brainstem impression", () => {
+    const ga = { weeks: 32, days: 0 };
+    const values = {
+      pons_ap: 9,
+      tcd: 41,
+      vermis_cc: 19,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toContain("pons-small");
+    expect(dxIds).not.toContain("tcd-small");
+    expect(dxIds).not.toContain("vermis-small");
+    expect(dxIds).not.toContain("pch-pattern");
+    expect(report).toContain(
+      "Isolated brainstem (pontine) hypoplasia — non-PCH; consider PMM2-CDG and other isolated brainstem disorders."
+    );
+  });
+});
+
 describe("combined ACC and Dandy-Walker report impression", () => {
   it("enumerates both TEST.md Case D3 combined-pattern diagnoses", () => {
     const ga = { weeks: 28, days: 0 };
