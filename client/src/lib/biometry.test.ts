@@ -562,6 +562,31 @@ describe("macrocerebellum plus thick corpus callosum report impression", () => {
   });
 });
 
+describe("large pons plus thick corpus callosum report impression", () => {
+  it("uses the TEST.md Case LP6 overgrowth-syndrome impression", () => {
+    const ga = { weeks: 26, days: 0 };
+    const values = {
+      pons_ap: 10.5,
+      cc_length: 35,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toEqual(expect.arrayContaining(["pons-large", "cc-thick"]));
+    expect(report).toContain(
+      "Large pons with thick corpus callosum strongly suggests a fetal overgrowth-syndrome pattern."
+    );
+  });
+});
+
 describe("Dandy-Walker spectrum trigger", () => {
   it("fires the TEST.md Case D1 TVA-based DWM composite card", () => {
     const { dxs } = evaluateAll(

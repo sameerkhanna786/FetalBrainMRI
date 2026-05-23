@@ -167,3 +167,9 @@
 - Add Vitest coverage for TEST.md §17 Case PCH6: isolated small pons with preserved TCD and vermis at 32w0d should fire `pons-small` without `pch-pattern`.
 - Assert the report impression calls this isolated brainstem / pontine hypoplasia rather than classical PCH and recommends considering PMM2-CDG and other isolated brainstem disorders.
 - Add report-level isolated-pons wording that is suppressed whenever the PCH composite fires.
+
+## Large pons plus thick-CC report increment
+
+- Add Vitest coverage for TEST.md §18 Case LP6: large pons with thick corpus callosum at 26w0d should fire both `pons-large` and `cc-thick`.
+- Assert the report impression flags the pair as a strong overgrowth-syndrome pattern.
+- Add a report-level overgrowth combined-pattern impression for `pons-large` plus `cc-thick`.

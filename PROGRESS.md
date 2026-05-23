@@ -380,3 +380,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Large Pons Plus Thick-CC Report Increment
+
+- Implemented TEST.md §18 Case LP6 report behavior for large pons with thick corpus callosum at 26w0d.
+- Added Vitest coverage that pons AP 10.5 mm and corpus callosum length 35.0 mm fire `pons-large` and `cc-thick` together.
+- Added a report-level overgrowth combined-pattern impression for `pons-large` plus `cc-thick`.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
