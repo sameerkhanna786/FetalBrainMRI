@@ -167,3 +167,25 @@ describe("periodic cross-validation audit", () => {
     expect(["pass", "partial-fail", "fail"]).toContain(tcd!.status);
   });
 });
+
+describe("DDx source-disagreement propagation", () => {
+  it("marks a z-score-triggered card when the contributing row disagrees", () => {
+    const { dxs, zs } = evaluateAll(
+      {
+        tcd: 38,
+      },
+      { weeks: 28, days: 0 }
+    );
+    const card = dxs.find(dx => dx.id === "tcd-large");
+
+    expect(zs.tcd?.agreementState).toBe("disagree");
+    expect(card).toBeDefined();
+    expect(card!.sourceDisagreements).toEqual([
+      {
+        parameterId: "tcd",
+        parameterName: "Transcerebellar diameter",
+        disagreementWidth: expect.any(Number),
+      },
+    ]);
+  });
+});

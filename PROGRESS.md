@@ -58,3 +58,18 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts client/src/pages/Methodology.tsx` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, DDx Source-Disagreement Increment
+
+- Implemented SPEC §4.6 source-disagreement propagation for z-score-driven DDx cards.
+- Added related-parameter metadata to z-score and composite DDx triggers so the engine can attach any contributing rows in `disagree` state.
+- Added `sourceDisagreements` metadata to fired differential cards, including parameter id, parameter name, and disagreement width.
+- Rendered source-disagreement badges in both expanded differential cards and compact rail items.
+- Added Vitest coverage using a TCD-triggered card with a disagreeing Luis/Dovjak row.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts client/src/components/DifferentialCard.tsx` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

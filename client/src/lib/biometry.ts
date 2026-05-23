@@ -1255,6 +1255,11 @@ export type Differential = {
   limitations: string;
   primary: Source;
   secondary?: Source;
+  sourceDisagreements?: {
+    parameterId: string;
+    parameterName: string;
+    disagreementWidth: number;
+  }[];
   /** Engine-managed at runtime: */
   rank: number;
 };
@@ -1265,6 +1270,7 @@ type EngineInput = {
 };
 
 type CardSpec = Omit<Differential, "rank" | "triggerLabel"> & {
+  relatedParamIds?: string[];
   /** Returns null if not fired, otherwise {prior, triggerLabel}. */
   match: (input: EngineInput) => { prior: number; triggerLabel: string } | null;
 };
@@ -1600,6 +1606,7 @@ const CARDS: CardSpec[] = [
     title: "Likely complete agenesis of the corpus callosum (severely short)",
     oneLine: "CC length z < −3 OR < 5 mm — likely complete ACC.",
     severity: "urgent",
+    relatedParamIds: ["cc_length"],
     summary:
       "A near-absent or vestigial corpus callosum strongly suggests complete agenesis (cACC), often with associated CNS or syndromic anomalies.",
     rows: [
@@ -1655,6 +1662,7 @@ const CARDS: CardSpec[] = [
     title: "Short / dysgenetic corpus callosum (z < −1.645)",
     oneLine: "CC below the 5th percentile — partial agenesis / hypogenesis.",
     severity: "concern",
+    relatedParamIds: ["cc_length"],
     summary:
       "Short corpus callosum indicates partial agenesis or hypogenesis, often with a wide spectrum of associated anomalies.",
     rows: [
@@ -1704,6 +1712,7 @@ const CARDS: CardSpec[] = [
     title: "Thick corpus callosum (z > +2)",
     oneLine: "CC above the 97.5th percentile — uncommon.",
     severity: "watch",
+    relatedParamIds: ["cc_length"],
     summary:
       "An unusually thick or long CC is uncommon and may be a normal variant or, rarely, associated with malformations of cortical development.",
     rows: [
@@ -1741,6 +1750,7 @@ const CARDS: CardSpec[] = [
     title: "Pons AP < 5th percentile — pontocerebellar hypoplasia spectrum",
     oneLine: "Pons AP below 5th percentile — brainstem maldevelopment.",
     severity: "concern",
+    relatedParamIds: ["pons_ap"],
     summary:
       "A small pons AP diameter is a key indicator of pontocerebellar hypoplasia (PCH) or other brainstem maldevelopment.",
     rows: [
@@ -1799,6 +1809,7 @@ const CARDS: CardSpec[] = [
     title: "Pons AP > +2 SD — pontine bulging",
     oneLine: "Pons AP above 97.5th percentile — uncommon.",
     severity: "watch",
+    relatedParamIds: ["pons_ap"],
     summary:
       "An unusually thick pons is rare and may reflect a brainstem mass, hamartoma, or measurement artefact.",
     rows: [
@@ -1830,6 +1841,7 @@ const CARDS: CardSpec[] = [
     title: "TCD < 5th percentile — cerebellar hypoplasia spectrum",
     oneLine: "Transcerebellar diameter below 5th percentile.",
     severity: "concern",
+    relatedParamIds: ["tcd"],
     summary:
       "A small TCD suggests cerebellar hypoplasia; consider chromosomal, genetic, and infectious aetiologies.",
     rows: [
@@ -1873,6 +1885,7 @@ const CARDS: CardSpec[] = [
     title: "TCD > +2 SD — macrocerebellum",
     oneLine: "TCD above 97.5th percentile — rare.",
     severity: "watch",
+    relatedParamIds: ["tcd"],
     summary:
       "A large TCD (macrocerebellum) is uncommon; may be seen with megalencephaly syndromes (e.g. PTEN-related) or measurement variation.",
     rows: [
@@ -1904,6 +1917,7 @@ const CARDS: CardSpec[] = [
     title: "Small vermis — Dandy-Walker / vermian hypoplasia spectrum",
     oneLine: "Vermis below 5th percentile — posterior fossa anomaly likely.",
     severity: "concern",
+    relatedParamIds: ["vermis_cc"],
     summary:
       "Small vermis raises concern for Dandy-Walker malformation, vermian hypoplasia, Joubert syndrome, or Blake's pouch remnant.",
     rows: [
@@ -1948,6 +1962,7 @@ const CARDS: CardSpec[] = [
     title: "Large vermis (z > +2)",
     oneLine: "Vermis above 97.5th percentile — uncommon.",
     severity: "watch",
+    relatedParamIds: ["vermis_cc"],
     summary:
       "A large vermis is rare; consider posterior-fossa cyst projecting onto the vermis, neoplasm, or measurement artefact.",
     rows: [
@@ -1980,6 +1995,7 @@ const CARDS: CardSpec[] = [
     oneLine:
       "Small posterior fossa with reduced clivus-supraocciput angle — open spinal dysraphism pattern.",
     severity: "urgent",
+    relatedParamIds: ["tdpf", "csa"],
     summary:
       "A small posterior fossa with a closed clivus-supraocciput angle is the cranial signature of Chiari II malformation and should prompt dedicated fetal-spine evaluation for open neural tube defect.",
     rows: [
@@ -2085,6 +2101,7 @@ const CARDS: CardSpec[] = [
     title: "Microcephaly (brain BPD or skull BPD z < −2)",
     oneLine: "Brain or skull BPD below 2.5th percentile — small head.",
     severity: "concern",
+    relatedParamIds: ["brain_bpd", "skull_bpd"],
     summary:
       "Microcephaly suggests impaired brain growth; aetiologies span genetic syndromes, congenital infection, and intrauterine insults.",
     rows: [
@@ -2137,6 +2154,7 @@ const CARDS: CardSpec[] = [
     title: "Macrocephaly (brain BPD or skull BPD z > +2)",
     oneLine: "Brain or skull BPD above 97.5th percentile — large head.",
     severity: "concern",
+    relatedParamIds: ["brain_bpd", "skull_bpd"],
     summary:
       "Macrocephaly may reflect benign familial macrocephaly, megalencephaly syndromes, or hydrocephalus (which would also increase ventricular size).",
     rows: [
@@ -2184,6 +2202,7 @@ const CARDS: CardSpec[] = [
     oneLine:
       "Skull BPD high relative to brain BPD — extra-axial fluid widened.",
     severity: "watch",
+    relatedParamIds: ["skull_bpd", "brain_bpd"],
     summary:
       "When skull dimensions exceed brain dimensions, the extra-axial space is widened, suggesting benign enlargement of subarachnoid spaces or true cerebral atrophy.",
     rows: [
@@ -2366,6 +2385,7 @@ const CARDS: CardSpec[] = [
     title: "Agenesis of the corpus callosum pattern",
     oneLine: "Absent CSP + short / absent CC — ACC strongly considered.",
     severity: "urgent",
+    relatedParamIds: ["cc_length"],
     summary:
       "Absent CSP combined with a short or absent corpus callosum is the classic ACC pattern; colpocephaly may also be evident.",
     rows: [
@@ -2411,6 +2431,7 @@ const CARDS: CardSpec[] = [
     title: "Dandy-Walker malformation pattern",
     oneLine: "Small vermis + dilated third ventricle — DWM pattern.",
     severity: "urgent",
+    relatedParamIds: ["vermis_cc"],
     summary:
       "Small vermis with associated supratentorial ventricular dilatation is suggestive of the Dandy-Walker spectrum.",
     rows: [
@@ -2450,6 +2471,7 @@ const CARDS: CardSpec[] = [
     title: "Pontocerebellar hypoplasia pattern",
     oneLine: "Small pons + small TCD — PCH spectrum likely.",
     severity: "urgent",
+    relatedParamIds: ["pons_ap", "tcd"],
     summary:
       "Concurrent small pons and small cerebellum strongly suggests pontocerebellar hypoplasia (PCH).",
     rows: [
@@ -2593,6 +2615,21 @@ export function evaluateAll(
   for (const c of CARDS) {
     const r = c.match(input);
     if (!r) continue;
+    const sourceDisagreements = (c.relatedParamIds ?? []).flatMap(id => {
+      const zr = zs[id];
+      if (zr?.agreementState !== "disagree" || zr.disagreementWidth == null) {
+        return [];
+      }
+      const parameter = PARAMETERS_ALL.find(p => p.id === id);
+      if (!parameter) return [];
+      return [
+        {
+          parameterId: id,
+          parameterName: parameter.name,
+          disagreementWidth: zr.disagreementWidth,
+        },
+      ];
+    });
     fired.set(c.id, {
       id: c.id,
       title: c.title,
@@ -2604,6 +2641,8 @@ export function evaluateAll(
       limitations: c.limitations,
       primary: c.primary,
       secondary: c.secondary,
+      sourceDisagreements:
+        sourceDisagreements.length > 0 ? sourceDisagreements : undefined,
       triggerLabel: r.triggerLabel,
       rank: r.prior,
     });

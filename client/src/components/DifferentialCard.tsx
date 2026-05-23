@@ -60,16 +60,26 @@ export default function DifferentialCard({
             {rank}
           </span>
         )}
-        <span
-          className="smallcaps"
-          style={{ color: sev }}
-        >
+        <span className="smallcaps" style={{ color: sev }}>
           {SEVERITY_LABEL[dx.severity]}
         </span>
         <span className="text-xs text-[color:var(--ink-soft)] sm:ml-auto font-numeric break-words min-w-0">
           Trigger: {dx.triggerLabel}
         </span>
       </div>
+      {dx.sourceDisagreements && dx.sourceDisagreements.length > 0 && (
+        <div className="mb-3 inline-flex flex-wrap gap-1.5 text-[11px] smallcaps text-[color:var(--state-rare)]">
+          {dx.sourceDisagreements.map(item => (
+            <span
+              key={item.parameterId}
+              className="border border-[color:var(--state-rare)]/40 rounded-sm px-1.5 py-0.5"
+            >
+              Source disagreement: {item.parameterName} Delta z{" "}
+              {item.disagreementWidth.toFixed(2)}
+            </span>
+          ))}
+        </div>
+      )}
       <h3 className="font-display text-[22px] leading-tight mb-2 text-[color:var(--ink)]">
         {dx.title}
       </h3>
@@ -78,39 +88,39 @@ export default function DifferentialCard({
       </p>
 
       <div className="w-full overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0 mb-4">
-      <table className="min-w-[480px] w-full text-sm border-collapse">
-        <thead>
-          <tr className="border-b border-[color:var(--rule)]">
-            <th className="text-left smallcaps text-[color:var(--ink-soft)] py-1.5 font-normal">
-              Diagnosis
-            </th>
-            <th className="text-left smallcaps text-[color:var(--ink-soft)] py-1.5 font-normal w-[24%]">
-              Likelihood
-            </th>
-            <th className="text-left smallcaps text-[color:var(--ink-soft)] py-1.5 font-normal">
-              Rationale
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {dx.rows.map((r, i) => (
-            <tr
-              key={i}
-              className="border-b border-[color:var(--rule)] last:border-b-0 align-top"
-            >
-              <td className="py-2 pr-3 font-medium text-[color:var(--ink)]">
-                {r.dx}
-              </td>
-              <td className="py-2 pr-3 font-numeric text-[13px] text-[color:var(--ink)]">
-                {r.likelihood}
-              </td>
-              <td className="py-2 text-[color:var(--ink-soft)]">
-                {r.rationale}
-              </td>
+        <table className="min-w-[480px] w-full text-sm border-collapse">
+          <thead>
+            <tr className="border-b border-[color:var(--rule)]">
+              <th className="text-left smallcaps text-[color:var(--ink-soft)] py-1.5 font-normal">
+                Diagnosis
+              </th>
+              <th className="text-left smallcaps text-[color:var(--ink-soft)] py-1.5 font-normal w-[24%]">
+                Likelihood
+              </th>
+              <th className="text-left smallcaps text-[color:var(--ink-soft)] py-1.5 font-normal">
+                Rationale
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {dx.rows.map((r, i) => (
+              <tr
+                key={i}
+                className="border-b border-[color:var(--rule)] last:border-b-0 align-top"
+              >
+                <td className="py-2 pr-3 font-medium text-[color:var(--ink)]">
+                  {r.dx}
+                </td>
+                <td className="py-2 pr-3 font-numeric text-[13px] text-[color:var(--ink)]">
+                  {r.likelihood}
+                </td>
+                <td className="py-2 text-[color:var(--ink-soft)]">
+                  {r.rationale}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       <div className="space-y-2 text-sm">
@@ -179,7 +189,7 @@ export function DifferentialRailItem({
         "group w-full text-left relative flex items-start gap-3 py-3 pr-3 pl-4 border-l-2 transition-colors",
         selected
           ? "bg-[color:var(--paper)] border-l-[color:var(--teal)]"
-          : "bg-transparent border-l-transparent hover:bg-[color:var(--paper)]/60",
+          : "bg-transparent border-l-transparent hover:bg-[color:var(--paper)]/60"
       )}
       aria-pressed={selected}
     >
@@ -199,13 +209,18 @@ export function DifferentialRailItem({
         <span className="block mt-1 text-[10.5px] font-numeric text-[color:var(--ink-soft)]">
           {dx.triggerLabel}
         </span>
+        {dx.sourceDisagreements && dx.sourceDisagreements.length > 0 && (
+          <span className="block mt-1 text-[10px] smallcaps text-[color:var(--state-rare)]">
+            Source disagreement
+          </span>
+        )}
       </span>
       <ChevronRight
         className={clsx(
           "h-3.5 w-3.5 mt-1 shrink-0 transition-opacity",
           selected
             ? "opacity-100 text-[color:var(--teal)]"
-            : "opacity-0 group-hover:opacity-50",
+            : "opacity-0 group-hover:opacity-50"
         )}
       />
     </button>

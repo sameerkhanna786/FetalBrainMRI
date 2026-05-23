@@ -26,3 +26,9 @@
 - Add verification tier metadata to source-registry entries so Methodology can show byte-identical, transcribed, derived, or approximation rows per SPEC §7.5.
 - Implement audit status classification (`pass`, `partial-fail`, `fail`) using the 0.5 SD threshold and contiguous excursion rule from SPEC §4.10.2.
 - Replace stale Methodology copy about selectable reference sets with always-on consensus wording, audit charts, and verification-tier lines.
+
+## DDx source-disagreement increment
+
+- Add Vitest coverage for SPEC §4.6: a DDx card triggered from a disagreeing source row must carry source-disagreement metadata.
+- Add related-parameter metadata to z-score-driven DDx cards so the engine can propagate `disagree` rows into the card output.
+- Render source-disagreement badges in expanded cards and rail items.
