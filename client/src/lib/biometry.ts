@@ -3042,6 +3042,45 @@ const CARDS: CardSpec[] = [
         : null,
   },
   {
+    id: "interhemispheric-cyst-dd",
+    title: "Interhemispheric cyst qualitative add-on",
+    oneLine:
+      "Entered interhemispheric cyst finding — associated ACC anomaly context.",
+    severity: "info",
+    impressionLine:
+      "Interhemispheric cyst qualitative add-on; include in associated-anomaly counselling for agenesis of the corpus callosum.",
+    impressionPriority: 6,
+    summary:
+      "Interhemispheric cysts are qualitative imaging findings that can accompany complete agenesis of the corpus callosum and severe ventriculomegaly.",
+    rows: [
+      {
+        dx: "ACC-associated interhemispheric cyst",
+        likelihood: "Entered qualitative finding",
+        rationale:
+          "Tang 2009 includes interhemispheric cysts among fetal ACC-associated abnormalities.",
+      },
+      {
+        dx: "Other midline cystic lesion",
+        likelihood: "Differential consideration",
+        rationale:
+          "Correlate with communication pattern, corpus callosum anatomy, and ventricular morphology.",
+      },
+    ],
+    nextSteps:
+      "Document cyst location and communication, review corpus callosum and cortical mantle, and include the finding in genetics counselling.",
+    limitations:
+      "Qualitative add-on only; the calculator does not infer cyst type from biometric measurements.",
+    primary: {
+      label: "Tang 2009",
+      full: "Tang PH, Bartha AI, Norton ME, Barkovich AJ, Sherr EH, Glenn OA. Agenesis of the corpus callosum: an MR imaging analysis of associated abnormalities in the fetus. AJNR Am J Neuroradiol. 2009;30(2):257-263.",
+      url: "https://www.ajnr.org/content/30/2/257",
+    },
+    match: ({ values }) =>
+      (values.qualitative_interhemispheric_cyst_panel ?? 0) > 0
+        ? { prior: 0.2, triggerLabel: "entered interhemispheric cyst" }
+        : null,
+  },
+  {
     id: "dwm-pattern",
     title: "Dandy-Walker malformation pattern",
     oneLine: "Small vermis + elevated TVA — DWM pattern.",

@@ -670,6 +670,43 @@ describe("ACC heterotopia qualitative add-on", () => {
   });
 });
 
+describe("ACC interhemispheric-cyst qualitative add-on", () => {
+  it("uses the TEST.md Case A5 interhemispheric-cyst toggle without changing ACC thresholds", () => {
+    const ga = { weeks: 24, days: 0 };
+    const baseValues = {
+      csp_width: 0,
+      cc_length: 0,
+      atrial_right: 16,
+      atrial_left: 16,
+      brain_ofd_left: 78,
+      brain_ofd_right: 78,
+    };
+    const baseIds = evaluateAll(baseValues, ga).dxs.map(dx => dx.id);
+    const { zs, dxs } = evaluateAll(
+      { ...baseValues, qualitative_interhemispheric_cyst_panel: 1 },
+      ga
+    );
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values: { ...baseValues, qualitative_interhemispheric_cyst_panel: 1 },
+      zs,
+      dxs,
+    });
+    const toggledIds = dxs.map(dx => dx.id);
+
+    expect(baseIds).toEqual(
+      expect.arrayContaining(["severe-vm", "acc-pattern"])
+    );
+    expect(baseIds).not.toContain("interhemispheric-cyst-dd");
+    expect(toggledIds).toEqual(
+      expect.arrayContaining(["acc-pattern", "interhemispheric-cyst-dd"])
+    );
+    expect(report).toContain("Interhemispheric cyst qualitative add-on");
+  });
+});
+
 describe("isolated absent CSP report impression", () => {
   it("uses the TEST.md Case CSP-A3 midline-screening impression", () => {
     const ga = { weeks: 28, days: 0 };

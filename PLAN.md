@@ -442,3 +442,9 @@
 - Add Vitest coverage for TEST.md §11 Case A2 behavior: complete ACC stays on the existing quantitative cards without a heterotopia toggle.
 - Assert `qualitative_heterotopia_panel` adds a low-severity heterotopia / cortical-malformation advisory card.
 - Keep the advisory independent of ACC thresholds so it only reflects the radiologist-entered qualitative finding.
+
+## TEST 11 Interhemispheric-Cyst Qualitative Add-On Increment
+
+- Add Vitest coverage for TEST.md §11 Case A5 behavior: ACC with severe VM stays on quantitative cards without an interhemispheric-cyst toggle.
+- Assert `qualitative_interhemispheric_cyst_panel` adds a low-severity interhemispheric-cyst advisory card.
+- Keep the advisory qualitative-only so it does not change ACC, ventriculomegaly, or hydrocephalus matching.
