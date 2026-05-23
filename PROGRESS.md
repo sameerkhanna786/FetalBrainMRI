@@ -550,3 +550,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Near-Severe VM Boundary Increment
+
+- Implemented TEST.md §3 Case M2 report behavior for bilateral 14.5 mm atria just below the severe-VM threshold.
+- Added Vitest coverage that `mod-vm` fires without `severe-vm` and that the report states the finding is approaching the 15 mm severe threshold.
+- Added match-time moderate-VM impression override for high-end moderate measurements while preserving the generic moderate-VM wording for lower moderate values.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 49 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

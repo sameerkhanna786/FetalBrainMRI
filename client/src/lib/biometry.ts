@@ -1607,9 +1607,14 @@ const CARDS: CardSpec[] = [
       );
       const highest = candidates.sort((a, b) => b.value - a.value)[0];
       if (!highest) return null;
+      const impressionLine =
+        highest.value >= 14.5
+          ? "Moderate ventriculomegaly approaching the severe threshold (15 mm); recommend short-interval follow-up imaging to detect progression."
+          : undefined;
       return {
         prior: 0.7,
         triggerLabel: `Atrial ${highest.side} = ${fmt1(highest.value)} mm`,
+        impressionLine,
       };
     },
   },

@@ -249,3 +249,9 @@
 - Add Vitest coverage for TEST.md §3 Case M4: bilateral 13.5 mm atria should fire the moderate ventriculomegaly card without severe VM or ventricular asymmetry.
 - Assert the structured report names the 12–14.9 mm moderate VM sub-band and recommends follow-up imaging for progression.
 - Add deterministic moderate-VM impression wording with priority above isolated mild VM and below severe VM.
+
+## Near-severe ventriculomegaly boundary increment
+
+- Add Vitest coverage for TEST.md §3 Case M2: bilateral 14.5 mm atria should fire moderate VM without severe VM.
+- Assert the report explicitly says the atrial dimensions are approaching the severe threshold at 15 mm.
+- Add dynamic moderate-VM impression wording for high-end moderate values while preserving the generic M4 moderate wording.

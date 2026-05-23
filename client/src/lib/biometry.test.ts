@@ -210,6 +210,32 @@ describe("moderate ventriculomegaly report impression", () => {
   });
 });
 
+describe("near-severe ventriculomegaly boundary report impression", () => {
+  it("uses the TEST.md Case M2 approaching-severe-threshold wording", () => {
+    const ga = { weeks: 32, days: 0 };
+    const values = {
+      atrial_left: 14.5,
+      atrial_right: 14.5,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toContain("mod-vm");
+    expect(dxIds).not.toContain("severe-vm");
+    expect(report).toContain(
+      "Moderate ventriculomegaly approaching the severe threshold (15 mm); recommend short-interval follow-up imaging to detect progression."
+    );
+  });
+});
+
 describe("asymmetric mild ventriculomegaly report impression", () => {
   it("uses the TEST.md Case M3 asymmetric mild VM impression line", () => {
     const ga = { weeks: 28, days: 0 };
