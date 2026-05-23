@@ -1062,3 +1062,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/client-shell.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.8 Auxiliary Report Inclusion Increment
+
+- Added report coverage proving entered auxiliary measurements appear in the structured report as raw-threshold inputs.
+- Rendered measured auxiliary rows in a dedicated `AUXILIARY INPUTS` report section after z-scored biometric findings.
+- Kept auxiliary rows out of z-score/source-agreement wording while preserving their use by existing differential-card triggers.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 87 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/report.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

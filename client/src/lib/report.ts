@@ -4,6 +4,7 @@
  */
 
 import {
+  AUXILIARY_MEASUREMENTS,
   Differential,
   GA,
   GROUP_ORDER,
@@ -60,6 +61,14 @@ const paramLine = (p: Parameter, x: number, zr: ZResult): string => {
   )}. Sources: ${sources}.`;
 };
 
+const auxiliaryLine = (
+  field: (typeof AUXILIARY_MEASUREMENTS)[number],
+  x: number
+): string => {
+  const unit = field.unit === "degrees" ? "degrees" : "mm";
+  return `${field.name}: ${x.toFixed(1)} ${unit} (raw threshold input).`;
+};
+
 export function generateReport(ctx: ReportContext): string {
   const { ga, fieldStrength, motion, values, zs, dxs } = ctx;
   const gaLabel = `${ga.weeks}w ${ga.days}d (${gaToDecimalWeeks(ga).toFixed(1)} weeks)`;
@@ -96,6 +105,17 @@ export function generateReport(ctx: ReportContext): string {
         disagreeingRows.push({ parameter: p, result: zr });
       }
       lines.push(`  • ${paramLine(p, x, zr)}`);
+    }
+    lines.push("");
+  }
+
+  const measuredAuxiliary = AUXILIARY_MEASUREMENTS.filter(
+    field => values[field.id] != null
+  );
+  if (measuredAuxiliary.length > 0) {
+    lines.push("AUXILIARY INPUTS");
+    for (const field of measuredAuxiliary) {
+      lines.push(`  • ${auxiliaryLine(field, values[field.id]!)}`);
     }
     lines.push("");
   }

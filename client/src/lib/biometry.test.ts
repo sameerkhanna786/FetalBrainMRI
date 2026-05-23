@@ -86,6 +86,37 @@ describe("qualitative/context UI finding registry", () => {
   });
 });
 
+describe("auxiliary measurement report findings", () => {
+  it("renders SPEC §4.8 raw-threshold auxiliary inputs without z-scores", () => {
+    const ga = { weeks: 28, days: 0 };
+    const values = {
+      cisterna_magna_depth: 12,
+      tva: 30,
+      frontal_horn_left: 9,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+
+    expect(report).toContain("AUXILIARY INPUTS");
+    expect(report).toContain(
+      "Cisterna magna depth: 12.0 mm (raw threshold input)."
+    );
+    expect(report).toContain(
+      "Tegmento-vermian angle: 30.0 degrees (raw threshold input)."
+    );
+    expect(report).toContain(
+      "Frontal horn width — left: 9.0 mm (raw threshold input)."
+    );
+  });
+});
+
 describe("SPEC §4.7 colpocephaly comparison", () => {
   it("requires atrial dilation with a normal same-side frontal horn", () => {
     expect(AUXILIARY_MEASUREMENTS.map(field => field.id)).toEqual(

@@ -484,3 +484,9 @@
 - Extend client-shell privacy coverage to reject dynamic external script loaders and Google Maps/proxy integration hooks in client source.
 - Remove the unused Google Maps component that injects a remote script through the Forge proxy.
 - Preserve citation URLs and static report source links while blocking executable third-party script loading.
+
+## SPEC 4.8 Auxiliary Report Inclusion Increment
+
+- Add Vitest coverage proving entered auxiliary measurements appear in the structured report as raw-threshold inputs.
+- Render auxiliary findings after z-scored biometric groups without assigning z-scores or source-agreement states.
+- Keep differential matching unchanged so TVA, cisterna magna depth, and frontal-horn values continue to feed existing cards.
