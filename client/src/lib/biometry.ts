@@ -1362,7 +1362,9 @@ export const formatZ = (z: number) =>
   `${z >= 0 ? "+" : "-"}${Math.abs(z).toFixed(2)}`;
 
 export const formatPct = (p: number) => {
+  if (p < 0.1) return "<0.1st";
   if (p < 1) return "<1st";
+  if (p > 99.9) return ">99.9th";
   if (p > 99) return ">99th";
   const r = Math.round(p);
   const suffix =

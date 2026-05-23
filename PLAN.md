@@ -236,3 +236,10 @@
 - Assert `microcephaly` and `extra-axial-wide` fire without the mild-VM brain-volume-loss pattern.
 - Add a report-level impression that references IUGR-associated extra-axial-space prominence.
 - Preserve the manual growth-restriction context impression as the higher-specificity wording when that context is entered.
+
+## Extreme-z percentile formatting increment
+
+- Add Vitest coverage for TEST.md §27 Case STRESS4 using an exact z = +5 macrocephaly value from the active source registry.
+- Assert the macrocephaly card fires and the structured report renders a percentile above 99.9 rather than collapsing to `>99th`.
+- Update percentile formatting to expose sub-0.1st and above-99.9th saturation buckets.
+- Keep the existing rounded ordinal formatting for ordinary 1st–99th percentile values.

@@ -524,3 +524,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Extreme-Z Percentile Formatting Increment
+
+- Implemented TEST.md §27 Case STRESS4 percentile-saturation behavior for an exact z = +5 macrocephaly fixture.
+- Added Vitest coverage that computes a registry-derived skull-BPD z = +5 value, verifies `macrocephaly` fires, and asserts the structured report renders a `>99.9th percentile` bucket.
+- Updated `formatPct` to expose `<0.1st` and `>99.9th` saturation buckets while preserving ordinary rounded ordinal percentiles.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 47 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

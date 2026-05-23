@@ -6,7 +6,9 @@ import {
   evaluateAll,
   fitLinearMeanSdSource,
   fitPerPercentileLinearSource,
+  mu,
   parseGestationalAge,
+  sigma,
   sourceRegistryFor,
   validateSourceRegistryExtension,
   zscore,
@@ -845,6 +847,29 @@ describe("IUGR extra-axial report impression", () => {
     expect(report).toContain(
       "Microcephaly with widened extra-axial CSF suggests IUGR-associated extra-axial-space prominence; correlate with fetal growth parameters and placental insufficiency."
     );
+  });
+});
+
+describe("extreme-z percentile formatting", () => {
+  it("uses the TEST.md Case STRESS4 above-99.9 percentile report bucket", () => {
+    const ga = { weeks: 30, days: 0 };
+    const skullBpd = byId("skull_bpd");
+    const values = {
+      skull_bpd: mu(skullBpd, 30) + 5 * sigma(skullBpd, 30),
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+
+    expect(zs.skull_bpd?.z).toBeCloseTo(5, 2);
+    expect(dxs.map(dx => dx.id)).toContain("macrocephaly");
+    expect(report).toContain(">99.9th percentile");
   });
 });
 
