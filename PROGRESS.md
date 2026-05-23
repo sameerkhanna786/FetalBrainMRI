@@ -736,3 +736,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, HPE 3rd-Percentile Microcephaly Increment
+
+- Implemented TEST.md §16/§19 threshold alignment so `hpe-pattern` uses the same 3rd-percentile microcephaly cutoff as the base `microcephaly` card.
+- Added Vitest coverage using absent CSP, severe VM, preserved CC, and a registry-derived skull BPD between -2 SD and the 3rd percentile; `microcephaly` and `hpe-pattern` both fire without `acc-pattern`.
+- Updated the ACC-vs-HPE suppression check to use the same 3rd-percentile microcephaly cutoff, preserving the existing alobar-HPE report behavior.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 64 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

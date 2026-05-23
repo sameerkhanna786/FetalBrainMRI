@@ -675,6 +675,31 @@ describe("HPE pattern report impression", () => {
       "Alobar holoprosencephaly. Counselling per Malinger 2013: poor prognosis; chromosomal microarray and exome sequencing indicated."
     );
   });
+
+  it("fires HPE at the TEST.md §19 3rd-percentile microcephaly threshold", () => {
+    const ga = { weeks: 28, days: 0 };
+    const gaWeeks = 28;
+    const skullBpd = byId("skull_bpd");
+    const values = {
+      skull_bpd: mu(skullBpd, gaWeeks) - 1.9 * sigma(skullBpd, gaWeeks),
+      atrial_right: 16,
+      atrial_left: 16,
+      csp_width: 0,
+      cc_length: mu(byId("cc_length"), gaWeeks),
+    };
+    const { dxs } = evaluateAll(values, ga);
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toEqual(
+      expect.arrayContaining([
+        "severe-vm",
+        "absent-csp",
+        "microcephaly",
+        "hpe-pattern",
+      ])
+    );
+    expect(dxIds).not.toContain("acc-pattern");
+  });
 });
 
 describe("CMV qualitative microcephaly report impression", () => {

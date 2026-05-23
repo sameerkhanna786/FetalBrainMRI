@@ -2720,7 +2720,7 @@ const CARDS: CardSpec[] = [
           Number.isFinite(max) &&
           max >= 15 &&
           Number.isFinite(microZ) &&
-          microZ < -2
+          microZ < -1.8807936081512509
         )
       )
         return null;
@@ -2786,7 +2786,7 @@ const CARDS: CardSpec[] = [
         Number.isFinite(maxAtrium) &&
         maxAtrium >= 15 &&
         Number.isFinite(microZ) &&
-        microZ < -2
+        microZ < -1.8807936081512509
       )
         return null;
       if (!(zr.z < -1.6448536269514722 || v < 5)) return null;
