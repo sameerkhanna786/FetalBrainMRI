@@ -374,6 +374,33 @@ describe("ACC pattern report impression", () => {
   });
 });
 
+describe("isolated absent CSP report impression", () => {
+  it("uses the TEST.md Case CSP-A3 midline-screening impression", () => {
+    const ga = { weeks: 28, days: 0 };
+    const values = {
+      csp_width: 0,
+      cc_length: 32,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toContain("absent-csp");
+    expect(dxIds).not.toContain("acc-pattern");
+    expect(dxIds).not.toContain("hpe-pattern");
+    expect(report).toContain(
+      "Absent cavum septum pellucidum; evaluate for septo-optic dysplasia, corpus callosum abnormality, and mild holoprosencephaly-spectrum findings."
+    );
+  });
+});
+
 describe("short corpus callosum report impression", () => {
   it("uses the TEST.md Case A4 partial corpus-callosum impression", () => {
     const ga = { weeks: 28, days: 0 };

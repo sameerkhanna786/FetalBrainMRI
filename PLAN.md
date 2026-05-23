@@ -191,3 +191,9 @@
 - Add Vitest coverage for TEST.md §22 Case AS-P3: severe VM plus third-ventricle dilatation with absent CSP should not fire `hydrocephalus-pattern`.
 - Preserve `severe-vm`, `absent-csp`, and `third-v-wide` firing for the fixture.
 - Update the hydrocephalus composite matcher so an explicitly absent CSP suppresses aqueductal-stenosis classification.
+
+## Isolated absent-CSP report increment
+
+- Add Vitest coverage for TEST.md §14 Case CSP-A3: absent CSP with preserved corpus callosum should fire `absent-csp` without ACC or HPE composites.
+- Assert the report impression recommends evaluation for septo-optic dysplasia, corpus callosum abnormality, and mild HPE-spectrum findings.
+- Add deterministic `absent-csp` impression wording below ACC/HPE composite priorities.

@@ -432,3 +432,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Isolated Absent-CSP Report Increment
+
+- Implemented TEST.md §14 Case CSP-A3 report behavior for absent CSP with preserved corpus callosum.
+- Added Vitest coverage that `absent-csp` fires without `acc-pattern` or `hpe-pattern`.
+- Added a deterministic `absent-csp` impression recommending evaluation for septo-optic dysplasia, corpus callosum abnormality, and mild HPE-spectrum findings.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

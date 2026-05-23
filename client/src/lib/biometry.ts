@@ -1711,6 +1711,9 @@ const CARDS: CardSpec[] = [
     oneLine:
       "CSP < 1 mm — strong association with midline / forebrain anomalies.",
     severity: "urgent",
+    impressionLine:
+      "Absent cavum septum pellucidum; evaluate for septo-optic dysplasia, corpus callosum abnormality, and mild holoprosencephaly-spectrum findings.",
+    impressionPriority: 30,
     summary:
       "Absence of the CSP is rarely isolated; commonly seen with holoprosencephaly, ACC, septo-optic dysplasia, or severe ventriculomegaly.",
     rows: [
