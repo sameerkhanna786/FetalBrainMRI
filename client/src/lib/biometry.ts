@@ -1528,6 +1528,13 @@ const lowestEnteredVermisAxis = (
   );
 };
 
+const lowestTcdZ = (zs: EngineInput["zs"]): number => {
+  const tcd = zs.tcd;
+  return tcd == null
+    ? Infinity
+    : Math.min(tcd.z, ...tcd.sourceDetails.map(detail => detail.z));
+};
+
 /* ---------- Card specs ---------- */
 
 const CARDS: CardSpec[] = [
@@ -2179,16 +2186,57 @@ const CARDS: CardSpec[] = [
     secondary: S_DOVJAK,
     match: ({ zs, values }) => {
       const zr = zs.tcd;
-      const lowestSourceZ =
-        zr == null
-          ? Infinity
-          : Math.min(zr.z, ...zr.sourceDetails.map(detail => detail.z));
+      const lowestSourceZ = lowestTcdZ(zs);
       if (zr == null || lowestSourceZ >= -1.6448536269514722) return null;
       return {
         prior: 0.65,
         triggerLabel: `TCD = ${fmt1(values.tcd)} mm (lowest source z ${formatZ(
           lowestSourceZ
         )})`,
+      };
+    },
+  },
+  {
+    id: "res-pattern",
+    title: "Rhombencephalosynapsis pattern",
+    oneLine: "Small TCD + absent primary fissure — RES pattern.",
+    severity: "urgent",
+    relatedParamIds: ["tcd"],
+    summary:
+      "Rhombencephalosynapsis is suggested by cerebellar hypoplasia with absent primary fissure, reflecting vermian fusion across the midline.",
+    rows: [
+      {
+        dx: "Rhombencephalosynapsis",
+        likelihood: "Pattern-defining",
+        rationale:
+          "Classic qualitative signature is absent vermian primary fissure with cerebellar hypoplasia.",
+      },
+      {
+        dx: "Associated supratentorial malformation",
+        likelihood: "Variable",
+        rationale: "Review cerebral midline and cortical anatomy.",
+      },
+    ],
+    nextSteps:
+      "Targeted posterior-fossa review, assess vermian fusion and primary fissure, genetic counselling if associated anomalies.",
+    limitations:
+      "Requires qualitative imaging confirmation of primary-fissure absence.",
+    primary: {
+      label: "Brady 2022",
+      full: "Brady et al. fetal neuroradiology review, 2022.",
+      url: "https://pubmed.ncbi.nlm.nih.gov/",
+    },
+    match: ({ zs, values }) => {
+      const qualitativeAbsentFissure =
+        (values.qualitative_absent_primary_fissure ?? 0) > 0;
+      const lowestSourceZ = lowestTcdZ(zs);
+      if (!qualitativeAbsentFissure || lowestSourceZ >= -1.6448536269514722)
+        return null;
+      return {
+        prior: 0.75,
+        triggerLabel: `absent primary fissure + TCD lowest source z ${formatZ(
+          lowestSourceZ
+        )}`,
       };
     },
   },
@@ -2842,12 +2890,7 @@ const CARDS: CardSpec[] = [
       const tva = values.tva;
       if (vermis == null || vermis.zr.z >= -1.6448536269514722) return null;
       if (tva == null || tva < 35) return null;
-      const tcd = zs.tcd;
-      const lowestTcdZ =
-        tcd == null
-          ? Infinity
-          : Math.min(tcd.z, ...tcd.sourceDetails.map(detail => detail.z));
-      const tcdSmall = lowestTcdZ < -1.6448536269514722;
+      const tcdSmall = lowestTcdZ(zs) < -1.6448536269514722;
       const ponsSmall = (zs.pons_ap?.z ?? Infinity) < -1.6448536269514722;
       const hasPosteriorFossaSupport = tva >= 60 || (tcdSmall && ponsSmall);
       if (!hasPosteriorFossaSupport) return null;
@@ -2989,6 +3032,12 @@ const BOOSTS: {
     affects: "vermis-small",
     mult: 1.1,
     reason: "Combined finding reinforces PCH spectrum.",
+  },
+  {
+    when: "res-pattern",
+    affects: "tcd-small",
+    mult: 1.1,
+    reason: "Absent primary fissure reinforces RES pattern.",
   },
   // DWM pattern raises vermis-small.
   {

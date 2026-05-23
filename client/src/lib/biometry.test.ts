@@ -1069,6 +1069,27 @@ describe("isolated small TCD report impression", () => {
   });
 });
 
+describe("SPEC 4.7 rhombencephalosynapsis qualitative trigger", () => {
+  it("requires small TCD plus absent primary fissure to fire the RES composite", () => {
+    const ga = { weeks: 28, days: 0 };
+    const gaWeeks = 28;
+    const baseValues = {
+      tcd: mu(byId("tcd"), gaWeeks) - 1.9 * sigma(byId("tcd"), gaWeeks),
+    };
+    const withoutQualitative = evaluateAll(baseValues, ga).dxs.map(dx => dx.id);
+    const withQualitative = evaluateAll(
+      { ...baseValues, qualitative_absent_primary_fissure: 1 },
+      ga
+    ).dxs.map(dx => dx.id);
+
+    expect(withoutQualitative).toContain("tcd-small");
+    expect(withoutQualitative).not.toContain("res-pattern");
+    expect(withQualitative).toEqual(
+      expect.arrayContaining(["tcd-small", "res-pattern"])
+    );
+  });
+});
+
 describe("large TCD 95th-percentile threshold", () => {
   it("fires TEST.md §10 macrocerebellum between +1.645 and +2 SD", () => {
     const ga = { weeks: 26, days: 0 };

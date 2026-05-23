@@ -387,3 +387,9 @@
 - Add Vitest coverage for TEST.md §27 Case STRESS1 by filling every reportable parameter with `mu(parameter, 28w)`.
 - Assert no DDx cards fire and every resulting consensus z-score is within 0.05 SD of zero, including multi-source posterior-fossa rows.
 - Update the exported multi-source `mu`/`sigma` helpers so generated fixtures invert the runtime consensus-z calculation.
+
+## SPEC 4.7 RES Qualitative Trigger Increment
+
+- Add Vitest coverage for SPEC.md §4.7 rhombencephalosynapsis detection using small TCD plus an entered absent-primary-fissure qualitative flag.
+- Assert the qualitative flag is required: small TCD alone still does not fire the RES composite card.
+- Add a minimal `res-pattern` differential card that shares the TCD smallness logic and links the qualitative primary-fissure finding in its trigger label.

@@ -853,3 +853,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, SPEC 4.7 RES Qualitative Trigger Increment
+
+- Implemented SPEC.md §4.7 rhombencephalosynapsis support as a qualitative composite card: small TCD plus entered absent primary fissure fires `res-pattern`.
+- Added Vitest coverage proving small TCD alone stays limited to `tcd-small`, while adding `qualitative_absent_primary_fissure` fires `res-pattern`.
+- Refactored the repeated TCD lowest-source-z calculation into a shared helper and added a boost from `res-pattern` back to `tcd-small`.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 73 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
