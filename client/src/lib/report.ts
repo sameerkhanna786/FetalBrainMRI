@@ -10,6 +10,7 @@ import {
   GROUP_ORDER,
   Parameter,
   PARAMETERS_ALL,
+  QUALITATIVE_FINDINGS,
   ZResult,
   formatPct,
   formatZ,
@@ -69,6 +70,11 @@ const auxiliaryLine = (
   return `${field.name}: ${x.toFixed(1)} ${unit} (raw threshold input).`;
 };
 
+const qualitativeLine = (
+  finding: (typeof QUALITATIVE_FINDINGS)[number]
+): string =>
+  `${finding.name}: entered qualitative/context input. ${finding.finding}`;
+
 export function generateReport(ctx: ReportContext): string {
   const { ga, fieldStrength, motion, values, zs, dxs } = ctx;
   const gaLabel = `${ga.weeks}w ${ga.days}d (${gaToDecimalWeeks(ga).toFixed(1)} weeks)`;
@@ -116,6 +122,17 @@ export function generateReport(ctx: ReportContext): string {
     lines.push("AUXILIARY INPUTS");
     for (const field of measuredAuxiliary) {
       lines.push(`  • ${auxiliaryLine(field, values[field.id]!)}`);
+    }
+    lines.push("");
+  }
+
+  const enteredQualitative = QUALITATIVE_FINDINGS.filter(
+    finding => (values[finding.id] ?? 0) > 0
+  );
+  if (enteredQualitative.length > 0) {
+    lines.push("QUALITATIVE / CONTEXT INPUTS");
+    for (const finding of enteredQualitative) {
+      lines.push(`  • ${qualitativeLine(finding)}`);
     }
     lines.push("");
   }

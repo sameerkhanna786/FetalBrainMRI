@@ -490,3 +490,9 @@
 - Add Vitest coverage proving entered auxiliary measurements appear in the structured report as raw-threshold inputs.
 - Render auxiliary findings after z-scored biometric groups without assigning z-scores or source-agreement states.
 - Keep differential matching unchanged so TVA, cisterna magna depth, and frontal-horn values continue to feed existing cards.
+
+## SPEC 4.8 Qualitative Report Inclusion Increment
+
+- Add Vitest coverage proving entered qualitative/context findings appear in the structured report body.
+- Render manual qualitative findings after numeric findings without z-scores, percentiles, or source-agreement wording.
+- Keep qualitative DDx and impression matching unchanged so this increment only improves report traceability.

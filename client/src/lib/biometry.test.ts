@@ -86,6 +86,38 @@ describe("qualitative/context UI finding registry", () => {
   });
 });
 
+describe("qualitative/context report findings", () => {
+  it("renders SPEC §4.8 manual qualitative inputs without z-scores", () => {
+    const ga = { weeks: 28, days: 0 };
+    const values = {
+      growth_restriction_context: 1,
+      qualitative_cmv_panel: 1,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const qualitativeSection = report
+      .split("QUALITATIVE / CONTEXT INPUTS")[1]
+      .split("IMPRESSION")[0];
+
+    expect(report).toContain("QUALITATIVE / CONTEXT INPUTS");
+    expect(qualitativeSection).toContain(
+      "Growth-restriction context: entered qualitative/context input."
+    );
+    expect(qualitativeSection).toContain(
+      "CMV infection findings: entered qualitative/context input."
+    );
+    expect(qualitativeSection).not.toContain("consensus z");
+    expect(qualitativeSection).not.toContain("Sources:");
+  });
+});
+
 describe("auxiliary measurement report findings", () => {
   it("renders SPEC §4.8 raw-threshold auxiliary inputs without z-scores", () => {
     const ga = { weeks: 28, days: 0 };

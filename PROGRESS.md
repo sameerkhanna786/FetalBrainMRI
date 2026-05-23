@@ -1075,3 +1075,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/report.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.8 Qualitative Report Inclusion Increment
+
+- Added report coverage proving entered qualitative/context findings appear in the structured report body.
+- Rendered manual findings in a `QUALITATIVE / CONTEXT INPUTS` section after numeric findings without z-score, percentile, source, or agreement wording.
+- Kept qualitative DDx and impression matching unchanged; this increment only improves report traceability for manually entered context.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 88 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/report.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
