@@ -1869,6 +1869,9 @@ const CARDS: CardSpec[] = [
     oneLine: "CC below the 5th percentile — partial agenesis / hypogenesis.",
     severity: "concern",
     relatedParamIds: ["cc_length"],
+    impressionLine:
+      "Partial / hypogenetic corpus callosum; postnatal MRI is recommended for confirmation.",
+    impressionPriority: 25,
     summary:
       "Short corpus callosum indicates partial agenesis or hypogenesis, often with a wide spectrum of associated anomalies.",
     rows: [

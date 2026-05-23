@@ -155,3 +155,9 @@
 - Add Vitest coverage for TEST.md §10 Case LC5: macrocerebellum with thick corpus callosum at 30w0d should fire both `tcd-large` and `cc-thick`.
 - Assert the report impression flags the combined finding as an overgrowth-syndrome concern.
 - Extend the overgrowth combined-pattern report override to include `tcd-large` plus `cc-thick`.
+
+## Short corpus-callosum report increment
+
+- Add Vitest coverage for TEST.md §11 Case A4's partial / hypogenetic corpus-callosum report requirement using a registry-threshold short-CC value with preserved CSP.
+- Assert `cc-short` fires without `cc-absent` or `acc-pattern`.
+- Add deterministic `cc-short` impression wording recommending postnatal MRI confirmation.

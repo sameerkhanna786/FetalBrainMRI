@@ -353,3 +353,17 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/report.ts client/src/lib/biometry.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.
+
+## 2026-05-23, Short Corpus-Callosum Report Increment
+
+- Implemented TEST.md §11 Case A4's partial / hypogenetic corpus-callosum report wording.
+- Added Vitest coverage that a registry-threshold short corpus-callosum value fires `cc-short` without `cc-absent` or `acc-pattern`.
+- Added a deterministic `cc-short` impression recommending postnatal MRI confirmation.
+- Used CC length 30.0 mm at 28w0d for coverage because the literal TEST.md A4 value of 22.0 mm falls into `cc-absent` under the implemented Luis 2025 coefficients.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with the same pre-existing Vite warnings about unset analytics placeholders and chunk size.

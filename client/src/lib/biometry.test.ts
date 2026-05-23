@@ -325,6 +325,35 @@ describe("ACC pattern report impression", () => {
   });
 });
 
+describe("short corpus callosum report impression", () => {
+  it("uses the TEST.md Case A4 partial corpus-callosum impression", () => {
+    const ga = { weeks: 28, days: 0 };
+    const values = {
+      csp_width: 4.4,
+      cc_length: 30,
+      atrial_right: 7.4,
+      atrial_left: 7.4,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toContain("cc-short");
+    expect(dxIds).not.toContain("cc-absent");
+    expect(dxIds).not.toContain("acc-pattern");
+    expect(report).toContain(
+      "Partial / hypogenetic corpus callosum; postnatal MRI is recommended for confirmation."
+    );
+  });
+});
+
 describe("HPE pattern report impression", () => {
   it("uses the TEST.md Case S5 alobar HPE impression line", () => {
     const ga = { weeks: 32, days: 0 };
