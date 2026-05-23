@@ -2396,6 +2396,9 @@ const CARDS: CardSpec[] = [
     title: "Holoprosencephaly pattern",
     oneLine: "Absent CSP + severe VM — HPE strongly considered.",
     severity: "urgent",
+    impressionLine:
+      "Alobar holoprosencephaly. Counselling per Malinger 2013: poor prognosis; chromosomal microarray and exome sequencing indicated.",
+    impressionPriority: 100,
     summary:
       "The combination of absent CSP and severe ventriculomegaly is highly suggestive of holoprosencephaly (alobar / semilobar variants).",
     rows: [
@@ -2495,6 +2498,21 @@ const CARDS: CardSpec[] = [
       if (csp == null || csp >= 1) return null;
       const zr = zs.cc_length;
       if (v == null || zr == null) return null;
+      const maxAtrium = Math.max(
+        values.atrial_left ?? -Infinity,
+        values.atrial_right ?? -Infinity
+      );
+      const microZ = Math.min(
+        zs.brain_bpd?.z ?? Infinity,
+        zs.skull_bpd?.z ?? Infinity
+      );
+      if (
+        Number.isFinite(maxAtrium) &&
+        maxAtrium >= 15 &&
+        Number.isFinite(microZ) &&
+        microZ < -2
+      )
+        return null;
       if (!(zr.z < -1.6448536269514722 || v < 5)) return null;
       return {
         prior: 0.85,

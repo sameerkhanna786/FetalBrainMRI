@@ -83,3 +83,9 @@
 - Add Vitest coverage for TEST.md §4 Case S2: severe bilateral VM with absent CSP and absent CC at 24w0d should fire the ACC composite and not the HPE or aqueductal-stenosis composites.
 - Add the Santo 2012 ACC counselling impression to the ACC composite with priority above standalone severe VM.
 - Tighten the HPE composite trigger so absent CSP plus severe VM alone does not misclassify the ACC fixture as HPE.
+
+## HPE severe-VM impression increment
+
+- Add Vitest coverage for TEST.md §4 Case S5: severe VM with absent CSP/CC and microcephaly at 32w0d should fire the HPE composite and suppress ACC.
+- Add the Malinger 2013 HPE counselling impression to the HPE composite with the highest current report priority.
+- Tighten the ACC composite so the HPE microcephaly pattern is not simultaneously labelled as ACC.

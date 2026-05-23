@@ -272,6 +272,48 @@ describe("ACC pattern report impression", () => {
   });
 });
 
+describe("HPE pattern report impression", () => {
+  it("uses the TEST.md Case S5 alobar HPE impression line", () => {
+    const ga = { weeks: 32, days: 0 };
+    const values = {
+      skull_bpd: 75,
+      skull_ofd: 95,
+      brain_bpd: 73,
+      brain_ofd_left: 92,
+      brain_ofd_right: 92,
+      atrial_right: 20,
+      atrial_left: 20,
+      csp_width: 0,
+      cc_length: 0,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const dxIds = dxs.map(dx => dx.id);
+
+    expect(dxIds).toEqual(
+      expect.arrayContaining([
+        "severe-vm",
+        "absent-csp",
+        "cc-absent",
+        "microcephaly",
+        "hpe-pattern",
+      ])
+    );
+    expect(dxIds).not.toContain("acc-pattern");
+    expect(dxIds).not.toContain("hydrocephalus-pattern");
+    expect(report).toContain(
+      "Alobar holoprosencephaly. Counselling per Malinger 2013: poor prognosis; chromosomal microarray and exome sequencing indicated."
+    );
+  });
+});
+
 describe("Chiari II / open NTD discriminator", () => {
   it("matches the SPEC §6.5.2 TDPF and CSA worked example", () => {
     const ga = { weeks: 24, days: 0 };
