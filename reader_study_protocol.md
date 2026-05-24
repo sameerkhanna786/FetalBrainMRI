@@ -68,7 +68,7 @@ not duplicated in the reader-study export.
 | read_order                | Integer order within the reader's assigned sequence.     |
 | washout_days              | Days between paired reads; minimum is 14.                |
 | duration_sec              | Positive interpretation time in seconds.                 |
-| completeness_score        | Predefined report-completeness score.                    |
+| completeness_score        | Non-negative predefined report-completeness score.       |
 | zscore_documentation_rate | Per-case proportion from 0 to 1.                         |
 | recommendation_congruent  | Boolean adjudicated recommendation match.                |
 | categorical_label         | Reader's final categorical diagnostic label for kappa.   |

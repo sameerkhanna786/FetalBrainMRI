@@ -214,7 +214,12 @@ export const VALIDATION_DATA_SCHEMAS: Record<
         numeric: true,
         exclusiveMin: 0,
       },
-      { name: "completeness_score", required: "yes", numeric: true },
+      {
+        name: "completeness_score",
+        required: "yes",
+        numeric: true,
+        min: 0,
+      },
       {
         name: "zscore_documentation_rate",
         required: "yes",

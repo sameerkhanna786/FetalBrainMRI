@@ -1587,3 +1587,10 @@
 - Align validation export preflight with the cohort-flow metrics invariant that included cases must not carry exclusion reasons.
 - Update the data dictionary so analysts know exclusion reasons are reserved for excluded cases.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Reader-Study Completeness Score Guard Increment
+
+- Add failing-first coverage for negative `reader_study_rows.csv` `completeness_score` values.
+- Align validation export preflight with the reader-study metrics invariant that completeness scores must be non-negative.
+- Update the data dictionary so the locked report-completeness rubric is documented as non-negative.
+- Update the audit/progress trail, then run targeted/full gates before committing.
