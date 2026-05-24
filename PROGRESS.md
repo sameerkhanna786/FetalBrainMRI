@@ -1,3 +1,20 @@
+## 2026-05-24, Validation Analysis Lock Handoff Increment
+
+- Added failing-first source-document coverage that a validation analysis lock template exists and is linked from the publication handoff checklist and source verification dossier.
+- Created `validation_analysis_lock.md` with threshold-lock date, cohort freeze, endpoint freeze, code-version freeze, locked endpoint set, no-post-hoc-threshold-change rules, and Chiari II / ONTD research-mode handling.
+- Linked `validation_analysis_lock.md` from `publication_handoff_checklist.md` and `source_verification_dossier.md`.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before implementation because `validation_analysis_lock.md` was missing and unlinked.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 214 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 214 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md publication_handoff_checklist.md source_verification_dossier.md validation_analysis_lock.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, FeTA Pathology-Neurotypical Comparison Increment
 
 - Added failing-first validation-metrics coverage for the SPEC §6.3 pathology-versus-neurotypical z-score distribution comparison.

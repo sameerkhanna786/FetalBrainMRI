@@ -1250,3 +1250,10 @@
 - Implement a Welch two-sample mean-difference helper with degrees of freedom, confidence interval, and significance-by-CI output.
 - Update handoff docs so FeTA pathology-vs-neurotypical analysis points to the reusable helper.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Validation Analysis Lock Handoff Increment
+
+- Add failing-first source-document coverage that a validation analysis lock template exists for threshold, cohort, endpoint, and code-version freeze.
+- Create a concise `validation_analysis_lock.md` artifact for radiologist/analyst pre-analysis signoff.
+- Link the publication handoff checklist and source-verification dossier to the analysis-lock artifact.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

@@ -610,8 +610,33 @@ describe("publication handoff checklist", () => {
     expect(checklist).toContain("FeTA 2024");
     expect(checklist).toContain("reader-study timing");
     expect(checklist).toContain("source-data final lock");
+    expect(checklist).toContain("validation_analysis_lock.md");
     expect(checklist).toContain("pre/post report-audit metrics");
     expect(checklist).toContain("Go / no-go");
+  });
+
+  it("provides a pre-analysis lock template for cohort, endpoint, threshold, and code freeze", () => {
+    const lock = readFileSync(
+      resolve(process.cwd(), "validation_analysis_lock.md"),
+      "utf8"
+    );
+    const checklist = readFileSync(
+      resolve(process.cwd(), "publication_handoff_checklist.md"),
+      "utf8"
+    );
+    const dossier = readFileSync(
+      resolve(process.cwd(), "source_verification_dossier.md"),
+      "utf8"
+    );
+
+    expect(lock).toContain("threshold-lock date");
+    expect(lock).toContain("cohort freeze");
+    expect(lock).toContain("endpoint freeze");
+    expect(lock).toContain("code-version freeze");
+    expect(lock).toContain("No post hoc threshold changes");
+    expect(lock).toContain("Chiari II / ONTD research-mode");
+    expect(checklist).toContain("validation_analysis_lock.md");
+    expect(dossier).toContain("validation_analysis_lock.md");
   });
 
   it("records PubMed-verified SPIRIT-AI and CONSORT-AI handoff evidence", () => {
