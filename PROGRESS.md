@@ -1,3 +1,20 @@
+## 2026-05-24, TEST Normal-Control Runtime Consistency Increment
+
+- Added failing-first source-document coverage that parses TEST.md normal controls N1-N6, evaluates their numeric rows with the runtime engine, and verifies no DDx cards plus near-zero rounded z-scores.
+- Recalibrated N1-N6 to active source-registry mean values so their documented "No abnormal biometric findings" expectation is executable.
+- Clarified that N1-N6 are arithmetic negative controls and should not be counted as independent external-validation evidence.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before implementation because TEST.md still presented N1-N6 as independent-source controls with stale nonzero values.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 226 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 226 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, TEST Hemispheric Fixture Calibration Increment
 
 - Added failing-first source-document coverage that parses TEST.md cases HA1-HA6 and CH6, runs their numeric rows through the runtime engine, and verifies documented Brain OFD bands plus hemispheric-asymmetry fire/no-fire expectations.

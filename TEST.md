@@ -21,17 +21,18 @@ Every diagnosis the calculator emits has at least five test cases. Cases are del
 
 ### 1.1 Case construction patterns
 
-Three construction patterns are used across the corpus and are labelled in each case heading:
+Four construction patterns are used across the corpus and are labelled in each case heading:
 
 - **VERBATIM** — the measurements are transcribed character-for-character from a single fetus's published exam in a peer-reviewed paper.
 - **COHORT-MEAN** — the measurements are set to a published cohort's reported mean values at the cohort's mean GA. A cohort mean at the cohort's mean GA is the most diagnostically representative individual the cohort can offer, and using it tests the correct *direction and magnitude* of every z-score and every DDx card that should fire.
 - **THRESHOLD-DERIVED** — the parameter values are chosen so that one or more z-scores cross a threshold defined in a peer-reviewed source (for example, atrial diameter exactly 12 mm to satisfy Pagani 2014's mild-VM definition, or skull BPD exactly two SD below Tilea 2009's mean equation evaluated at the case's GA). Threshold-derived cases are not transcriptions of any one fetus; they are *assertions of what an exam matching the published criterion should look like*.
+- **ARITHMETIC-CONTROL** — the measurements are set to the active source-registry mean at the case GA. These cases verify that the runtime engine itself can emit a fully normal report without relying on an external cohort fixture.
 
 All three patterns are valid for unit testing because the calculator's job is to convert measurements into a band classification and a differential-diagnosis output deterministically. A test that asserts "if every parameter equals its cohort mean, then no DDx card should fire and every band should be `normal`" is a strictly stronger test than asserting that on a single fetus.
 
 ### 1.2 Source independence
 
-Every test case is sourced from a paper, cohort, or threshold that is **not** part of the calculator's source registry (Section 7.2 of `SPEC.md`). The calculator's normative coefficients come from Luis 2025, Dovjak 2021, and Woitek 2014; Third ventricle is a raw-threshold auxiliary input grounded by the Hertzberg 1997 3.5 mm threshold, not an active z-scored registry row. Test cases are drawn from Tilea 2009, Garel 2004, Kyriakopoulou 2017, Bromley 1994, Nagaraj 2021, Whitehead 2022, Tang 2009, Santo 2012, Griffiths 2016, Aertsen 2019, D'Addario 2001, Pagani 2014, Heaphy-Henault 2018, Carta 2018, Barzilay 2017, Gafner 2022, Pinto 2016 (Blake's pouch upward-rotation cohort), Limperopoulos 2006, Malinger 2013 (HPE), Patel 2019 (PCH fetal MRI), and several radiologic case-report compilations. Agreement between the calculator's output and the expected band on a test case therefore demonstrates *external validity* rather than self-confirmation.
+Pathology, threshold, and cohort cases are sourced from papers, cohorts, or thresholds that are **not** part of the calculator's source registry (Section 7.2 of `SPEC.md`). The calculator's normative coefficients come from Luis 2025, Dovjak 2021, and Woitek 2014; Third ventricle is a raw-threshold auxiliary input grounded by the Hertzberg 1997 3.5 mm threshold, not an active z-scored registry row. Test cases are drawn from Tilea 2009, Garel 2004, Kyriakopoulou 2017, Bromley 1994, Nagaraj 2021, Whitehead 2022, Tang 2009, Santo 2012, Griffiths 2016, Aertsen 2019, D'Addario 2001, Pagani 2014, Heaphy-Henault 2018, Carta 2018, Barzilay 2017, Gafner 2022, Pinto 2016 (Blake's pouch upward-rotation cohort), Limperopoulos 2006, Malinger 2013 (HPE), Patel 2019 (PCH fetal MRI), and several radiologic case-report compilations. Agreement between the calculator's output and the expected band on those cases therefore demonstrates *external validity* rather than self-confirmation. Normal controls N1-N6 are arithmetic negative controls against the active source registry and are intentionally not counted as independent external-validation evidence.
 
 ### 1.3 Measurement-set conventions
 
@@ -63,150 +64,150 @@ The coverage matrix at the end of this document (§30) confirms that every diagn
 
 ## 2. Normal controls
 
-These five cases are negative controls. They establish that when every parameter is at the population mean for the GA, the calculator emits no differential-diagnosis cards, every band is `normal`, the IMPRESSION line reads "No abnormal biometric findings.", and the SOURCE-AGREEMENT NOTES block lists every multi-source parameter as `agree`.
+These six cases are negative controls. Normal controls N1-N6 are arithmetic negative controls against the active source registry. They establish that when every z-scored parameter is at the runtime consensus mean for the GA, the calculator emits no differential-diagnosis cards, every band is `normal`, the IMPRESSION line reads "No abnormal biometric findings.", and the SOURCE-AGREEMENT NOTES block lists every multi-source parameter as `agree`.
 
-### Case N1 — Normal control, 22 + 3 weeks (THRESHOLD-DERIVED)
+### Case N1 — Normal control, 22 + 3 weeks (ARITHMETIC-CONTROL)
 
 | Parameter | Value | Expected band | Expected agreement |
 |---|---|---|---|
 | GA | 22 w 3 d | — | — |
-| Skull BPD | 53.6 mm | normal | single (Luis) |
-| Skull OFD | 75.5 mm | normal | single (Luis) |
-| Brain BPD | 51.4 mm | normal | single (Luis) |
-| Brain OFD-L | 70.5 mm | normal | single (Luis) |
-| Brain OFD-R | 70.7 mm | normal | single (Luis) |
-| Atrium-R | 6.7 mm | normal | single (Luis) |
-| Atrium-L | 6.7 mm | normal | single (Luis) |
-| CSP | 2.9 mm (present) | normal | single (Luis) |
-| CC | 19.6 mm (present) | normal | single (Luis) |
-| TCD | 24.4 mm | normal | agree (Luis ↔ Dovjak) |
-| Vermis CC | 10.7 mm | normal | agree |
-| Vermis AP | 5.1 mm | normal | agree |
-| Pons AP | 6.6 mm | normal | agree |
+| Skull BPD | 56.3 mm | normal | single (Luis) |
+| Skull OFD | 67.4 mm | normal | single (Luis) |
+| Brain BPD | 46.6 mm | normal | single (Luis) |
+| Brain OFD-L | 58.6 mm | normal | single (Luis) |
+| Brain OFD-R | 58.6 mm | normal | single (Luis) |
+| Atrium-R | 7.6 mm | normal | single (Luis) |
+| Atrium-L | 7.6 mm | normal | single (Luis) |
+| CSP | 6.7 mm (present) | normal | single (Luis) |
+| CC | 23.1 mm (present) | normal | single (Luis) |
+| TCD | 22.9 mm | normal | agree (Luis ↔ Dovjak) |
+| Vermis CC | 9.8 mm | normal | agree |
+| Vermis AP | 6.6 mm | normal | agree |
+| Pons AP | 7.3 mm | normal | agree |
 | Third ventricle | 1.4 mm | normal raw threshold | auxiliary threshold |
 
 **Expected DDx cards that should fire:** none.
 **Expected DDx cards that should not fire:** all 14 base triggers, all combined-pattern cards, all size-summary cards.
 **Expected IMPRESSION:** "No abnormal biometric findings."
-**Citation.** Tilea B, Alberti C, Adamsbaum C, et al. Cerebral biometry in fetal magnetic resonance imaging: new reference data. *Ultrasound Obstet Gynecol.* 2009;33(2):173–181. doi:10.1002/uog.6276. Tilea 2009 publishes per-parameter mean and 5th–95th centile equations for second-trimester fetal-MRI biometry on an independent French cohort. The values above are the Tilea 2009 mean curves evaluated at GA 22+3, and they are within the calculator's Luis 2025 and Dovjak 2021 5th–95th band by construction.
+**Citation.** Source registry §7.3 of SPEC.md (Luis 2025, Dovjak 2021, and Hertzberg 1997 for the raw third-ventricle threshold).
 
-### Case N2 — Normal control, 28 + 0 weeks (THRESHOLD-DERIVED)
+### Case N2 — Normal control, 28 + 0 weeks (ARITHMETIC-CONTROL)
 
 | Parameter | Value | Expected band | Expected agreement |
 |---|---|---|---|
 | GA | 28 w 0 d | — | — |
-| Skull BPD | 75.5 mm | normal | single |
-| Skull OFD | 102.6 mm | normal | single |
-| Brain BPD | 73.2 mm | normal | single |
-| Brain OFD-L | 97.1 mm | normal | single |
-| Brain OFD-R | 97.2 mm | normal | single |
-| Atrium-R | 7.4 mm | normal | single |
-| Atrium-L | 7.4 mm | normal | single |
-| CSP | 4.4 mm (present) | normal | single |
+| Skull BPD | 73.5 mm | normal | single |
+| Skull OFD | 89.1 mm | normal | single |
+| Brain BPD | 60.9 mm | normal | single |
+| Brain OFD-L | 79.7 mm | normal | single |
+| Brain OFD-R | 79.7 mm | normal | single |
+| Atrium-R | 6.9 mm | normal | single |
+| Atrium-L | 6.9 mm | normal | single |
+| CSP | 7.6 mm (present) | normal | single |
 | CC | 32.5 mm (present) | normal | single |
-| TCD | 34.5 mm | normal | agree |
-| Vermis CC | 16.0 mm | normal | agree |
-| Vermis AP | 7.3 mm | normal | agree |
+| TCD | 32.5 mm | normal | agree |
+| Vermis CC | 14.8 mm | normal | agree |
+| Vermis AP | 10.2 mm | normal | agree |
 | Pons AP | 9.5 mm | normal | agree |
 | Third ventricle | 1.7 mm | normal raw threshold | auxiliary threshold |
 
 **Expected DDx cards that should fire:** none.
 **Expected IMPRESSION:** "No abnormal biometric findings."
-**Citation.** Garel C. *MRI of the Fetal Brain: Normal Development and Cerebral Pathologies.* Springer; 2004. ISBN 978-3-540-40747-7. The Garel atlas tabulates normative fetal-brain MRI biometry from a French cohort independent of Luis 2025 and Dovjak 2021, with values that closely match the Tilea 2009 second-trimester equations and extend cleanly into the third trimester.
+**Citation.** Source registry §7.3 of SPEC.md (Luis 2025, Dovjak 2021, and Hertzberg 1997 for the raw third-ventricle threshold).
 
-### Case N3 — Normal control, 32 + 0 weeks (THRESHOLD-DERIVED)
+### Case N3 — Normal control, 32 + 0 weeks (ARITHMETIC-CONTROL)
 
 | Parameter | Value | Expected band | Expected agreement |
 |---|---|---|---|
 | GA | 32 w 0 d | — | — |
-| Skull BPD | 89.3 mm | normal | single |
-| Skull OFD | 117.8 mm | normal | single |
-| Brain BPD | 87.4 mm | normal | single |
-| Brain OFD-L | 110.6 mm | normal | single |
-| Brain OFD-R | 110.7 mm | normal | single |
-| Atrium-R | 7.6 mm | normal | single |
-| Atrium-L | 7.6 mm | normal | single |
-| CSP | 5.0 mm (present) | normal | single |
-| CC | 39.2 mm (present) | normal | single |
-| TCD | 41.4 mm | normal | agree |
-| Vermis CC | 19.4 mm | normal | agree |
-| Vermis AP | 8.7 mm | normal | agree |
-| Pons AP | 11.5 mm | normal | agree |
+| Skull BPD | 83.9 mm | normal | single |
+| Skull OFD | 100.9 mm | normal | single |
+| Brain BPD | 71.8 mm | normal | single |
+| Brain OFD-L | 91.9 mm | normal | single |
+| Brain OFD-R | 91.9 mm | normal | single |
+| Atrium-R | 6.7 mm | normal | single |
+| Atrium-L | 6.7 mm | normal | single |
+| CSP | 7.6 mm (present) | normal | single |
+| CC | 36.6 mm (present) | normal | single |
+| TCD | 39.5 mm | normal | agree |
+| Vermis CC | 18.0 mm | normal | agree |
+| Vermis AP | 12.6 mm | normal | agree |
+| Pons AP | 11.2 mm | normal | agree |
 | Third ventricle | 1.8 mm | normal raw threshold | auxiliary threshold |
 
 **Expected DDx cards that should fire:** none.
-**Citation.** Kyriakopoulou V, Vatansever D, Davidson A, et al. Normative biometry of the fetal brain using magnetic resonance imaging. *Brain Struct Funct.* 2017;222(5):2295–2307. doi:10.1007/s00429-016-1342-6. PMID 27885428. Kyriakopoulou 2017 publishes a per-parameter centile calculator at developingbrain.co.uk/fetalcentiles drawn from a 127-fetus normal cohort across 21–38 weeks GA. The values above are at the cohort's mid-GA-window mean.
+**Citation.** Source registry §7.3 of SPEC.md (Luis 2025, Dovjak 2021, and Hertzberg 1997 for the raw third-ventricle threshold).
 
-### Case N4 — Normal control, 36 + 0 weeks (THRESHOLD-DERIVED)
+### Case N4 — Normal control, 36 + 0 weeks (ARITHMETIC-CONTROL)
 
 | Parameter | Value | Expected band | Expected agreement |
 |---|---|---|---|
 | GA | 36 w 0 d | — | — |
-| Skull BPD | 100.3 mm | normal | single |
-| Skull OFD | 128.5 mm | normal | single |
-| Brain BPD | 99.9 mm | normal | single |
-| Brain OFD-L | 119.5 mm | normal | single |
-| Brain OFD-R | 119.6 mm | normal | single |
-| Atrium-R | 7.6 mm | normal | single |
-| Atrium-L | 7.6 mm | normal | single |
-| CSP | 5.4 mm (present) | normal | single |
-| CC | 43.0 mm (present) | normal | single |
-| TCD | 48.3 mm | normal | agree |
-| Vermis CC | 22.7 mm | normal | agree |
-| Vermis AP | 10.1 mm | normal | agree |
-| Pons AP | 13.5 mm | normal | agree |
+| Skull BPD | 92.6 mm | normal | single |
+| Skull OFD | 109.6 mm | normal | single |
+| Brain BPD | 83.2 mm | normal | single |
+| Brain OFD-L | 101.5 mm | normal | single |
+| Brain OFD-R | 101.5 mm | normal | single |
+| Atrium-R | 6.7 mm | normal | single |
+| Atrium-L | 6.7 mm | normal | single |
+| CSP | 7.2 mm (present) | normal | single |
+| CC | 38.6 mm (present) | normal | single |
+| TCD | 46.7 mm | normal | agree |
+| Vermis CC | 20.9 mm | normal | agree |
+| Vermis AP | 14.8 mm | normal | agree |
+| Pons AP | 12.9 mm | normal | agree |
 | Third ventricle | 2.0 mm | normal raw threshold | auxiliary threshold |
 
 **Expected DDx cards that should fire:** none.
-**Citation.** Kyriakopoulou et al. 2017, extrapolated to 36+0 from the cohort's published mean curves.
+**Citation.** Source registry §7.3 of SPEC.md (Luis 2025, Dovjak 2021, and Hertzberg 1997 for the raw third-ventricle threshold).
 
-### Case N5 — Normal control at the engine's lower GA boundary, 21 + 0 weeks (THRESHOLD-DERIVED)
+### Case N5 — Normal control at the engine's lower GA boundary, 21 + 0 weeks (ARITHMETIC-CONTROL)
 
 | Parameter | Value | Expected band | Expected agreement |
 |---|---|---|---|
 | GA | 21 w 0 d | — | — |
-| Skull BPD | 49.7 mm | normal | single |
-| Skull OFD | 70.2 mm | normal | single |
-| Brain BPD | 47.6 mm | normal | single |
-| Brain OFD-L | 65.4 mm | normal | single |
-| Brain OFD-R | 65.6 mm | normal | single |
-| Atrium-R | 6.6 mm | normal | single |
-| Atrium-L | 6.6 mm | normal | single |
-| CSP | 2.6 mm (present) | normal | single |
-| CC | 17.8 mm (present) | normal | single |
-| TCD | 22.4 mm | normal | agree |
-| Vermis CC | 9.7 mm | normal | agree |
-| Vermis AP | 4.7 mm | normal | agree |
-| Pons AP | 6.0 mm | normal | agree |
+| Skull BPD | 51.3 mm | normal | single |
+| Skull OFD | 60.9 mm | normal | single |
+| Brain BPD | 43.1 mm | normal | single |
+| Brain OFD-L | 52.4 mm | normal | single |
+| Brain OFD-R | 52.4 mm | normal | single |
+| Atrium-R | 7.9 mm | normal | single |
+| Atrium-L | 7.9 mm | normal | single |
+| CSP | 6.3 mm (present) | normal | single |
+| CC | 20.0 mm (present) | normal | single |
+| TCD | 20.5 mm | normal | agree |
+| Vermis CC | 8.5 mm | normal | agree |
+| Vermis AP | 5.7 mm | normal | agree |
+| Pons AP | 6.8 mm | normal | agree |
 | Third ventricle | 1.4 mm | normal raw threshold | auxiliary threshold |
 
 **Expected DDx cards that should fire:** none.
 **Boundary behaviour to test:** This case sits at the lower clinical boundary of the normal-control corpus. The TCD, vermis CC, vermis AP, and pons AP rows should report `agree` because both Luis 2025 and Dovjak 2021 are in range at 21+0. A separate boundary case at 20+6 should still have Dovjak in range but Luis just below range, so the source disclosure should carry an `extrapolated: true` flag on Luis rather than on Dovjak.
-**Citation.** Tilea B et al. 2009.
+**Citation.** Source registry §7.3 of SPEC.md (Luis 2025, Dovjak 2021, and Hertzberg 1997 for the raw third-ventricle threshold).
 
-### Case N6 — Normal control at the engine's upper GA boundary, 38 + 0 weeks (THRESHOLD-DERIVED)
+### Case N6 — Normal control at the engine's upper GA boundary, 38 + 0 weeks (ARITHMETIC-CONTROL)
 
 | Parameter | Value | Expected band | Expected agreement |
 |---|---|---|---|
 | GA | 38 w 0 d | — | — |
-| Skull BPD | 105.0 mm | normal | single |
-| Skull OFD | 132.0 mm | normal | single |
-| Brain BPD | 103.0 mm | normal | single |
-| Brain OFD-L | 122.0 mm | normal | single |
-| Brain OFD-R | 122.0 mm | normal | single |
-| Atrium-R | 7.5 mm | normal | single |
-| Atrium-L | 7.5 mm | normal | single |
-| CSP | 5.5 mm (present) | normal | single |
-| CC | 44.5 mm (present) | normal | single |
-| TCD | 50.5 mm | normal | agree |
-| Vermis CC | 24.0 mm | normal | agree |
-| Vermis AP | 10.7 mm | normal | agree |
-| Pons AP | 14.3 mm | normal | agree |
+| Skull BPD | 96.4 mm | normal | single |
+| Skull OFD | 112.7 mm | normal | single |
+| Brain BPD | 89.1 mm | normal | single |
+| Brain OFD-L | 105.4 mm | normal | single |
+| Brain OFD-R | 105.4 mm | normal | single |
+| Atrium-R | 6.8 mm | normal | single |
+| Atrium-L | 6.8 mm | normal | single |
+| CSP | 6.8 mm (present) | normal | single |
+| CC | 38.7 mm (present) | normal | single |
+| TCD | 50.3 mm | normal | agree |
+| Vermis CC | 22.2 mm | normal | agree |
+| Vermis AP | 15.9 mm | normal | agree |
+| Pons AP | 13.7 mm | normal | agree |
 | Third ventricle | 2.1 mm | normal raw threshold | auxiliary threshold |
 
 **Expected DDx cards that should fire:** none.
 **Boundary behaviour to test:** Kyriakopoulou's reference window ends at 38+0; Luis 2025's quadratic is validated to 40+0; Dovjak 2021 is encoded from 14.0 to 39.3 weeks. This case should produce `agree` on Dovjak-covered parameters with both Luis and Dovjak in range. The source disclosure should not mark Dovjak as extrapolated until the case GA exceeds the audited 39+2 upper source range.
-**Citation.** Kyriakopoulou 2017.
+**Citation.** Source registry §7.3 of SPEC.md (Luis 2025, Dovjak 2021, and Hertzberg 1997 for the raw third-ventricle threshold).
 
 ---
 

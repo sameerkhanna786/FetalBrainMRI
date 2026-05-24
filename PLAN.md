@@ -1309,3 +1309,10 @@
 - Add failing-first source-document coverage that parses the TEST.md hemispheric-asymmetry fixtures and verifies their documented OFD bands and asymmetry fire/no-fire expectations against the runtime engine.
 - Correct the stale Brain OFD values in HA1-HA6 and CH6 so the TEST corpus no longer labels high-z measurements as normal or <5th.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## TEST Normal-Control Runtime Consistency Increment
+
+- Add failing-first source-document coverage that parses TEST.md normal controls N1-N6 and evaluates them with the runtime engine.
+- Recalibrate the normal-control tables to active registry-mean values so they truly emit no DDx cards and all z-scored rows remain near z = 0 after rounding.
+- Update the normal-control source note so arithmetic controls are not presented as independent external-validation cases.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.
