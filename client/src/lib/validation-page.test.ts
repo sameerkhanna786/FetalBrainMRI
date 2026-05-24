@@ -37,3 +37,19 @@ describe("SPEC §6.4 institutional validation cohort", () => {
     expect(source).toContain("inter-rater reliability");
   });
 });
+
+describe("SPEC §6.6 validation dataset cross-reference", () => {
+  it("surfaces rejected validation datasets and their caveats", () => {
+    const source = readFileSync(
+      resolve(process.cwd(), "client/src/pages/Validation.tsx"),
+      "utf8"
+    );
+
+    expect(source).toContain("dHCP fetal release");
+    expect(source).toContain("lacks expert-measured biometry");
+    expect(source).toContain("does not include case-level pathology labels");
+    expect(source).toContain("Luis 2025 normative cohort");
+    expect(source).toContain("circular validation");
+    expect(source).toContain("source-registry acceptance criterion");
+  });
+});

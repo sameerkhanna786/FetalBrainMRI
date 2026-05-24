@@ -201,6 +201,26 @@ export default function Validation() {
           </p>
         </section>
 
+        <section className="mt-14">
+          <div className="smallcaps text-[color:var(--ink-soft)]">§ 0.2</div>
+          <h2 className="font-display text-[28px] mt-1">
+            Dataset cross-reference
+          </h2>
+          <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
+            The dHCP fetal release was considered for validation but{" "}
+            {"lacks expert-measured biometry"} and{" "}
+            {"does not include case-level pathology labels"}, so it is reserved
+            for possible Phase 2 measurement-layer validation.
+          </p>
+          <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
+            The Luis 2025 normative cohort remains a source-registry reference
+            distribution. It cannot serve as an independent endpoint because
+            using the same cohort for model coefficients and validation would
+            create circular validation; instead, future cohorts are checked
+            against it through the source-registry acceptance criterion.
+          </p>
+        </section>
+
         {/* §1 model */}
         <section className="mt-14">
           <div className="smallcaps text-[color:var(--ink-soft)]">§ 1</div>

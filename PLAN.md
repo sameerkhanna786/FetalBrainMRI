@@ -616,3 +616,9 @@
 - Add Validation-page coverage for the SPEC §6.4 institutional cohort composition and study roles.
 - Surface the 60-case target with 20 neurotypical, 20 mild-or-moderate pathology, and 20 severe pathology scans.
 - Document the cohort roles: expert ground truth, per-condition labels, with-tool-versus-without-tool reader study, and inter-rater reliability.
+
+## SPEC 6.6 Validation Dataset Cross-Reference Increment
+
+- Add Validation-page coverage for the SPEC §6.6 datasets considered and rejected.
+- Surface the dHCP fetal release caveat: no expert-measured biometry and no case-level pathology labels.
+- Surface the Luis 2025 cohort caveat: it is a registry reference distribution and cannot be used for circular validation.
