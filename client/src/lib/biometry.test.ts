@@ -1010,6 +1010,31 @@ describe("SPEC §7.4 PCH-pattern likelihood manifest", () => {
   });
 });
 
+describe("hemispheric-asymmetry likelihood labels", () => {
+  it("qualitative-labels the estimate-only brain-asym likelihood rows", () => {
+    const ga = { weeks: 30, days: 0 };
+    const gaWeeks = 30;
+    const left = byId("brain_ofd_left");
+    const right = byId("brain_ofd_right");
+    const values = {
+      brain_ofd_left: mu(left, gaWeeks) + 1.1 * sigma(left, gaWeeks),
+      brain_ofd_right: mu(right, gaWeeks) - 1.1 * sigma(right, gaWeeks),
+    };
+    const { dxs } = evaluateAll(values, ga);
+    const brainAsym = dxs.find(dx => dx.id === "brain-asym");
+
+    expect(brainAsym?.rows.map(row => row.likelihood)).toEqual([
+      "Minority",
+      "Minority",
+      "Minority",
+      "Rare",
+    ]);
+    expect(brainAsym?.rows.map(row => row.likelihood).join(" ")).not.toMatch(
+      /~25|~15|~5/
+    );
+  });
+});
+
 describe("aqueductal-stenosis pattern report impression", () => {
   it("uses the TEST.md Case S1 triventricular hydrocephalus impression line", () => {
     const ga = { weeks: 26, days: 0 };

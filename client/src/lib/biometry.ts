@@ -2950,22 +2950,22 @@ const CARDS: CardSpec[] = [
     rows: [
       {
         dx: "Hemimegalencephaly",
-        likelihood: "~25%",
+        likelihood: "Minority",
         rationale: "Marked unilateral enlargement.",
       },
       {
         dx: "Unilateral cortical malformation (e.g. polymicrogyria)",
-        likelihood: "~25%",
+        likelihood: "Minority",
         rationale: "Correlate with cortex morphology.",
       },
       {
         dx: "Porencephaly / ischaemic insult",
-        likelihood: "~15%",
+        likelihood: "Minority",
         rationale: "Look for cystic parenchymal defect.",
       },
       {
         dx: "Vascular malformation",
-        likelihood: "~5%",
+        likelihood: "Rare",
         rationale: "Vein of Galen and other AVMs.",
       },
     ],

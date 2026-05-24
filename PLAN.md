@@ -748,3 +748,9 @@
 - Add DDx coverage for the SPEC §7.4 pontocerebellar-hypoplasia combined-pattern likelihood manifest.
 - Confirm the PCH-pattern card no longer surfaces estimate-only numeric percentages.
 - Replace the PCH2, PCH1, other-PCH/CASK/tubulinopathy, and acquired-CMV likelihood labels with qualitative wording.
+
+## Hemispheric-Asymmetry Likelihood Qualitative Increment
+
+- Add DDx coverage for the TEST.md §24 hemispheric-asymmetry likelihood labels.
+- Confirm the brain-asym card no longer surfaces unsupported numeric percentages.
+- Replace the hemimegalencephaly, cortical-malformation, porencephaly, and vascular-malformation likelihood labels with qualitative wording.
