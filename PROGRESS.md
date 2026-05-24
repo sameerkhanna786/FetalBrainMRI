@@ -1,3 +1,17 @@
+## 2026-05-23, Publication Handoff Checklist Increment
+
+- Added test coverage that a publication handoff checklist maps reviewer standards to concrete manuscript sections, owners, and required evidence.
+- Created `publication_handoff_checklist.md` covering TRIPOD+AI, CLAIM, STARD-AI, DECIDE-AI, CONSORT-AI, calibration, decision-curve net benefit, FeTA 2024, reader-study timing, source-data final lock, and go / no-go criteria.
+- Updated the source-verification dossier to point the reporting-map blocker at the prepared handoff checklist while preserving PI/radiologist review as the remaining owner action.
+
+Verification:
+
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 168 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md source_verification_dossier.md publication_handoff_checklist.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, Publication-Readiness Literature Audit Increment
 
 - Added tests that the Validation page surfaces reviewer-facing reporting standards and endpoint families: TRIPOD+AI, CLAIM, DECIDE-AI / CONSORT-AI, STARD-AI development, calibration, Brier score, decision-curve net benefit, reader timing, NASA Task Load Index, and System Usability Scale.

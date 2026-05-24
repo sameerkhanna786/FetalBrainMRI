@@ -941,3 +941,9 @@
 - Add tests that source documents no longer describe third-ventricle width as an active Birnbaum z-scored registry row.
 - Update the Validation page and verification dossier with the online literature audit: TRIPOD+AI, CLAIM, DECIDE-AI, FeTA 2024, decision-curve utility, reader-study, IRB, and source-verification blockers.
 - Align SPEC.md, TEST.md, and the home footer with the raw-threshold third-ventricle policy.
+
+## Publication Handoff Checklist Increment
+
+- Add a test that a manuscript handoff checklist maps reviewer standards to concrete manuscript sections, endpoints, owners, and evidence.
+- Create a concise publication_handoff_checklist.md for the radiologist handoff packet.
+- Link the source-verification dossier's reporting-map blocker to the checklist and mark the implementation side prepared for PI review.

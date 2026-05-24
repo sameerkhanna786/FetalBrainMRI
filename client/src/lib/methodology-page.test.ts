@@ -78,6 +78,30 @@ describe("publication-readiness source-document consistency", () => {
   });
 });
 
+describe("publication handoff checklist", () => {
+  it("maps reporting standards to manuscript sections, owners, and required evidence", () => {
+    const checklist = readFileSync(
+      resolve(process.cwd(), "publication_handoff_checklist.md"),
+      "utf8"
+    );
+
+    expect(checklist).toContain("TRIPOD+AI");
+    expect(checklist).toContain("CLAIM");
+    expect(checklist).toContain("STARD-AI");
+    expect(checklist).toContain("DECIDE-AI");
+    expect(checklist).toContain("CONSORT-AI");
+    expect(checklist).toContain("Manuscript section");
+    expect(checklist).toContain("Required evidence");
+    expect(checklist).toContain("Owner");
+    expect(checklist).toContain("calibration-in-the-large");
+    expect(checklist).toContain("decision-curve net benefit");
+    expect(checklist).toContain("FeTA 2024");
+    expect(checklist).toContain("reader-study timing");
+    expect(checklist).toContain("source-data final lock");
+    expect(checklist).toContain("Go / no-go");
+  });
+});
+
 describe("SPEC §4.8 clinical integration workflow", () => {
   it("surfaces the Epic Radiant launch path, SMART deferral, and PowerScribe paste workflow", () => {
     const source = readFileSync(
