@@ -555,7 +555,7 @@ The DDx triggers and likelihood-ranking model specified below shall consume the 
 
 **Recommended Next Steps:** Recommend detailed fetal neurosonography and fetal MRI to assess for associated anomalies, particularly of the corpus callosum and aqueduct. Karyotype analysis and TORCH screening should be considered. Serial ultrasounds are recommended to monitor for progression.
 **Limitations:** Likelihoods are estimates derived from literature on general ventriculomegaly and may not be specific to isolated third ventricle dilatation. Actual risk depends on associated findings, karyotype, and progression.
-**Primary Source:** Hertzberg BS, Kliewer MA, Freed KS, et al. Third ventricle: size and appearance in normal fetuses through gestation. Radiology. 1997;203(3):643-647. https://pubs.rsna.org/doi/10.1148/radiology.203.3.9169682
+**Primary Source:** Hertzberg BS, Kliewer MA, Freed KS, et al. Third ventricle: size and appearance in normal fetuses through gestation. Radiology. 1997;203(3):641-644. https://doi.org/10.1148/radiology.203.3.9169682
 **Secondary Source:** Giorgione V, Haratz KK, Constantini S, Birnbaum R, Malinger G. Fetal cerebral ventriculomegaly: what do we tell the prospective parents?. Prenat Diagn. 2022;42(13):1674-1681. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10099769/
 
 ### 4.7 Differential Diagnosis Coverage Audit

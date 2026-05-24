@@ -1194,3 +1194,10 @@
 - Verify PubMed ESearch/ESummary evidence that Aertsen 2019 resolves to PMID `30591508`, while `30606726` is an unrelated AJNR deep-learning MRI article.
 - Correct the TEST.md Aertsen reference-list row to DOI `10.3174/ajnr.A5930`, PMID `30591508`, and PMCID `PMC7048594`.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Hertzberg Third-Ventricle Citation Increment
+
+- Add failing-first source-document coverage that the Hertzberg 1997 third-ventricle citation uses DOI/PMID `9169682` and not stale DOI `9169681`.
+- Verify PubMed ESummary evidence that PMID `9169682` is Hertzberg 1997, while PMID `9169681` is an unrelated congenital diaphragmatic hernia MRI paper.
+- Correct TEST.md and SPEC.md Hertzberg citation text to Radiology 1997;203(3):641-644 with DOI `10.1148/radiology.203.3.9169682`.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

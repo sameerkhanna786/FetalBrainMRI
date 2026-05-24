@@ -1864,7 +1864,7 @@ The `third_ventricle_dilatation` card fires when 3rd-V width > 3.5 mm. The Hertz
 | (others) | filler | normal |
 
 `severe_ventriculomegaly`, `third_ventricle_dilatation`, **`aqueductal_stenosis_pattern`** fire.
-**Citation.** Hertzberg BS, Kliewer MA, Freed KS, et al. Third ventricle: size and appearance in normal fetuses through gestation. *Radiology.* 1997;203(3):641–644. doi:10.1148/radiology.203.3.9169681.
+**Citation.** Hertzberg BS, Kliewer MA, Freed KS, et al. Third ventricle: size and appearance in normal fetuses through gestation. *Radiology.* 1997;203(3):641–644. doi:10.1148/radiology.203.3.9169682.
 
 ### Case TV2 — Isolated third ventricle dilatation at 30 weeks (rare)
 
@@ -2485,7 +2485,7 @@ Verifies the consensus engine flags **disagreement** (|Δz| ≥ 1 SD between Lui
 [19] Patel S, Barkovich AJ. Analysis and classification of cerebellar malformations. *AJNR Am J Neuroradiol.* 2002;23(7):1074–1087.
 [20] Whitehead MT, et al. Refining the neuroimaging definition of the Dandy-Walker phenotype. *AJNR Am J Neuroradiol.* 2022;43(10):1488–1493. doi:10.3174/ajnr.A7659.
 [21] Gafner M, Yagel I, Fried S, Ezra O, Bar-Yosef O, Katorza E. Fetal brain biometry in isolated mega cisterna magna: MRI and US study. *J Matern Fetal Neonatal Med.* 2022;35(21):4199–4207. doi:10.1080/14767058.2020.1849094. PMID 33207970.
-[22] Hertzberg BS, Kliewer MA, Freed KS, et al. Third ventricle: size and appearance in normal fetuses through gestation. *Radiology.* 1997;203(3):641–644. doi:10.1148/radiology.203.3.9169681.
+[22] Hertzberg BS, Kliewer MA, Freed KS, et al. Third ventricle: size and appearance in normal fetuses through gestation. *Radiology.* 1997;203(3):641–644. doi:10.1148/radiology.203.3.9169682.
 [23] Birnbaum R, et al. The third ventricle of the human fetal brain: normative data and pathologic correlation. *Prenat Diagn.* 2018;38(9):664–672. doi:10.1002/pd.5292.
 [24] Achiron R, et al. Fetal corpus callosum biometry from 14 to 25 weeks of gestation. *J Ultrasound Med.* 2001;20(4):343–348.
 [25] Garel C. The role of MRI in the evaluation of the fetal brain with an emphasis on biometry, gyration and parenchyma. *Pediatr Radiol.* 2004;34(9):694–699.

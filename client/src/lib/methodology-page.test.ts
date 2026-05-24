@@ -65,6 +65,13 @@ describe("publication-readiness source-document consistency", () => {
     );
     expect(home).not.toContain("Birnbaum&nbsp;2018");
     expect(home).toContain("third-ventricle raw-threshold checks");
+    expect(spec).toContain(
+      "Third ventricle: size and appearance in normal fetuses through gestation. Radiology. 1997;203(3):641-644. https://doi.org/10.1148/radiology.203.3.9169682"
+    );
+    expect(testCorpus).toContain("doi:10.1148/radiology.203.3.9169682");
+    expect(spec).not.toContain("radiology.203.3.9169681");
+    expect(spec).not.toContain("203(3):643-647");
+    expect(testCorpus).not.toContain("radiology.203.3.9169681");
   });
 
   it("keeps the Dandy-Walker combined-pattern manifest aligned to the TVA trigger", () => {

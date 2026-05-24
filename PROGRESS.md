@@ -1,3 +1,21 @@
+## 2026-05-23, Hertzberg Third-Ventricle Citation Increment
+
+- Added failing-first source-document coverage that the Hertzberg 1997 third-ventricle citation uses DOI/PMID suffix `9169682` and does not preserve stale DOI suffix `9169681`.
+- Verified via PubMed ESummary that PMID `9169682` is Hertzberg, Kliewer, Freed, et al., _Third ventricle: size and appearance in normal fetuses through gestation_, while PMID `9169681` is an unrelated congenital diaphragmatic hernia MRI article.
+- Corrected the SPEC third-ventricle primary-source paragraph to Radiology 1997;203(3):641-644 with DOI `10.1148/radiology.203.3.9169682`.
+- Corrected both TEST.md Hertzberg citation instances from DOI suffix `9169681` to `9169682`.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before the correction because TEST.md still lacked `doi:10.1148/radiology.203.3.9169682`.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 206 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 206 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-23, Aertsen TEST Corpus PMID Increment
 
 - Added failing-first source-document coverage that TEST.md does not contain the stale Aertsen PMID `30606726`.
