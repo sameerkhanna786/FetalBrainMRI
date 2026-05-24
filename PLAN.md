@@ -928,3 +928,9 @@
 - Add architecture coverage for Python residual z-score and composite DDx trigger names.
 - Add Python atrial asymmetry, corpus-callosum, large posterior-fossa, extra-axial, and hemispheric-asymmetry rows.
 - Add Python hydrocephalus, ACC, HPE, and PCH composite pattern rows from already-computed measurements.
+
+## SPEC 7.5 Third-Ventricle Raw-Threshold Policy Increment
+
+- Add tests that third-ventricle width is an auxiliary raw-threshold input rather than an approximate z-scored source row.
+- Remove the Birnbaum approximation from React and Python source registries while preserving the >3.5 mm DDx trigger.
+- Update Methodology, Validation, and the verification dossier to document the conservative raw-threshold policy.

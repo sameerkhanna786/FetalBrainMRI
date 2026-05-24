@@ -9,7 +9,7 @@
  *                                   from which μ(GA) and σ(GA) are derived
  *                                   (μ = (p5+p95)/2, σ = (p95−p5)/(2·1.645)).
  *        - "linear-mean-sd"       : μ(GA) = mμ·GA + bμ, σ(GA) constant
- *                                   (used for Birnbaum 2018 third ventricle).
+ *                                   (available for future verified sources).
  *
  *      Each parameter owns a source registry. Rows with more than one
  *      applicable peer-reviewed source are evaluated under every source and
@@ -353,7 +353,6 @@ const EXTRA_AXIAL_CSF_MODEL: LuisQuadratic = {
  * Coefficients are taken verbatim from:
  *   - Luis 2025 (auto-proc-SVRTK, scripts/auto-reporting-brain-biometry.py).
  *   - Dovjak 2021 Table 1 (per-percentile linear equations, validated 14–40 w).
- *   - Birnbaum 2018 (third-ventricle width).
  *   - Kyriakopoulou 2017 provides extra-cerebral CSF provenance; the current
  *     direct extra-axial CSF curve is an explicitly flagged approximation until
  *     exact fetal-centiles coefficients are encoded.
@@ -730,28 +729,21 @@ export const PARAMETERS: Parameter[] = [
   },
 ];
 
-/** Optional auxiliary parameter — third-ventricle width. */
-export const PARAM_THIRD_V: Parameter = {
-  id: "third_ventricle",
-  name: "Third ventricle width",
-  short: "3rd V",
-  unit: "mm",
-  group: "Ventricular system",
-  definition: "Width of the third ventricle, a midline CSF-filled space.",
-  measurement:
-    "Axial plane at the level of the thalami; inner-to-inner thalamic borders at the widest point.",
-  significance:
-    ">3.5 mm is abnormal and suggests aqueductal stenosis, hydrocephalus, or midline anomaly.",
-  primary: S_BIRNBAUM,
-  // Birnbaum 2018: μ(GA) ≈ 0.02·GA + 1.2 (~1.6 mm at 20w, ~2.0 mm at 40w);
-  //                σ ≈ 0.6 mm across the validated range.
-  model: { kind: "linear-mean-sd", mMu: 0.02, bMu: 1.2, sigma: 0.6 },
-  gaRange: [18, 37],
-};
-
-export const PARAMETERS_ALL: Parameter[] = [...PARAMETERS, PARAM_THIRD_V];
+export const PARAMETERS_ALL: Parameter[] = [...PARAMETERS];
 
 export const AUXILIARY_MEASUREMENTS: AuxiliaryMeasurement[] = [
+  {
+    id: "third_ventricle",
+    name: "Third ventricle width",
+    short: "3rd V",
+    unit: "mm",
+    group: "Ventricular system",
+    definition: "Width of the third ventricle, a midline CSF-filled space.",
+    measurement:
+      "Axial plane at the level of the thalami; inner-to-inner thalamic borders at the widest point.",
+    significance:
+      "Raw 3.5 mm threshold input; z-score reporting is disabled until a verified fetal-MRI or accepted cross-modality source is encoded.",
+  },
   {
     id: "frontal_horn_left",
     name: "Frontal horn width — left",
@@ -944,9 +936,6 @@ const LUIS_OVERRIDES: Record<string, LuisQuadratic> = {
   },
 };
 
-const THIRD_V_CROSS_MODALITY_CAVEAT =
-  "Cross-modality reference: Birnbaum 2018 is a 3-D transvaginal ultrasound cohort; fetal-MRI normative data remain a Phase 2 deliverable.";
-
 const EXTRA_AXIAL_CSF_APPROXIMATION_CAVEAT =
   "Approximate curve: Kyriakopoulou 2017 reports 2D extra-cerebral CSF centiles, but SPEC.md does not encode the source coefficients; this release uses a transparent quadratic approximation calibrated to the TEST.md §25 boundaries.";
 
@@ -958,12 +947,6 @@ const defaultVerificationTier = (
   if (param.primary.label === "Luis 2025") {
     return {
       verificationTier: "byte-identical",
-      verificationDate: VERIFICATION_DATE,
-    };
-  }
-  if (param.primary.label === "Birnbaum 2018") {
-    return {
-      verificationTier: "approximation",
       verificationDate: VERIFICATION_DATE,
     };
   }
@@ -981,12 +964,6 @@ const singleRegistryEntry = (param: Parameter): SourceRegistryEntry => ({
   model: param.model,
   gaRange: param.gaRange,
   ...defaultVerificationTier(param),
-  ...(param.id === "third_ventricle"
-    ? {
-        crossModality: true,
-        caveat: THIRD_V_CROSS_MODALITY_CAVEAT,
-      }
-    : {}),
 });
 
 const registryOverrides: Record<string, SourceRegistryEntry[]> = {

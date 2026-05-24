@@ -158,9 +158,10 @@ export default function Methodology() {
               (p₉₅ − p₅) / (2·1.6449), assuming Gaussianity.
             </li>
             <li>
-              <strong>Birnbaum 2018</strong> drives the third-ventricle width
-              with a linear mean and a constant standard deviation, flagged as a
-              cross-modality approximation.
+              Third-ventricle width is handled conservatively as a raw 3.5 mm
+              threshold input. The prior Birnbaum/Hertzberg cross-modality
+              z-score approximation is disabled until a clinician verifies a
+              source transcription or accepts a cross-modality model.
             </li>
             <li>
               <strong>Woitek 2014</strong> drives the TDPF and

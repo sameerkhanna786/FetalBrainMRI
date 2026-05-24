@@ -2677,30 +2677,8 @@ describe("DDx source-disagreement propagation", () => {
   });
 });
 
-describe("third-ventricle source metadata", () => {
-  it("uses the SPEC cross-modality approximation metadata and 18-37w range", () => {
-    const at18 = zscore(byId("third_ventricle"), { weeks: 18, days: 0 }, 1.6);
-    const at38 = zscore(byId("third_ventricle"), { weeks: 38, days: 0 }, 2.0);
-
-    expect(at18?.sourceDetails[0]).toMatchObject({
-      sourceLabel: "Birnbaum 2018",
-      gaRange: [18, 37],
-      inRange: true,
-      crossModality: true,
-      verificationTier: "approximation",
-    });
-    expect(at18?.extrapolated).toBe(false);
-    expect(at38?.sourceDetails[0]).toMatchObject({
-      gaRange: [18, 37],
-      inRange: false,
-      extrapolated: true,
-    });
-    expect(at38?.extrapolated).toBe(true);
-  });
-});
-
-describe("report source verification caveats", () => {
-  it("renders SPEC §7.5 third-ventricle approximation metadata in source details", () => {
+describe("third-ventricle raw-threshold policy", () => {
+  it("downgrades third-ventricle width to auxiliary raw threshold without z-score metadata", () => {
     const ga = { weeks: 28, days: 0 };
     const values = { third_ventricle: 4 };
     const { zs, dxs } = evaluateAll(values, ga);
@@ -2713,11 +2691,20 @@ describe("report source verification caveats", () => {
       dxs,
     });
 
-    expect(report).toContain("Birnbaum 2018 z");
-    expect(report).toContain("verification approximation (2026-05-23)");
+    expect(PARAMETERS_ALL.map(p => p.id)).not.toContain("third_ventricle");
+    expect(
+      AUXILIARY_MEASUREMENTS.find(field => field.id === "third_ventricle")
+    ).toMatchObject({
+      name: "Third ventricle width",
+      significance: expect.stringContaining("Raw 3.5 mm threshold"),
+    });
+    expect(zs).not.toHaveProperty("third_ventricle");
+    expect(dxs.map(dx => dx.id)).toContain("third-v-wide");
     expect(report).toContain(
-      "caveat: Cross-modality reference: Birnbaum 2018 is a 3-D transvaginal ultrasound cohort; fetal-MRI normative data remain a Phase 2 deliverable."
+      "Third ventricle width: 4.0 mm (raw threshold input)."
     );
+    expect(report).not.toContain("Birnbaum 2018 z");
+    expect(report).not.toContain("verification approximation");
   });
 });
 

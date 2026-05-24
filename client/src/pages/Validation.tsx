@@ -12,7 +12,6 @@ import { ArrowLeft, BookOpen } from "lucide-react";
 
 import {
   PARAMETERS,
-  PARAM_THIRD_V,
   GROUP_ORDER,
   mu,
   sigma,
@@ -116,7 +115,7 @@ const WORKED: Worked[] = [
   },
 ];
 
-const ALL_PARAMS = [...PARAMETERS, PARAM_THIRD_V];
+const ALL_PARAMS = [...PARAMETERS];
 const findParam = (id: string) => ALL_PARAMS.find(p => p.id === id)!;
 
 const fmtMm = (v: number) => v.toFixed(2);
@@ -161,11 +160,12 @@ export default function Validation() {
           >
             Luis 2025 (auto-proc-SVRTK)
           </a>
-          , while posterior-fossa, third-ventricle, Chiari-marker, and
-          extra-axial CSF rows use their own cited sources. This page documents
-          the exact coefficients used, shows the resulting growth references at
-          standard ages, and prints a battery of worked examples so anyone can
-          reproduce the calculation by hand.
+          , while posterior-fossa, Chiari-marker, and extra-axial CSF rows use
+          their own cited sources. Third-ventricle width is handled as a raw 3.5
+          mm threshold input until a verified z-score source is encoded. This
+          page documents the exact coefficients used, shows the resulting growth
+          references at standard ages, and prints a battery of worked examples
+          so anyone can reproduce the calculation by hand.
         </p>
 
         <section className="mt-14">
@@ -329,10 +329,11 @@ percentile = Φ(z) × 100                (standard normal CDF)`}
             </a>
             ). The cohort comprises 406 normative datasets across 19–40 weeks
             GA. We treat 20–40 w as the validated range; results outside this
-            window are flagged as <em>extrapolated</em>. The third-ventricle
-            width, TDPF/CSA, posterior-fossa consensus rows, and extra-axial CSF
-            rows use their own source records where Luis does not provide the
-            active model.
+            window are flagged as <em>extrapolated</em>. The TDPF/CSA,
+            posterior-fossa consensus rows, and extra-axial CSF rows use their
+            own source records where Luis does not provide the active model.
+            Third-ventricle width is not z-scored in this release; it is
+            interpreted by the raw 3.5 mm threshold only.
           </p>
         </section>
 
@@ -351,9 +352,12 @@ percentile = Φ(z) × 100                (standard normal CDF)`}
             <span className="font-numeric">
               (p<sub>95</sub>−p<sub>5</sub>) / (2·1.645)
             </span>
-            ), and linear-mean / constant-SD (Birnbaum 2018). The extra-axial
-            CSF row is explicitly marked as a Kyriakopoulou 2017 approximation
-            until the exact fetal-centiles coefficients are encoded.
+            ). A linear mean/SD model is available in the calculation library
+            for future verified sources, but is not active in the current
+            z-score registry. The extra-axial CSF row is explicitly marked as a
+            Kyriakopoulou 2017 approximation until the exact fetal-centiles
+            coefficients are encoded. Third-ventricle width is excluded from
+            this z-score table and remains a raw-threshold auxiliary input.
           </p>
           <div className="overflow-x-auto mt-4 border border-[color:var(--rule)] rounded-sm bg-white">
             <table className="w-full text-[13px] font-numeric">

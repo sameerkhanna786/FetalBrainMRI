@@ -16,6 +16,13 @@ WEEKS_OPTIONS = list(range(18, 41))
 DAYS_OPTIONS = list(range(7))
 FIELD_STRENGTH_OPTIONS = ["0.55T", "1.5T", "3T"]
 MOTION_OPTIONS = ["None", "Mild", "Moderate", "Severe"]
+RAW_THRESHOLD_PARAMETER_IDS = {
+    "third_ventricle",
+    "frontal_horn_left",
+    "frontal_horn_right",
+    "cisterna_magna_depth",
+    "tva",
+}
 PARAMETER_GROUPS = [
     {
         "name": "Global brain / skull",
@@ -395,6 +402,12 @@ async def calculate(request: Request) -> PlainTextResponse:
             try:
                 numeric_value = float(value)
                 numeric_values[parameter_id] = numeric_value
+                if parameter_id in RAW_THRESHOLD_PARAMETER_IDS:
+                    lines.append(
+                        f"  * {label}: {numeric_value:.1f} {unit} "
+                        "(raw threshold input)."
+                    )
+                    continue
                 result = evaluate_parameter(parameter_id, ga_weeks, numeric_value)
                 results_by_id[parameter_id] = result
                 z_value = float(result["z"])

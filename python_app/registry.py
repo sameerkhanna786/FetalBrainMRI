@@ -5,7 +5,6 @@ from dataclasses import dataclass
 from scipy.stats import norm
 
 from .biometry import (
-    LinearMeanConstantSd,
     Model,
     PerPercentileLinear,
     QuadraticMeanLinearSd,
@@ -39,7 +38,6 @@ class SourceRegistryEntry:
 
 S_LUIS = Source("Luis 2025")
 S_DOVJAK = Source("Dovjak 2021")
-S_BIRNBAUM = Source("Birnbaum 2018")
 S_KYRIA = Source("Kyriakopoulou 2017")
 S_WOITEK = Source("Woitek 2014")
 
@@ -57,16 +55,7 @@ def p(p5_k: float, p5_d: float, p95_k: float, p95_d: float) -> PerPercentileLine
     )
 
 
-def l(m_mu: float, b_mu: float, sigma: float) -> LinearMeanConstantSd:
-    return LinearMeanConstantSd(m_mu=m_mu, b_mu=b_mu, sigma=sigma)
-
-
 EXTRA_AXIAL_CSF_MODEL = q(-0.01, 0.6, -5, 0, 1)
-THIRD_VENTRICLE_MODEL = l(0.02, 1.2, 0.6)
-THIRD_VENTRICLE_CAVEAT = (
-    "Cross-modality reference: Birnbaum 2018 is a 3-D transvaginal ultrasound "
-    "cohort; fetal-MRI normative data remain a Phase 2 deliverable."
-)
 
 
 PARAMETERS: dict[str, Parameter] = {
@@ -106,9 +95,6 @@ PARAMETERS: dict[str, Parameter] = {
     "csp_width": Parameter(
         "csp_width", "CSP width", "mm", S_LUIS, q(-0.0156, 0.9472, -6.6953, 0.053, -0.4388), (20, 40)
     ),
-    "third_ventricle": Parameter(
-        "third_ventricle", "Third ventricle", "mm", S_BIRNBAUM, THIRD_VENTRICLE_MODEL, (18, 37)
-    ),
 }
 
 
@@ -136,15 +122,6 @@ REGISTRY_OVERRIDES: dict[str, list[SourceRegistryEntry]] = {
     "pons_ap": [
         SourceRegistryEntry(S_LUIS, LUIS_OVERRIDES["pons_ap"], (20, 40)),
         SourceRegistryEntry(S_DOVJAK, p(0.33, -0.59, 0.44, -0.78), (14, 39)),
-    ],
-    "third_ventricle": [
-        SourceRegistryEntry(
-            S_BIRNBAUM,
-            THIRD_VENTRICLE_MODEL,
-            (18, 37),
-            cross_modality=True,
-            caveat=THIRD_VENTRICLE_CAVEAT,
-        )
     ],
 }
 

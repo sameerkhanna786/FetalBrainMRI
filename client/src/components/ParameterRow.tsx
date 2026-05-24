@@ -136,13 +136,6 @@ export default function ParameterRow({ param, value, zr, onChange }: Props) {
               <p className="text-[11px] smallcaps text-[color:var(--ink-soft)] pt-1">
                 Validated GA range: {param.gaRange[0]}–{param.gaRange[1]} weeks
               </p>
-              {param.id === "third_ventricle" && (
-                <p className="text-[11px] text-[color:var(--state-watch)] leading-snug">
-                  Cross-modality reference: the current normative source is
-                  ultrasound rather than fetal MRI; fetal-MRI third-ventricle
-                  normative data remain a Phase 2 deliverable.
-                </p>
-              )}
             </div>
           </HoverCardContent>
         </HoverCard>

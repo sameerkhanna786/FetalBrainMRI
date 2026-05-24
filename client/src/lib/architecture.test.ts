@@ -128,7 +128,6 @@ describe("SPEC §4.3 Python/FastAPI architecture scaffold", () => {
       "extra_axial_csf",
       "atrial_left",
       "atrial_right",
-      "third_ventricle",
       "cc_length",
       "csp_width",
       "tcd",
@@ -146,6 +145,8 @@ describe("SPEC §4.3 Python/FastAPI architecture scaffold", () => {
     expect(registry).toContain("source_registry_for");
     expect(registry).toContain("evaluate_parameter");
     expect(registry).toContain("agreement_state");
+    expect(registry).not.toContain('"third_ventricle": Parameter');
+    expect(app).toContain('"third_ventricle"');
     expect(app).toContain("evaluate_parameter");
     expect(app).toContain("consensus z");
     expect(app).toContain("percentile");
