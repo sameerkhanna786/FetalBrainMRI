@@ -754,3 +754,9 @@
 - Add DDx coverage for the TEST.md §24 hemispheric-asymmetry likelihood labels.
 - Confirm the brain-asym card no longer surfaces unsupported numeric percentages.
 - Replace the hemimegalencephaly, cortical-malformation, porencephaly, and vascular-malformation likelihood labels with qualitative wording.
+
+## SPEC 7.5 Source Verification Dossier Increment
+
+- Add regression coverage that the SPEC §7.5 verification dossier exists.
+- Cross-list the Dovjak, Woitek, third-ventricle, Section 7.4 citation-pass, and Chiari calibration action items.
+- Track each action item with an explicit status so unresolved clinician-collaborator work is visible.

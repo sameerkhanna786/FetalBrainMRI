@@ -1647,3 +1647,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/biometry.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 7.5 Source Verification Dossier Increment
+
+- Added regression coverage that the SPEC §7.5 verification dossier exists.
+- Cross-listed the Dovjak, Woitek, third-ventricle, Section 7.4 citation-pass, and Chiari calibration action items.
+- Tracked each action item with an explicit status so unresolved clinician-collaborator work is visible.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 131 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md source_verification_dossier.md client/src/lib/methodology-page.test.ts` passes after formatting `source_verification_dossier.md`.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
