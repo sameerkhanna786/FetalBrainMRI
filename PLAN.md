@@ -1024,3 +1024,11 @@
 - Keep the existing OLS coefficients because they already match the corrected table, and document the PMC byte-check date/status.
 - Update the source-verification dossier, final-lock checklist, and PROGRESS.md with the corrected source audit and remaining clinician-review scope.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## SPEC 7.5 Dovjak Table 1 Source-Verification Increment
+
+- Add source-document coverage for the machine-readable Dovjak 2021 PMC Table 1 audit.
+- Byte-check the TCD, vermis RC, vermis AP, and total pons AP 5th/95th percentile equations against PMC8457244 Table 1.
+- Update SPEC §7.3.7-§7.3.10 and §7.5 so Dovjak is no longer listed as not byte-checked.
+- Update the source-verification dossier, final-lock checklist, and publication handoff checklist with the closed implementation-side Dovjak audit.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

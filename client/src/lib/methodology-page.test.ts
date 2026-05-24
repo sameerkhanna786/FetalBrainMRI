@@ -156,6 +156,28 @@ describe("publication-readiness source-document consistency", () => {
     expect(dossier).toContain("PMC Table 3 byte-checked");
     expect(finalLock).toContain("Implementation byte-check complete");
   });
+
+  it("locks the Dovjak 2021 Table 1 equations to the PMC source audit", () => {
+    const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
+    const dossier = readFileSync(
+      resolve(process.cwd(), "source_verification_dossier.md"),
+      "utf8"
+    );
+    const finalLock = readFileSync(
+      resolve(process.cwd(), "source_data_final_lock.md"),
+      "utf8"
+    );
+
+    expect(spec).toContain("PMC8457244 Table 1 byte-checked");
+    expect(spec).toContain("TCD: p5 = 1.52·GA - 12.48");
+    expect(spec).toContain("total pons AP: p5 = 0.33·GA - 0.59");
+    expect(spec).not.toContain("numeric pairs require eyes-on-paper");
+    expect(dossier).toContain("PMC Table 1 byte-checked");
+    expect(finalLock).toContain("Dovjak 2021 Table 1 status");
+    expect(finalLock).toMatch(
+      /Dovjak 2021 Table 1 status\s+\|\s+Implementation byte-check complete/
+    );
+  });
 });
 
 describe("publication handoff checklist", () => {

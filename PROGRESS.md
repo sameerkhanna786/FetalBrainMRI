@@ -1,3 +1,21 @@
+## 2026-05-23, SPEC 7.5 Dovjak Table 1 Source-Verification Increment
+
+- Added publication-readiness coverage that locks the Dovjak 2021 Table 1 audit into source-document tests.
+- Byte-checked the TCD, vermis rostrocaudal, vermis AP, and total pons AP 5th/95th percentile equations against the PMC8457244 Table 1 HTML.
+- Confirmed the existing React and Python Dovjak coefficients already match the source table, so no runtime coefficient change was needed.
+- Marked the Dovjak implementation-side source check closed in `source_verification_dossier.md` while keeping clinician countersignature visible in `source_data_final_lock.md`.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before the source documents were updated because SPEC.md did not contain `PMC8457244 Table 1 byte-checked`.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 183 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md source_verification_dossier.md source_data_final_lock.md publication_handoff_checklist.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 exec prettier --check SPEC.md` still reports the existing canonical-document formatting warning; `SPEC.md` was not mass-reflowed.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, SPEC 7.5 Woitek Table 3 Source-Correction Increment
 
 - Added publication-readiness coverage that locks the Woitek 2014 Table 3 audit into source-document tests.

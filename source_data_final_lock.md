@@ -9,7 +9,7 @@ date, and outcome.
 
 | Item                                 | Required action                                                                                                                                                                | Outcome fields                                                         |
 | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------- |
-| Dovjak 2021 Table 1                  | Confirm the eight printed 5th/95th-centile slope/intercept pairs for TCD, vermian height, vermian AP, and pons AP against SPEC.md Sections 7.3.7-7.3.10 and both registries.   | reviewer, date, values match yes/no, correction diff if needed         |
+| Dovjak 2021 Table 1                  | Review the completed PMC8457244 Table 1 byte-check: the TCD, vermis RC, vermis AP, and total pons AP 5th/95th percentile equations match SPEC.md Sections 7.3.7-7.3.10.        | reviewer, date, countersign yes/no, correction diff if needed          |
 | Woitek 2014 Table 3                  | Review the completed PMC4231033 Table 3 byte-check: Section 6.5.2 now matches the 17 normal-CNS TDPF and CSA mean / SD rows, and the existing OLS coefficients reproduce them. | reviewer, date, countersign yes/no, correction diff if needed          |
 | extra-axial CSF coefficient decision | Either encode exact Kyriakopoulou fetal-centiles coefficients or formally accept the transparent approximation-tier quadratic with its report caveat.                          | reviewer, date, exact coefficients encoded / approximation accepted    |
 | third-ventricle raw-threshold policy | Confirm the Phase 1 policy remains raw-threshold-only: width is recorded, >3.5 mm can trigger DDx, and no z-score is reported.                                                 | reviewer, date, policy accepted yes/no                                 |
@@ -32,7 +32,7 @@ date, and outcome.
 | ------------------------------------ | ---------------------------------------------------------------------- |
 | Source reviewer                      | Pending                                                                |
 | Radiologist PI                       | Pending                                                                |
-| Dovjak 2021 Table 1 status           | Open                                                                   |
+| Dovjak 2021 Table 1 status           | Implementation byte-check complete; pending clinician countersignature |
 | Woitek 2014 Table 3 status           | Implementation byte-check complete; pending clinician countersignature |
 | extra-axial CSF coefficient decision | Open                                                                   |
 | third-ventricle raw-threshold policy | Closed by implementation; pending clinician acceptance                 |
