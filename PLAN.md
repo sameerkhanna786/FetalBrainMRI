@@ -1271,3 +1271,10 @@
 - Add failing-first validation-metrics coverage for paired reader-study mean-difference sample-size planning.
 - Update the publication handoff, source verification dossier, and analysis lock so TRIPOD+AI / STARD-AI / CLAIM sample-size and precision expectations are visible before data collection.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Cohort Flow Missingness Increment
+
+- Add failing-first validation-metrics coverage for a cohort-flow and missingness summary required by TRIPOD+AI / STARD-AI style reporting.
+- Implement a reusable validation cohort-flow helper that counts included/excluded cases, exclusion reasons, available reference standards, available predictions, available pathology labels, complete-case denominators, and per-parameter missingness.
+- Update the handoff artifacts so final manuscript preparation cannot skip exclusion-reason and missing-data accounting.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

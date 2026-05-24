@@ -56,6 +56,38 @@ export interface PairedMeanDifferenceSampleSizePlan {
   normalApproximation: true;
 }
 
+export interface ValidationCohortCase {
+  caseId: string;
+  included: boolean;
+  exclusionReason?: string | null;
+  referenceStandardAvailable: boolean;
+  predictionAvailable: boolean;
+  pathologyLabelAvailable?: boolean | null;
+  measurements?: Record<string, number | null | undefined>;
+}
+
+export interface ParameterMissingnessSummary {
+  parameter: string;
+  availableCount: number;
+  missingCount: number;
+  missingRate: number;
+}
+
+export interface ValidationCohortFlowSummary {
+  totalCases: number;
+  includedCases: number;
+  excludedCases: number;
+  exclusionReasons: Record<string, number>;
+  referenceStandardAvailable: number;
+  predictionAvailable: number;
+  pathologyLabelAvailable: number;
+  analysisReadyCases: number;
+  missingReferenceStandardCount: number;
+  missingPredictionCount: number;
+  missingPathologyLabelCount: number;
+  parameterMissingness: ParameterMissingnessSummary[];
+}
+
 export interface GroupedAgreementMetrics {
   stratum: string;
   metrics: AgreementMetrics;
@@ -426,6 +458,114 @@ export const estimatePairedMeanDifferenceSampleSize = ({
       Math.ceil(((zAlpha + zPower) / standardizedEffect) ** 2)
     ),
     normalApproximation: true,
+  };
+};
+
+export const summarizeValidationCohortFlow = (
+  records: ValidationCohortCase[]
+): ValidationCohortFlowSummary => {
+  if (records.length === 0) {
+    throw new Error("validation cohort records must not be empty");
+  }
+
+  const seenCaseIds = new Set<string>();
+  const exclusionReasons: Record<string, number> = {};
+  const parameterNames = new Set<string>();
+
+  records.forEach(record => {
+    if (typeof record.caseId !== "string" || record.caseId.trim() === "") {
+      throw new Error("caseId must be a non-empty string");
+    }
+    if (seenCaseIds.has(record.caseId)) {
+      throw new Error(`duplicate validation cohort caseId ${record.caseId}`);
+    }
+    seenCaseIds.add(record.caseId);
+
+    if (typeof record.included !== "boolean") {
+      throw new Error("included must be boolean");
+    }
+    if (typeof record.referenceStandardAvailable !== "boolean") {
+      throw new Error("referenceStandardAvailable must be boolean");
+    }
+    if (typeof record.predictionAvailable !== "boolean") {
+      throw new Error("predictionAvailable must be boolean");
+    }
+    if (
+      record.pathologyLabelAvailable != null &&
+      typeof record.pathologyLabelAvailable !== "boolean"
+    ) {
+      throw new Error("pathologyLabelAvailable must be boolean when present");
+    }
+
+    const exclusionReason = record.exclusionReason?.trim() ?? "";
+    if (record.included && exclusionReason !== "") {
+      throw new Error("included cases must not carry an exclusionReason");
+    }
+    if (!record.included) {
+      if (exclusionReason === "") {
+        throw new Error("excluded validation cases require an exclusionReason");
+      }
+      exclusionReasons[exclusionReason] =
+        (exclusionReasons[exclusionReason] ?? 0) + 1;
+      return;
+    }
+
+    Object.entries(record.measurements ?? {}).forEach(([parameter, value]) => {
+      if (parameter.trim() === "") {
+        throw new Error("measurement parameter names must not be empty");
+      }
+      if (value != null && !Number.isFinite(value)) {
+        throw new Error("measurement values must be finite when present");
+      }
+      parameterNames.add(parameter);
+    });
+  });
+
+  const includedRecords = records.filter(record => record.included);
+  const parameterMissingness = Array.from(parameterNames)
+    .sort()
+    .map(parameter => {
+      const availableCount = includedRecords.filter(record => {
+        const measurements = record.measurements ?? {};
+        const value = measurements[parameter];
+        return value != null;
+      }).length;
+      const missingCount = includedRecords.length - availableCount;
+
+      return {
+        parameter,
+        availableCount,
+        missingCount,
+        missingRate: missingCount / includedRecords.length,
+      };
+    });
+  const referenceStandardAvailable = includedRecords.filter(
+    record => record.referenceStandardAvailable
+  ).length;
+  const predictionAvailable = includedRecords.filter(
+    record => record.predictionAvailable
+  ).length;
+  const pathologyLabelAvailable = includedRecords.filter(
+    record => record.pathologyLabelAvailable === true
+  ).length;
+
+  return {
+    totalCases: records.length,
+    includedCases: includedRecords.length,
+    excludedCases: records.length - includedRecords.length,
+    exclusionReasons,
+    referenceStandardAvailable,
+    predictionAvailable,
+    pathologyLabelAvailable,
+    analysisReadyCases: includedRecords.filter(
+      record => record.referenceStandardAvailable && record.predictionAvailable
+    ).length,
+    missingReferenceStandardCount:
+      includedRecords.length - referenceStandardAvailable,
+    missingPredictionCount: includedRecords.length - predictionAvailable,
+    missingPathologyLabelCount:
+      includedRecords.length - pathologyLabelAvailable,
+    parameterMissingness,
   };
 };
 

@@ -677,6 +677,27 @@ describe("publication handoff checklist", () => {
     expect(lock).toContain("sample-size / precision plan");
   });
 
+  it("keeps cohort-flow and missing-data accounting visible in the handoff artifacts", () => {
+    const checklist = readFileSync(
+      resolve(process.cwd(), "publication_handoff_checklist.md"),
+      "utf8"
+    );
+    const dossier = readFileSync(
+      resolve(process.cwd(), "source_verification_dossier.md"),
+      "utf8"
+    );
+    const lock = readFileSync(
+      resolve(process.cwd(), "validation_analysis_lock.md"),
+      "utf8"
+    );
+
+    expect(checklist).toContain("cohort flow and missing-data summary");
+    expect(checklist).toContain("summarizeValidationCohortFlow");
+    expect(dossier).toContain("Cohort flow and missing-data accounting");
+    expect(dossier).toContain("complete-case denominators");
+    expect(lock).toContain("cohort-flow and missing-data summary");
+  });
+
   it("records PubMed-verified SPIRIT-AI and CONSORT-AI handoff evidence", () => {
     const dossier = readFileSync(
       resolve(process.cwd(), "source_verification_dossier.md"),

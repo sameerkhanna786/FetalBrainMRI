@@ -18,6 +18,7 @@ import {
   estimateBinaryProportionSampleSize,
   estimateDiagnosticAccuracyPrecisionSampleSize,
   estimatePairedMeanDifferenceSampleSize,
+  summarizeValidationCohortFlow,
 } from "./validation-metrics";
 
 describe("publication validation metrics", () => {
@@ -93,6 +94,69 @@ describe("publication validation metrics", () => {
     expect(plan.alpha).toBe(0.05);
     expect(plan.power).toBe(0.8);
     expect(plan.normalApproximation).toBe(true);
+  });
+
+  it("summarizes validation cohort flow and per-parameter missingness", () => {
+    const summary = summarizeValidationCohortFlow([
+      {
+        caseId: "C1",
+        included: true,
+        referenceStandardAvailable: true,
+        predictionAvailable: true,
+        pathologyLabelAvailable: true,
+        measurements: { atrium: 10, tcd: 30 },
+      },
+      {
+        caseId: "C2",
+        included: true,
+        referenceStandardAvailable: false,
+        predictionAvailable: true,
+        pathologyLabelAvailable: false,
+        measurements: { atrium: null, tcd: 31 },
+      },
+      {
+        caseId: "C3",
+        included: true,
+        referenceStandardAvailable: true,
+        predictionAvailable: false,
+        measurements: { atrium: 11 },
+      },
+      {
+        caseId: "C4",
+        included: false,
+        exclusionReason: "motion-degraded",
+        referenceStandardAvailable: true,
+        predictionAvailable: true,
+        pathologyLabelAvailable: true,
+        measurements: { atrium: 12, tcd: 29 },
+      },
+    ]);
+
+    expect(summary.totalCases).toBe(4);
+    expect(summary.includedCases).toBe(3);
+    expect(summary.excludedCases).toBe(1);
+    expect(summary.exclusionReasons).toEqual({ "motion-degraded": 1 });
+    expect(summary.referenceStandardAvailable).toBe(2);
+    expect(summary.predictionAvailable).toBe(2);
+    expect(summary.pathologyLabelAvailable).toBe(1);
+    expect(summary.analysisReadyCases).toBe(1);
+    expect(summary.missingReferenceStandardCount).toBe(1);
+    expect(summary.missingPredictionCount).toBe(1);
+    expect(summary.missingPathologyLabelCount).toBe(2);
+    expect(summary.parameterMissingness).toEqual([
+      {
+        parameter: "atrium",
+        availableCount: 2,
+        missingCount: 1,
+        missingRate: 1 / 3,
+      },
+      {
+        parameter: "tcd",
+        availableCount: 2,
+        missingCount: 1,
+        missingRate: 1 / 3,
+      },
+    ]);
   });
 
   it("computes decision-curve net benefit against treat-all and treat-none comparators", () => {
@@ -220,6 +284,29 @@ describe("publication validation metrics", () => {
         pairedDifferenceStandardDeviation: 90,
       })
     ).toThrow("non-zero");
+
+    expect(() =>
+      summarizeValidationCohortFlow([
+        {
+          caseId: "C1",
+          included: false,
+          referenceStandardAvailable: true,
+          predictionAvailable: true,
+        },
+      ])
+    ).toThrow("exclusionReason");
+
+    expect(() =>
+      summarizeValidationCohortFlow([
+        {
+          caseId: "C1",
+          included: true,
+          referenceStandardAvailable: true,
+          predictionAvailable: true,
+          measurements: { atrium: Number.NaN },
+        },
+      ])
+    ).toThrow("finite");
   });
 
   it("computes per-parameter agreement and Bland-Altman summaries", () => {
