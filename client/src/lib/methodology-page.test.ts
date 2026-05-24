@@ -297,6 +297,19 @@ describe("publication-readiness source-document consistency", () => {
     expect(biometry).toContain("PMID 33338761");
   });
 
+  it("locks Harreld 2011 corpus-callosum metadata to the AJNR fetal-MRI article", () => {
+    const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
+
+    expect(spec).toContain(
+      "| HARRELD_2011 | Harreld JH, Bhore R, Chason DP, Twickler DM."
+    );
+    expect(spec).toContain("10.3174/ajnr.A2310");
+    expect(spec).toContain("21183616");
+    expect(spec).toContain("PMC8013091");
+    expect(spec).not.toContain("21183617");
+    expect(spec).not.toContain("PMC7965598");
+  });
+
   it("locks Bahlmann 2015 spina-bifida metadata to the Prenatal Diagnosis article", () => {
     const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
 

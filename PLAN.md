@@ -1145,3 +1145,10 @@
 - Replace verified no-PMC rows with `(not in PMC)` for Corroenne 2023, SMFM 2018, SMFM 2020 CSP, Sun 2024, and Garel 2003.
 - Record the NCBI ID Converter verification for those PMID lookups in PROGRESS.md.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Harreld 2011 Corpus-Callosum Metadata Increment
+
+- Add failing-first source-document coverage that locks `HARRELD_2011` to DOI `10.3174/ajnr.A2310`, PMID `21183616`, and PMCID `PMC8013091`.
+- Correct the SPEC source-inventory row away from PMID `21183617` / PMCID `PMC7965598`, which do not identify the Harreld corpus-callosum article.
+- Record PubMed, NCBI ID Converter, and Crossref verification in PROGRESS.md.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.
