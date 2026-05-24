@@ -603,6 +603,7 @@ describe("publication handoff checklist", () => {
     expect(checklist).toContain("Fleiss's kappa");
     expect(checklist).toContain("ICC(2,1)");
     expect(checklist).toContain("paired within-reader / within-case deltas");
+    expect(checklist).toContain("paired delta confidence intervals");
     expect(checklist).toContain("FeTA 2024");
     expect(checklist).toContain("reader-study timing");
     expect(checklist).toContain("source-data final lock");

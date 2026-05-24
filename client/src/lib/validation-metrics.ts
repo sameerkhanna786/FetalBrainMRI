@@ -129,6 +129,9 @@ export interface ReaderStudyCrossoverSummary {
   meanDurationDeltaSec: number;
   meanCompletenessScoreDelta: number;
   meanZScoreDocumentationRateDelta: number;
+  durationDeltaInterval: ConfidenceInterval | null;
+  completenessScoreDeltaInterval: ConfidenceInterval | null;
+  zscoreDocumentationRateDeltaInterval: ConfidenceInterval | null;
   recommendationCongruenceRateDelta: number | null;
   recommendationCongruenceDenominator: number;
   pairedDeltas: ReaderStudyPairedDelta[];
@@ -760,6 +763,72 @@ const assertNonNegativeFinite = (name: string, value: number) => {
 const mean = (values: number[]) =>
   values.reduce((sum, value) => sum + value, 0) / values.length;
 
+const tCriticalTable: Record<0.9 | 0.95 | 0.99, number[]> = {
+  0.9: [
+    6.313752, 2.919986, 2.353363, 2.131847, 2.015048, 1.94318, 1.894579,
+    1.859548, 1.833113, 1.812461, 1.795885, 1.782288, 1.770933, 1.76131,
+    1.75305, 1.745884, 1.739607, 1.734064, 1.729133, 1.724718, 1.720743,
+    1.717144, 1.713872, 1.710882, 1.708141, 1.705618, 1.703288, 1.701131,
+    1.699127, 1.697261,
+  ],
+  0.95: [
+    12.706205, 4.302653, 3.182446, 2.776445, 2.570582, 2.446912, 2.364624,
+    2.306004, 2.262157, 2.228139, 2.200985, 2.178813, 2.160369, 2.144787,
+    2.13145, 2.119905, 2.109816, 2.100922, 2.093024, 2.085963, 2.079614,
+    2.073873, 2.068658, 2.063899, 2.059539, 2.055529, 2.051831, 2.048407,
+    2.04523, 2.042272,
+  ],
+  0.99: [
+    63.656741, 9.924843, 5.840909, 4.604095, 4.032143, 3.707428, 3.499483,
+    3.355387, 3.249836, 3.169273, 3.105807, 3.05454, 3.012276, 2.976843,
+    2.946713, 2.920782, 2.898231, 2.87844, 2.860935, 2.84534, 2.83136, 2.818756,
+    2.807336, 2.79694, 2.787436, 2.778715, 2.770683, 2.763262, 2.756386,
+    2.749996,
+  ],
+};
+
+const criticalTScore = (degreesOfFreedom: number, confidenceLevel: number) => {
+  if (!Number.isInteger(degreesOfFreedom) || degreesOfFreedom < 1) {
+    throw new Error("degreesOfFreedom must be a positive integer");
+  }
+  if (
+    confidenceLevel !== 0.9 &&
+    confidenceLevel !== 0.95 &&
+    confidenceLevel !== 0.99
+  ) {
+    throw new Error("confidenceLevel must be 0.9, 0.95, or 0.99");
+  }
+
+  const table = tCriticalTable[confidenceLevel];
+  return table[degreesOfFreedom - 1] ?? criticalZScore(confidenceLevel);
+};
+
+const computeMeanConfidenceInterval = (
+  values: number[],
+  confidenceLevel = 0.95
+): ConfidenceInterval | null => {
+  if (values.length < 2) return null;
+
+  const estimate = mean(values);
+  const sumSquaredError = values.reduce(
+    (sum, value) => sum + (value - estimate) ** 2,
+    0
+  );
+  const sampleStandardDeviation = Math.sqrt(
+    sumSquaredError / (values.length - 1)
+  );
+  const standardError = sampleStandardDeviation / Math.sqrt(values.length);
+  const margin =
+    criticalTScore(values.length - 1, confidenceLevel) * standardError;
+
+  return {
+    estimate,
+    lower: estimate - margin,
+    upper: estimate + margin,
+    confidenceLevel,
+  };
+};
+
 export const computeReaderStudyCrossoverSummary = (
   records: ReaderStudyCrossoverRecord[]
 ): ReaderStudyCrossoverSummary => {
@@ -843,17 +912,25 @@ export const computeReaderStudyCrossoverSummary = (
   const recommendationDeltas = pairedDeltas
     .map(delta => delta.recommendationCongruenceDelta)
     .filter((delta): delta is number => delta != null);
+  const durationDeltas = pairedDeltas.map(delta => delta.durationDeltaSec);
+  const completenessScoreDeltas = pairedDeltas.map(
+    delta => delta.completenessScoreDelta
+  );
+  const zscoreDocumentationRateDeltas = pairedDeltas.map(
+    delta => delta.zscoreDocumentationRateDelta
+  );
 
   return {
     nPairs: pairedDeltas.length,
-    meanDurationDeltaSec: mean(
-      pairedDeltas.map(delta => delta.durationDeltaSec)
+    meanDurationDeltaSec: mean(durationDeltas),
+    meanCompletenessScoreDelta: mean(completenessScoreDeltas),
+    meanZScoreDocumentationRateDelta: mean(zscoreDocumentationRateDeltas),
+    durationDeltaInterval: computeMeanConfidenceInterval(durationDeltas),
+    completenessScoreDeltaInterval: computeMeanConfidenceInterval(
+      completenessScoreDeltas
     ),
-    meanCompletenessScoreDelta: mean(
-      pairedDeltas.map(delta => delta.completenessScoreDelta)
-    ),
-    meanZScoreDocumentationRateDelta: mean(
-      pairedDeltas.map(delta => delta.zscoreDocumentationRateDelta)
+    zscoreDocumentationRateDeltaInterval: computeMeanConfidenceInterval(
+      zscoreDocumentationRateDeltas
     ),
     recommendationCongruenceRateDelta:
       recommendationDeltas.length === 0 ? null : mean(recommendationDeltas),

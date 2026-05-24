@@ -73,5 +73,6 @@ The study can begin only after local IRB / QI determination, de-identification
 workflow approval, reader recruitment, counter-balanced reading schedule, and
 pilot-case training are complete. Manuscript submission remains blocked until
 paired within-reader / within-case reader-study timing, report-completeness
-endpoint, recommendation congruence, NASA Task Load Index, System Usability
-Scale, and qualitative feedback tables are exported and reviewed by the PI.
+endpoint, recommendation congruence, paired delta confidence intervals, NASA
+Task Load Index, System Usability Scale, and qualitative feedback tables are
+exported and reviewed by the PI.

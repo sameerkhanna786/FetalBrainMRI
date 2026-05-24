@@ -1229,3 +1229,10 @@
 - Implement a reader-study crossover summary helper that rejects duplicate or incomplete condition pairs.
 - Update the publication handoff docs so the reader-study analysis plan explicitly uses paired deltas rather than independent pre/post summaries.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Reader-Study Delta Confidence Interval Increment
+
+- Add failing-first validation-metrics coverage that paired reader-study crossover summaries include confidence intervals for timing, completeness, and z-score-documentation deltas.
+- Implement t-based mean-difference confidence intervals for paired numeric reader-study endpoints.
+- Update handoff docs so exported reader-study tables include paired delta estimates with confidence intervals.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

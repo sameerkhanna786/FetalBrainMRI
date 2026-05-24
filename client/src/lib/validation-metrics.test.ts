@@ -292,6 +292,23 @@ describe("publication validation metrics", () => {
     expect(summary.meanCompletenessScoreDelta).toBe(2);
     expect(summary.meanZScoreDocumentationRateDelta).toBeCloseTo(0.6, 6);
     expect(summary.recommendationCongruenceRateDelta).toBe(0.5);
+    expect(summary.durationDeltaInterval).toMatchObject({
+      estimate: -165,
+      confidenceLevel: 0.95,
+    });
+    expect(summary.durationDeltaInterval.lower).toBeCloseTo(
+      -165 - 12.706205 * 15,
+      5
+    );
+    expect(summary.durationDeltaInterval.upper).toBeCloseTo(
+      -165 + 12.706205 * 15,
+      5
+    );
+    expect(summary.completenessScoreDeltaInterval.estimate).toBe(2);
+    expect(summary.zscoreDocumentationRateDeltaInterval.estimate).toBeCloseTo(
+      0.6,
+      6
+    );
     expect(summary.pairedDeltas[0]).toMatchObject({
       readerId: "R1",
       studyId: "C1",
