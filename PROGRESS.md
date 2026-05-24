@@ -1218,3 +1218,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/workflow-ui.test.ts client/src/pages/Home.tsx` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.4 Report Text Box Increment
+
+- Added source-level UI coverage proving the structured report preview is a read-only text box bound to the live report value.
+- Replaced the report preview `<pre>` with a read-only `<textarea>` so radiologists can select plain report text directly.
+- Preserved the existing `Copy to Clipboard` action below the preview and the deterministic report-generation path.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 99 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/workflow-ui.test.ts client/src/pages/Home.tsx` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

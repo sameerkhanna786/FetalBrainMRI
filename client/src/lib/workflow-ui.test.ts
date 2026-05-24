@@ -20,7 +20,7 @@ describe("SPEC §4.4 workflow controls", () => {
       "utf8"
     );
     const reportPanel = source.slice(source.indexOf("Structured report"));
-    const previewIndex = reportPanel.indexOf("<pre");
+    const previewIndex = reportPanel.indexOf("<textarea");
     const reportCopyIndex = reportPanel.indexOf(
       "Copy to Clipboard",
       previewIndex
@@ -28,5 +28,17 @@ describe("SPEC §4.4 workflow controls", () => {
 
     expect(previewIndex).toBeGreaterThan(-1);
     expect(reportCopyIndex).toBeGreaterThan(previewIndex);
+  });
+
+  it("renders the structured report preview as a read-only text box", () => {
+    const source = readFileSync(
+      resolve(process.cwd(), "client/src/pages/Home.tsx"),
+      "utf8"
+    );
+    const reportPanel = source.slice(source.indexOf("Structured report"));
+
+    expect(reportPanel).toContain("<textarea");
+    expect(reportPanel).toContain("readOnly");
+    expect(reportPanel).toContain("value={report}");
   });
 });

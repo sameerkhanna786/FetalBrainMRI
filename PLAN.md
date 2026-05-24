@@ -556,3 +556,9 @@
 - Add source-level UI coverage proving the report-panel copy control appears below the report preview.
 - Change the report-panel copy label from `Copy` to the SPEC-required `Copy to Clipboard`.
 - Move the existing report-panel copy action below the structured report preview without changing clipboard behavior.
+
+## SPEC 4.4 Report Text Box Increment
+
+- Add source-level UI coverage proving the structured report preview is a read-only text box bound to the live report.
+- Replace the report preview `<pre>` with a read-only `<textarea>` so radiologists can select plain report text directly.
+- Keep the existing `Copy to Clipboard` action below the preview and preserve report-generation behavior.

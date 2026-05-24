@@ -646,9 +646,13 @@ export default function Home() {
                   </div>
                 </div>
               </header>
-              <pre className="px-5 py-4 text-[12.5px] leading-relaxed font-numeric whitespace-pre-wrap break-words text-[color:var(--ink)] max-h-[440px] overflow-auto">
-                {report}
-              </pre>
+              <textarea
+                aria-label="Structured report preview"
+                readOnly
+                value={report}
+                spellCheck={false}
+                className="block w-full h-[440px] resize-none border-0 bg-white px-5 py-4 text-[12.5px] leading-relaxed font-numeric text-[color:var(--ink)] outline-none overflow-auto"
+              />
               <footer className="border-t border-[color:var(--rule)] px-5 py-3 flex justify-end">
                 <button
                   onClick={handleCopy}
