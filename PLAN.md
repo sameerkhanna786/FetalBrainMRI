@@ -1447,3 +1447,10 @@
 - Create `validation_data_dictionary.md` with de-identified case, measurement, diagnostic-label, reader-study, and report-audit column definitions mapped to validation-metrics helpers.
 - Link the data dictionary from the publication handoff checklist, source-verification dossier, and completion audit so external blockers have concrete data-collection instructions.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Validation Data Schema Guard Increment
+
+- Add failing-first Vitest coverage for runtime validation-data schema constants that match `validation_data_dictionary.md`.
+- Implement `client/src/lib/validation-data-schema.ts` with required/conditional/optional columns for the five handoff CSV files and a required-field validator.
+- Update the data dictionary to point analysts at the schema guard before running validation metrics.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

@@ -12,6 +12,12 @@ the FeTA 2024, institutional cohort, reader-study, and pre/post report-audit
 blockers. Column names are intentionally aligned to the helper inputs in
 `client/src/lib/validation-metrics.ts`.
 
+Before metrics are computed, export rows should be checked with
+`validateValidationDataRows` from
+`client/src/lib/validation-data-schema.ts`. That guard verifies that every file
+contains the required fields documented below and catches blank required values
+before downstream analysis code runs.
+
 ## File set
 
 | File                  | Grain                                                              | Primary helper or use                                                                       |

@@ -1,3 +1,21 @@
+## 2026-05-24, Validation Data Schema Guard Increment
+
+- Added failing-first Vitest coverage for runtime validation-data schema constants aligned to `validation_data_dictionary.md`.
+- Implemented `client/src/lib/validation-data-schema.ts` with required, conditional, and optional columns for the five validation handoff CSV files plus `validateValidationDataRows` for required-field preflight checks.
+- Updated `validation_data_dictionary.md` so analysts run the schema guard before feeding exported rows into validation metrics.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` failed before implementation because `client/src/lib/validation-data-schema.ts` did not exist.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes.
+- `npx pnpm@10.4.1 test client/src/lib/methodology-page.test.ts -- --runInBand -t "validation data-collection"` passes.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 247 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Validation Data Dictionary Handoff Increment
 
 - Added failing-first source-document coverage requiring `validation_data_dictionary.md` and links from the publication handoff packet, source-verification dossier, and completion audit.

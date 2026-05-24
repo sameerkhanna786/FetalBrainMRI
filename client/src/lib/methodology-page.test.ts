@@ -2753,6 +2753,8 @@ describe("publication handoff checklist", () => {
     expect(dictionary).toContain("computeBinaryValidationMetrics");
     expect(dictionary).toContain("computeReaderStudyCrossoverSummary");
     expect(dictionary).toContain("computeQiAuditSummary");
+    expect(dictionary).toContain("client/src/lib/validation-data-schema.ts");
+    expect(dictionary).toContain("validateValidationDataRows");
     expect(checklist).toContain("validation_data_dictionary.md");
     expect(dossier).toContain("validation_data_dictionary.md");
     expect(audit).toContain("validation_data_dictionary.md");
