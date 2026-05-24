@@ -1,3 +1,20 @@
+## 2026-05-23, Kertes 2021 CSP Source Metadata Increment
+
+- Added failing-first source-document coverage that locks `KERTES_2021` to the European Journal of Radiology CSP MRI article with DOI `10.1016/j.ejrad.2020.109470` and PMID `33338761`.
+- Verified via Crossref and PubMed that the article is Kertes et al. _The normal fetal Cavum Septum Pellucidum in MR imaging - New biometric data_, Eur J Radiol 2021;135:109470.
+- Verified via NCBI ID Converter that the article does not have a PMC record.
+- Corrected the SPEC tooltip, source inventory, and reference metadata away from the ScienceDirect PII-in-DOI-field row and author/title typos, and added the DOI / PMID lock to the runtime Kertes source record.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before the citation update because SPEC.md did not contain `33338761`.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 198 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 198 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/biometry.ts client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, Malinger 2005 Absent-CSP Source Metadata Increment
 
 - Added failing-first source-document coverage that locks `MALINGER_2005` to the Ultrasound in Obstetrics & Gynecology absent-septum-pellucidum article with DOI `10.1002/uog.1787` and PMID `15593321`.

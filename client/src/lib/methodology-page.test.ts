@@ -273,6 +273,30 @@ describe("publication-readiness source-document consistency", () => {
     expect(biometry).toContain("PMID 15593321");
   });
 
+  it("locks Kertes 2021 CSP metadata to the European Journal of Radiology article", () => {
+    const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
+    const biometry = readFileSync(
+      resolve(process.cwd(), "client/src/lib/biometry.ts"),
+      "utf8"
+    );
+
+    expect(spec).toContain("10.1016/j.ejrad.2020.109470");
+    expect(spec).toContain("33338761");
+    expect(spec).toContain(
+      "The normal fetal Cavum Septum Pellucidum in MR imaging - New biometric data"
+    );
+    expect(spec).toContain(
+      "| KERTES_2021 | Kertes I, Hoffman D, Yahal O, Berknstadt M, Bar-Yosef O, Ezra O, Katorza E."
+    );
+    expect(spec).not.toContain("(ScienceDirect S0720048X20306604)");
+    expect(spec).not.toContain("Hoffman C, Yagel S");
+    expect(spec).not.toContain(
+      "Cavum septi pellucidi width on fetal MRI: normal values and reference range from 28 to 37 weeks"
+    );
+    expect(biometry).toContain("doi:10.1016/j.ejrad.2020.109470");
+    expect(biometry).toContain("PMID 33338761");
+  });
+
   it("locks the Woitek 2014 Table 3 control rows to the PMC source audit", () => {
     const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
     const dossier = readFileSync(

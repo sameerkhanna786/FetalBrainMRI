@@ -103,8 +103,8 @@ const S_DOVJAK: Source = {
 };
 const S_KERTES: Source = {
   label: "Kertes 2021",
-  full: "Kertes I, Hoffman D, Yahal O, et al. The normal fetal cavum septum pellucidum in MR imaging — new biometric data. Eur J Radiol. 2021;135:109470.",
-  url: "https://www.sciencedirect.com/science/article/pii/S0720048X20306604",
+  full: "Kertes I, Hoffman D, Yahal O, Berknstadt M, Bar-Yosef O, Ezra O, Katorza E. The normal fetal Cavum Septum Pellucidum in MR imaging - New biometric data. Eur J Radiol. 2021;135:109470. doi:10.1016/j.ejrad.2020.109470. PMID 33338761.",
+  url: "https://doi.org/10.1016/j.ejrad.2020.109470",
 };
 const S_CONTE: Source = {
   label: "Conte 2018",
