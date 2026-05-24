@@ -1,3 +1,26 @@
+## 2026-05-24, Measurement Source Availability Guard Increment
+
+- Added failing-first package-level validation-data-schema coverage that
+  available reference measurement rows require `case_log.csv`
+  `reference_standard_available=true`.
+- Added coverage that available calculator and AI-prefill measurement rows
+  require `case_log.csv` `prediction_available=true`.
+- Extended cross-file export validation so agreement and measurement-layer
+  analyses cannot use measurement rows contradicted by case-level availability
+  flags.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "measurement rows when case-level evidence"` failed before implementation because unavailable case-level evidence produced no package-level measurement-row errors.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "measurement rows when case-level evidence"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 37 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 287 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Determinate Diagnostic Availability Guard Increment
 
 - Added failing-first package-level validation-data-schema coverage that

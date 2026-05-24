@@ -68,7 +68,9 @@ Rows with `measurement_available=true` must populate exactly one positive
 `value_mm` or `value_deg`, and the populated column must match the runtime
 parameter unit. These rows must leave `missing_reason` blank.
 Rows with `measurement_available=false` must leave both value columns blank and
-provide `missing_reason`.
+provide `missing_reason`. Available `reference` rows require the linked
+`case_log.csv` row to have `reference_standard_available=true`; available
+`calculator` and `ai_prefill` rows require `prediction_available=true`.
 
 | Column                | Required    | Values / notes                                                                                                                                                                                        |
 | --------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -175,26 +177,29 @@ the other validation files.
    not numeric placeholders; available measurements use exactly one positive
    `value_mm` or `value_deg`, matching the runtime parameter unit, and leave
    `missing_reason` blank.
-6. Every reader-study case has exactly one `without_tool` and exactly one
+6. Available reference measurements require `reference_standard_available=true`;
+   available calculator and AI-prefill measurements require
+   `prediction_available=true`.
+7. Every reader-study case has exactly one `without_tool` and exactly one
    `with_tool` row for each reader; duplicate condition rows are fixed before
    paired deltas are computed.
-7. Locked thresholds and endpoint definitions are copied into
+8. Locked thresholds and endpoint definitions are copied into
    `validation_analysis_lock.md` before analysis.
-8. Indeterminate diagnostic-label rows include `indeterminate_reason` and leave
+9. Indeterminate diagnostic-label rows include `indeterminate_reason` and leave
    label / probability fields blank; determinate rows include
    `reference_label` and `predicted_label` and leave `indeterminate_reason`
    blank.
-9. Determinate diagnostic-label rows reference only case-log rows with
-   `reference_standard_available=true`, `prediction_available=true`, and
-   `pathology_label_available=true`.
-10. Probability, rate, NASA Task Load Index, System Usability Scale, gestational
+10. Determinate diagnostic-label rows reference only case-log rows with
+    `reference_standard_available=true`, `prediction_available=true`, and
+    `pathology_label_available=true`.
+11. Probability, rate, NASA Task Load Index, System Usability Scale, gestational
     age day, positive duration, and count fields stay inside the documented
     numeric ranges.
-11. Reader-study paired reads have at least 14 washout days.
-12. Partial NASA Task Load Index or System Usability Scale rows are fixed before
+12. Reader-study paired reads have at least 14 washout days.
+13. Partial NASA Task Load Index or System Usability Scale rows are fixed before
     scoring; do not export only selected subscales or selected SUS items.
-13. Report-audit rows have a non-zero required-measurement denominator and never
+14. Report-audit rows have a non-zero required-measurement denominator and never
     document more measurements than the locked audit rubric requires.
-14. Integer fields such as `ga_weeks`, `ga_days`, `read_order`,
+15. Integer fields such as `ga_weeks`, `ga_days`, `read_order`,
     `required_measurement_count`, `documented_measurement_count`, and System
     Usability Scale item responses do not use fractional values.

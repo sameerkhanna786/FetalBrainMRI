@@ -1097,6 +1097,62 @@ describe("validation data export schema guard", () => {
     );
   });
 
+  it("rejects measurement rows when case-level evidence is unavailable", () => {
+    expect(
+      validateValidationDataExport({
+        "case_log.csv": [
+          {
+            study_id: "S1",
+            cohort: "institutional",
+            site_id: "single_site",
+            scanner_vendor: "unknown",
+            field_strength_t: 1.5,
+            svr_method: "none",
+            image_quality_tier: "diagnostic",
+            ga_weeks: 28,
+            ga_days: 0,
+            included: true,
+            reference_standard_available: false,
+            prediction_available: false,
+            pathology_label_available: true,
+          },
+        ],
+        "measurement_rows.csv": [
+          {
+            study_id: "S1",
+            parameter_id: "tcd",
+            source_role: "reference",
+            value_mm: 32,
+            measurement_available: true,
+            image_quality_tier: "diagnostic",
+          },
+          {
+            study_id: "S1",
+            parameter_id: "cc_length",
+            source_role: "calculator",
+            value_mm: 32,
+            measurement_available: true,
+            image_quality_tier: "diagnostic",
+          },
+          {
+            study_id: "S1",
+            parameter_id: "csa",
+            source_role: "ai_prefill",
+            value_deg: 62,
+            measurement_available: true,
+            image_quality_tier: "diagnostic",
+          },
+        ],
+      })
+    ).toEqual(
+      expect.arrayContaining([
+        "measurement_rows.csv row 1 source_role reference requires case_log.csv study_id S1 reference_standard_available=true",
+        "measurement_rows.csv row 2 source_role calculator requires case_log.csv study_id S1 prediction_available=true",
+        "measurement_rows.csv row 3 source_role ai_prefill requires case_log.csv study_id S1 prediction_available=true",
+      ])
+    );
+  });
+
   it("rejects duplicate diagnostic labels for the same case and trigger", () => {
     expect(
       validateValidationDataExport({

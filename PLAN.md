@@ -1748,3 +1748,10 @@
 - Extend cross-file export validation so diagnostic-accuracy, calibration, and decision-curve rows are only determinate when the case-level evidence is available.
 - Update the data dictionary export checks to document the case-log availability precondition for determinate diagnostic labels.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Measurement Source Availability Guard Increment
+
+- Add failing-first package-level validation coverage that reference measurement rows require `case_log.csv` reference-standard availability.
+- Add failing-first coverage that calculator and AI-prefill measurement rows require `case_log.csv` prediction availability.
+- Extend cross-file export validation so agreement and measurement-layer analyses cannot use rows contradicted by case-level availability flags.
+- Update the data dictionary, progress log, and audit trail, then run targeted/full gates before committing.

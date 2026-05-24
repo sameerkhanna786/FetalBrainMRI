@@ -802,6 +802,38 @@ const pushExcludedCaseReferences = (
   });
 };
 
+const pushMeasurementAvailabilityErrors = (
+  errors: string[],
+  rows: readonly ValidationDataRow[],
+  caseRowsById: Map<string, ValidationDataRow>
+): void => {
+  rows.forEach((row, rowIndex) => {
+    if (!isTrueLike(row.measurement_available)) return;
+    const studyId = stringValue(row.study_id);
+    if (studyId == null) return;
+    const caseRow = caseRowsById.get(studyId);
+    if (caseRow == null) return;
+
+    const sourceRole = stringValue(row.source_role);
+    if (
+      sourceRole === "reference" &&
+      isFalseLike(caseRow.reference_standard_available)
+    ) {
+      errors.push(
+        `measurement_rows.csv row ${rowIndex + 1} source_role reference requires case_log.csv study_id ${studyId} reference_standard_available=true`
+      );
+    }
+    if (
+      (sourceRole === "calculator" || sourceRole === "ai_prefill") &&
+      isFalseLike(caseRow.prediction_available)
+    ) {
+      errors.push(
+        `measurement_rows.csv row ${rowIndex + 1} source_role ${sourceRole} requires case_log.csv study_id ${studyId} prediction_available=true`
+      );
+    }
+  });
+};
+
 const pushDeterminateDiagnosticAvailabilityErrors = (
   errors: string[],
   rows: readonly ValidationDataRow[],
@@ -873,6 +905,11 @@ export const validateValidationDataExport = (
     "measurement_rows.csv",
     data["measurement_rows.csv"] ?? [],
     excludedCaseIds
+  );
+  pushMeasurementAvailabilityErrors(
+    errors,
+    data["measurement_rows.csv"] ?? [],
+    caseRowsById
   );
   const measurementRowCounts = new Map<string, number>();
   for (const row of data["measurement_rows.csv"] ?? []) {
