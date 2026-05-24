@@ -110,10 +110,30 @@ def _entered_measurements(form: dict[str, str]) -> list[tuple[str, str, str, str
 
 
 def _source_detail_text(source_details: list[dict[str, object]]) -> str:
-    return "; ".join(
-        f"{detail['source_label']} z {float(detail['z']):+.2f}"
-        for detail in source_details
-    )
+    rows: list[str] = []
+    for detail in source_details:
+        ga_range = detail.get("ga_range")
+        if isinstance(ga_range, tuple) and len(ga_range) == 2:
+            range_text = (
+                f"validated GA {float(ga_range[0]):g}-{float(ga_range[1]):g}w"
+            )
+        else:
+            range_text = "validated GA unavailable"
+        range_status = "in-range" if detail["in_range"] else "extrapolated"
+        caveats = []
+        if detail.get("cross_modality"):
+            caveats.append("cross-modality")
+        if detail.get("caveat"):
+            caveats.append(str(detail["caveat"]))
+        caveat_text = f"; {'; '.join(caveats)}" if caveats else ""
+        rows.append(
+            f"{detail['source_label']} z {float(detail['z']):+.2f}, "
+            f"{float(detail['percentile']):.0f} percentile, "
+            f"mean {float(detail['mean']):.1f}, "
+            f"sigma {float(detail['sigma']):.2f}, "
+            f"{range_text}, {range_status}{caveat_text}"
+        )
+    return "; ".join(rows)
 
 
 def _z_value(results: dict[str, dict[str, object]], parameter_id: str) -> float | None:

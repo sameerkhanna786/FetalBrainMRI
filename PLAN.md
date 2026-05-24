@@ -892,3 +892,9 @@
 - Add architecture coverage for the Python Mahalanobis ONTD posterior helper.
 - Implement the TDPF/CSA Chiari II trigger using consensus z-scores and posterior > 0.5.
 - Flag the Python report output as research-mode when the Chiari II / ONTD discriminator fires.
+
+## SPEC 4.8 Python Source Detail Completeness Increment
+
+- Add architecture coverage that Python report source details include z, percentile, mean, sigma, validated GA range, and extrapolated state.
+- Carry source registry metadata into each Python per-source detail row.
+- Expand the Python report source-detail formatter without changing consensus math.

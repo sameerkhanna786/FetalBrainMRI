@@ -1,3 +1,17 @@
+## 2026-05-23, SPEC 4.8 Python Source Detail Completeness Increment
+
+- Added architecture coverage that Python report source details include z, percentile, mean, sigma, validated GA range, and extrapolated state.
+- Carried source registry metadata into each Python per-source detail row, including GA range, cross-modality status, and caveat text.
+- Expanded the Python report source-detail formatter without changing consensus math.
+
+Verification:
+
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 159 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/architecture.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23
 
 - Implemented SPEC sections 4.2.3, 4.2.4, and 4.8 increment for runtime multi-source consensus reconciliation.

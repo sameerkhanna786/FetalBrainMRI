@@ -160,6 +160,20 @@ describe("SPEC §4.3 Python/FastAPI architecture scaffold", () => {
     expect(app).toContain("agreement:");
   });
 
+  it("renders complete Python report source-detail fields required by SPEC §4.8", () => {
+    const app = read("python_app/main.py");
+    const registry = read("python_app/registry.py");
+
+    expect(registry).toContain('"ga_range"');
+    expect(registry).toContain('"cross_modality"');
+    expect(registry).toContain('"caveat"');
+    expect(app).toContain("mean");
+    expect(app).toContain("sigma");
+    expect(app).toContain("percentile");
+    expect(app).toContain("validated GA");
+    expect(app).toContain("extrapolated");
+  });
+
   it("scaffolds Python endpoint DDx output for core threshold patterns", () => {
     const app = read("python_app/main.py");
 

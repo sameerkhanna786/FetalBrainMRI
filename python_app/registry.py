@@ -166,6 +166,9 @@ def evaluate_parameter(parameter_id: str, ga_weeks: float, value: float) -> dict
             {
                 "source_label": entry.source.label,
                 "in_range": in_range,
+                "ga_range": entry.ga_range,
+                "cross_modality": entry.cross_modality,
+                "caveat": entry.caveat,
                 "z": result["z"],
                 "percentile": result["percentile"],
                 "mean": result["mean"],
