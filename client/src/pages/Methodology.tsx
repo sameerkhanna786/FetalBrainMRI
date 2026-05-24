@@ -139,9 +139,9 @@ export default function Methodology() {
           <p>
             Every μ(GA) and σ(GA) curve in the calculator is tied to a
             peer-reviewed source record. Most coefficients are transcribed
-            directly from source tables or scripts; source rows marked
-            approximation disclose their caveat in the row-level source detail.
-            Three model forms are used:
+            directly from source tables, workbooks, or scripts; any future
+            approximation row must disclose its caveat in the row-level source
+            detail. Three model forms are used:
           </p>
           <ul className="list-disc pl-6 space-y-2">
             <li>
@@ -170,9 +170,9 @@ export default function Methodology() {
             </li>
             <li>
               <strong>Kyriakopoulou 2017</strong> provides the extra-cerebral
-              CSF source provenance; the current extra-axial CSF row is flagged
-              as an approximation until exact centile coefficients are encoded
-              from the fetal-centiles source data.
+              CSF model from supplementary workbook row 19. The calculator uses
+              the transcribed quadratic mean / linear SD coefficients for the
+              direct extra-axial CSF z-score.
             </li>
           </ul>
           <p>

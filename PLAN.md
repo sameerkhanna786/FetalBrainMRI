@@ -1032,3 +1032,11 @@
 - Update SPEC §7.3.7-§7.3.10 and §7.5 so Dovjak is no longer listed as not byte-checked.
 - Update the source-verification dossier, final-lock checklist, and publication handoff checklist with the closed implementation-side Dovjak audit.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## SPEC 7.5 Extra-Axial CSF Exact-Coefficient Increment
+
+- Add coverage that extra-axial CSF uses the Kyriakopoulou 2017 supplementary workbook row 19 coefficients rather than the temporary approximation.
+- Replace the React and Python extra-axial CSF model with the exact quadratic mean / linear SD formula from the fetal-centiles workbook.
+- Update TEST.md §25 and stress fixtures to use values above the exact Kyriakopoulou 95th-centile line.
+- Remove the approximation caveat from source details and update Methodology, Validation, SPEC, and handoff documents.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

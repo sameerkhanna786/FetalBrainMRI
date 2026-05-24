@@ -2184,10 +2184,24 @@ describe("macrocephaly plus thick corpus callosum report impression", () => {
 });
 
 describe("direct extra-axial CSF report impression", () => {
+  it("uses the exact Kyriakopoulou 2017 fetal-centiles workbook coefficients", () => {
+    const ga = { weeks: 32, days: 0 };
+    const meanAt32Weeks = 10.3721;
+    const normal = zscore(byId("extra_axial_csf"), ga, meanAt32Weeks);
+    const widened = zscore(byId("extra_axial_csf"), ga, 14);
+
+    expect(normal).not.toBeNull();
+    expect(widened).not.toBeNull();
+    expect(normal!.z).toBeCloseTo(0, 2);
+    expect(normal!.sourceDetails[0].verificationTier).toBe("transcribed");
+    expect(normal!.sourceDetails[0].caveat).toBeUndefined();
+    expect(widened!.z).toBeGreaterThan(1.645);
+  });
+
   it("uses the TEST.md Case EA1 benign external hydrocephalus impression", () => {
     const ga = { weeks: 32, days: 0 };
     const values = {
-      extra_axial_csf: 7,
+      extra_axial_csf: 14,
     };
     const { zs, dxs } = evaluateAll(values, ga);
     const report = generateReport({
@@ -2215,7 +2229,7 @@ describe("brain-volume-loss extra-axial report impression", () => {
       brain_bpd: 60,
       atrial_left: 12,
       atrial_right: 12,
-      extra_axial_csf: 6,
+      extra_axial_csf: 14,
     };
     const { zs, dxs } = evaluateAll(values, ga);
     const report = generateReport({
@@ -2242,7 +2256,7 @@ describe("IUGR extra-axial report impression", () => {
     const ga = { weeks: 28, days: 0 };
     const values = {
       skull_bpd: 65,
-      extra_axial_csf: 6,
+      extra_axial_csf: 14,
     };
     const { zs, dxs } = evaluateAll(values, ga);
     const report = generateReport({
@@ -2322,7 +2336,7 @@ describe("multi-card severe-malformation stress fixture", () => {
         vermis_ap: 4,
         pons_ap: 6.5,
         third_ventricle: 4.5,
-        extra_axial_csf: 5.5,
+        extra_axial_csf: 14,
       },
       { weeks: 26, days: 0 }
     );

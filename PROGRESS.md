@@ -1,3 +1,23 @@
+## 2026-05-23, SPEC 7.5 Extra-Axial CSF Source-Lock Increment
+
+- Added failing-first coverage that requires the direct `extra_axial_csf` row to use the exact Kyriakopoulou 2017 fetal-centiles workbook coefficients instead of the temporary approximation.
+- Encoded the supplementary workbook row 19 model in both React and Python: `a = -0.0604400737108953`, `b = 3.650533392397`, `c = -44.5543682103265`, `a5 = 0.0736569049728816`, `b5 = -0.34287991257886`.
+- Removed the approximation caveat from extra-axial CSF source details and moved the row to the transcribed verification tier.
+- Updated TEST.md §25 and the multi-card stress fixture so widened extra-axial CSF examples remain above the exact Kyriakopoulou 95th-centile boundary.
+- Marked the implementation-side extra-axial CSF coefficient decision closed in the source-verification and final-lock documents while preserving clinician countersignature as a handoff item.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/biometry.test.ts client/src/lib/methodology-page.test.ts` failed before implementation because 32w 10.3721 mm produced z = 6.4121 under the approximation and SPEC.md did not document the Kyriakopoulou workbook row.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/biometry.test.ts client/src/lib/methodology-page.test.ts client/src/lib/architecture.test.ts` passes with 185 tests.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 185 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md source_verification_dossier.md source_data_final_lock.md publication_handoff_checklist.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts client/src/lib/methodology-page.test.ts client/src/lib/architecture.test.ts client/src/pages/Methodology.tsx client/src/pages/Validation.tsx` passes.
+- `npx pnpm@10.4.1 exec prettier --check SPEC.md` and the broader check including `TEST.md` still report the existing canonical-document formatting warnings; neither large document was mass-reflowed.
+- `uv run --no-project --with numpy --with scipy python -c "from python_app.registry import evaluate_parameter; ..."` confirms `evaluate_parameter("extra_axial_csf", 32, 10.3721)` returns z = 0.0 with no caveat and `evaluate_parameter("extra_axial_csf", 32, 14)` returns z = 1.8012.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, SPEC 7.5 Dovjak Table 1 Source-Verification Increment
 
 - Added publication-readiness coverage that locks the Dovjak 2021 Table 1 audit into source-document tests.

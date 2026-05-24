@@ -55,12 +55,12 @@ def p(p5_k: float, p5_d: float, p95_k: float, p95_d: float) -> PerPercentileLine
     )
 
 
-EXTRA_AXIAL_CSF_MODEL = q(-0.01, 0.6, -5, 0, 1)
-EXTRA_AXIAL_CSF_APPROXIMATION_CAVEAT = (
-    "Approximate curve: Kyriakopoulou 2017 reports 2D extra-cerebral CSF "
-    "centiles, but SPEC.md does not encode the source coefficients; this "
-    "release uses a transparent quadratic approximation calibrated to the "
-    "TEST.md Section 25 boundaries."
+EXTRA_AXIAL_CSF_MODEL = q(
+    -0.0604400737108953,
+    3.650533392397,
+    -44.5543682103265,
+    0.0736569049728816,
+    -0.34287991257886,
 )
 
 
@@ -118,7 +118,6 @@ REGISTRY_OVERRIDES: dict[str, list[SourceRegistryEntry]] = {
             S_KYRIA,
             EXTRA_AXIAL_CSF_MODEL,
             (21, 38),
-            caveat=EXTRA_AXIAL_CSF_APPROXIMATION_CAVEAT,
         )
     ],
     "tcd": [

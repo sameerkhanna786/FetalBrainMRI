@@ -341,11 +341,11 @@ export type QualitativeFinding = {
 
 const EXTRA_AXIAL_CSF_MODEL: LuisQuadratic = {
   kind: "luis-quadratic",
-  a: -0.01,
-  b: 0.6,
-  c: -5,
-  a5: 0,
-  b5: 1,
+  a: -0.0604400737108953,
+  b: 3.650533392397,
+  c: -44.5543682103265,
+  a5: 0.0736569049728816,
+  b5: -0.34287991257886,
 };
 
 /* ---------- Parameter table ----------
@@ -353,9 +353,8 @@ const EXTRA_AXIAL_CSF_MODEL: LuisQuadratic = {
  * Coefficients are taken verbatim from:
  *   - Luis 2025 (auto-proc-SVRTK, scripts/auto-reporting-brain-biometry.py).
  *   - Dovjak 2021 Table 1 (per-percentile linear equations, validated 14–40 w).
- *   - Kyriakopoulou 2017 provides extra-cerebral CSF provenance; the current
- *     direct extra-axial CSF curve is an explicitly flagged approximation until
- *     exact fetal-centiles coefficients are encoded.
+ *   - Kyriakopoulou 2017 supplementary workbook row 19 for the direct
+ *     extra-cerebral CSF width curve.
  */
 
 export const PARAMETERS: Parameter[] = [
@@ -936,9 +935,6 @@ const LUIS_OVERRIDES: Record<string, LuisQuadratic> = {
   },
 };
 
-const EXTRA_AXIAL_CSF_APPROXIMATION_CAVEAT =
-  "Approximate curve: Kyriakopoulou 2017 reports 2D extra-cerebral CSF centiles, but SPEC.md does not encode the source coefficients; this release uses a transparent quadratic approximation calibrated to the TEST.md §25 boundaries.";
-
 const VERIFICATION_DATE = "2026-05-23";
 
 const defaultVerificationTier = (
@@ -972,9 +968,8 @@ const registryOverrides: Record<string, SourceRegistryEntry[]> = {
       source: S_KYRIA,
       model: EXTRA_AXIAL_CSF_MODEL,
       gaRange: [21, 38],
-      verificationTier: "approximation",
+      verificationTier: "transcribed",
       verificationDate: VERIFICATION_DATE,
-      caveat: EXTRA_AXIAL_CSF_APPROXIMATION_CAVEAT,
     },
   ],
   tcd: [

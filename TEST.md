@@ -2191,7 +2191,7 @@ Brain-volume-loss + `mild_ventriculomegaly` + `asymmetric_ventricles` fire; `hem
 
 ## 25. Widened extra-axial CSF space (subarachnoid space prominence)
 
-The `extra_axial_widened` card fires when the extra-axial CSF space exceeds the GA-adjusted normal upper bound (per SPEC.md §4.6, > 95th percentile of the Kyriakopoulou 2017 extra-cerebral CSF chart). Causes: external hydrocephalus, brain volume loss, IUGR, congenital infection.
+The `extra_axial_widened` card fires when the extra-axial CSF space exceeds the GA-adjusted normal upper bound (per SPEC.md §4.6, > 95th percentile of the Kyriakopoulou 2017 extra-cerebral CSF chart). Kyriakopoulou defines the 2D extra-cerebral CSF width as skull BPD minus brain BPD. Causes: external hydrocephalus, brain volume loss, IUGR, congenital infection.
 
 ### Case EA1 — Benign external hydrocephalus pattern at 32 weeks
 
@@ -2200,7 +2200,7 @@ The `extra_axial_widened` card fires when the extra-axial CSF space exceeds the 
 | GA | 32 w 0 d | — |
 | Skull BPD | 92 mm | >95th |
 | Brain BPD | 86 mm | normal |
-| Extra-axial CSF | 7 mm (z ≈ +2 SD) | >95th |
+| Extra-axial CSF | 14 mm (above Kyriakopoulou 2017 95th centile at 32 w) | >95th |
 | (others) | filler | normal |
 
 `extra_axial_widened` fires. The IMPRESSION should suggest "external hydrocephalus / benign macrocrania of infancy — typically self-resolving."
@@ -2215,7 +2215,7 @@ The `extra_axial_widened` card fires when the extra-axial CSF space exceeds the 
 | Brain BPD | 74 mm | <5th |
 | Atrium-R | 12 mm | >95th |
 | Atrium-L | 12 mm | >95th |
-| Extra-axial CSF | 6 mm | >95th |
+| Extra-axial CSF | 14 mm | >95th |
 | (others) | filler | normal |
 
 `microcephaly_pattern`, `mild_ventriculomegaly`, `extra_axial_widened` fire — combined "brain volume loss" pattern. The IMPRESSION should suggest CMV or other intrauterine destructive insult.
@@ -2226,7 +2226,7 @@ The `extra_axial_widened` card fires when the extra-axial CSF space exceeds the 
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 30 w 0 d | — |
-| Extra-axial CSF | 4.5 mm | normal |
+| Extra-axial CSF | 10.6 mm | normal |
 | (others) | filler | normal |
 
 `extra_axial_widened` should *not* fire. Boundary verification.
@@ -2238,7 +2238,7 @@ The `extra_axial_widened` card fires when the extra-axial CSF space exceeds the 
 | GA | 28 w 0 d | — |
 | Skull BPD | 65 mm (–3 SD) | <3rd |
 | Brain BPD | 63 mm | <3rd |
-| Extra-axial CSF | 6 mm | >95th |
+| Extra-axial CSF | 14 mm | >95th |
 | (others) | filler | normal |
 
 `microcephaly_pattern`, `extra_axial_widened` fire. The IMPRESSION should reference IUGR.
@@ -2252,7 +2252,7 @@ Cross-reference: see §8 Blake's pouch cases. Mega cisterna magna may co-present
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 36 w 0 d | — |
-| Extra-axial CSF | 8 mm | >95th |
+| Extra-axial CSF | 14 mm | >95th |
 | Skull BPD | 95 mm (+2 SD) | >97th |
 | (others) | filler | normal |
 
@@ -2410,7 +2410,7 @@ A worst-case fixture combining HPE, severe VM, cerebellar hypoplasia, vermian hy
 | Vermis AP | 4.0 mm | <5th |
 | Pons AP | 6.5 mm | <5th |
 | Third ventricle | 4.5 mm | >95th |
-| Extra-axial CSF | 5.5 mm | >95th |
+| Extra-axial CSF | 14 mm | >95th |
 
 Expected fires (10+ cards): `severe_ventriculomegaly`, `csp_absent`, `cc_absent`, `small_tcd`, `vermian_hypoplasia`, `small_pons`, `microcephaly_pattern`, `third_ventricle_dilatation`, `hemispheric_asymmetry`, `extra_axial_widened`, **`hpe_pattern`**, **`pch_pattern`**, **`dandy_walker_spectrum`**.
 

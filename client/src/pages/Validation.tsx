@@ -398,17 +398,17 @@ percentile = Φ(z) × 100                (standard normal CDF)`}
             Each parameter records the published model used to compute its
             z-score and the secondary independent reference shown alongside for
             cross-validation. Three model families are supported: quadratic-mean
-            / linear-SD (Luis 2025), per-percentile linear equations (Dovjak
-            2021, with σ derived as{" "}
+            / linear-SD (Luis 2025 and Kyriakopoulou 2017 extra-cerebral CSF),
+            per-percentile linear equations (Dovjak 2021, with σ derived as{" "}
             <span className="font-numeric">
               (p<sub>95</sub>−p<sub>5</sub>) / (2·1.645)
             </span>
             ). A linear mean/SD model is available in the calculation library
             for future verified sources, but is not active in the current
-            z-score registry. The extra-axial CSF row is explicitly marked as a
-            Kyriakopoulou 2017 approximation until the exact fetal-centiles
-            coefficients are encoded. Third-ventricle width is excluded from
-            this z-score table and remains a raw-threshold auxiliary input.
+            z-score registry. The extra-axial CSF row uses the exact
+            Kyriakopoulou 2017 supplementary workbook row 19 coefficients.
+            Third-ventricle width is excluded from this z-score table and
+            remains a raw-threshold auxiliary input.
           </p>
           <div className="overflow-x-auto mt-4 border border-[color:var(--rule)] rounded-sm bg-white">
             <table className="w-full text-[13px] font-numeric">

@@ -178,6 +178,30 @@ describe("publication-readiness source-document consistency", () => {
       /Dovjak 2021 Table 1 status\s+\|\s+Implementation byte-check complete/
     );
   });
+
+  it("locks extra-axial CSF to exact Kyriakopoulou workbook coefficients", () => {
+    const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
+    const dossier = readFileSync(
+      resolve(process.cwd(), "source_verification_dossier.md"),
+      "utf8"
+    );
+    const finalLock = readFileSync(
+      resolve(process.cwd(), "source_data_final_lock.md"),
+      "utf8"
+    );
+
+    expect(spec).toContain("Kyriakopoulou 2017 supplementary workbook row 19");
+    expect(spec).toContain("a = -0.0604400737108953");
+    expect(spec).toContain("a5 = 0.0736569049728816");
+    expect(spec).not.toContain(
+      "extra-axial CSF quadratic curve currently used"
+    );
+    expect(dossier).toContain("extra-axial CSF coefficient decision");
+    expect(dossier).toContain("Closed");
+    expect(finalLock).toMatch(
+      /extra-axial CSF coefficient decision\s+\|\s+Implementation exact coefficients encoded/
+    );
+  });
 });
 
 describe("publication handoff checklist", () => {
