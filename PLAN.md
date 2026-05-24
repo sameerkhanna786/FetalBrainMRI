@@ -1166,3 +1166,10 @@
 - Correct Tilea 2009, D'Addario 2001, SMFM 2020 absent-CSP, and Garel 2003 DOI / PMID cells to the PubMed-resolved articles.
 - Record the PubMed ESummary / ESearch and NCBI ID Converter no-PMC evidence in PROGRESS.md.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Reference Numbering Hygiene Increment
+
+- Add failing-first source-document coverage that SPEC references have unique numeric labels and no suffix labels such as `[37b]`.
+- Renumber the late FeTA / validation / Chiari references so Sofia remains `[39]`, Adams remains `[40]`, Sanchez/Zalevskyi/FeTA/Aslan become `[41]` through `[45]`, and Woitek/Aertsen/D'Addario/Bahlmann become `[46]` through `[49]`.
+- Update in-text citations for FeTA 2024, Aslan 2025, and Chiari II source references to the new labels.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

@@ -404,6 +404,23 @@ describe("publication-readiness source-document consistency", () => {
     expect(spec).toContain("| GAREL_2003 | Garel C, Luton D, Oury JF");
   });
 
+  it("keeps the SPEC reference labels unique and numeric", () => {
+    const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
+    const labels = [...spec.matchAll(/^\[([0-9]+[a-z]?)\]/gm)].map(
+      ([, label]) => label
+    );
+    const duplicateLabels = labels.filter(
+      (label, index) => labels.indexOf(label) !== index
+    );
+
+    expect(labels.filter(label => /[a-z]/.test(label))).toEqual([]);
+    expect(duplicateLabels).toEqual([]);
+    expect(spec).toContain("[43] Zalevskyi V, Sanchez T, Kaandorp M, et al.");
+    expect(spec).toContain("[46] Woitek R, Dvorak A, Weber M, et al.");
+    expect(spec).toContain("[49] Bahlmann F, Reinhard I, Schramm T");
+    expect(spec).not.toContain("Woitek R, Prayer D, Weber M");
+  });
+
   it("locks the Woitek 2014 Table 3 control rows to the PMC source audit", () => {
     const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
     const dossier = readFileSync(

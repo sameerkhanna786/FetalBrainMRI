@@ -1,3 +1,23 @@
+## 2026-05-23, Reference Numbering Hygiene Increment
+
+- Added failing-first source-document coverage that SPEC references have unique numeric labels and no suffix labels such as `[37b]`.
+- Renumbered the late FeTA / validation / Chiari references so Sofia remains `[39]`, Adams remains `[40]`, Sanchez/Zalevskyi/FeTA/Aslan occupy `[41]` through `[45]`, and Woitek/Aertsen/D'Addario/Bahlmann occupy `[46]` through `[49]`.
+- Updated in-text citations for FeTA 2024, Aslan 2025, and the Chiari II / ONTD source references to match the renumbered bibliography.
+- Corrected the Woitek reference author order in the bibliography to `Woitek R, Dvorak A, Weber M, et al.`.
+- Corrected the repeated Woitek prose source paragraphs to `Woitek R, Dvorak A, Weber M, et al.`.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before the renumbering because SPEC.md still contained suffix labels `[37b]` and `[38b]`.
+- Additional failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before the prose-source update because SPEC.md still contained `Woitek R, Prayer D, Weber M`.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 203 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 203 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-23, PubMed DOI-Title Source-Inventory Audit Increment
 
 - Added failing-first source-document coverage for DOI/title mismatches that the PMC-only source-inventory audit cannot catch on non-PMC rows.
