@@ -1,3 +1,20 @@
+## 2026-05-24, Source Verification Dossier Date Lock Increment
+
+- Added failing-first source-document coverage that the source verification dossier's visible update date matches the current validation-analysis-lock handoff.
+- Kept the dossier linked to `validation_analysis_lock.md` so threshold/cohort/endpoint/code freeze instructions remain visible from the publication blocker table.
+- Updated `source_verification_dossier.md` metadata to 2026-05-24 without changing the open external blockers.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before implementation because the dossier still said `Last updated: 2026-05-23.`
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 215 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 215 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md source_verification_dossier.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Validation Analysis Lock Handoff Increment
 
 - Added failing-first source-document coverage that a validation analysis lock template exists and is linked from the publication handoff checklist and source verification dossier.

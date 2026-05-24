@@ -639,6 +639,16 @@ describe("publication handoff checklist", () => {
     expect(dossier).toContain("validation_analysis_lock.md");
   });
 
+  it("keeps the source-verification dossier date aligned with the analysis-lock handoff", () => {
+    const dossier = readFileSync(
+      resolve(process.cwd(), "source_verification_dossier.md"),
+      "utf8"
+    );
+
+    expect(dossier).toContain("validation_analysis_lock.md");
+    expect(dossier).toContain("Last updated: 2026-05-24.");
+  });
+
   it("records PubMed-verified SPIRIT-AI and CONSORT-AI handoff evidence", () => {
     const dossier = readFileSync(
       resolve(process.cwd(), "source_verification_dossier.md"),

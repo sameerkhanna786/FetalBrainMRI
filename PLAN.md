@@ -1257,3 +1257,10 @@
 - Create a concise `validation_analysis_lock.md` artifact for radiologist/analyst pre-analysis signoff.
 - Link the publication handoff checklist and source-verification dossier to the analysis-lock artifact.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Source Verification Dossier Date Lock Increment
+
+- Add failing-first source-document coverage that the source verification dossier's visible update date matches the current validation-analysis-lock handoff.
+- Keep the dossier linked to `validation_analysis_lock.md` so radiologists see the threshold/cohort/endpoint/code freeze artifact from the blocker table.
+- Update `source_verification_dossier.md` metadata without changing the open external blockers.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.
