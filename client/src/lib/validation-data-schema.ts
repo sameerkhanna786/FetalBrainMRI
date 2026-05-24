@@ -1,3 +1,5 @@
+import { PARAMETERS_ALL } from "./biometry";
+
 export type ValidationDataFileName =
   | "case_log.csv"
   | "measurement_rows.csv"
@@ -58,6 +60,7 @@ const SOURCE_ROLE_VALUES = [
   "reader",
   "ai_prefill",
 ] as const;
+const PARAMETER_ID_VALUES = PARAMETERS_ALL.map(parameter => parameter.id);
 const NASA_TLX_COLUMNS = [
   "nasa_tlx_mental_demand",
   "nasa_tlx_physical_demand",
@@ -131,7 +134,11 @@ export const VALIDATION_DATA_SCHEMAS: Record<
     fileName: "measurement_rows.csv",
     columns: [
       { name: "study_id", required: "yes" },
-      { name: "parameter_id", required: "yes" },
+      {
+        name: "parameter_id",
+        required: "yes",
+        allowedValues: PARAMETER_ID_VALUES,
+      },
       {
         name: "source_role",
         required: "yes",

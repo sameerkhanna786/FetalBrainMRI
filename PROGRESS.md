@@ -1,3 +1,21 @@
+## 2026-05-24, Measurement Parameter ID Guard Increment
+
+- Added failing-first coverage for unknown `measurement_rows.csv` `parameter_id` values.
+- Validated measurement export parameter IDs against the runtime `PARAMETERS_ALL` registry so analyst CSVs cannot use free-text aliases such as `trans_cerebellar_diameter`.
+- Updated `validation_data_dictionary.md` to state that measurement parameter IDs must match runtime IDs.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "parameter IDs"` failed before implementation because unknown measurement parameter IDs produced no schema errors.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "parameter IDs"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 16 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 261 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Validation Categorical Enum Guard Increment
 
 - Added failing-first coverage for invalid values in dictionary-defined categorical fields including `cohort`, `svr_method`, and `source_role`.

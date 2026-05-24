@@ -556,6 +556,28 @@ describe("validation data export schema guard", () => {
     );
   });
 
+  it("rejects unknown measurement parameter IDs before agreement analysis", () => {
+    const errors = validateValidationDataRows("measurement_rows.csv", [
+      {
+        study_id: "S1",
+        parameter_id: "trans_cerebellar_diameter",
+        source_role: "reference",
+        value_mm: 32,
+        measurement_available: true,
+        image_quality_tier: "diagnostic",
+      },
+    ]);
+
+    expect(
+      errors.some(error =>
+        error.startsWith(
+          "measurement_rows.csv row 1 field parameter_id must be one of "
+        )
+      )
+    ).toBe(true);
+    expect(errors.join("\n")).toContain("tcd");
+  });
+
   it("validates cross-file study IDs and reader-study pair completeness", () => {
     expect(
       validateValidationDataExport({

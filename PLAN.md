@@ -1545,3 +1545,10 @@
 - Add allowed-value metadata for validation cohorts, SVR methods, and measurement source roles.
 - Preserve locally variable fields such as scanner vendor and image-quality tier as free text where the dictionary allows local categories.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Measurement Parameter ID Guard Increment
+
+- Add failing-first coverage for unknown `measurement_rows.csv` `parameter_id` values.
+- Validate measurement export parameter IDs against the runtime `PARAMETERS_ALL` registry.
+- Document that the data dictionary's parameter IDs are runtime IDs, not free text.
+- Update the audit/progress trail, then run targeted/full gates before committing.

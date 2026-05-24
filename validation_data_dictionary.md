@@ -66,18 +66,18 @@ Rows with `measurement_available=true` must populate exactly one of `value_mm`
 or `value_deg`. Rows with `measurement_available=false` must leave both value
 columns blank and provide `missing_reason`.
 
-| Column                | Required    | Values / notes                                                                                                                                                                    |
-| --------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| study_id              | yes         | Links to `case_log.csv`.                                                                                                                                                          |
-| parameter_id          | yes         | Runtime parameter id such as `skull_bpd`, `brain_bpd`, `atrial_right`, `csp_width`, `cc_length`, `tcd`, `vermis_cc`, `vermis_ap`, `pons_ap`, `extra_axial_csf`, `tdpf`, or `csa`. |
-| source_role           | yes         | `reference`, `calculator`, `reader`, or `ai_prefill`.                                                                                                                             |
-| reader_id             | conditional | Required for repeated reader measurements; otherwise blank.                                                                                                                       |
-| value_mm              | conditional | Numeric millimetres for linear measurements.                                                                                                                                      |
-| value_deg             | conditional | Numeric degrees for angular measurements such as `csa` and `tva`.                                                                                                                 |
-| measurement_available | yes         | `true` or `false`; use `false` instead of sentinel numeric values.                                                                                                                |
-| missing_reason        | conditional | Required when `measurement_available=false`.                                                                                                                                      |
-| image_quality_tier    | yes         | Repeat from `case_log.csv` if stratifying agreement by image quality.                                                                                                             |
-| acquisition_site      | optional    | De-identified acquisition site or scanner group for FeTA subgroup analysis.                                                                                                       |
+| Column                | Required    | Values / notes                                                                                                                                                                                        |
+| --------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| study_id              | yes         | Links to `case_log.csv`.                                                                                                                                                                              |
+| parameter_id          | yes         | Must match a runtime `PARAMETERS_ALL` id such as `skull_bpd`, `brain_bpd`, `atrial_right`, `csp_width`, `cc_length`, `tcd`, `vermis_cc`, `vermis_ap`, `pons_ap`, `extra_axial_csf`, `tdpf`, or `csa`. |
+| source_role           | yes         | `reference`, `calculator`, `reader`, or `ai_prefill`.                                                                                                                                                 |
+| reader_id             | conditional | Required for repeated reader measurements; otherwise blank.                                                                                                                                           |
+| value_mm              | conditional | Numeric millimetres for linear measurements.                                                                                                                                                          |
+| value_deg             | conditional | Numeric degrees for angular measurements such as `csa` and `tva`.                                                                                                                                     |
+| measurement_available | yes         | `true` or `false`; use `false` instead of sentinel numeric values.                                                                                                                                    |
+| missing_reason        | conditional | Required when `measurement_available=false`.                                                                                                                                                          |
+| image_quality_tier    | yes         | Repeat from `case_log.csv` if stratifying agreement by image quality.                                                                                                                                 |
+| acquisition_site      | optional    | De-identified acquisition site or scanner group for FeTA subgroup analysis.                                                                                                                           |
 
 ## diagnostic_labels.csv
 
