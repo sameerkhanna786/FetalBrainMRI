@@ -1,3 +1,20 @@
+## 2026-05-23, SPEC 4.2.2 Extra-Axial Registry-Table Alignment Increment
+
+- Added failing-first source-document coverage that requires SPEC §4.2.2 to list the active Kyriakopoulou extra-cerebral CSF source-registry row.
+- Added the extra-cerebral CSF width row to the Phase 1 default source-registry table with the Kyriakopoulou 2017 source, quadratic mean / linear SD model family, 21-38 week runtime window, and fetal-MRI cohort note.
+- Aligned the §4.2.2 registry prose with the completed Kyriakopoulou supplementary workbook row 19 source-lock.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before the SPEC table update because the §4.2.2 registry table did not contain the extra-cerebral CSF row.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 186 tests.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 186 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 exec prettier --check SPEC.md` still reports the existing canonical-document formatting warning; `SPEC.md` was not mass-reflowed.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, SPEC 7.5 Extra-Axial CSF Source-Lock Increment
 
 - Added failing-first coverage that requires the direct `extra_axial_csf` row to use the exact Kyriakopoulou 2017 fetal-centiles workbook coefficients instead of the temporary approximation.

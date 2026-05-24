@@ -1040,3 +1040,10 @@
 - Update TEST.md §25 and stress fixtures to use values above the exact Kyriakopoulou 95th-centile line.
 - Remove the approximation caveat from source details and update Methodology, Validation, SPEC, and handoff documents.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## SPEC 4.2.2 Extra-Axial Source-Registry Table Alignment Increment
+
+- Add source-document coverage that SPEC §4.2.2 lists the active extra-axial CSF Kyriakopoulou registry row.
+- Update the default source-registry table with the direct extra-cerebral CSF row and validated GA window.
+- Align the §4.2.2 registry prose with the exact Kyriakopoulou workbook source-lock status.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

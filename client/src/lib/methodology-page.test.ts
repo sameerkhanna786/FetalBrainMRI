@@ -202,6 +202,17 @@ describe("publication-readiness source-document consistency", () => {
       /extra-axial CSF coefficient decision\s+\|\s+Implementation exact coefficients encoded/
     );
   });
+
+  it("keeps the SPEC 4.2.2 source-registry table aligned with extra-axial CSF", () => {
+    const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
+
+    expect(spec).toContain(
+      "| Extra-cerebral CSF width | Kyriakopoulou 2017 [3] | Quadratic mean / linear SD | 21-38 weeks | n = 108 fetuses; fetal MRI |"
+    );
+    expect(spec).toContain(
+      "The Kyriakopoulou 2017 extra-cerebral CSF coefficients are transcribed from supplementary workbook row 19"
+    );
+  });
 });
 
 describe("publication handoff checklist", () => {
