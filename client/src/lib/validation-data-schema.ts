@@ -741,6 +741,22 @@ export const validateValidationDataExport = (
     data["diagnostic_labels.csv"] ?? [],
     caseIds
   );
+  const diagnosticLabelCounts = new Map<string, number>();
+  for (const row of data["diagnostic_labels.csv"] ?? []) {
+    const studyId = stringValue(row.study_id);
+    const triggerId = stringValue(row.trigger_id);
+    if (studyId == null || triggerId == null) continue;
+    const key = `${studyId}\u0000${triggerId}`;
+    diagnosticLabelCounts.set(key, (diagnosticLabelCounts.get(key) ?? 0) + 1);
+  }
+  diagnosticLabelCounts.forEach((count, key) => {
+    if (count > 1) {
+      const [studyId, triggerId] = key.split("\u0000");
+      errors.push(
+        `diagnostic_labels.csv study ${studyId} trigger ${triggerId} appears ${count} times; expected exactly one`
+      );
+    }
+  });
   pushMissingCaseReferences(
     errors,
     "reader_study_rows.csv",

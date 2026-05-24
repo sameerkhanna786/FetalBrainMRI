@@ -1636,3 +1636,10 @@
 - Extend package-level validation so de-identified case IDs remain unique before cohort-flow and join-based metrics run.
 - Update the data dictionary so `study_id` is documented as a unique case key.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Diagnostic Label Duplicate Guard Increment
+
+- Add failing-first coverage for duplicate `diagnostic_labels.csv` rows with the same `study_id` and `trigger_id`.
+- Extend package-level validation so each case/trigger label contributes at most one row before diagnostic accuracy, calibration, or decision-curve metrics run.
+- Update the data dictionary so diagnostic labels are documented as unique per case and runtime trigger.
+- Update the audit/progress trail, then run targeted/full gates before committing.

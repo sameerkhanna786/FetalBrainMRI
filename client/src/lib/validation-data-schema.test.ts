@@ -898,6 +898,50 @@ describe("validation data export schema guard", () => {
     );
   });
 
+  it("rejects duplicate diagnostic labels for the same case and trigger", () => {
+    expect(
+      validateValidationDataExport({
+        "case_log.csv": [
+          {
+            study_id: "S1",
+            cohort: "institutional",
+            site_id: "single_site",
+            scanner_vendor: "unknown",
+            field_strength_t: 1.5,
+            svr_method: "none",
+            image_quality_tier: "diagnostic",
+            ga_weeks: 28,
+            ga_days: 0,
+            included: true,
+            reference_standard_available: true,
+            prediction_available: true,
+            pathology_label_available: true,
+          },
+        ],
+        "diagnostic_labels.csv": [
+          {
+            study_id: "S1",
+            trigger_id: "mild-vm",
+            reference_label: true,
+            predicted_label: true,
+            threshold: 0.5,
+            indeterminate: false,
+          },
+          {
+            study_id: "S1",
+            trigger_id: "mild-vm",
+            reference_label: false,
+            predicted_label: true,
+            threshold: 0.5,
+            indeterminate: false,
+          },
+        ],
+      })
+    ).toContain(
+      "diagnostic_labels.csv study S1 trigger mild-vm appears 2 times; expected exactly one"
+    );
+  });
+
   it("validates cross-file study IDs and reader-study pair completeness", () => {
     expect(
       validateValidationDataExport({

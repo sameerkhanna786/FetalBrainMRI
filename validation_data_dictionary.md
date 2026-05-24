@@ -34,7 +34,7 @@ checked against the runtime schema.
 | --------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------- |
 | case_log.csv          | one row per fetal MRI case                                         | `summarizeValidationCohortFlow`                                                             |
 | measurement_rows.csv  | one row per case, parameter, source role, and reader if applicable | `computeAgreementMetrics`, `computeGroupedAgreementMetrics`, `computeIntraclassCorrelation` |
-| diagnostic_labels.csv | one row per case and diagnostic trigger                            | `computeBinaryValidationMetrics`, `computeDecisionCurve`                                    |
+| diagnostic_labels.csv | one unique row per case and diagnostic trigger                     | `computeBinaryValidationMetrics`, `computeDecisionCurve`                                    |
 | reader_study_rows.csv | one row per reader, case, and reading condition                    | `computeReaderStudyCrossoverSummary`, `computeCohenKappa`, `computeFleissKappa`             |
 | report_audit_rows.csv | one row per baseline or post-tool report linked to a case          | `computeQiAuditSummary`, `compareQiAuditPhases`                                             |
 
@@ -82,8 +82,9 @@ provide `missing_reason`.
 
 ## diagnostic_labels.csv
 
-Use one row per diagnostic trigger that will be reported in the manuscript. Lock
-the threshold before analysis in `validation_analysis_lock.md`.
+Use one unique row per case and diagnostic trigger that will be reported in the
+manuscript. Lock the threshold before analysis in
+`validation_analysis_lock.md`.
 
 | Column                | Required    | Values / notes                                                                                                                                                                                                 |
 | --------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
