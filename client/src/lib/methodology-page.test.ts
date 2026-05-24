@@ -2709,6 +2709,54 @@ describe("publication handoff checklist", () => {
     expect(audit).toContain("Chiari II / ONTD calibration");
     expect(checklist).toContain("completion_audit.md");
   });
+
+  it("keeps validation data-collection schemas linked from the handoff packet", () => {
+    const dictionary = readFileSync(
+      resolve(process.cwd(), "validation_data_dictionary.md"),
+      "utf8"
+    );
+    const checklist = readFileSync(
+      resolve(process.cwd(), "publication_handoff_checklist.md"),
+      "utf8"
+    );
+    const dossier = readFileSync(
+      resolve(process.cwd(), "source_verification_dossier.md"),
+      "utf8"
+    );
+    const audit = readFileSync(
+      resolve(process.cwd(), "completion_audit.md"),
+      "utf8"
+    );
+
+    expect(dictionary).toContain("Validation Data Dictionary");
+    expect(dictionary).toContain("No PHI");
+    expect(dictionary).toContain("case_log.csv");
+    expect(dictionary).toContain("measurement_rows.csv");
+    expect(dictionary).toContain("diagnostic_labels.csv");
+    expect(dictionary).toContain("reader_study_rows.csv");
+    expect(dictionary).toContain("report_audit_rows.csv");
+    expect(dictionary).toContain("study_id");
+    expect(dictionary).toContain("ga_weeks");
+    expect(dictionary).toContain("ga_days");
+    expect(dictionary).toContain("field_strength_t");
+    expect(dictionary).toContain("image_quality_tier");
+    expect(dictionary).toContain("parameter_id");
+    expect(dictionary).toContain("value_mm");
+    expect(dictionary).toContain("value_deg");
+    expect(dictionary).toContain("reader_id");
+    expect(dictionary).toContain("without_tool");
+    expect(dictionary).toContain("with_tool");
+    expect(dictionary).toContain("NASA Task Load Index");
+    expect(dictionary).toContain("System Usability Scale");
+    expect(dictionary).toContain("summarizeValidationCohortFlow");
+    expect(dictionary).toContain("computeAgreementMetrics");
+    expect(dictionary).toContain("computeBinaryValidationMetrics");
+    expect(dictionary).toContain("computeReaderStudyCrossoverSummary");
+    expect(dictionary).toContain("computeQiAuditSummary");
+    expect(checklist).toContain("validation_data_dictionary.md");
+    expect(dossier).toContain("validation_data_dictionary.md");
+    expect(audit).toContain("validation_data_dictionary.md");
+  });
 });
 
 describe("reader-study protocol handoff", () => {

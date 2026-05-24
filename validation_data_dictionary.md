@@ -1,0 +1,133 @@
+# Validation Data Dictionary
+
+Last updated: 2026-05-24.
+
+No PHI belongs in these files. Use `study_id` values that cannot be reversed to
+MRNs, accession numbers, names, dates of birth, or exam dates without a secure
+local crosswalk retained by the clinical site. Dates should be omitted or shifted
+before export.
+
+This dictionary defines the analyst-facing CSV/export schemas needed to close
+the FeTA 2024, institutional cohort, reader-study, and pre/post report-audit
+blockers. Column names are intentionally aligned to the helper inputs in
+`client/src/lib/validation-metrics.ts`.
+
+## File set
+
+| File                  | Grain                                                              | Primary helper or use                                                                       |
+| --------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------- |
+| case_log.csv          | one row per fetal MRI case                                         | `summarizeValidationCohortFlow`                                                             |
+| measurement_rows.csv  | one row per case, parameter, source role, and reader if applicable | `computeAgreementMetrics`, `computeGroupedAgreementMetrics`, `computeIntraclassCorrelation` |
+| diagnostic_labels.csv | one row per case and diagnostic trigger                            | `computeBinaryValidationMetrics`, `computeDecisionCurve`                                    |
+| reader_study_rows.csv | one row per reader, case, and reading condition                    | `computeReaderStudyCrossoverSummary`, `computeCohenKappa`, `computeFleissKappa`             |
+| report_audit_rows.csv | one row per baseline or post-tool report                           | `computeQiAuditSummary`, `compareQiAuditPhases`                                             |
+
+## case_log.csv
+
+| Column                       | Required    | Values / notes                                                                                        |
+| ---------------------------- | ----------- | ----------------------------------------------------------------------------------------------------- |
+| study_id                     | yes         | De-identified case key shared across all files.                                                       |
+| cohort                       | yes         | `feta_2024`, `institutional`, `reader_study`, or `report_audit`.                                      |
+| site_id                      | yes         | De-identified site key; use `single_site` if only one institution.                                    |
+| scanner_vendor               | yes         | Vendor label or `unknown`.                                                                            |
+| field_strength_t             | yes         | Numeric Tesla value such as `0.55`, `1.5`, or `3`.                                                    |
+| svr_method                   | yes         | `none`, `clinical_svr`, `research_svr`, or `unknown`.                                                 |
+| image_quality_tier           | yes         | `diagnostic`, `motion_limited`, `nondiagnostic`, or local locked categories.                          |
+| ga_weeks                     | yes         | Integer gestational age weeks at MRI.                                                                 |
+| ga_days                      | yes         | Integer 0-6 gestational age days.                                                                     |
+| included                     | yes         | `true` or `false`.                                                                                    |
+| exclusion_reason             | conditional | Required when `included=false`; examples: `motion-degraded`, `missing-sequence`, `outside-ga-window`. |
+| reference_standard_available | yes         | `true` if expert measurement or final label is available.                                             |
+| prediction_available         | yes         | `true` if calculator output is available.                                                             |
+| pathology_label_available    | yes         | `true` if diagnostic truth labels are available.                                                      |
+
+## measurement_rows.csv
+
+Use this file for FeTA external validation, institutional validation, and
+inter-rater reliability. Store millimetre and degree values in separate columns
+so angular parameters cannot be silently interpreted as millimetres.
+
+| Column                | Required    | Values / notes                                                                                                                                                                    |
+| --------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| study_id              | yes         | Links to `case_log.csv`.                                                                                                                                                          |
+| parameter_id          | yes         | Runtime parameter id such as `skull_bpd`, `brain_bpd`, `atrial_right`, `csp_width`, `cc_length`, `tcd`, `vermis_cc`, `vermis_ap`, `pons_ap`, `extra_axial_csf`, `tdpf`, or `csa`. |
+| source_role           | yes         | `reference`, `calculator`, `reader`, or `ai_prefill`.                                                                                                                             |
+| reader_id             | conditional | Required for repeated reader measurements; otherwise blank.                                                                                                                       |
+| value_mm              | conditional | Numeric millimetres for linear measurements.                                                                                                                                      |
+| value_deg             | conditional | Numeric degrees for angular measurements such as `csa` and `tva`.                                                                                                                 |
+| measurement_available | yes         | `true` or `false`; use `false` instead of sentinel numeric values.                                                                                                                |
+| missing_reason        | conditional | Required when `measurement_available=false`.                                                                                                                                      |
+| image_quality_tier    | yes         | Repeat from `case_log.csv` if stratifying agreement by image quality.                                                                                                             |
+| acquisition_site      | optional    | De-identified acquisition site or scanner group for FeTA subgroup analysis.                                                                                                       |
+
+## diagnostic_labels.csv
+
+Use one row per diagnostic trigger that will be reported in the manuscript. Lock
+the threshold before analysis in `validation_analysis_lock.md`.
+
+| Column                | Required    | Values / notes                                                                                                                                                                       |
+| --------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| study_id              | yes         | Links to `case_log.csv`.                                                                                                                                                             |
+| trigger_id            | yes         | Runtime card id such as `mild-vm`, `severe-vm`, `macrocephaly`, `microcephaly`, `acc-pattern`, `hpe-pattern`, `dwm-pattern`, `pch-pattern`, `extra-axial-wide`, or `chiari-ii-ontd`. |
+| reference_label       | yes         | `true` or `false` expert truth label.                                                                                                                                                |
+| predicted_label       | yes         | `true` or `false` calculator label at the locked threshold.                                                                                                                          |
+| predicted_probability | conditional | Required when computing calibration, ROC-AUC, PR-AUC, Brier score, or decision-curve net benefit.                                                                                    |
+| threshold             | yes         | Locked threshold used for `predicted_label`.                                                                                                                                         |
+| indeterminate         | yes         | `true` if the case is excluded from the trigger analysis because truth is not adjudicable.                                                                                           |
+| indeterminate_reason  | conditional | Required when `indeterminate=true`.                                                                                                                                                  |
+
+## reader_study_rows.csv
+
+The reader-study protocol uses counter-balanced with-tool / without-tool reads
+with a two-week washout. Each reader-case pair needs exactly one `without_tool`
+and one `with_tool` row before paired deltas are computed.
+
+| Column                         | Required    | Values / notes                                            |
+| ------------------------------ | ----------- | --------------------------------------------------------- |
+| reader_id                      | yes         | De-identified reader key.                                 |
+| study_id                       | yes         | Links to `case_log.csv`.                                  |
+| condition                      | yes         | `without_tool` or `with_tool`.                            |
+| read_order                     | yes         | Integer order within the reader's assigned sequence.      |
+| washout_days                   | yes         | Days between paired reads; target is at least 14.         |
+| duration_sec                   | yes         | Reading or reporting duration in seconds.                 |
+| completeness_score             | yes         | Locked rubric score, same scale in both conditions.       |
+| zscore_documentation_rate      | yes         | Fraction 0-1 of required z-scores documented.             |
+| recommendation_congruent       | yes         | `true`, `false`, or blank if not applicable.              |
+| categorical_label              | optional    | Reader's final categorical diagnostic label for kappa.    |
+| continuous_measurement         | optional    | Repeated continuous measurement for ICC(2,1).             |
+| nasa_tlx_mental_demand         | conditional | NASA Task Load Index 0-100 subscale.                      |
+| nasa_tlx_physical_demand       | conditional | NASA Task Load Index 0-100 subscale.                      |
+| nasa_tlx_temporal_demand       | conditional | NASA Task Load Index 0-100 subscale.                      |
+| nasa_tlx_performance           | conditional | NASA Task Load Index 0-100 subscale.                      |
+| nasa_tlx_effort                | conditional | NASA Task Load Index 0-100 subscale.                      |
+| nasa_tlx_frustration           | conditional | NASA Task Load Index 0-100 subscale.                      |
+| sus_item_1 through sus_item_10 | conditional | System Usability Scale responses 1-5 after with-tool use. |
+
+## report_audit_rows.csv
+
+Use this file for the QI pre/post report audit modeled after the TI-RADS
+calculator study.
+
+| Column                         | Required    | Values / notes                                              |
+| ------------------------------ | ----------- | ----------------------------------------------------------- |
+| report_id                      | yes         | De-identified report key.                                   |
+| phase                          | yes         | `baseline` or `post_tool`.                                  |
+| duration_sec                   | yes         | Time to complete report.                                    |
+| required_measurement_count     | yes         | Number of measurements required by the locked audit rubric. |
+| documented_measurement_count   | yes         | Number of required measurements documented in report.       |
+| explicit_zscore_documented     | yes         | `true` or `false`.                                          |
+| explicit_percentile_documented | yes         | `true` or `false`.                                          |
+| recommendation_congruent       | conditional | `true`, `false`, or blank if no recommendation applies.     |
+
+## Export checks before analysis
+
+1. No PHI appears in any export file.
+2. Every file uses `study_id` consistently.
+3. `ga_weeks` and `ga_days` are populated for every included case.
+4. Excluded cases have non-empty `exclusion_reason`.
+5. Missing measurements use `measurement_available=false` plus `missing_reason`,
+   not numeric placeholders.
+6. Every reader-study case has paired `without_tool` and `with_tool` rows for
+   each reader.
+7. Locked thresholds and endpoint definitions are copied into
+   `validation_analysis_lock.md` before analysis.

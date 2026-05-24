@@ -1,3 +1,20 @@
+## 2026-05-24, Validation Data Dictionary Handoff Increment
+
+- Added failing-first source-document coverage requiring `validation_data_dictionary.md` and links from the publication handoff packet, source-verification dossier, and completion audit.
+- Created `validation_data_dictionary.md` with de-identified CSV/export schemas for `case_log.csv`, `measurement_rows.csv`, `diagnostic_labels.csv`, `reader_study_rows.csv`, and `report_audit_rows.csv`.
+- Mapped the export schemas to `validation-metrics.ts` helpers so FeTA, institutional validation, reader study, and report-audit blockers have concrete data-collection instructions.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/methodology-page.test.ts -- --runInBand -t "validation data-collection"` failed before implementation because `validation_data_dictionary.md` did not exist.
+- `npx pnpm@10.4.1 test client/src/lib/methodology-page.test.ts -- --runInBand -t "validation data-collection"` passes.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 244 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md publication_handoff_checklist.md source_verification_dossier.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Active Goal Completion Audit Increment
 
 - Added failing-first source-document coverage requiring `completion_audit.md` to map the active goal's deliverables to concrete evidence and unresolved blockers.

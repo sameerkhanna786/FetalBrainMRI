@@ -1440,3 +1440,10 @@
 - Create `completion_audit.md` with a prompt-to-artifact checklist covering SPEC.md, TEST.md, PLAN.md, PROGRESS.md, validation/handoff docs, core gates, and publication-readiness blockers.
 - Link the audit from the publication handoff checklist so radiologists can see which requirements are implementation-complete versus externally blocked.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Validation Data Dictionary Handoff Increment
+
+- Add failing-first source-document coverage requiring a validation data dictionary with concrete CSV/export schemas for external validation, institutional validation, reader study, and report audit.
+- Create `validation_data_dictionary.md` with de-identified case, measurement, diagnostic-label, reader-study, and report-audit column definitions mapped to validation-metrics helpers.
+- Link the data dictionary from the publication handoff checklist, source-verification dossier, and completion audit so external blockers have concrete data-collection instructions.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.
