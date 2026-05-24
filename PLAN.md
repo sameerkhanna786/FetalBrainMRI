@@ -1713,3 +1713,10 @@
 - Align export validation with validation-metrics helpers that require thresholds strictly between zero and one for accuracy, calibration, and decision-curve analysis.
 - Update the data dictionary wording from inclusive 0-1 to open-interval threshold guidance.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Excluded Case Cross-File Guard Increment
+
+- Add failing-first package-level validation coverage for analysis rows that reference `case_log.csv` cases marked `included=false`.
+- Extend cross-file export validation so measurement, diagnostic-label, reader-study, and report-audit rows cannot pull excluded cases into downstream analyses.
+- Update the data dictionary export checks to document that analysis rows must reference included cases.
+- Update the audit/progress trail, then run targeted/full gates before committing.

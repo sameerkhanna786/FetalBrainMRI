@@ -744,6 +744,22 @@ const pushMissingCaseReferences = (
   });
 };
 
+const pushExcludedCaseReferences = (
+  errors: string[],
+  fileName: ValidationDataFileName,
+  rows: readonly ValidationDataRow[],
+  excludedCaseIds: Set<string>
+): void => {
+  rows.forEach((row, rowIndex) => {
+    const studyId = stringValue(row.study_id);
+    if (studyId != null && excludedCaseIds.has(studyId)) {
+      errors.push(
+        `${fileName} row ${rowIndex + 1} references excluded study_id ${studyId} in case_log.csv`
+      );
+    }
+  });
+};
+
 export const validateValidationDataExport = (
   data: ValidationDataExport
 ): string[] => {
@@ -768,12 +784,25 @@ export const validateValidationDataExport = (
   });
 
   const caseIds = new Set(caseIdCounts.keys());
+  const excludedCaseIds = new Set<string>();
+  for (const row of data["case_log.csv"] ?? []) {
+    const studyId = stringValue(row.study_id);
+    if (studyId != null && isFalseLike(row.included)) {
+      excludedCaseIds.add(studyId);
+    }
+  }
 
   pushMissingCaseReferences(
     errors,
     "measurement_rows.csv",
     data["measurement_rows.csv"] ?? [],
     caseIds
+  );
+  pushExcludedCaseReferences(
+    errors,
+    "measurement_rows.csv",
+    data["measurement_rows.csv"] ?? [],
+    excludedCaseIds
   );
   const measurementRowCounts = new Map<string, number>();
   for (const row of data["measurement_rows.csv"] ?? []) {
@@ -799,6 +828,12 @@ export const validateValidationDataExport = (
     data["diagnostic_labels.csv"] ?? [],
     caseIds
   );
+  pushExcludedCaseReferences(
+    errors,
+    "diagnostic_labels.csv",
+    data["diagnostic_labels.csv"] ?? [],
+    excludedCaseIds
+  );
   const diagnosticLabelCounts = new Map<string, number>();
   for (const row of data["diagnostic_labels.csv"] ?? []) {
     const studyId = stringValue(row.study_id);
@@ -821,11 +856,23 @@ export const validateValidationDataExport = (
     data["reader_study_rows.csv"] ?? [],
     caseIds
   );
+  pushExcludedCaseReferences(
+    errors,
+    "reader_study_rows.csv",
+    data["reader_study_rows.csv"] ?? [],
+    excludedCaseIds
+  );
   pushMissingCaseReferences(
     errors,
     "report_audit_rows.csv",
     data["report_audit_rows.csv"] ?? [],
     caseIds
+  );
+  pushExcludedCaseReferences(
+    errors,
+    "report_audit_rows.csv",
+    data["report_audit_rows.csv"] ?? [],
+    excludedCaseIds
   );
   const reportIdCounts = new Map<string, number>();
   for (const row of data["report_audit_rows.csv"] ?? []) {

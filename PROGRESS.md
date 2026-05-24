@@ -1,3 +1,25 @@
+## 2026-05-24, Excluded Case Cross-File Guard Increment
+
+- Added failing-first package-level validation-data-schema coverage that
+  measurement, diagnostic-label, reader-study, and report-audit rows cannot
+  reference `case_log.csv` cases marked `included=false`.
+- Extended export validation so excluded cases remain cohort-flow-only and
+  cannot leak into downstream analysis inputs.
+- Updated `validation_data_dictionary.md` to require analysis rows to reference
+  included cases.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "excluded study"` failed before implementation because excluded case references produced no package-level export errors.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "excluded study"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 32 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 282 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Diagnostic Threshold Open-Interval Guard Increment
 
 - Added failing-first validation-data-schema coverage that `diagnostic_labels.csv` thresholds reject degenerate `0` and `1` values.

@@ -1275,6 +1275,95 @@ describe("validation data export schema guard", () => {
     );
   });
 
+  it("rejects cross-file rows that reference excluded study ids", () => {
+    expect(
+      validateValidationDataExport({
+        "case_log.csv": [
+          {
+            study_id: "S1",
+            cohort: "reader_study",
+            site_id: "single_site",
+            scanner_vendor: "unknown",
+            field_strength_t: 1.5,
+            svr_method: "none",
+            image_quality_tier: "diagnostic",
+            ga_weeks: 28,
+            ga_days: 0,
+            included: false,
+            exclusion_reason: "not in locked analysis cohort",
+            reference_standard_available: true,
+            prediction_available: true,
+            pathology_label_available: true,
+          },
+        ],
+        "measurement_rows.csv": [
+          {
+            study_id: "S1",
+            parameter_id: "tcd",
+            source_role: "reference",
+            value_mm: 32,
+            measurement_available: true,
+            image_quality_tier: "diagnostic",
+          },
+        ],
+        "diagnostic_labels.csv": [
+          {
+            study_id: "S1",
+            trigger_id: "mild-vm",
+            reference_label: false,
+            predicted_label: false,
+            threshold: 0.5,
+            indeterminate: false,
+          },
+        ],
+        "reader_study_rows.csv": [
+          {
+            reader_id: "R1",
+            study_id: "S1",
+            condition: "without_tool",
+            read_order: 1,
+            washout_days: 14,
+            duration_sec: 300,
+            completeness_score: 0.8,
+            zscore_documentation_rate: 0.75,
+            recommendation_congruent: true,
+          },
+          {
+            reader_id: "R1",
+            study_id: "S1",
+            condition: "with_tool",
+            read_order: 2,
+            washout_days: 14,
+            duration_sec: 240,
+            completeness_score: 0.95,
+            zscore_documentation_rate: 1,
+            recommendation_congruent: true,
+          },
+        ],
+        "report_audit_rows.csv": [
+          {
+            report_id: "P1",
+            study_id: "S1",
+            phase: "baseline",
+            duration_sec: 600,
+            required_measurement_count: 8,
+            documented_measurement_count: 6,
+            explicit_zscore_documented: false,
+            explicit_percentile_documented: false,
+          },
+        ],
+      })
+    ).toEqual(
+      expect.arrayContaining([
+        "measurement_rows.csv row 1 references excluded study_id S1 in case_log.csv",
+        "diagnostic_labels.csv row 1 references excluded study_id S1 in case_log.csv",
+        "reader_study_rows.csv row 1 references excluded study_id S1 in case_log.csv",
+        "reader_study_rows.csv row 2 references excluded study_id S1 in case_log.csv",
+        "report_audit_rows.csv row 1 references excluded study_id S1 in case_log.csv",
+      ])
+    );
+  });
+
   it("rejects report-audit rows that do not link to the case log", () => {
     expect(
       validateValidationDataExport({

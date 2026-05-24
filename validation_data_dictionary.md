@@ -164,7 +164,8 @@ the other validation files.
 ## Export checks before analysis
 
 1. No PHI appears in any export file.
-2. Every file uses `study_id` consistently.
+2. Every analysis file uses `study_id` consistently and references only
+   `case_log.csv` rows with `included=true`.
 3. `ga_weeks` and `ga_days` are populated for every included case.
 4. Excluded cases have non-empty `exclusion_reason`; included cases leave
    `exclusion_reason` blank.
