@@ -37,7 +37,7 @@ Every test case is sourced from a paper, cohort, or threshold that is **not** pa
 
 Each case lists the full set of fourteen calculator inputs even when only a few are relevant to the diagnosis under test. Inputs that are not specified by the source case are filled with the cohort-mean value at the case's GA (computed from the µ(GA) = a·GA² + b·GA + c quadratic in `SPEC.md` §7.3 for skull, brain, atrium, CSP, and CC parameters, and from Dovjak 2021's per-percentile linear equations for TCD, vermis CC, vermis AP, and pons AP). This is labelled `(filler)` in each row. Filler values are constructed to be exactly at the cohort mean so that they produce z = 0 and never accidentally trigger an unrelated DDx card. A test runner that wants to perturb the corpus to test boundary conditions can do so by changing the filler values and running the corpus again.
 
-The columns "Expected band" and "Expected agreement" refer to the consensus output documented in `SPEC.md` §4.2. Bands are `<5th`, `5th–95th` (also written `normal`), `>95th`, and `<3rd` / `>97th` for the size-summary parameters. Agreement is `single` when only one source covers a parameter, `agree` when two sources cover the parameter and their z-scores differ by less than 1.0 SD, and `disagree` otherwise.
+The columns "Expected band" and "Expected agreement" refer to the consensus output documented in `SPEC.md` §4.2. Bands are `<5th`, `5th–95th` (also written `normal`), `>95th`, and `<3rd` / `>97th` for the size-summary parameters. Agreement is `single` when only one source covers a parameter, `agree` when two sources cover the parameter and their z-scores differ by less than 1.0 SD, and `disagree` otherwise. Dovjak 2021 source range audit: 14+0 to 39+2 weeks (encoded as 14.0-39.3 weeks), based on PMC8457244 and PubMed PMID 32730667.
 
 GA is written as `W+D` (weeks-and-days) and as a decimal `W.dd` interchangeably, with the convention that `28.0 w` and `28+0` refer to the same GA. The calculator must accept either form.
 
@@ -181,7 +181,7 @@ These five cases are negative controls. They establish that when every parameter
 | Third ventricle | 1.4 mm | normal raw threshold | auxiliary threshold |
 
 **Expected DDx cards that should fire:** none.
-**Boundary behaviour to test:** This case sits exactly at the 21-week lower bound of the Dovjak 2021 validity window. The TCD, vermis CC, vermis AP, and pons AP rows should report `agree` (both sources in range), not `single`. A separate boundary case at 20 + 6 (one day below Dovjak's lower bound) should fall back to single-source Luis 2025 with an `extrapolated: true` flag on Dovjak — that case is exercised in §29.2.
+**Boundary behaviour to test:** This case sits at the lower clinical boundary of the normal-control corpus. The TCD, vermis CC, vermis AP, and pons AP rows should report `agree` because both Luis 2025 and Dovjak 2021 are in range at 21+0. A separate boundary case at 20+6 should still have Dovjak in range but Luis just below range, so the source disclosure should carry an `extrapolated: true` flag on Luis rather than on Dovjak.
 **Citation.** Tilea B et al. 2009.
 
 ### Case N6 — Normal control at the engine's upper GA boundary, 38 + 0 weeks (THRESHOLD-DERIVED)
@@ -205,7 +205,7 @@ These five cases are negative controls. They establish that when every parameter
 | Third ventricle | 2.1 mm | normal raw threshold | auxiliary threshold |
 
 **Expected DDx cards that should fire:** none.
-**Boundary behaviour to test:** Kyriakopoulou's reference window ends at 38 + 0; Luis 2025's quadratic is validated to 40 + 0; Dovjak 2021 is validated to 36 + 0. This case should produce `agree` on Dovjak-covered parameters with the Dovjak rows flagged `extrapolated: true` because GA exceeds Dovjak's published 21–36 w window. The §4.2 consensus reconciliation rule states that extrapolated rows are still included in the consensus mean but are tagged in the per-source disclosure.
+**Boundary behaviour to test:** Kyriakopoulou's reference window ends at 38+0; Luis 2025's quadratic is validated to 40+0; Dovjak 2021 is encoded from 14.0 to 39.3 weeks. This case should produce `agree` on Dovjak-covered parameters with both Luis and Dovjak in range. The source disclosure should not mark Dovjak as extrapolated until the case GA exceeds the audited 39+2 upper source range.
 **Citation.** Kyriakopoulou 2017.
 
 ---
@@ -2358,8 +2358,8 @@ No DDx card fires. Every z-scored measurement should report z = 0.0 ± 0.05; the
 | Brain BPD | 38 mm | extrapolated |
 | All others | filler | mostly extrapolated |
 
-The engine should fire no DDx cards because all values are within μ ± 1.645σ, but every parameter row should display the **extrapolated-band** flag (per SPEC.md §4.2.4).
-**Citation.** Luis 2025 valid 20–40 w; Dovjak 2021 valid 18–35 w; the third ventricle remains a raw-threshold auxiliary input.
+The engine should fire no DDx cards because all values are within μ ± 1.645σ. Luis-only rows should display the **extrapolated-band** flag because Luis 2025 begins at 20+0, while Dovjak-covered posterior-fossa and brainstem rows remain in range at 18+0.
+**Citation.** Luis 2025 valid 20–40 w; Dovjak 2021 audited range 14.0-39.3 w; the third ventricle remains a raw-threshold auxiliary input.
 
 ### Case STRESS3 — Highest-supported GA (40 w) — confirms upper-bound behaviour
 
@@ -2498,7 +2498,7 @@ Verifies the consensus engine flags **disagreement** (|Δz| ≥ 1 SD between Lui
 [32] Bronshtein M, Weiner Z. Prenatal diagnosis of dilated cava septi pellucidi et vergae. *Obstet Gynecol.* 1992;80(5):838–842.
 [33] Malinger G, Lerman-Sagie T, Bermann D, Lev D. Prenatal diagnosis of holoprosencephaly. *Prenat Diagn.* 2013;33(13):1222–1228. doi:10.1002/pd.4244.
 [34] van Dijk T, Baas F, Barth PG, Poll-The BT. What's new in pontocerebellar hypoplasia? An update on genes and subtypes. *Orphanet J Rare Dis.* 2018;13(1):92. doi:10.1186/s13023-018-0826-2.
-[35] Dovjak GO, et al. Reference ranges for fetal brain biometry in MRI. *Ultrasound Obstet Gynecol.* 2021. doi:10.1002/uog.22162. PMC8457244.
+[35] Dovjak GO, Schmidbauer V, Brugger PC, et al. Normal human brainstem development in vivo: a quantitative fetal MRI study. *Ultrasound Obstet Gynecol.* 2021;58(2):254-263. doi:10.1002/uog.22162. PMID 32730667. PMC8457244.
 [36] Namavar Y, Barth PG, Kasher PR, et al. Clinical, neuroradiological and genetic findings in pontocerebellar hypoplasia. *Brain.* 2011;134(Pt 1):143–156. doi:10.1093/brain/awq287.
 [37] Poretti A, Boltshauser E, Doherty D. Cerebellar hypoplasia: differential diagnosis and diagnostic approach. *Am J Med Genet C Semin Med Genet.* 2014;166C(2):211–226. doi:10.1002/ajmg.c.31398.
 [38] Pei R, Wang G, Wang Y, et al. Diagnostic and prognostic value of fetal MRI in microcephaly. *J Matern Fetal Neonatal Med.* 2024;37(1):2299109. doi:10.1080/14767058.2023.2299109.

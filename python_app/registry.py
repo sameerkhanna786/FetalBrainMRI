@@ -89,10 +89,10 @@ PARAMETERS: dict[str, Parameter] = {
     "atrial_right": Parameter(
         "atrial_right", "Atrial diameter right", "mm", S_LUIS, q(0.0078, -0.5216, 15.374, 0.0264, 0.5152), (20, 40)
     ),
-    "tcd": Parameter("tcd", "TCD", "mm", S_DOVJAK, p(1.52, -12.48, 1.85, -15.23), (14, 40)),
-    "vermis_cc": Parameter("vermis_cc", "Vermian height", "mm", S_DOVJAK, p(0.72, -6.83, 0.95, -8.93), (14, 40)),
-    "vermis_ap": Parameter("vermis_ap", "Vermian AP", "mm", S_DOVJAK, p(0.53, -5.26, 0.7, -6.99), (14, 40)),
-    "pons_ap": Parameter("pons_ap", "Pons AP", "mm", S_DOVJAK, p(0.33, -0.59, 0.44, -0.78), (14, 40)),
+    "tcd": Parameter("tcd", "TCD", "mm", S_DOVJAK, p(1.52, -12.48, 1.85, -15.23), (14, 39.3)),
+    "vermis_cc": Parameter("vermis_cc", "Vermian height", "mm", S_DOVJAK, p(0.72, -6.83, 0.95, -8.93), (14, 39.3)),
+    "vermis_ap": Parameter("vermis_ap", "Vermian AP", "mm", S_DOVJAK, p(0.53, -5.26, 0.7, -6.99), (14, 39.3)),
+    "pons_ap": Parameter("pons_ap", "Pons AP", "mm", S_DOVJAK, p(0.33, -0.59, 0.44, -0.78), (14, 39.3)),
     "tdpf": Parameter("tdpf", "TDPF", "mm", S_WOITEK, q(-0.01307, 2.55571, -21.71, 0.06716, 0.547), (21, 37)),
     "csa": Parameter("csa", "CSA", "degrees", S_WOITEK, q(-0.04767, 4.20404, 1.73, 0.01814, 5.821), (21, 37)),
     "cc_length": Parameter(
@@ -126,15 +126,15 @@ REGISTRY_OVERRIDES: dict[str, list[SourceRegistryEntry]] = {
     ],
     "vermis_cc": [
         SourceRegistryEntry(S_LUIS, LUIS_OVERRIDES["vermis_cc"], (20, 40)),
-        SourceRegistryEntry(S_DOVJAK, p(0.72, -6.83, 0.95, -8.93), (14, 39)),
+        SourceRegistryEntry(S_DOVJAK, p(0.72, -6.83, 0.95, -8.93), (14, 39.3)),
     ],
     "vermis_ap": [
         SourceRegistryEntry(S_LUIS, LUIS_OVERRIDES["vermis_ap"], (20, 40)),
-        SourceRegistryEntry(S_DOVJAK, p(0.53, -5.26, 0.7, -6.99), (14, 39)),
+        SourceRegistryEntry(S_DOVJAK, p(0.53, -5.26, 0.7, -6.99), (14, 39.3)),
     ],
     "pons_ap": [
         SourceRegistryEntry(S_LUIS, LUIS_OVERRIDES["pons_ap"], (20, 40)),
-        SourceRegistryEntry(S_DOVJAK, p(0.33, -0.59, 0.44, -0.78), (14, 39)),
+        SourceRegistryEntry(S_DOVJAK, p(0.33, -0.59, 0.44, -0.78), (14, 39.3)),
     ],
 }
 

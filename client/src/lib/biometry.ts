@@ -352,7 +352,7 @@ const EXTRA_AXIAL_CSF_MODEL: LuisQuadratic = {
  *
  * Coefficients are taken verbatim from:
  *   - Luis 2025 (auto-proc-SVRTK, scripts/auto-reporting-brain-biometry.py).
- *   - Dovjak 2021 Table 1 (per-percentile linear equations, validated 14–40 w).
+ *   - Dovjak 2021 Table 1 (per-percentile linear equations, validated 14.0–39.3 w).
  *   - Kyriakopoulou 2017 supplementary workbook row 19 for the direct
  *     extra-cerebral CSF width curve.
  */
@@ -562,7 +562,7 @@ export const PARAMETERS: Parameter[] = [
       p5: { k: 1.52, d: -12.48 },
       p95: { k: 1.85, d: -15.23 },
     },
-    gaRange: [14, 40],
+    gaRange: [14, 39.3],
   },
   {
     id: "vermis_cc",
@@ -584,7 +584,7 @@ export const PARAMETERS: Parameter[] = [
       p5: { k: 0.72, d: -6.83 },
       p95: { k: 0.95, d: -8.93 },
     },
-    gaRange: [14, 40],
+    gaRange: [14, 39.3],
   },
   {
     id: "vermis_ap",
@@ -606,7 +606,7 @@ export const PARAMETERS: Parameter[] = [
       p5: { k: 0.53, d: -5.26 },
       p95: { k: 0.7, d: -6.99 },
     },
-    gaRange: [14, 40],
+    gaRange: [14, 39.3],
   },
   {
     id: "pons_ap",
@@ -628,7 +628,7 @@ export const PARAMETERS: Parameter[] = [
       p5: { k: 0.33, d: -0.59 },
       p95: { k: 0.44, d: -0.78 },
     },
-    gaRange: [14, 40],
+    gaRange: [14, 39.3],
   },
   {
     id: "tdpf",
@@ -1007,7 +1007,7 @@ const registryOverrides: Record<string, SourceRegistryEntry[]> = {
         p5: { k: 0.72, d: -6.83 },
         p95: { k: 0.95, d: -8.93 },
       },
-      gaRange: [14, 39],
+      gaRange: [14, 39.3],
       verificationTier: "transcribed",
       verificationDate: VERIFICATION_DATE,
     },
@@ -1027,7 +1027,7 @@ const registryOverrides: Record<string, SourceRegistryEntry[]> = {
         p5: { k: 0.53, d: -5.26 },
         p95: { k: 0.7, d: -6.99 },
       },
-      gaRange: [14, 39],
+      gaRange: [14, 39.3],
       verificationTier: "transcribed",
       verificationDate: VERIFICATION_DATE,
     },
@@ -1047,7 +1047,7 @@ const registryOverrides: Record<string, SourceRegistryEntry[]> = {
         p5: { k: 0.33, d: -0.59 },
         p95: { k: 0.44, d: -0.78 },
       },
-      gaRange: [14, 39],
+      gaRange: [14, 39.3],
       verificationTier: "transcribed",
       verificationDate: VERIFICATION_DATE,
     },

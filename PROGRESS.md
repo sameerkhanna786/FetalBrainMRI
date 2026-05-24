@@ -1,3 +1,21 @@
+## 2026-05-23, Dovjak GA-Range Consistency Increment
+
+- Added failing-first runtime coverage that every Dovjak 2021 source-registry entry and UI-facing Dovjak parameter row uses the audited 14.0-39.3 week range.
+- Added source-document coverage that SPEC.md and TEST.md carry the PMC/PubMed Dovjak range audit and do not preserve stale 18-35, 21-36, or 14-40 week Dovjak range descriptions.
+- Verified online via PMC8457244 and PubMed PMID `32730667` that Dovjak 2021 included 161 fetuses with normal brain from 14+0 to 39+2 weeks, and that the article describes the upper endpoint as rounded gestational week 40 because its institution rounded GA upward for tabulation.
+- Normalized SPEC.md, TEST.md, React registry rows, Python registry rows, `source_verification_dossier.md`, and `source_data_final_lock.md` to the same Dovjak range and cohort size.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/biometry.test.ts client/src/lib/methodology-page.test.ts` failed before the correction because the UI-facing Dovjak rows still exposed `14-40` and SPEC.md lacked the audited source-range note.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/biometry.test.ts client/src/lib/methodology-page.test.ts` passes with 205 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 205 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md source_verification_dossier.md source_data_final_lock.md client/src/lib/biometry.ts client/src/lib/biometry.test.ts client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-23, Reference Numbering Hygiene Increment
 
 - Added failing-first source-document coverage that SPEC references have unique numeric labels and no suffix labels such as `[37b]`.

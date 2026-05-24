@@ -175,6 +175,18 @@ describe("SPEC §4.7 colpocephaly comparison", () => {
 });
 
 describe("multi-source consensus reconciliation", () => {
+  it("uses the audited Dovjak 2021 14.0-39.3 week range in every exposed registry row", () => {
+    for (const parameterId of ["tcd", "vermis_cc", "vermis_ap", "pons_ap"]) {
+      const parameter = byId(parameterId);
+      const dovjakEntry = sourceRegistryFor(parameter).find(
+        entry => entry.source.label === "Dovjak 2021"
+      );
+
+      expect(parameter.gaRange).toEqual([14, 39.3]);
+      expect(dovjakEntry?.gaRange).toEqual([14, 39.3]);
+    }
+  });
+
   it("evaluates every TCD source and computes consensus from in-range sources", () => {
     const result = zscore(byId("tcd"), { weeks: 28, days: 0 }, 33);
 

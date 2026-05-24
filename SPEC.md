@@ -159,18 +159,18 @@ For each parameter, the calculator shall maintain a *source registry* listing ev
 | Cavum septum pellucidum width | Luis 2025 [2] | Quadratic mean / linear SD | 20–40 weeks | n = 406 fetuses; 3-D SVR T2 fetal MRI |
 | Corpus callosum length | Luis 2025 [2] | Quadratic mean / linear SD | 20–40 weeks | n = 406 fetuses; 3-D SVR T2 fetal MRI |
 | Transcerebellar diameter (TCD) | Luis 2025 [2] | Quadratic mean / linear SD | 20–40 weeks | n = 406 fetuses; 3-D SVR T2 fetal MRI |
-| Transcerebellar diameter (TCD) | Dovjak 2021 [11] | Per-percentile linear | 14–40 weeks | n = 180 normal fetuses; 1.5 T T2 fetal MRI |
+| Transcerebellar diameter (TCD) | Dovjak 2021 [11] | Per-percentile linear | 14.0-39.3 weeks | n = 161 normal fetuses; 1.5 T T2 fetal MRI |
 | Vermian height (cranio-caudal) | Luis 2025 [2] | Quadratic mean / linear SD | 20–40 weeks | n = 406 fetuses; 3-D SVR T2 fetal MRI |
-| Vermian height (cranio-caudal) | Dovjak 2021 [11] | Per-percentile linear | 14–40 weeks | n = 180 normal fetuses; 1.5 T T2 fetal MRI |
+| Vermian height (cranio-caudal) | Dovjak 2021 [11] | Per-percentile linear | 14.0-39.3 weeks | n = 161 normal fetuses; 1.5 T T2 fetal MRI |
 | Vermian AP diameter | Luis 2025 [2] | Quadratic mean / linear SD | 20–40 weeks | n = 406 fetuses; 3-D SVR T2 fetal MRI |
-| Vermian AP diameter | Dovjak 2021 [11] | Per-percentile linear | 14–40 weeks | n = 180 normal fetuses; 1.5 T T2 fetal MRI |
+| Vermian AP diameter | Dovjak 2021 [11] | Per-percentile linear | 14.0-39.3 weeks | n = 161 normal fetuses; 1.5 T T2 fetal MRI |
 | Pons AP diameter | Luis 2025 [2] | Quadratic mean / linear SD | 20–40 weeks | n = 406 fetuses; 3-D SVR T2 fetal MRI |
-| Pons AP diameter | Dovjak 2021 [11] | Per-percentile linear | 14–40 weeks | n = 180 normal fetuses; 1.5 T T2 fetal MRI |
+| Pons AP diameter | Dovjak 2021 [11] | Per-percentile linear | 14.0-39.3 weeks | n = 161 normal fetuses; 1.5 T T2 fetal MRI |
 | Third ventricle width | Hertzberg 1997 threshold [36]; Birnbaum 2018 retained for pathology context [29] | Raw-threshold auxiliary input; no z-score model in Phase 1 | N/A for z-score; >3.5 mm threshold | z-score reporting is disabled until a verified fetal-MRI or explicitly accepted cross-modality source is encoded |
 | TDPF (Section 6.5) | Woitek 2014 [46] | Quadratic mean / linear SD | 21–37 weeks | n = 238 normal-CNS reference table; 1.5 T T2 fetal MRI |
 | Clivus-supraocciput angle (Section 6.5) | Woitek 2014 [46] | Quadratic mean / linear SD | 21–37 weeks | n = 238 normal-CNS reference table; 1.5 T T2 fetal MRI |
 
-The Luis 2025 quadratic coefficients are taken verbatim from the upstream open-source `auto-reporting-brain-biometry.py` reporting script in the SVRTK auto-proc-svrtk repository, which is the source-of-record for that reference cohort and was confirmed character-for-character before encoding. The Dovjak 2021 per-percentile coefficients are taken verbatim from Dovjak 2021 Table 1 and were byte-checked against the PMC8457244 Table 1 HTML on 2026-05-23. The Kyriakopoulou 2017 extra-cerebral CSF coefficients are transcribed from supplementary workbook row 19 and were byte-checked on 2026-05-23. The Woitek 2014 fits are derived in Section 6.5.2 from the Table 3 normal-CNS means and standard deviations and shall be re-fit and re-validated against any future revision of the original table. The third-ventricle row is intentionally excluded from the source registry in Phase 1 because the available Birnbaum 2018 and Hertzberg 1997 sources are cross-modality ultrasound references and the prior linear approximation was not transcribed from a published fetal-MRI equation. The worksheet still records third-ventricle width and the DDx engine still uses the >3.5 mm threshold, but z-score reporting is disabled until the source-verification action item is reopened with a verified model.
+The Luis 2025 quadratic coefficients are taken verbatim from the upstream open-source `auto-reporting-brain-biometry.py` reporting script in the SVRTK auto-proc-svrtk repository, which is the source-of-record for that reference cohort and was confirmed character-for-character before encoding. The Dovjak 2021 per-percentile coefficients are taken verbatim from Dovjak 2021 Table 1 and were byte-checked against the PMC8457244 Table 1 HTML on 2026-05-23. Dovjak 2021 source range audit performed on 2026-05-23: PMC8457244 and PubMed PMID 32730667 state a cohort range of 14+0 to 39+2 weeks, which is encoded as 14.0-39.3 weeks in the calculator registry; the article describes the same endpoint as the rounded 40th gestational week because the source institution rounded gestational age upward for tabulation. The Kyriakopoulou 2017 extra-cerebral CSF coefficients are transcribed from supplementary workbook row 19 and were byte-checked on 2026-05-23. The Woitek 2014 fits are derived in Section 6.5.2 from the Table 3 normal-CNS means and standard deviations and shall be re-fit and re-validated against any future revision of the original table. The third-ventricle row is intentionally excluded from the source registry in Phase 1 because the available Birnbaum 2018 and Hertzberg 1997 sources are cross-modality ultrasound references and the prior linear approximation was not transcribed from a published fetal-MRI equation. The worksheet still records third-ventricle width and the DDx engine still uses the >3.5 mm threshold, but z-score reporting is disabled until the source-verification action item is reopened with a verified model.
 
 #### 4.2.3 The Consensus Reconciliation Algorithm
 
@@ -180,7 +180,7 @@ The consensus engine is therefore a runtime invariant: every measurement is alwa
 
 #### 4.2.4 Worked Example: Two-Source Reconciliation for TCD
 
-Consider a fetus at 28.0 weeks with TCD = 33.0 mm. Under Luis 2025, $\mu_{Luis}(28) = 0.0051\cdot 784 + 1.5165\cdot 28 - 14.584 = 31.85$ mm and $\sigma_{Luis}(28) = 0.0343\cdot 28 + 0.415 = 1.376$ mm, giving $z_{Luis} = (33.0 - 31.85) / 1.376 = +0.836$ (in-range, GA in [20, 40]). Under Dovjak 2021 the per-percentile lines yield $p_5(28) = 1.52\cdot 28 - 12.48 = 30.08$ mm and $p_{95}(28) = 1.85\cdot 28 - 15.23 = 36.57$ mm, so $\mu_{Dovjak}(28) = 33.33$ mm and $\sigma_{Dovjak}(28) = (36.57 - 30.08) / (2\cdot 1.6449) = 1.972$ mm, giving $z_{Dovjak} = (33.0 - 33.33) / 1.972 = -0.167$ (in-range, GA in [14, 40]). The consensus z-score is the mean of the two, $\bar{z} = (+0.836 + (-0.167)) / 2 = +0.335$, with disagreement width $w = 0.836 - (-0.167) = 1.003$. Because $w \geq 1.0$, the row is flagged in the *disagree* state, the inline source list expands by default to expose both $z_s$ values, and the structured report appends a SOURCE-AGREEMENT NOTES line for the TCD measurement so the radiologist can see the divergence and decide whether to lean on the larger Luis cohort or the GA-broader Dovjak chart for this case.
+Consider a fetus at 28.0 weeks with TCD = 33.0 mm. Under Luis 2025, $\mu_{Luis}(28) = 0.0051\cdot 784 + 1.5165\cdot 28 - 14.584 = 31.85$ mm and $\sigma_{Luis}(28) = 0.0343\cdot 28 + 0.415 = 1.376$ mm, giving $z_{Luis} = (33.0 - 31.85) / 1.376 = +0.836$ (in-range, GA in [20, 40]). Under Dovjak 2021 the per-percentile lines yield $p_5(28) = 1.52\cdot 28 - 12.48 = 30.08$ mm and $p_{95}(28) = 1.85\cdot 28 - 15.23 = 36.57$ mm, so $\mu_{Dovjak}(28) = 33.33$ mm and $\sigma_{Dovjak}(28) = (36.57 - 30.08) / (2\cdot 1.6449) = 1.972$ mm, giving $z_{Dovjak} = (33.0 - 33.33) / 1.972 = -0.167$ (in-range, GA in [14.0, 39.3]). The consensus z-score is the mean of the two, $\bar{z} = (+0.836 + (-0.167)) / 2 = +0.335$, with disagreement width $w = 0.836 - (-0.167) = 1.003$. Because $w \geq 1.0$, the row is flagged in the *disagree* state, the inline source list expands by default to expose both $z_s$ values, and the structured report appends a SOURCE-AGREEMENT NOTES line for the TCD measurement so the radiologist can see the divergence and decide whether to lean on the larger Luis cohort or the GA-broader Dovjak chart for this case.
 
 #### 4.2.5 Data Schema for Future Centile-Table Sources
 
@@ -953,7 +953,7 @@ This subsection records, for every parameter the calculator computes, the model 
 | Registry entry A | DOVJAK_2021, per-percentile linear; `p5: k = 0.72, d = -6.83`; `p95: k = 0.95, d = -8.93` |
 | Source-of-record location (A) | DOVJAK_2021 Table 1; PMC8457244 Table 1 byte-checked as in 7.3.7. Vermis RC: p5 = 0.72·GA - 6.83; p95 = 0.95·GA - 8.93. |
 | Registry entry B | LUIS_2025, quadratic mean / linear SD; `a = -0.0138, b = 1.6136, c = -20.065, a5 = 0.0354, b5 = -0.1869`; **byte-identical** to upstream. |
-| Validated GA range | 20-40 (Luis), 14-39 (Dovjak) |
+| Validated GA range | 20.0-40.0 weeks (Luis), 14.0-39.3 weeks (Dovjak) |
 | Modality | Fetal MRI |
 | Cross-validation source(s) | KATORZA_2016 (field-standard fetal MRI vermis nomogram); VATANSEVER_2013 |
 
@@ -964,7 +964,7 @@ This subsection records, for every parameter the calculator computes, the model 
 | Registry entry A | DOVJAK_2021, per-percentile linear; `p5: k = 0.53, d = -5.26`; `p95: k = 0.70, d = -6.99` |
 | Source-of-record location (A) | DOVJAK_2021 Table 1; PMC8457244 Table 1 byte-checked as in 7.3.7. Vermis AP: p5 = 0.53·GA - 5.26; p95 = 0.70·GA - 6.99. |
 | Registry entry B | LUIS_2025, quadratic mean / linear SD; `a = -0.0089, b = 1.1119, c = -14.637, a5 = 0.0447, b5 = -0.5126`; **byte-identical** to upstream. |
-| Validated GA range | 20-40 (Luis), 14-39 (Dovjak) |
+| Validated GA range | 20.0-40.0 weeks (Luis), 14.0-39.3 weeks (Dovjak) |
 | Modality | Fetal MRI |
 | Cross-validation source(s) | KATORZA_2016; VATANSEVER_2013 |
 
@@ -975,7 +975,7 @@ This subsection records, for every parameter the calculator computes, the model 
 | Registry entry A | DOVJAK_2021, per-percentile linear; `p5: k = 0.33, d = -0.59`; `p95: k = 0.44, d = -0.78` |
 | Source-of-record location (A) | DOVJAK_2021 Table 1; PMC8457244 Table 1 byte-checked as in 7.3.7. total pons AP: p5 = 0.33·GA - 0.59; p95 = 0.44·GA - 0.78. |
 | Registry entry B | LUIS_2025, quadratic mean / linear SD; `a = 0.002, b = 0.3144, c = -1.2147, a5 = 0.0124, b5 = 0.261`; **byte-identical** to upstream. |
-| Validated GA range | 20-40 (Luis), 14-39 (Dovjak) |
+| Validated GA range | 20.0-40.0 weeks (Luis), 14.0-39.3 weeks (Dovjak) |
 | Modality | Fetal MRI |
 | Cross-validation source(s) | VATANSEVER_2013 |
 

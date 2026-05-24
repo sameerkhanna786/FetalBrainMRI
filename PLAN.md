@@ -1173,3 +1173,10 @@
 - Renumber the late FeTA / validation / Chiari references so Sofia remains `[39]`, Adams remains `[40]`, Sanchez/Zalevskyi/FeTA/Aslan become `[41]` through `[45]`, and Woitek/Aertsen/D'Addario/Bahlmann become `[46]` through `[49]`.
 - Update in-text citations for FeTA 2024, Aslan 2025, and Chiari II source references to the new labels.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Dovjak GA-Range Consistency Increment
+
+- Add failing-first coverage that every Dovjak 2021 source-registry entry and UI-facing parameter row uses the audited 14.0-39.3 week range.
+- Add source-document coverage that TEST.md no longer describes Dovjak as 18-35, 21-36, or 14-40 weeks.
+- Normalize SPEC.md, TEST.md, React registry, and Python registry to the same Dovjak 14.0-39.3 week range, grounded in the PMC/PubMed 14+0 to 39+2 source text.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

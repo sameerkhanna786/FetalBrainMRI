@@ -421,6 +421,30 @@ describe("publication-readiness source-document consistency", () => {
     expect(spec).not.toContain("Woitek R, Prayer D, Weber M");
   });
 
+  it("keeps Dovjak 2021 gestational-age ranges aligned to the audited source", () => {
+    const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
+    const testCorpus = readFileSync(resolve(process.cwd(), "TEST.md"), "utf8");
+
+    expect(spec).toContain(
+      "Dovjak 2021 source range audit performed on 2026-05-23: PMC8457244 and PubMed PMID 32730667 state a cohort range of 14+0 to 39+2 weeks"
+    );
+    expect(testCorpus).toContain(
+      "Dovjak 2021 source range audit: 14+0 to 39+2 weeks (encoded as 14.0-39.3 weeks)"
+    );
+    expect(spec).toContain("n = 161 normal fetuses; 1.5 T T2 fetal MRI");
+    expect(spec).not.toContain("n = 180 normal fetuses");
+    for (const staleRange of [
+      "Dovjak 2021 valid 18",
+      "Dovjak 2021 validity window",
+      "Dovjak 2021 is validated to 36",
+      "published 21–36 w window",
+      "validated 14–40 w",
+    ]) {
+      expect(spec).not.toContain(staleRange);
+      expect(testCorpus).not.toContain(staleRange);
+    }
+  });
+
   it("locks the Woitek 2014 Table 3 control rows to the PMC source audit", () => {
     const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
     const dossier = readFileSync(
