@@ -730,3 +730,9 @@
 - Add DDx coverage for the SPEC §7.4 HPE combined-pattern likelihood manifest.
 - Confirm the HPE-pattern card no longer surfaces estimate-only numeric percentages.
 - Replace the alobar/semilobar, lobar, and septo-optic-dysplasia likelihood labels with qualitative wording.
+
+## SPEC 7.4 ACC-Pattern Likelihood Qualitative Increment
+
+- Add DDx coverage for the SPEC §7.4 ACC combined-pattern likelihood manifest.
+- Confirm the ACC-pattern card no longer surfaces estimate-only numeric percentages.
+- Replace the complete-ACC, partial-ACC, and associated-syndrome likelihood labels with qualitative wording.

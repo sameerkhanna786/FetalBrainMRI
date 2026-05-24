@@ -3129,17 +3129,17 @@ const CARDS: CardSpec[] = [
     rows: [
       {
         dx: "Complete ACC",
-        likelihood: "~70%",
+        likelihood: "Most common",
         rationale: "Classic combination.",
       },
       {
         dx: "Partial ACC",
-        likelihood: "~25%",
+        likelihood: "Minority",
         rationale: "Often posterior agenesis.",
       },
       {
         dx: "Associated syndrome (Aicardi, Mowat-Wilson, etc.)",
-        likelihood: "~10%",
+        likelihood: "Minority",
         rationale: "Look for extra-CNS features.",
       },
     ],
