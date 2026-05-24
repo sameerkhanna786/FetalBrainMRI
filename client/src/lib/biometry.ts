@@ -2751,27 +2751,27 @@ const CARDS: CardSpec[] = [
     rows: [
       {
         dx: "Genetic / syndromic microcephaly",
-        likelihood: "~30%",
+        likelihood: "Common",
         rationale: "MCPH genes, primary microcephaly.",
       },
       {
         dx: "Congenital infection (CMV, Zika, toxoplasmosis)",
-        likelihood: "~15–20%",
+        likelihood: "Minority",
         rationale: "Always exclude; periventricular calcifications a clue.",
       },
       {
         dx: "Brain malformations (lissencephaly, polymicrogyria)",
-        likelihood: "~10–15%",
+        likelihood: "Minority",
         rationale: "Correlate with cortical morphology.",
       },
       {
         dx: "Chromosomal abnormality",
-        likelihood: "~10%",
+        likelihood: "Minority",
         rationale: "Microarray indicated.",
       },
       {
         dx: "Constitutional / familial",
-        likelihood: "~10%",
+        likelihood: "Minority",
         rationale: "Compare with parental head sizes.",
       },
     ],

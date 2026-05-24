@@ -706,3 +706,9 @@
 - Add DDx coverage for the SPEC §7.4 wide-third-ventricle likelihood manifest.
 - Confirm the third-ventricle card no longer surfaces estimate-only numeric percentages.
 - Replace the aqueductal-stenosis, ACC/dysgenesis, HPE, and cyst likelihood labels with qualitative wording.
+
+## SPEC 7.4 Microcephaly Likelihood Qualitative Increment
+
+- Add DDx coverage for the SPEC §7.4 microcephaly likelihood manifest.
+- Confirm the microcephaly card no longer surfaces estimate-only numeric percentages.
+- Replace the genetic, infection, malformation, chromosomal, and constitutional likelihood labels with qualitative wording.
