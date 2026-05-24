@@ -722,6 +722,7 @@ export const validateValidationDataRows = (
     }
 
     if (schema.fileName === "reader_study_rows.csv") {
+      const hasAnySusItem = SUS_COLUMNS.some(column => !isMissing(row[column]));
       pushMissingGroupFields(
         errors,
         rowLabel,
@@ -736,6 +737,11 @@ export const validateValidationDataRows = (
         SUS_COLUMNS,
         "System Usability Scale"
       );
+      if (hasAnySusItem && stringValue(row.condition) !== "with_tool") {
+        errors.push(
+          `${rowLabel} must not include System Usability Scale fields unless condition is with_tool`
+        );
+      }
     }
 
     if (schema.fileName === "report_audit_rows.csv") {

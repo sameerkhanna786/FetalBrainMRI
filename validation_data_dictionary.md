@@ -115,7 +115,8 @@ because it is the interval between those two reads.
 
 NASA Task Load Index and System Usability Scale fields are all-or-none groups:
 if any NASA TLX subscale is present, all six subscales must be present; if any
-SUS item is present, all ten item responses must be present.
+SUS item is present, all ten item responses must be present. SUS items are
+collected only after with-tool use and must appear only on `with_tool` rows.
 
 | Column                    | Required    | Values / notes                                                   |
 | ------------------------- | ----------- | ---------------------------------------------------------------- |
@@ -202,7 +203,8 @@ the other validation files.
     numeric ranges.
 12. Reader-study paired reads have at least 14 washout days.
 13. Partial NASA Task Load Index or System Usability Scale rows are fixed before
-    scoring; do not export only selected subscales or selected SUS items.
+    scoring; do not export only selected subscales or selected SUS items, and do
+    not export SUS items on `without_tool` rows.
 14. Report-audit rows have a non-zero required-measurement denominator and never
     document more measurements than the locked audit rubric requires.
 15. Integer fields such as `ga_weeks`, `ga_days`, `read_order`,

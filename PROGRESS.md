@@ -1,3 +1,24 @@
+## 2026-05-24, Reader Study SUS Condition Guard Increment
+
+- Added failing-first validation-data-schema coverage that System Usability
+  Scale fields are rejected on `without_tool` reader-study rows.
+- Extended row validation so SUS item responses are reserved for `with_tool`
+  rows, matching the reader-study protocol's post-tool usability capture.
+- Updated `validation_data_dictionary.md` to document the condition-specific
+  SUS rule.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "System Usability Scale fields"` failed before implementation because complete SUS rows were accepted on `without_tool`.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "System Usability Scale fields"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 40 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 290 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Reader Study Washout Consistency Guard Increment
 
 - Added failing-first package-level validation-data-schema coverage that paired

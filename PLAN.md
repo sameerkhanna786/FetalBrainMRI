@@ -1769,3 +1769,10 @@
 - Extend cross-file export validation so each reader-case pair has one consistent washout interval before paired analysis.
 - Update the data dictionary export checks to document pair-level washout consistency.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Reader Study SUS Condition Guard Increment
+
+- Add failing-first validation-data-schema coverage that System Usability Scale items are rejected on `without_tool` rows.
+- Extend row validation so SUS item responses are reserved for `with_tool` reader-study rows.
+- Update the data dictionary export checks to document the condition-specific SUS rule.
+- Update the audit/progress trail, then run targeted/full gates before committing.

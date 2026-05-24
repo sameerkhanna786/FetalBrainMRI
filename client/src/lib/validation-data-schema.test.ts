@@ -663,6 +663,35 @@ describe("validation data export schema guard", () => {
     );
   });
 
+  it("rejects System Usability Scale fields on without-tool reader-study rows", () => {
+    expect(
+      validateValidationDataRows("reader_study_rows.csv", [
+        {
+          reader_id: "R1",
+          study_id: "S1",
+          condition: "without_tool",
+          read_order: 1,
+          washout_days: 14,
+          duration_sec: 300,
+          completeness_score: 0.8,
+          zscore_documentation_rate: 0.75,
+          sus_item_1: 5,
+          sus_item_2: 4,
+          sus_item_3: 5,
+          sus_item_4: 4,
+          sus_item_5: 5,
+          sus_item_6: 4,
+          sus_item_7: 5,
+          sus_item_8: 4,
+          sus_item_9: 5,
+          sus_item_10: 4,
+        },
+      ])
+    ).toContain(
+      "reader_study_rows.csv row 1 must not include System Usability Scale fields unless condition is with_tool"
+    );
+  });
+
   it("rejects ambiguous measurement value columns before agreement analysis", () => {
     expect(
       validateValidationDataRows("measurement_rows.csv", [
