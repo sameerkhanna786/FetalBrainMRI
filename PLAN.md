@@ -622,3 +622,9 @@
 - Add Validation-page coverage for the SPEC §6.6 datasets considered and rejected.
 - Surface the dHCP fetal release caveat: no expert-measured biometry and no case-level pathology labels.
 - Surface the Luis 2025 cohort caveat: it is a registry reference distribution and cannot be used for circular validation.
+
+## SPEC 6.7 Validation Timeline Increment
+
+- Add Validation-page coverage for the SPEC §6.7 validation timeline.
+- Surface the FeTA access and analysis timing: Synapse Data Access Request, Data Transfer Agreement, two-to-four-week access, and three-to-four-week analysis.
+- Surface the institutional timeline: four-to-six-week IRB submission, six-to-twelve-week reader study, and six-to-nine-month manuscript path.

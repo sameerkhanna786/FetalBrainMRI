@@ -221,6 +221,25 @@ export default function Validation() {
           </p>
         </section>
 
+        <section className="mt-14">
+          <div className="smallcaps text-[color:var(--ink-soft)]">§ 0.3</div>
+          <h2 className="font-display text-[28px] mt-1">Validation timeline</h2>
+          <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
+            External validation starts with the Synapse Data Access Request and
+            parallel Data Transfer Agreement. The expected sequence is{" "}
+            {"two-to-four-week access"} followed by{" "}
+            {"three-to-four-week analysis"} of per-parameter agreement,
+            robustness, pathology comparison, and overall discrimination.
+          </p>
+          <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
+            Institutional validation runs in parallel with a{" "}
+            {"four-to-six-week IRB submission"}, then a{" "}
+            {"six-to-twelve-week reader study"} once the cohort and approval are
+            available. The planned end-to-end target is a{" "}
+            {"six-to-nine-month manuscript path"}.
+          </p>
+        </section>
+
         {/* §1 model */}
         <section className="mt-14">
           <div className="smallcaps text-[color:var(--ink-soft)]">§ 1</div>

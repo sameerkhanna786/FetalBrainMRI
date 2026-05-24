@@ -53,3 +53,20 @@ describe("SPEC §6.6 validation dataset cross-reference", () => {
     expect(source).toContain("source-registry acceptance criterion");
   });
 });
+
+describe("SPEC §6.7 validation timeline", () => {
+  it("surfaces the external-access, institutional, and manuscript timelines", () => {
+    const source = readFileSync(
+      resolve(process.cwd(), "client/src/pages/Validation.tsx"),
+      "utf8"
+    );
+
+    expect(source).toContain("Synapse Data Access Request");
+    expect(source).toContain("Data Transfer Agreement");
+    expect(source).toContain("two-to-four-week access");
+    expect(source).toContain("three-to-four-week analysis");
+    expect(source).toContain("four-to-six-week IRB submission");
+    expect(source).toContain("six-to-twelve-week reader study");
+    expect(source).toContain("six-to-nine-month manuscript path");
+  });
+});

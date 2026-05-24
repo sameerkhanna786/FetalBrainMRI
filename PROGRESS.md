@@ -1361,3 +1361,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/validation-page.test.ts client/src/pages/Validation.tsx` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 6.7 Validation Timeline Increment
+
+- Added Validation-page coverage for the SPEC §6.7 validation timeline.
+- Surfaced the FeTA access and analysis timing: Synapse Data Access Request, Data Transfer Agreement, two-to-four-week access, and three-to-four-week analysis.
+- Surfaced the institutional timeline: four-to-six-week IRB submission, six-to-twelve-week reader study, and six-to-nine-month manuscript path.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 109 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/validation-page.test.ts client/src/pages/Validation.tsx` passes after formatting `client/src/pages/Validation.tsx`.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
