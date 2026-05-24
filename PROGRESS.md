@@ -1,3 +1,21 @@
+## 2026-05-24, Case-Log Exclusion Reason Consistency Guard Increment
+
+- Added failing-first coverage for included `case_log.csv` rows that still carry an `exclusion_reason`.
+- Aligned validation export preflight with the cohort-flow metrics invariant that included cases must not carry exclusion reasons.
+- Updated `validation_data_dictionary.md` so analysts keep exclusion reasons reserved for excluded cases.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "exclusion reason"` failed before implementation because included cases with stale exclusion reasons produced no schema errors.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "exclusion reason"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 21 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 266 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Validation Positive Duration Guard Increment
 
 - Added failing-first coverage for zero-second `reader_study_rows.csv` and `report_audit_rows.csv` durations.

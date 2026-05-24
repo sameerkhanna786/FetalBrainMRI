@@ -237,6 +237,31 @@ describe("validation data export schema guard", () => {
     );
   });
 
+  it("rejects included case-log rows that still carry an exclusion reason", () => {
+    expect(
+      validateValidationDataRows("case_log.csv", [
+        {
+          study_id: "S1",
+          cohort: "institutional",
+          site_id: "single_site",
+          scanner_vendor: "unknown",
+          field_strength_t: 1.5,
+          svr_method: "none",
+          image_quality_tier: "diagnostic",
+          ga_weeks: 28,
+          ga_days: 0,
+          included: true,
+          exclusion_reason: "motion-degraded",
+          reference_standard_available: true,
+          prediction_available: true,
+          pathology_label_available: true,
+        },
+      ])
+    ).toContain(
+      "case_log.csv row 1 must not include exclusion_reason when included is true"
+    );
+  });
+
   it("rejects out-of-range validation export values before analysis", () => {
     expect(
       validateValidationDataRows("case_log.csv", [

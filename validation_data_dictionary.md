@@ -40,22 +40,22 @@ checked against the runtime schema.
 
 ## case_log.csv
 
-| Column                       | Required    | Values / notes                                                                                        |
-| ---------------------------- | ----------- | ----------------------------------------------------------------------------------------------------- |
-| study_id                     | yes         | De-identified case key shared across all files.                                                       |
-| cohort                       | yes         | `feta_2024`, `institutional`, `reader_study`, or `report_audit`.                                      |
-| site_id                      | yes         | De-identified site key; use `single_site` if only one institution.                                    |
-| scanner_vendor               | yes         | Vendor label or `unknown`.                                                                            |
-| field_strength_t             | yes         | Numeric Tesla value such as `0.55`, `1.5`, or `3`.                                                    |
-| svr_method                   | yes         | `none`, `clinical_svr`, `research_svr`, or `unknown`.                                                 |
-| image_quality_tier           | yes         | `diagnostic`, `motion_limited`, `nondiagnostic`, or local locked categories.                          |
-| ga_weeks                     | yes         | Integer gestational age weeks at MRI.                                                                 |
-| ga_days                      | yes         | Integer 0-6 gestational age days.                                                                     |
-| included                     | yes         | `true` or `false`.                                                                                    |
-| exclusion_reason             | conditional | Required when `included=false`; examples: `motion-degraded`, `missing-sequence`, `outside-ga-window`. |
-| reference_standard_available | yes         | `true` if expert measurement or final label is available.                                             |
-| prediction_available         | yes         | `true` if calculator output is available.                                                             |
-| pathology_label_available    | yes         | `true` if diagnostic truth labels are available.                                                      |
+| Column                       | Required    | Values / notes                                                                                                                               |
+| ---------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| study_id                     | yes         | De-identified case key shared across all files.                                                                                              |
+| cohort                       | yes         | `feta_2024`, `institutional`, `reader_study`, or `report_audit`.                                                                             |
+| site_id                      | yes         | De-identified site key; use `single_site` if only one institution.                                                                           |
+| scanner_vendor               | yes         | Vendor label or `unknown`.                                                                                                                   |
+| field_strength_t             | yes         | Numeric Tesla value such as `0.55`, `1.5`, or `3`.                                                                                           |
+| svr_method                   | yes         | `none`, `clinical_svr`, `research_svr`, or `unknown`.                                                                                        |
+| image_quality_tier           | yes         | `diagnostic`, `motion_limited`, `nondiagnostic`, or local locked categories.                                                                 |
+| ga_weeks                     | yes         | Integer gestational age weeks at MRI.                                                                                                        |
+| ga_days                      | yes         | Integer 0-6 gestational age days.                                                                                                            |
+| included                     | yes         | `true` or `false`.                                                                                                                           |
+| exclusion_reason             | conditional | Required when `included=false` and must be blank when `included=true`; examples: `motion-degraded`, `missing-sequence`, `outside-ga-window`. |
+| reference_standard_available | yes         | `true` if expert measurement or final label is available.                                                                                    |
+| prediction_available         | yes         | `true` if calculator output is available.                                                                                                    |
+| pathology_label_available    | yes         | `true` if diagnostic truth labels are available.                                                                                             |
 
 ## measurement_rows.csv
 
@@ -161,7 +161,8 @@ the other validation files.
 1. No PHI appears in any export file.
 2. Every file uses `study_id` consistently.
 3. `ga_weeks` and `ga_days` are populated for every included case.
-4. Excluded cases have non-empty `exclusion_reason`.
+4. Excluded cases have non-empty `exclusion_reason`; included cases leave
+   `exclusion_reason` blank.
 5. Missing measurements use `measurement_available=false` plus `missing_reason`,
    not numeric placeholders; available measurements use exactly one of
    `value_mm` or `value_deg`.

@@ -1580,3 +1580,10 @@
 - Extend validation column metadata with an exclusive lower-bound guard for fields that must be positive.
 - Apply the positive-duration guard to reader-study and report-audit `duration_sec` before timing endpoints are analyzed.
 - Update the data dictionary, audit/progress trail, and full verification gate before committing.
+
+## Case-Log Exclusion Reason Consistency Guard Increment
+
+- Add failing-first coverage for included `case_log.csv` rows that still carry an `exclusion_reason`.
+- Align validation export preflight with the cohort-flow metrics invariant that included cases must not carry exclusion reasons.
+- Update the data dictionary so analysts know exclusion reasons are reserved for excluded cases.
+- Update the audit/progress trail, then run targeted/full gates before committing.

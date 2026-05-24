@@ -530,6 +530,15 @@ export const validateValidationDataRows = (
         `${rowLabel} requires exclusion_reason when included is false`
       );
     }
+    if (
+      schema.fileName === "case_log.csv" &&
+      isTrueLike(row.included) &&
+      !isMissing(row.exclusion_reason)
+    ) {
+      errors.push(
+        `${rowLabel} must not include exclusion_reason when included is true`
+      );
+    }
 
     if (schema.fileName === "measurement_rows.csv") {
       const hasValueMm = !isMissing(row.value_mm);
