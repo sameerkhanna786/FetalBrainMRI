@@ -160,6 +160,18 @@ def _python_differential_rows(
     elif max_atrium is not None and max_atrium >= 10:
         rows.append("mild ventriculomegaly: atrial diameter is 10-12 mm.")
 
+    left_atrium = values.get("atrial_left")
+    right_atrium = values.get("atrial_right")
+    if (
+        left_atrium is not None
+        and right_atrium is not None
+        and abs(left_atrium - right_atrium) > 2
+    ):
+        rows.append(
+            "ventricular asymmetry: atrial diameter side-to-side difference "
+            "is > 2 mm."
+        )
+
     for side, atrium_id, frontal_horn_id in (
         ("left", "atrial_left", "frontal_horn_left"),
         ("right", "atrial_right", "frontal_horn_right"),
@@ -185,7 +197,8 @@ def _python_differential_rows(
         rows.append("enlarged CSP: CSP width is > 10 mm.")
 
     third_ventricle = values.get("third_ventricle")
-    if third_ventricle is not None and third_ventricle > 3.5:
+    third_ventricle_wide = third_ventricle is not None and third_ventricle > 3.5
+    if third_ventricle_wide:
         rows.append("wide third ventricle: third-ventricle width is > 3.5 mm.")
 
     head_z_values = [
@@ -193,14 +206,60 @@ def _python_differential_rows(
         for parameter_id in ("skull_bpd", "brain_bpd")
         if (z_value := _z_value(results, parameter_id)) is not None
     ]
-    if head_z_values and min(head_z_values) < -1.88:
+    microcephaly_pattern = bool(head_z_values and min(head_z_values) < -1.88)
+    if microcephaly_pattern:
         rows.append("microcephaly: skull or brain BPD is below the 3rd percentile.")
     if head_z_values and max(head_z_values) > 1.88:
         rows.append("macrocephaly: skull or brain BPD is above the 97th percentile.")
 
+    skull_bpd_z = _z_value(results, "skull_bpd")
+    brain_bpd_z = _z_value(results, "brain_bpd")
+    if (
+        skull_bpd_z is not None
+        and brain_bpd_z is not None
+        and skull_bpd_z - brain_bpd_z > 2
+    ):
+        rows.append(
+            "brain volume loss / atrophy: brain size is discordant from skull size."
+        )
+
+    brain_ofd_left_z = _z_value(results, "brain_ofd_left")
+    brain_ofd_right_z = _z_value(results, "brain_ofd_right")
+    if (
+        brain_ofd_left_z is not None
+        and brain_ofd_right_z is not None
+        and abs(brain_ofd_left_z - brain_ofd_right_z) > 2
+    ):
+        rows.append(
+            "cerebral hemispheric asymmetry: brain OFD left-right z-score gap is > 2."
+        )
+
+    extra_axial_z = _z_value(results, "extra_axial_csf")
+    if extra_axial_z is not None and extra_axial_z > 1.645:
+        rows.append(
+            "widened extra-axial CSF space: extra-axial CSF is above the "
+            "95th percentile."
+        )
+
+    cc_z = _z_value(results, "cc_length")
+    cc_small = cc_z is not None and cc_z < -1.645
+    if cc_small:
+        rows.append(
+            "corpus callosum dysgenesis: corpus callosum length is below the "
+            "5th percentile."
+        )
+    elif cc_z is not None and cc_z > 1.645:
+        rows.append(
+            "thick corpus callosum: corpus callosum length is above the "
+            "95th percentile."
+        )
+
     tcd_z = _z_value(results, "tcd")
-    if tcd_z is not None and tcd_z < -1.645:
+    tcd_small = tcd_z is not None and tcd_z < -1.645
+    if tcd_small:
         rows.append("cerebellar hypoplasia: TCD is below the 5th percentile.")
+    elif tcd_z is not None and tcd_z > 1.645:
+        rows.append("macrocerebellum: TCD is above the 95th percentile.")
 
     cisterna_magna_depth = values.get("cisterna_magna_depth")
     if cisterna_magna_depth is not None and cisterna_magna_depth > 10:
@@ -214,11 +273,17 @@ def _python_differential_rows(
         for parameter_id in ("vermis_cc", "vermis_ap")
         if (z_value := _z_value(results, parameter_id)) is not None
     ]
-    if vermis_z_values and min(vermis_z_values) < -1.645:
+    vermis_small = bool(vermis_z_values and min(vermis_z_values) < -1.645)
+    if vermis_small:
         if (values.get("tva") or 0) > 23:
             rows.append("Dandy-Walker spectrum: small vermis with elevated TVA.")
         else:
-            rows.append("vermian hypoplasia: vermian measurement is below the 5th percentile.")
+            rows.append(
+                "vermian hypoplasia: vermian measurement is below the "
+                "5th percentile."
+            )
+    elif vermis_z_values and max(vermis_z_values) > 1.645:
+        rows.append("large vermis: vermian measurement is above the 95th percentile.")
     elif (values.get("tva") or 0) > 23:
         rows.append(
             "Blake's pouch cyst advisory: elevated TVA without a small-vermis "
@@ -226,8 +291,33 @@ def _python_differential_rows(
         )
 
     pons_z = _z_value(results, "pons_ap")
-    if pons_z is not None and pons_z < -1.645:
-        rows.append("pontocerebellar hypoplasia pattern: pons AP is below the 5th percentile.")
+    pons_small = pons_z is not None and pons_z < -1.645
+    if pons_small:
+        rows.append(
+            "pontocerebellar hypoplasia pattern: pons AP is below the "
+            "5th percentile."
+        )
+    elif pons_z is not None and pons_z > 1.645:
+        rows.append("pontine bulging: pons AP is above the 95th percentile.")
+
+    absent_csp = csp_width is not None and csp_width < 1
+    if max_atrium is not None and max_atrium >= 15 and third_ventricle_wide:
+        rows.append(
+            "triventricular hydrocephalus pattern: severe ventriculomegaly "
+            "with wide third ventricle."
+        )
+    if absent_csp and cc_small:
+        rows.append(
+            "agenesis of the corpus callosum pattern: absent CSP with short "
+            "corpus callosum."
+        )
+    if absent_csp and microcephaly_pattern:
+        rows.append("holoprosencephaly pattern: absent CSP with microcephaly.")
+    if pons_small and (tcd_small or vermis_small):
+        rows.append(
+            "pontocerebellar hypoplasia combined pattern: small pons with "
+            "small cerebellar or vermian measurement."
+        )
 
     tdpf_z = _z_value(results, "tdpf")
     csa_z = _z_value(results, "csa")

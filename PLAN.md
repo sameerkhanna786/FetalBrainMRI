@@ -922,3 +922,9 @@
 - Add architecture coverage for Python cisterna magna and TVA auxiliary trigger output.
 - Emit a Python mega-cisterna-magna / Blake's-pouch differential when cisterna magna depth exceeds 10 mm.
 - Emit a Python Blake's-pouch advisory when TVA is elevated without a small-vermis Dandy-Walker pattern.
+
+## SPEC 4.6 Python Residual DDx Trigger Increment
+
+- Add architecture coverage for Python residual z-score and composite DDx trigger names.
+- Add Python atrial asymmetry, corpus-callosum, large posterior-fossa, extra-axial, and hemispheric-asymmetry rows.
+- Add Python hydrocephalus, ACC, HPE, and PCH composite pattern rows from already-computed measurements.

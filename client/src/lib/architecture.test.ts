@@ -215,6 +215,22 @@ describe("SPEC §4.3 Python/FastAPI architecture scaffold", () => {
     expect(app).toContain("Blake's pouch");
   });
 
+  it("implements Python residual DDx trigger rows for SPEC §4.6 and §4.7", () => {
+    const app = read("python_app/main.py");
+
+    expect(app).toContain("ventricular asymmetry");
+    expect(app).toContain("corpus callosum dysgenesis");
+    expect(app).toContain("thick corpus callosum");
+    expect(app).toContain("macrocerebellum");
+    expect(app).toContain("pontine bulging");
+    expect(app).toContain("widened extra-axial CSF");
+    expect(app).toContain("cerebral hemispheric asymmetry");
+    expect(app).toContain("triventricular hydrocephalus pattern");
+    expect(app).toContain("agenesis of the corpus callosum pattern");
+    expect(app).toContain("holoprosencephaly pattern");
+    expect(app).toContain("pontocerebellar hypoplasia combined pattern");
+  });
+
   it("scaffolds scipy curve fitting for offline centile-table registry builds", () => {
     const core = read("python_app/biometry.py");
 
