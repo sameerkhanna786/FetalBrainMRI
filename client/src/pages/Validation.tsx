@@ -168,6 +168,20 @@ export default function Validation() {
           reproduce the calculation by hand.
         </p>
 
+        <section className="mt-14">
+          <div className="smallcaps text-[color:var(--ink-soft)]">§ 0</div>
+          <h2 className="font-display text-[28px] mt-1">
+            FeTA 2024 validation endpoints
+          </h2>
+          <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
+            The FeTA 2024 cohort supports four manuscript-grade endpoints for
+            the interpretation layer: {"per-parameter agreement"},{" "}
+            {"multi-site, multi-vendor, multi-field-strength robustness"},{" "}
+            pathology-versus-neurotypical comparison, and overall ROC-AUC for
+            any abnormal trigger fired.
+          </p>
+        </section>
+
         {/* §1 model */}
         <section className="mt-14">
           <div className="smallcaps text-[color:var(--ink-soft)]">§ 1</div>

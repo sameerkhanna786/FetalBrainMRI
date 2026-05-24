@@ -1322,3 +1322,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/methodology-page.test.ts client/src/pages/Methodology.tsx` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 6.3 FeTA Validation Endpoint Increment
+
+- Added Validation-page coverage for the four SPEC §6.3 FeTA 2024 manuscript endpoints.
+- Surfaced per-parameter agreement, multi-site/multi-vendor/multi-field-strength robustness, pathology-versus-neurotypical comparison, and ROC-AUC.
+- Kept the increment documentation-only without changing scoring-engine behavior.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 106 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/validation-page.test.ts client/src/pages/Validation.tsx` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

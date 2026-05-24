@@ -604,3 +604,9 @@
 - Add Methodology-page coverage for the SPEC-required pre/intervention/post QI deployment tracking protocol.
 - Surface the 100 historical-report baseline audit, intervention deployment, and 100 new-report post-audit endpoints.
 - Name the required baseline metrics: time to report, measurement completeness, and explicit z-score/percentile documentation.
+
+## SPEC 6.3 FeTA Validation Endpoint Increment
+
+- Add Validation-page coverage for the four SPEC §6.3 FeTA 2024 manuscript endpoints.
+- Surface per-parameter agreement, multi-site/multi-vendor/multi-field-strength robustness, pathology-versus-neurotypical comparison, and ROC-AUC.
+- Keep the text documentation-only; no scoring-engine behavior changes are required for this increment.
