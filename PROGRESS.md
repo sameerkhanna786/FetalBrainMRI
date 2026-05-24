@@ -1,3 +1,19 @@
+## 2026-05-23, Python Extra-Axial Caveat Parity Increment
+
+- Added architecture coverage that Python carries the same extra-axial CSF approximation disclosure expected by the React source registry.
+- Added `EXTRA_AXIAL_CSF_APPROXIMATION_CAVEAT` and a Python `REGISTRY_OVERRIDES` row for `extra_axial_csf`, so FastAPI/Jinja report source details can disclose the Kyriakopoulou 2017 approximation caveat through the existing formatter.
+- Verified at runtime with `uv run --no-project --with numpy --with scipy` that `evaluate_parameter("extra_axial_csf", 28, 4.0)` returns Kyriakopoulou 2017, the 21-38 week GA window, and the approximation caveat.
+- During validation, default `uv run` exposed a separate publication-readiness blocker: setuptools editable build fails because `pyproject.toml` does not explicitly scope package discovery in the flat repository layout. This is queued as the next packaging-hardening increment.
+
+Verification:
+
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/architecture.test.ts` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 169 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/architecture.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, Publication Handoff Checklist Increment
 
 - Added test coverage that a publication handoff checklist maps reviewer standards to concrete manuscript sections, owners, and required evidence.

@@ -175,6 +175,16 @@ describe("SPEC §4.3 Python/FastAPI architecture scaffold", () => {
     expect(app).toContain("extrapolated");
   });
 
+  it("flags Python extra-axial CSF as approximate until source coefficients are locked", () => {
+    const registry = read("python_app/registry.py");
+
+    expect(registry).toContain("EXTRA_AXIAL_CSF_APPROXIMATION_CAVEAT");
+    expect(registry).toContain('"extra_axial_csf": [');
+    expect(registry).toContain("EXTRA_AXIAL_CSF_MODEL");
+    expect(registry).toContain("S_KYRIA");
+    expect(registry).toContain("caveat=EXTRA_AXIAL_CSF_APPROXIMATION_CAVEAT");
+  });
+
   it("scaffolds Python endpoint DDx output for core threshold patterns", () => {
     const app = read("python_app/main.py");
 

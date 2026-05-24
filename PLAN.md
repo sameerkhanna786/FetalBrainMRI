@@ -180,6 +180,12 @@
 - Assert the report impression flags the pair as an overgrowth-syndrome combined pattern.
 - Add a report-level overgrowth combined-pattern impression for `macrocephaly` plus `cc-thick`.
 
+## Python extra-axial caveat parity increment
+
+- Add architecture coverage that the Python source registry explicitly carries the Kyriakopoulou 2017 extra-axial CSF approximation caveat.
+- Register extra-axial CSF through a Python `REGISTRY_OVERRIDES` row so report source details can disclose the approximation.
+- Re-run Python compile, Vitest, typecheck/lint, formatting checks for touched files, and production build before committing.
+
 ## Isolated third-ventricle report increment
 
 - Add Vitest coverage for TEST.md §21 Case TV2: isolated third-ventricle dilatation at 30w0d should fire `third-v-wide` without ventriculomegaly or aqueductal-stenosis cards.
