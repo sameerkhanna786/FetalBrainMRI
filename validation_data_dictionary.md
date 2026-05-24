@@ -124,16 +124,16 @@ SUS item is present, all ten item responses must be present.
 | nasa_tlx_performance      | conditional | NASA Task Load Index 0-100 subscale.                             |
 | nasa_tlx_effort           | conditional | NASA Task Load Index 0-100 subscale.                             |
 | nasa_tlx_frustration      | conditional | NASA Task Load Index 0-100 subscale.                             |
-| sus_item_1                | conditional | System Usability Scale response 1-5 after with-tool use.         |
-| sus_item_2                | conditional | System Usability Scale response 1-5 after with-tool use.         |
-| sus_item_3                | conditional | System Usability Scale response 1-5 after with-tool use.         |
-| sus_item_4                | conditional | System Usability Scale response 1-5 after with-tool use.         |
-| sus_item_5                | conditional | System Usability Scale response 1-5 after with-tool use.         |
-| sus_item_6                | conditional | System Usability Scale response 1-5 after with-tool use.         |
-| sus_item_7                | conditional | System Usability Scale response 1-5 after with-tool use.         |
-| sus_item_8                | conditional | System Usability Scale response 1-5 after with-tool use.         |
-| sus_item_9                | conditional | System Usability Scale response 1-5 after with-tool use.         |
-| sus_item_10               | conditional | System Usability Scale response 1-5 after with-tool use.         |
+| sus_item_1                | conditional | System Usability Scale integer response 1-5 after with-tool use. |
+| sus_item_2                | conditional | System Usability Scale integer response 1-5 after with-tool use. |
+| sus_item_3                | conditional | System Usability Scale integer response 1-5 after with-tool use. |
+| sus_item_4                | conditional | System Usability Scale integer response 1-5 after with-tool use. |
+| sus_item_5                | conditional | System Usability Scale integer response 1-5 after with-tool use. |
+| sus_item_6                | conditional | System Usability Scale integer response 1-5 after with-tool use. |
+| sus_item_7                | conditional | System Usability Scale integer response 1-5 after with-tool use. |
+| sus_item_8                | conditional | System Usability Scale integer response 1-5 after with-tool use. |
+| sus_item_9                | conditional | System Usability Scale integer response 1-5 after with-tool use. |
+| sus_item_10               | conditional | System Usability Scale integer response 1-5 after with-tool use. |
 
 ## report_audit_rows.csv
 
@@ -180,5 +180,5 @@ the other validation files.
 11. Report-audit rows have a non-zero required-measurement denominator and never
     document more measurements than the locked audit rubric requires.
 12. Integer fields such as `ga_weeks`, `ga_days`, `read_order`,
-    `required_measurement_count`, and `documented_measurement_count` do not use
-    fractional values.
+    `required_measurement_count`, `documented_measurement_count`, and System
+    Usability Scale item responses do not use fractional values.

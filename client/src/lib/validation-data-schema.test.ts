@@ -601,6 +601,33 @@ describe("validation data export schema guard", () => {
     );
 
     expect(
+      validateValidationDataRows("reader_study_rows.csv", [
+        {
+          reader_id: "R1",
+          study_id: "S1",
+          condition: "with_tool",
+          read_order: 2,
+          washout_days: 14,
+          duration_sec: 240,
+          completeness_score: 0.95,
+          zscore_documentation_rate: 1,
+          sus_item_1: 2.5,
+          sus_item_2: 2,
+          sus_item_3: 3,
+          sus_item_4: 4,
+          sus_item_5: 5,
+          sus_item_6: 1,
+          sus_item_7: 2,
+          sus_item_8: 3,
+          sus_item_9: 4,
+          sus_item_10: 5,
+        },
+      ])
+    ).toContain(
+      "reader_study_rows.csv row 1 field sus_item_1 must be an integer"
+    );
+
+    expect(
       validateValidationDataRows("report_audit_rows.csv", [
         {
           report_id: "P1",

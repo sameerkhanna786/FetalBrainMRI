@@ -282,6 +282,7 @@ export const VALIDATION_DATA_SCHEMAS: Record<
         numeric: true,
         min: 1,
         max: 5,
+        integer: true,
       },
       {
         name: "sus_item_2",
@@ -289,6 +290,7 @@ export const VALIDATION_DATA_SCHEMAS: Record<
         numeric: true,
         min: 1,
         max: 5,
+        integer: true,
       },
       {
         name: "sus_item_3",
@@ -296,6 +298,7 @@ export const VALIDATION_DATA_SCHEMAS: Record<
         numeric: true,
         min: 1,
         max: 5,
+        integer: true,
       },
       {
         name: "sus_item_4",
@@ -303,6 +306,7 @@ export const VALIDATION_DATA_SCHEMAS: Record<
         numeric: true,
         min: 1,
         max: 5,
+        integer: true,
       },
       {
         name: "sus_item_5",
@@ -310,6 +314,7 @@ export const VALIDATION_DATA_SCHEMAS: Record<
         numeric: true,
         min: 1,
         max: 5,
+        integer: true,
       },
       {
         name: "sus_item_6",
@@ -317,6 +322,7 @@ export const VALIDATION_DATA_SCHEMAS: Record<
         numeric: true,
         min: 1,
         max: 5,
+        integer: true,
       },
       {
         name: "sus_item_7",
@@ -324,6 +330,7 @@ export const VALIDATION_DATA_SCHEMAS: Record<
         numeric: true,
         min: 1,
         max: 5,
+        integer: true,
       },
       {
         name: "sus_item_8",
@@ -331,6 +338,7 @@ export const VALIDATION_DATA_SCHEMAS: Record<
         numeric: true,
         min: 1,
         max: 5,
+        integer: true,
       },
       {
         name: "sus_item_9",
@@ -338,6 +346,7 @@ export const VALIDATION_DATA_SCHEMAS: Record<
         numeric: true,
         min: 1,
         max: 5,
+        integer: true,
       },
       {
         name: "sus_item_10",
@@ -345,6 +354,7 @@ export const VALIDATION_DATA_SCHEMAS: Record<
         numeric: true,
         min: 1,
         max: 5,
+        integer: true,
       },
     ],
   },

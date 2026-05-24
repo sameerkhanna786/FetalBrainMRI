@@ -1594,3 +1594,10 @@
 - Align validation export preflight with the reader-study metrics invariant that completeness scores must be non-negative.
 - Update the data dictionary so the locked report-completeness rubric is documented as non-negative.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Reader-Study SUS Integer Guard Increment
+
+- Add failing-first coverage for fractional System Usability Scale item responses in `reader_study_rows.csv`.
+- Mark `sus_item_1` through `sus_item_10` as integer validation fields so Likert responses stay scoreable.
+- Update the data dictionary to document SUS responses as integer 1-5 items.
+- Update the audit/progress trail, then run targeted/full gates before committing.

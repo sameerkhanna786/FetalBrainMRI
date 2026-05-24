@@ -60,35 +60,35 @@ Use `reader_study_rows.csv` for one row per reader, case, and condition.
 Pathology grouping is derived from `case_log.csv` / `diagnostic_labels.csv`,
 not duplicated in the reader-study export.
 
-| Column                    | Description                                              |
-| ------------------------- | -------------------------------------------------------- |
-| reader_id                 | De-identified reader identifier.                         |
-| study_id                  | De-identified case identifier linked to `case_log.csv`.  |
-| condition                 | `without_tool` or `with_tool`.                           |
-| read_order                | Integer order within the reader's assigned sequence.     |
-| washout_days              | Days between paired reads; minimum is 14.                |
-| duration_sec              | Positive interpretation time in seconds.                 |
-| completeness_score        | Non-negative predefined report-completeness score.       |
-| zscore_documentation_rate | Per-case proportion from 0 to 1.                         |
-| recommendation_congruent  | Boolean adjudicated recommendation match.                |
-| categorical_label         | Reader's final categorical diagnostic label for kappa.   |
-| continuous_measurement    | Repeated continuous measurement for ICC(2,1).            |
-| nasa_tlx_mental_demand    | NASA Task Load Index 0-100 mental-demand subscale.       |
-| nasa_tlx_physical_demand  | NASA Task Load Index 0-100 physical-demand subscale.     |
-| nasa_tlx_temporal_demand  | NASA Task Load Index 0-100 temporal-demand subscale.     |
-| nasa_tlx_performance      | NASA Task Load Index 0-100 performance subscale.         |
-| nasa_tlx_effort           | NASA Task Load Index 0-100 effort subscale.              |
-| nasa_tlx_frustration      | NASA Task Load Index 0-100 frustration subscale.         |
-| sus_item_1                | System Usability Scale response 1-5 after with-tool use. |
-| sus_item_2                | System Usability Scale response 1-5 after with-tool use. |
-| sus_item_3                | System Usability Scale response 1-5 after with-tool use. |
-| sus_item_4                | System Usability Scale response 1-5 after with-tool use. |
-| sus_item_5                | System Usability Scale response 1-5 after with-tool use. |
-| sus_item_6                | System Usability Scale response 1-5 after with-tool use. |
-| sus_item_7                | System Usability Scale response 1-5 after with-tool use. |
-| sus_item_8                | System Usability Scale response 1-5 after with-tool use. |
-| sus_item_9                | System Usability Scale response 1-5 after with-tool use. |
-| sus_item_10               | System Usability Scale response 1-5 after with-tool use. |
+| Column                    | Description                                                      |
+| ------------------------- | ---------------------------------------------------------------- |
+| reader_id                 | De-identified reader identifier.                                 |
+| study_id                  | De-identified case identifier linked to `case_log.csv`.          |
+| condition                 | `without_tool` or `with_tool`.                                   |
+| read_order                | Integer order within the reader's assigned sequence.             |
+| washout_days              | Days between paired reads; minimum is 14.                        |
+| duration_sec              | Positive interpretation time in seconds.                         |
+| completeness_score        | Non-negative predefined report-completeness score.               |
+| zscore_documentation_rate | Per-case proportion from 0 to 1.                                 |
+| recommendation_congruent  | Boolean adjudicated recommendation match.                        |
+| categorical_label         | Reader's final categorical diagnostic label for kappa.           |
+| continuous_measurement    | Repeated continuous measurement for ICC(2,1).                    |
+| nasa_tlx_mental_demand    | NASA Task Load Index 0-100 mental-demand subscale.               |
+| nasa_tlx_physical_demand  | NASA Task Load Index 0-100 physical-demand subscale.             |
+| nasa_tlx_temporal_demand  | NASA Task Load Index 0-100 temporal-demand subscale.             |
+| nasa_tlx_performance      | NASA Task Load Index 0-100 performance subscale.                 |
+| nasa_tlx_effort           | NASA Task Load Index 0-100 effort subscale.                      |
+| nasa_tlx_frustration      | NASA Task Load Index 0-100 frustration subscale.                 |
+| sus_item_1                | System Usability Scale integer response 1-5 after with-tool use. |
+| sus_item_2                | System Usability Scale integer response 1-5 after with-tool use. |
+| sus_item_3                | System Usability Scale integer response 1-5 after with-tool use. |
+| sus_item_4                | System Usability Scale integer response 1-5 after with-tool use. |
+| sus_item_5                | System Usability Scale integer response 1-5 after with-tool use. |
+| sus_item_6                | System Usability Scale integer response 1-5 after with-tool use. |
+| sus_item_7                | System Usability Scale integer response 1-5 after with-tool use. |
+| sus_item_8                | System Usability Scale integer response 1-5 after with-tool use. |
+| sus_item_9                | System Usability Scale integer response 1-5 after with-tool use. |
+| sus_item_10               | System Usability Scale integer response 1-5 after with-tool use. |
 
 ## Go / No-Go
 

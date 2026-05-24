@@ -1,3 +1,21 @@
+## 2026-05-24, Reader-Study SUS Integer Guard Increment
+
+- Added failing-first coverage for fractional System Usability Scale item responses in `reader_study_rows.csv`.
+- Marked `sus_item_1` through `sus_item_10` as integer fields so item-level Likert responses remain scoreable.
+- Updated `validation_data_dictionary.md` and `reader_study_protocol.md` to document SUS items as integer 1-5 responses.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "fractional values"` failed before implementation because `sus_item_1=2.5` produced no schema errors.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "fractional values"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 22 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 267 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md reader_study_protocol.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Reader-Study Completeness Score Guard Increment
 
 - Added failing-first coverage for negative `reader_study_rows.csv` `completeness_score` values.
