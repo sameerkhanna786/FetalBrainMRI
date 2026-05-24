@@ -109,6 +109,8 @@ describe("publication-readiness source-document consistency", () => {
     expect(dossier).toContain("CLAIM");
     expect(dossier).toContain("DECIDE-AI");
     expect(dossier).toContain("FeTA 2024 biometry gap");
+    expect(dossier).toContain("TEST corpus numeric audit");
+    expect(dossier).toContain("72 residual normal-label rows");
     expect(dossier).toContain("decision-curve net benefit");
     expect(dossier).toContain("IRB");
     expect(dossier).toContain("radiologist handoff");

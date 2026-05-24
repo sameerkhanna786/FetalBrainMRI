@@ -1322,3 +1322,9 @@
 - Add failing-first source-document coverage that parses TEST.md cases M1-M6 and verifies normal filler rows are near runtime z = 0 while the intended mild-VM/asymmetry cards fire.
 - Recalibrate the non-VM filler rows in M1-M6 to active registry-mean values without changing the clinically abnormal atrial measurements.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## TEST Corpus Residual Numeric Audit Blocker Increment
+
+- Add failing-first source-document coverage that the source verification dossier surfaces the residual TEST.md normal-label numeric audit count.
+- Document the remaining section-by-section TEST corpus recalibration blocker after fixing the canonical filler, normal-control, hemispheric, and mild-VM fixtures.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

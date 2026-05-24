@@ -1,3 +1,19 @@
+## 2026-05-24, TEST Corpus Residual Numeric Audit Blocker Increment
+
+- Added failing-first source-document coverage that the source verification dossier surfaces the residual TEST.md normal-label numeric audit count.
+- Documented the remaining TEST corpus numeric audit as an open publication-readiness blocker after reducing the residual count to 72 rows through the filler, normal-control, hemispheric, and mild/moderate VM repairs.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before implementation because `source_verification_dossier.md` did not name the TEST corpus numeric audit blocker.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 227 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 227 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md source_verification_dossier.md client/src/lib/methodology-page.test.ts` passes after formatting the dossier table.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, TEST Mild-VM Fixture Filler Consistency Increment
 
 - Added failing-first source-document coverage that parses TEST.md cases M1-M6, evaluates them with the runtime engine, and verifies near-zero normal filler rows plus intended mild/moderate VM and asymmetry card behavior.
