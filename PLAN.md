@@ -1664,3 +1664,10 @@
 - Extend export validation so impossible biometric distances or angles cannot enter agreement, calibration-adjacent, or reader-reliability analyses.
 - Update the data dictionary so measurement values are documented as positive physical quantities.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Reporting Guideline Errata Handoff Increment
+
+- Verify PubMed metadata for TRIPOD+AI, STARD-AI, CLAIM, DECIDE-AI, SPIRIT-AI, CONSORT-AI, and FeTA 2024 after the online literature pass.
+- Add failing-first source-document coverage requiring TRIPOD+AI and DECIDE-AI errata metadata in the handoff packet.
+- Update the publication handoff checklist and source-verification dossier so radiologist collaborators see the errata alongside the guideline citations.
+- Update the audit/progress trail, then run targeted/full gates before committing.

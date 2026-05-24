@@ -1,3 +1,20 @@
+## 2026-05-24, Reporting Guideline Errata Handoff Increment
+
+- Rechecked guideline and FeTA 2024 metadata through PubMed E-utilities after the external web-search endpoint timed out.
+- Added failing-first source-document coverage for the TRIPOD+AI BMJ erratum, DECIDE-AI Nature Medicine erratum, and FeTA 2024 PubMed / DOI metadata.
+- Updated `publication_handoff_checklist.md` and `source_verification_dossier.md` so radiologist collaborators see complete guideline and FeTA metadata in the handoff packet.
+
+Verification:
+
+- Failing-first checks: `npx pnpm@10.4.1 test client/src/lib/methodology-page.test.ts -- --runInBand -t "sample-size|DECIDE-AI"` failed before implementation because the TRIPOD+AI and DECIDE-AI errata were absent; `npx pnpm@10.4.1 test client/src/lib/methodology-page.test.ts -- --runInBand -t "literature-derived"` failed before implementation because FeTA 2024 PMID / DOI metadata was absent.
+- `npx pnpm@10.4.1 test client/src/lib/methodology-page.test.ts -- --runInBand -t "literature-derived|sample-size|DECIDE-AI"` passes.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 276 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md publication_handoff_checklist.md source_verification_dossier.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Measurement Positive Value Guard Increment
 
 - Added failing-first coverage for zero or negative `measurement_rows.csv` values in millimetres and degrees.

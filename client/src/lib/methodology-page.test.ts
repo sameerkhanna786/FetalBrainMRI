@@ -109,6 +109,8 @@ describe("publication-readiness source-document consistency", () => {
     expect(dossier).toContain("CLAIM");
     expect(dossier).toContain("DECIDE-AI");
     expect(dossier).toContain("FeTA 2024 biometry gap");
+    expect(dossier).toContain("PMID 41564637");
+    expect(dossier).toContain("10.1016/j.media.2026.103941");
     expect(dossier).toContain("TEST corpus numeric audit");
     expect(dossier).toContain("0 residual normal-label rows");
     expect(dossier).toContain("decision-curve net benefit");
@@ -2622,6 +2624,8 @@ describe("publication handoff checklist", () => {
     expect(checklist).toContain("estimatePairedMeanDifferenceSampleSize");
     expect(dossier).toContain("TRIPOD+AI statement");
     expect(dossier).toContain("PMID 38626948");
+    expect(dossier).toContain("PMID 38636956");
+    expect(dossier).toContain("10.1136/bmj.q902");
     expect(dossier).toContain("STARD-AI diagnostic accuracy guideline");
     expect(dossier).toContain("PMID 40954311");
     expect(dossier).toContain("CLAIM 2024 Update");
@@ -2688,9 +2692,13 @@ describe("publication handoff checklist", () => {
     expect(checklist).toContain("DECIDE-AI");
     expect(checklist).toContain("PMID 35585198");
     expect(checklist).toContain("10.1038/s41591-022-01772-9");
+    expect(checklist).toContain("PMID 35962208");
+    expect(checklist).toContain("10.1038/s41591-022-01951-8");
     expect(dossier).toContain("DECIDE-AI");
     expect(dossier).toContain("PMID 35585198");
     expect(dossier).toContain("10.1038/s41591-022-01772-9");
+    expect(dossier).toContain("PMID 35962208");
+    expect(dossier).toContain("10.1038/s41591-022-01951-8");
   });
 
   it("keeps an active-goal completion audit linked to concrete evidence and blockers", () => {
