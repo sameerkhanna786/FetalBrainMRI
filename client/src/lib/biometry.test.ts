@@ -271,6 +271,25 @@ describe("mean-SD table source fitting", () => {
 });
 
 describe("structured report source provenance", () => {
+  it("starts the Technique section with the fixed multi-source consensus sentence", () => {
+    const report = generateReport({
+      ga: { weeks: 28, days: 0 },
+      fieldStrength: "1.5T",
+      motion: "None",
+      values: {},
+      zs: {},
+      dxs: [],
+    });
+    const techniqueLines = report
+      .split("TECHNIQUE\n")[1]
+      .split("\n\n")[0]
+      .split("\n");
+
+    expect(techniqueLines[0]).toBe(
+      "Calculator operated in multi-source consensus mode: consensus z-score is the arithmetic mean across in-range sources, and source disagreement is flagged at Delta z >= 1.0 SD between in-range sources."
+    );
+  });
+
   it("includes per-source values and source-agreement notes for disagreeing rows", () => {
     const ga = { weeks: 28, days: 0 };
     const tcd = byId("tcd");

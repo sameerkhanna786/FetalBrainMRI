@@ -1231,3 +1231,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/workflow-ui.test.ts client/src/pages/Home.tsx` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.8 Technique Consensus Sentence Increment
+
+- Added report coverage proving the Technique section begins with the fixed multi-source consensus sentence.
+- Preserved the reconciliation-rule and Delta z disagreement-threshold wording in that first Technique sentence.
+- Moved the imaging-acquisition and motion sentence after the fixed consensus sentence without changing measured-parameter output.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 100 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/report.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

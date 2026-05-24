@@ -94,7 +94,10 @@ export function generateReport(ctx: ReportContext): string {
 
   lines.push("TECHNIQUE");
   lines.push(
-    `Multiplanar T2-weighted single-shot fast spin-echo imaging of the fetal brain at ${fieldStrength}. Motion artefact: ${motion.toLowerCase()}. Calculator operated in multi-source consensus mode: consensus z-score is the arithmetic mean across in-range sources, and source disagreement is flagged at Delta z >= 1.0 SD between in-range sources.`
+    "Calculator operated in multi-source consensus mode: consensus z-score is the arithmetic mean across in-range sources, and source disagreement is flagged at Delta z >= 1.0 SD between in-range sources."
+  );
+  lines.push(
+    `Multiplanar T2-weighted single-shot fast spin-echo imaging of the fetal brain at ${fieldStrength}. Motion artefact: ${motion.toLowerCase()}.`
   );
   if (dxs.some(dx => dx.id === "chiari-ii-ontd")) {
     lines.push(

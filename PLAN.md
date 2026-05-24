@@ -562,3 +562,9 @@
 - Add source-level UI coverage proving the structured report preview is a read-only text box bound to the live report.
 - Replace the report preview `<pre>` with a read-only `<textarea>` so radiologists can select plain report text directly.
 - Keep the existing `Copy to Clipboard` action below the preview and preserve report-generation behavior.
+
+## SPEC 4.8 Technique Consensus Sentence Increment
+
+- Add report coverage proving the Technique section begins with the fixed multi-source consensus sentence.
+- Preserve the existing reconciliation-rule and Delta z disagreement-threshold wording in that first Technique sentence.
+- Move the imaging-acquisition and motion sentence after the fixed consensus sentence without changing measured-parameter output.
