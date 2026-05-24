@@ -1,3 +1,21 @@
+## 2026-05-24, Diagnostic Label Threshold Consistency Guard Increment
+
+- Added failing-first validation-data-schema coverage that `diagnostic_labels.csv` predicted labels must match `predicted_probability` at the locked threshold.
+- Extended row validation so calibration and diagnostic-accuracy exports cannot carry internally contradictory prediction fields.
+- Updated `validation_data_dictionary.md` so analysts know `predicted_label` is derived from `predicted_probability >= threshold` when probabilities are exported.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "predicted_label false does not match|numeric fields"` failed before implementation because contradictory diagnostic prediction fields were accepted.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "predicted_label false does not match|numeric fields"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 31 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 281 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Validation Metrics Positive Duration Guard Increment
 
 - Added failing-first validation-metrics coverage that QI report-audit and reader-study timing inputs reject zero-second durations.

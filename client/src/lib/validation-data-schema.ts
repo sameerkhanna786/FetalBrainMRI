@@ -648,6 +648,31 @@ export const validateValidationDataRows = (
         `${rowLabel} requires indeterminate_reason when indeterminate is true`
       );
     }
+    if (schema.fileName === "diagnostic_labels.csv") {
+      const predictedProbability = numericValue(row.predicted_probability);
+      const threshold = numericValue(row.threshold);
+      const predictedLabel = isTrueLike(row.predicted_label)
+        ? true
+        : isFalseLike(row.predicted_label)
+          ? false
+          : null;
+      if (
+        predictedProbability != null &&
+        threshold != null &&
+        predictedLabel != null &&
+        predictedProbability >= 0 &&
+        predictedProbability <= 1 &&
+        threshold >= 0 &&
+        threshold <= 1
+      ) {
+        const expectedLabel = predictedProbability >= threshold;
+        if (predictedLabel !== expectedLabel) {
+          errors.push(
+            `${rowLabel} predicted_label ${predictedLabel} does not match predicted_probability ${predictedProbability} at threshold ${threshold}; expected ${expectedLabel}`
+          );
+        }
+      }
+    }
 
     if (schema.fileName === "reader_study_rows.csv") {
       pushMissingGroupFields(

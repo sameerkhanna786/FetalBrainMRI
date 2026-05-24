@@ -1699,3 +1699,10 @@
 - Align metric-layer validation with the export schema's positive-duration guard so direct helper calls cannot analyze impossible timing records.
 - Keep non-duration non-negative score and count behavior unchanged.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Diagnostic Label Threshold Consistency Guard Increment
+
+- Add failing-first validation-data-schema coverage that `diagnostic_labels.csv` predicted labels match `predicted_probability` at the locked threshold.
+- Extend row validation so calibration and diagnostic-accuracy exports cannot carry internally contradictory prediction fields.
+- Update the data dictionary so analysts know `predicted_label` is derived from `predicted_probability >= threshold` when probabilities are exported.
+- Update the audit/progress trail, then run targeted/full gates before committing.
