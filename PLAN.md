@@ -1461,3 +1461,10 @@
 - Extend `validateValidationDataRows` with conditional checks, allowed values, and finite numeric validation for high-risk analysis fields.
 - Update `validation_data_dictionary.md` so analysts know the guard checks conditional fields, allowed values, and numeric fields before analysis.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Validation Data Cross-File Guard Increment
+
+- Add failing-first coverage for a package-level validation export guard that checks `study_id` consistency across exported files.
+- Implement `validateValidationDataExport` so measurement, diagnostic-label, and reader-study rows cannot reference absent `case_log.csv` rows.
+- Add reader-study pair validation so every reader/case pair includes both `without_tool` and `with_tool` rows before paired deltas are computed.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

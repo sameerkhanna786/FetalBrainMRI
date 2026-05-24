@@ -1,3 +1,20 @@
+## 2026-05-24, Validation Data Cross-File Guard Increment
+
+- Added failing-first coverage for package-level validation export checks across `case_log.csv`, `measurement_rows.csv`, `diagnostic_labels.csv`, and `reader_study_rows.csv`.
+- Implemented `validateValidationDataExport` so measurement, diagnostic-label, and reader-study rows cannot reference absent `case_log.csv` study IDs.
+- Added reader-study pair validation requiring every reader/case pair to include both `without_tool` and `with_tool` rows before paired deltas are computed.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "cross-file"` failed before implementation because `validateValidationDataExport` was missing.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 249 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Validation Data Conditional Guard Increment
 
 - Added failing-first coverage for conditional export validation across case logs, measurement rows, diagnostic labels, reader-study rows, and report-audit rows.

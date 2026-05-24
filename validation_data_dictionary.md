@@ -13,12 +13,15 @@ blockers. Column names are intentionally aligned to the helper inputs in
 `client/src/lib/validation-metrics.ts`.
 
 Before metrics are computed, export rows should be checked with
-`validateValidationDataRows` from
-`client/src/lib/validation-data-schema.ts`. That guard verifies that every file
-contains the required fields documented below, catches blank required values,
-enforces high-risk conditional fields such as exclusion and missingness reasons,
-checks locked enum values such as reader-study condition and report-audit phase,
-and rejects non-finite numeric values before downstream analysis code runs.
+`validateValidationDataRows` and full file sets should be checked with
+`validateValidationDataExport` from
+`client/src/lib/validation-data-schema.ts`. These guards verify that every file
+contains the required fields documented below, catch blank required values,
+enforce high-risk conditional fields such as exclusion and missingness reasons,
+check locked enum values such as reader-study condition and report-audit phase,
+reject non-finite numeric values, ensure exported rows reference known
+`case_log.csv` study IDs, and require paired `without_tool` / `with_tool`
+reader-study rows before downstream analysis code runs.
 
 ## File set
 

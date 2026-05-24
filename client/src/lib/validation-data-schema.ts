@@ -24,6 +24,10 @@ export type ValidationDataRow = Record<
   string | number | boolean | null | undefined
 >;
 
+export type ValidationDataExport = Partial<
+  Record<ValidationDataFileName, readonly ValidationDataRow[]>
+>;
+
 export const VALIDATION_DATA_FILE_ORDER: ValidationDataFileName[] = [
   "case_log.csv",
   "measurement_rows.csv",
@@ -241,6 +245,89 @@ export const validateValidationDataRows = (
     ) {
       errors.push(
         `${rowLabel} requires indeterminate_reason when indeterminate is true`
+      );
+    }
+  });
+
+  return errors;
+};
+
+const stringValue = (
+  value: string | number | boolean | null | undefined
+): string | null => (isMissing(value) ? null : String(value));
+
+const pushMissingCaseReferences = (
+  errors: string[],
+  fileName: ValidationDataFileName,
+  rows: readonly ValidationDataRow[],
+  caseIds: Set<string>
+): void => {
+  rows.forEach((row, rowIndex) => {
+    const studyId = stringValue(row.study_id);
+    if (studyId != null && !caseIds.has(studyId)) {
+      errors.push(
+        `${fileName} row ${rowIndex + 1} references missing study_id ${studyId} in case_log.csv`
+      );
+    }
+  });
+};
+
+export const validateValidationDataExport = (
+  data: ValidationDataExport
+): string[] => {
+  const errors: string[] = [];
+  for (const fileName of VALIDATION_DATA_FILE_ORDER) {
+    errors.push(...validateValidationDataRows(fileName, data[fileName] ?? []));
+  }
+
+  const caseIds = new Set(
+    (data["case_log.csv"] ?? [])
+      .map(row => stringValue(row.study_id))
+      .filter((studyId): studyId is string => studyId != null)
+  );
+
+  pushMissingCaseReferences(
+    errors,
+    "measurement_rows.csv",
+    data["measurement_rows.csv"] ?? [],
+    caseIds
+  );
+  pushMissingCaseReferences(
+    errors,
+    "diagnostic_labels.csv",
+    data["diagnostic_labels.csv"] ?? [],
+    caseIds
+  );
+  pushMissingCaseReferences(
+    errors,
+    "reader_study_rows.csv",
+    data["reader_study_rows.csv"] ?? [],
+    caseIds
+  );
+
+  const readerPairs = new Map<string, Set<string>>();
+  for (const row of data["reader_study_rows.csv"] ?? []) {
+    const readerId = stringValue(row.reader_id);
+    const studyId = stringValue(row.study_id);
+    const condition = stringValue(row.condition);
+    if (
+      readerId == null ||
+      studyId == null ||
+      (condition !== "without_tool" && condition !== "with_tool")
+    ) {
+      continue;
+    }
+    const key = `${readerId}\u0000${studyId}`;
+    const conditions = readerPairs.get(key) ?? new Set<string>();
+    conditions.add(condition);
+    readerPairs.set(key, conditions);
+  }
+
+  readerPairs.forEach((conditions, key) => {
+    if (!conditions.has("without_tool") || !conditions.has("with_tool")) {
+      const [readerId, studyId] = key.split("\u0000");
+      errors.push(
+        `reader_study_rows.csv reader ${readerId} study ${studyId} must include both without_tool and with_tool rows`
       );
     }
   });

@@ -6,6 +6,7 @@ import { describe, expect, it } from "vitest";
 import {
   VALIDATION_DATA_FILE_ORDER,
   VALIDATION_DATA_SCHEMAS,
+  validateValidationDataExport,
   validateValidationDataRows,
 } from "./validation-data-schema";
 
@@ -231,6 +232,148 @@ describe("validation data export schema guard", () => {
       ])
     ).toContain(
       "report_audit_rows.csv row 1 field phase must be one of baseline, post_tool"
+    );
+  });
+
+  it("validates cross-file study IDs and reader-study pair completeness", () => {
+    expect(
+      validateValidationDataExport({
+        "case_log.csv": [
+          {
+            study_id: "S1",
+            cohort: "reader_study",
+            site_id: "single_site",
+            scanner_vendor: "unknown",
+            field_strength_t: 1.5,
+            svr_method: "none",
+            image_quality_tier: "diagnostic",
+            ga_weeks: 28,
+            ga_days: 0,
+            included: true,
+            reference_standard_available: true,
+            prediction_available: true,
+            pathology_label_available: true,
+          },
+        ],
+        "measurement_rows.csv": [
+          {
+            study_id: "S1",
+            parameter_id: "tcd",
+            source_role: "reference",
+            value_mm: 32,
+            measurement_available: true,
+            image_quality_tier: "diagnostic",
+          },
+        ],
+        "diagnostic_labels.csv": [
+          {
+            study_id: "S1",
+            trigger_id: "mild-vm",
+            reference_label: false,
+            predicted_label: false,
+            threshold: 0.5,
+            indeterminate: false,
+          },
+        ],
+        "reader_study_rows.csv": [
+          {
+            reader_id: "R1",
+            study_id: "S1",
+            condition: "without_tool",
+            read_order: 1,
+            washout_days: 14,
+            duration_sec: 300,
+            completeness_score: 0.8,
+            zscore_documentation_rate: 0.75,
+            recommendation_congruent: true,
+          },
+          {
+            reader_id: "R1",
+            study_id: "S1",
+            condition: "with_tool",
+            read_order: 2,
+            washout_days: 14,
+            duration_sec: 240,
+            completeness_score: 0.95,
+            zscore_documentation_rate: 1,
+            recommendation_congruent: true,
+          },
+        ],
+      })
+    ).toEqual([]);
+
+    expect(
+      validateValidationDataExport({
+        "case_log.csv": [
+          {
+            study_id: "S1",
+            cohort: "reader_study",
+            site_id: "single_site",
+            scanner_vendor: "unknown",
+            field_strength_t: 1.5,
+            svr_method: "none",
+            image_quality_tier: "diagnostic",
+            ga_weeks: 28,
+            ga_days: 0,
+            included: true,
+            reference_standard_available: true,
+            prediction_available: true,
+            pathology_label_available: true,
+          },
+        ],
+        "measurement_rows.csv": [
+          {
+            study_id: "S2",
+            parameter_id: "tcd",
+            source_role: "reference",
+            value_mm: 32,
+            measurement_available: true,
+            image_quality_tier: "diagnostic",
+          },
+        ],
+        "diagnostic_labels.csv": [
+          {
+            study_id: "S3",
+            trigger_id: "mild-vm",
+            reference_label: false,
+            predicted_label: false,
+            threshold: 0.5,
+            indeterminate: false,
+          },
+        ],
+        "reader_study_rows.csv": [
+          {
+            reader_id: "R1",
+            study_id: "S1",
+            condition: "without_tool",
+            read_order: 1,
+            washout_days: 14,
+            duration_sec: 300,
+            completeness_score: 0.8,
+            zscore_documentation_rate: 0.75,
+            recommendation_congruent: true,
+          },
+          {
+            reader_id: "R2",
+            study_id: "S4",
+            condition: "with_tool",
+            read_order: 1,
+            washout_days: 14,
+            duration_sec: 240,
+            completeness_score: 0.95,
+            zscore_documentation_rate: 1,
+            recommendation_congruent: true,
+          },
+        ],
+      })
+    ).toEqual(
+      expect.arrayContaining([
+        "measurement_rows.csv row 1 references missing study_id S2 in case_log.csv",
+        "diagnostic_labels.csv row 1 references missing study_id S3 in case_log.csv",
+        "reader_study_rows.csv row 2 references missing study_id S4 in case_log.csv",
+        "reader_study_rows.csv reader R1 study S1 must include both without_tool and with_tool rows",
+        "reader_study_rows.csv reader R2 study S4 must include both without_tool and with_tool rows",
+      ])
     );
   });
 });
