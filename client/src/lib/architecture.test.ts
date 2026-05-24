@@ -76,6 +76,17 @@ describe("SPEC §4.3 Python/FastAPI architecture scaffold", () => {
     expect(template).not.toMatch(/https?:\/\//);
   });
 
+  it("bundles a local HTMX adapter for the Python worksheet form updates", () => {
+    const htmx = read("python_app/static/htmx.min.js");
+
+    expect(htmx).not.toContain("local-placeholder");
+    expect(htmx).toContain("hx-post");
+    expect(htmx).toContain("hx-target");
+    expect(htmx).toContain("FormData");
+    expect(htmx).toContain("fetch");
+    expect(htmx).toContain("addEventListener");
+  });
+
   it("provides a numpy/scipy Python biometry core scaffold for all model families", () => {
     const corePath = resolve(process.cwd(), "python_app/biometry.py");
 

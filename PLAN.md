@@ -856,3 +856,9 @@
 - Add architecture coverage that the FastAPI/Jinja first screen is a worksheet shell rather than scaffold copy.
 - Render GA week/day controls, imaging context, parameter inputs, and a structured-report preview from Jinja.
 - Add a lightweight HTMX `/calculate` endpoint hook for report-preview updates without storing PHI.
+
+## SPEC 4.3 Local HTMX Adapter Increment
+
+- Add architecture coverage that the bundled HTMX asset is not a placeholder.
+- Implement the local `hx-post`/`hx-target` form-update behavior used by the Python worksheet.
+- Preserve the offline/no-external-script deployment posture.

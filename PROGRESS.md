@@ -1876,3 +1876,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/architecture.test.ts python_app/templates/index.html` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.3 Local HTMX Adapter Increment
+
+- Added architecture coverage that the bundled HTMX asset is not a placeholder.
+- Implemented the local `hx-post`/`hx-target` form-update behavior used by the Python worksheet.
+- Preserved the offline/no-external-script deployment posture.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 153 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/architecture.test.ts python_app/static/htmx.min.js` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
