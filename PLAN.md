@@ -1208,3 +1208,10 @@
 - Verify PubMed ESummary evidence for SPIRIT-AI protocol guidance and CONSORT-AI trial-report guidance.
 - Update the handoff checklist and verification dossier so prospective protocol publication requirements are visible before a future intervention study.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Inter-Rater Reliability Metrics Increment
+
+- Add failing-first validation-metrics coverage for Cohen's kappa on categorical reader labels and ICC(2,1) absolute-agreement reliability on repeated continuous measurements.
+- Implement deterministic reliability helpers with input validation for empty, incomplete, or non-variable rating sets.
+- Update the publication handoff docs so the radiologist reader-study packet points analysts at the new kappa / ICC helpers.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

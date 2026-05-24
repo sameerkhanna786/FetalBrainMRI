@@ -8,6 +8,8 @@ import {
   compareQiAuditPhases,
   computeQiAuditSummary,
   computeWilsonScoreInterval,
+  computeCohenKappa,
+  computeIntraclassCorrelation,
 } from "./validation-metrics";
 
 describe("publication validation metrics", () => {
@@ -95,6 +97,17 @@ describe("publication validation metrics", () => {
         [1]
       )
     ).toThrow("threshold");
+
+    expect(() =>
+      computeCohenKappa([
+        { raterA: "normal", raterB: "normal" },
+        { raterA: "normal", raterB: "normal" },
+      ])
+    ).toThrow("at least two categories");
+
+    expect(() => computeIntraclassCorrelation([[10, 11], [12]])).toThrow(
+      "rectangular matrix"
+    );
   });
 
   it("computes per-parameter agreement and Bland-Altman summaries", () => {
@@ -189,5 +202,37 @@ describe("publication validation metrics", () => {
     expect(comparison.explicitZScoreDocumentationRateDelta).toBe(0.5);
     expect(comparison.explicitPercentileDocumentationRateDelta).toBe(1);
     expect(comparison.recommendationCongruenceRateDelta).toBe(0.5);
+  });
+
+  it("computes categorical reader-label reliability with Cohen's kappa", () => {
+    const metrics = computeCohenKappa([
+      { raterA: "positive", raterB: "positive" },
+      { raterA: "positive", raterB: "negative" },
+      { raterA: "negative", raterB: "negative" },
+      { raterA: "negative", raterB: "negative" },
+      { raterA: "positive", raterB: "positive" },
+      { raterA: "negative", raterB: "positive" },
+    ]);
+
+    expect(metrics.n).toBe(6);
+    expect(metrics.categories).toEqual(["negative", "positive"]);
+    expect(metrics.observedAgreement).toBeCloseTo(4 / 6, 6);
+    expect(metrics.expectedAgreement).toBeCloseTo(0.5, 6);
+    expect(metrics.kappa).toBeCloseTo(1 / 3, 6);
+  });
+
+  it("computes two-way random absolute-agreement ICC for repeated measurements", () => {
+    const metrics = computeIntraclassCorrelation([
+      [10, 12],
+      [20, 19],
+      [30, 31],
+    ]);
+
+    expect(metrics.model).toBe("ICC(2,1)");
+    expect(metrics.nSubjects).toBe(3);
+    expect(metrics.nRaters).toBe(2);
+    expect(metrics.icc).toBeCloseTo(190 / 192, 6);
+    expect(metrics.meanSquares.rows).toBeCloseTo(191.1666667, 6);
+    expect(metrics.meanSquares.error).toBeCloseTo(1.1666667, 6);
   });
 });

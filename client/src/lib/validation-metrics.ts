@@ -103,6 +103,33 @@ export interface QiAuditComparison {
   recommendationCongruenceRateDelta: number | null;
 }
 
+export type ReaderLabel = string | number | boolean;
+
+export interface CohenKappaPair {
+  raterA: ReaderLabel;
+  raterB: ReaderLabel;
+}
+
+export interface CohenKappaMetrics {
+  n: number;
+  categories: string[];
+  observedAgreement: number;
+  expectedAgreement: number;
+  kappa: number;
+}
+
+export interface IntraclassCorrelationMetrics {
+  model: "ICC(2,1)";
+  nSubjects: number;
+  nRaters: number;
+  icc: number;
+  meanSquares: {
+    rows: number;
+    raters: number;
+    error: number;
+  };
+}
+
 interface NormalizedPrediction {
   label: 0 | 1;
   probability: number;
@@ -669,3 +696,139 @@ export const compareQiAuditPhases = (
     intervention.recommendationCongruenceRate
   ),
 });
+
+const labelKey = (label: ReaderLabel) => {
+  if (typeof label === "number" && !Number.isFinite(label)) {
+    throw new Error("reader labels must be finite when numeric");
+  }
+
+  const key = String(label);
+  if (key.trim() === "") {
+    throw new Error("reader labels must not be empty");
+  }
+  return key;
+};
+
+export const computeCohenKappa = (
+  pairs: CohenKappaPair[]
+): CohenKappaMetrics => {
+  if (pairs.length === 0) {
+    throw new Error("Cohen's kappa pairs must not be empty");
+  }
+
+  const categories = new Set<string>();
+  const raterACounts = new Map<string, number>();
+  const raterBCounts = new Map<string, number>();
+  let agreements = 0;
+
+  pairs.forEach(pair => {
+    const a = labelKey(pair.raterA);
+    const b = labelKey(pair.raterB);
+    categories.add(a);
+    categories.add(b);
+    raterACounts.set(a, (raterACounts.get(a) ?? 0) + 1);
+    raterBCounts.set(b, (raterBCounts.get(b) ?? 0) + 1);
+    if (a === b) agreements += 1;
+  });
+
+  const categoryList = Array.from(categories).sort();
+  if (categoryList.length < 2) {
+    throw new Error("Cohen's kappa requires at least two categories");
+  }
+
+  const observedAgreement = agreements / pairs.length;
+  const expectedAgreement = categoryList.reduce((sum, category) => {
+    const raterAProbability = (raterACounts.get(category) ?? 0) / pairs.length;
+    const raterBProbability = (raterBCounts.get(category) ?? 0) / pairs.length;
+    return sum + raterAProbability * raterBProbability;
+  }, 0);
+
+  if (expectedAgreement >= 1) {
+    throw new Error("Cohen's kappa is undefined when expected agreement is 1");
+  }
+
+  return {
+    n: pairs.length,
+    categories: categoryList,
+    observedAgreement,
+    expectedAgreement,
+    kappa: (observedAgreement - expectedAgreement) / (1 - expectedAgreement),
+  };
+};
+
+export const computeIntraclassCorrelation = (
+  ratings: number[][]
+): IntraclassCorrelationMetrics => {
+  if (ratings.length < 2) {
+    throw new Error("ICC requires at least two subjects");
+  }
+  const nSubjects = ratings.length;
+  const nRaters = ratings[0]?.length ?? 0;
+  if (nRaters < 2) {
+    throw new Error("ICC requires at least two raters");
+  }
+
+  ratings.forEach(row => {
+    if (row.length !== nRaters) {
+      throw new Error("ICC ratings must form a complete rectangular matrix");
+    }
+    row.forEach(value => {
+      if (!Number.isFinite(value)) {
+        throw new Error("ICC ratings must be finite values");
+      }
+    });
+  });
+
+  const rowMeans = ratings.map(
+    row => row.reduce((sum, value) => sum + value, 0) / nRaters
+  );
+  const columnMeans = Array.from({ length: nRaters }, (_, columnIndex) => {
+    const sum = ratings.reduce((total, row) => total + row[columnIndex], 0);
+    return sum / nSubjects;
+  });
+  const grandMean =
+    ratings.reduce(
+      (total, row) => total + row.reduce((sum, value) => sum + value, 0),
+      0
+    ) /
+    (nSubjects * nRaters);
+
+  const rowSumOfSquares =
+    nRaters * rowMeans.reduce((sum, mean) => sum + (mean - grandMean) ** 2, 0);
+  const columnSumOfSquares =
+    nSubjects *
+    columnMeans.reduce((sum, mean) => sum + (mean - grandMean) ** 2, 0);
+  const totalSumOfSquares = ratings.reduce(
+    (total, row) =>
+      total + row.reduce((sum, value) => sum + (value - grandMean) ** 2, 0),
+    0
+  );
+  const rawErrorSumOfSquares =
+    totalSumOfSquares - rowSumOfSquares - columnSumOfSquares;
+  const errorSumOfSquares =
+    Math.abs(rawErrorSumOfSquares) < 1e-12 ? 0 : rawErrorSumOfSquares;
+
+  const meanSquareRows = rowSumOfSquares / (nSubjects - 1);
+  const meanSquareRaters = columnSumOfSquares / (nRaters - 1);
+  const meanSquareError = errorSumOfSquares / ((nSubjects - 1) * (nRaters - 1));
+  const denominator =
+    meanSquareRows +
+    (nRaters - 1) * meanSquareError +
+    (nRaters * (meanSquareRaters - meanSquareError)) / nSubjects;
+
+  if (Math.abs(denominator) < 1e-12) {
+    throw new Error("ICC is undefined when measurement variance is zero");
+  }
+
+  return {
+    model: "ICC(2,1)",
+    nSubjects,
+    nRaters,
+    icc: (meanSquareRows - meanSquareError) / denominator,
+    meanSquares: {
+      rows: meanSquareRows,
+      raters: meanSquareRaters,
+      error: meanSquareError,
+    },
+  };
+};

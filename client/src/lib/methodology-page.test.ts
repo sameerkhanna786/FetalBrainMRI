@@ -599,6 +599,8 @@ describe("publication handoff checklist", () => {
     expect(checklist).toContain("Wilson confidence intervals");
     expect(checklist).toContain("decision-curve net benefit");
     expect(checklist).toContain("client/src/lib/validation-metrics.ts");
+    expect(checklist).toContain("Cohen's kappa");
+    expect(checklist).toContain("ICC(2,1)");
     expect(checklist).toContain("FeTA 2024");
     expect(checklist).toContain("reader-study timing");
     expect(checklist).toContain("source-data final lock");
