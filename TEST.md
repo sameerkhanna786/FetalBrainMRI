@@ -2475,7 +2475,7 @@ Verifies the consensus engine flags **disagreement** (|Δz| ≥ 1 SD between Lui
 [9] Nagaraj UD, et al. Fetal MRI of the posterior fossa: comparison of measurements in normal fetuses, Dandy-Walker malformation, vermian hypoplasia, and Blake's pouch cyst. *Pediatr Radiol.* 2021;51(11):2027–2035. doi:10.1007/s00247-021-05086-9. PMC8423037.
 [10] Tang PH, et al. Agenesis of the corpus callosum: an MR imaging analysis of associated abnormalities in the fetus. *AJNR Am J Neuroradiol.* 2009;30(2):257–263. doi:10.3174/ajnr.A1331. PMC7051410.
 [11] Griffiths PD, Jarvis D, Connolly DJ, et al. Holoprosencephaly: in utero MR imaging in 32 patients. *Br J Radiol.* 2016;89(1057):20150892. doi:10.1259/bjr.20150892.
-[12] Aertsen M, Verduyckt J, De Keyzer F, et al. Reliability of MR Imaging-Based Posterior Fossa and Brain Stem Measurements in Open Spinal Dysraphism in the Era of Fetal Surgery. *AJNR Am J Neuroradiol.* 2019;40(1):191–198. doi:10.3174/ajnr.A5930. PMID 30606726; PMCID PMC7048594.
+[12] Aertsen M, Verduyckt J, De Keyzer F, et al. Reliability of MR Imaging-Based Posterior Fossa and Brain Stem Measurements in Open Spinal Dysraphism in the Era of Fetal Surgery. *AJNR Am J Neuroradiol.* 2019;40(1):191–198. doi:10.3174/ajnr.A5930. PMID 30591508; PMCID PMC7048594.
 [13] Limperopoulos C, et al. Inferior vermian hypoplasia. *Pediatrics* 2006;118:e2106. PMC1557637.
 [14] Marathu KK, et al. Fetal MRI of the corpus callosum: imaging spectrum of associated anomalies. *Children (Basel)* 2024;11(2):197. doi:10.3390/children11020197.
 [15] Conte G, et al. Reference biometry of the fetal brain at MRI: tegmento-vermian angle, cisterna magna, and tail sign. *Eur Radiol.* 2018;28:3949–3957. doi:10.1007/s00330-018-5325-7.

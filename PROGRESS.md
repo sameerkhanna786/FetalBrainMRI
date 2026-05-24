@@ -1,3 +1,20 @@
+## 2026-05-23, Aertsen TEST Corpus PMID Increment
+
+- Added failing-first source-document coverage that TEST.md does not contain the stale Aertsen PMID `30606726`.
+- Verified via PubMed ESearch / ESummary that Aertsen 2019 resolves to PMID `30591508`, PMCID `PMC7048594`, and DOI `10.3174/ajnr.A5930`, while PMID `30606726` is the unrelated AJNR article _A Deep Learning-Based Approach to Reduce Rescan and Recall Rates in Clinical MRI Examinations_.
+- Corrected the TEST.md Aertsen reference-list row to PMID `30591508` while preserving DOI `10.3174/ajnr.A5930` and PMCID `PMC7048594`.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before the correction because TEST.md still lacked `PMID 30591508; PMCID PMC7048594`.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 206 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 206 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-23, Dovjak Visible Citation Lock Increment
 
 - Added failing-first source-document coverage that the Methodology page, SPEC reference list, and runtime Dovjak source string use the audited Dovjak 2021 range and citation metadata.

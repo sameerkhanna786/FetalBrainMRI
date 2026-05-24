@@ -377,6 +377,18 @@ describe("publication-readiness source-document consistency", () => {
     expect(spec).not.toContain("12879338");
   });
 
+  it("locks the TEST corpus Aertsen 2019 PMID to the AJNR posterior-fossa article", () => {
+    const testCorpus = readFileSync(resolve(process.cwd(), "TEST.md"), "utf8");
+
+    expect(testCorpus).toContain(
+      "Aertsen M, Verduyckt J, De Keyzer F, et al. Reliability of MR Imaging-Based Posterior Fossa and Brain Stem Measurements in Open Spinal Dysraphism in the Era of Fetal Surgery."
+    );
+    expect(testCorpus).toContain("doi:10.3174/ajnr.A5930");
+    expect(testCorpus).toContain("PMID 30591508; PMCID PMC7048594");
+    expect(testCorpus).not.toContain("30606726");
+    expect(testCorpus).not.toContain("10.3174/ajnr.A5926");
+  });
+
   it("locks Bahlmann 2015 spina-bifida metadata to the Prenatal Diagnosis article", () => {
     const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
 

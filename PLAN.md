@@ -1187,3 +1187,10 @@
 - Add source-document coverage that the SPEC reference list and runtime source string use the PubMed-resolved Dovjak 2021 page range, DOI, PMID, and author order.
 - Correct Methodology.tsx, SPEC.md, and the React source citation to match the audited PubMed / PMC metadata.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Aertsen TEST Corpus PMID Increment
+
+- Add failing-first source-document coverage that TEST.md does not contain the stale Aertsen PMID `30606726`.
+- Verify PubMed ESearch/ESummary evidence that Aertsen 2019 resolves to PMID `30591508`, while `30606726` is an unrelated AJNR deep-learning MRI article.
+- Correct the TEST.md Aertsen reference-list row to DOI `10.3174/ajnr.A5930`, PMID `30591508`, and PMCID `PMC7048594`.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.
