@@ -1089,3 +1089,10 @@
 - Correct SPEC, TEST, and app citation metadata away from the unrelated `10.1016/j.ejogrb.2024.05.022` article.
 - Keep the ACC monogenic likelihood qualitative and replace the stale Table 2 action wording with the current estimate-only policy.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Heaphy-Henault 2018 Citation Metadata Increment
+
+- Add source-document coverage that the aqueductal-stenosis source resolves to PubMed PMID `29519789` and DOI `10.3174/ajnr.A5590`.
+- Correct SPEC and TEST metadata away from the unrelated PMID `29545253`.
+- Remove stale `Garel 2018` / citation-correction wording from the severe-ventriculomegaly likelihood manifest.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

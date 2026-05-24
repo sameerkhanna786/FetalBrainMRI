@@ -353,7 +353,7 @@ The DDx triggers and likelihood-ranking model specified below shall consume the 
 
 | **Diagnosis** | **Estimated Likelihood** | **Evidence-Based Rationale** |
 | --- | --- | --- |
-| Aqueductal stenosis | ~20% | Most common cause of obstructive hydrocephalus (Garel 2018). |
+| Aqueductal stenosis | ~20% | Common fetal-MRI obstructive hydrocephalus etiology supported by Heaphy-Henault 2018. |
 | Associated CNS/non-CNS anomaly | High | Severe VM is frequently associated with other anomalies, worsening prognosis (Giorgione 2022). |
 | Chromosomal abnormality | Significant | Risk increases with severity; includes Trisomy 21, 18, 13 (Giorgione 2022). |
 | Congenital Infection (e.g., CMV) | ~1-5% | Infections like CMV and toxoplasmosis are a known but less common cause (Giorgione 2022). |
@@ -825,7 +825,7 @@ The table below names every paper, guideline, and open-source artifact whose dat
 | SANTO_2012 | Santo S, D'Antonio F, Homfray T, et al. *Counseling in fetal medicine: agenesis of the corpus callosum.* Ultrasound Obstet Gynecol 2012;40(5):513-521. | (DDx layer) | 10.1002/uog.12315 | 23024028 | (not in PMC) | https://obgyn.onlinelibrary.wiley.com/doi/10.1002/uog.12315 |
 | SUN_2024 | Sun H, Li K, Wang L, Zhao L, Yan C, Kong X, Liu N. *Fetal agenesis of the corpus callosum: clinical and genetic analysis in a series of 40 patients.* Eur J Obstet Gynecol Reprod Biol 2024;298:146-152. | (DDx layer) | 10.1016/j.ejogrb.2024.05.005 | 38756055 | (NA) | https://www.sciencedirect.com/science/article/pii/S0301211524002264 |
 | VAN_DIJK_2018 | van Dijk T, Baas F, Barth PG, Poll-The BT. *What's new in pontocerebellar hypoplasia? An update on genes and subtypes.* Orphanet J Rare Dis 2018;13:92. | (DDx layer) | 10.1186/s13023-018-0826-2 | 29903031 | PMC6003019 | https://pmc.ncbi.nlm.nih.gov/articles/PMC6003019/ |
-| HEAPHY_HENAULT_2018 | Heaphy-Henault KJ, Guimaraes CV, Mehollin-Ray AR, et al. *Congenital Aqueductal Stenosis: Findings at Fetal MRI that Accurately Predict a Postnatal Diagnosis.* AJNR 2018;39(5):942-948. | MRI | 10.3174/ajnr.A5590 | 29545253 | PMC7410663 | https://www.ajnr.org/content/39/5/942 |
+| HEAPHY_HENAULT_2018 | Heaphy-Henault KJ, Guimaraes CV, Mehollin-Ray AR, Cassady CI, Zhang W, Desai NK, Paldino MJ. *Congenital Aqueductal Stenosis: Findings at Fetal MRI that Accurately Predict a Postnatal Diagnosis.* AJNR 2018;39(5):942-948. | MRI | 10.3174/ajnr.A5590 | 29519789 | PMC7410663 | https://www.ajnr.org/content/39/5/942 |
 | MALINGER_2005 | Malinger G, Lev D, Lerman-Sagie T. *Fetal cerebellar pitfalls in diagnosis and management.* | (DDx layer) | (varies) | (varies) | (NA) | (publisher landing page) |
 | GAREL_2003 | Garel C, Luton D, Oury JF, Gressens P. *Ventricular dilatations.* Childs Nerv Syst 2003;19:516-522. | (DDx layer review) | 10.1007/s00381-003-0795-0 | 12879338 | (NA) | https://link.springer.com/article/10.1007/s00381-003-0795-0 |
 | BAHLMANN_2015 | Bahlmann F, Reinhard I, Schramm T, et al. *Cranial and cerebral signs in the diagnosis of spina bifida between 18 and 22 weeks of gestation: a German multicentre study.* Prenat Diagn 2015;35(3):228-235. | (DDx layer) | 10.1002/pd.4524 | 25333768 | (NA) | https://obgyn.onlinelibrary.wiley.com/doi/10.1002/pd.4524 |
@@ -1054,7 +1054,7 @@ All likelihoods (isolated ~50%, associated CNS ~30%, chromosomal ~10%, CMV ~3-5%
 
 | Likelihood | Primary source | Transcription status |
 |---|---|---|
-| Aqueductal stenosis ~20% | HEAPHY_HENAULT_2018 (citation correction: was "Garel 2018") | Estimate; re-attributed to the canonical 2018 fetal-MRI study |
+| Aqueductal stenosis ~20% | HEAPHY_HENAULT_2018 | Estimate-only qualitative row supported by the canonical 2018 fetal-MRI study |
 | Associated CNS / non-CNS anomaly High; chromosomal Significant; CMV / toxoplasmosis ~1-5%; isolated ~10-20% | SMFM_2018 / ISUOG | Estimates |
 
 #### 7.4.4 Asymmetric Ventriculomegaly (\|L-R\| > 2 mm)

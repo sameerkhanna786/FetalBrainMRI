@@ -1,3 +1,19 @@
+## 2026-05-23, Heaphy-Henault 2018 Citation Metadata Increment
+
+- Added failing-first source-document coverage that locks the aqueductal-stenosis source to DOI `10.3174/ajnr.A5590`, PMID `29519789`, and PMCID `PMC7410663`.
+- Verified via PubMed and PMC that PMID `29519789` belongs to the AJNR congenital aqueductal stenosis fetal-MRI article; the previously listed PMID `29545253` belongs to an unrelated stroke stem-cell trial.
+- Corrected SPEC and TEST metadata for Heaphy-Henault 2018 and removed stale `Garel 2018` / citation-correction wording from the severe-ventriculomegaly likelihood manifest.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before the citation update because SPEC.md did not contain `29519789`.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 193 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 193 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, Sun 2024 ACC Citation Metadata Increment
 
 - Added failing-first source-document coverage that locks Sun 2024 ACC metadata to PubMed PMID `38756055`, DOI `10.1016/j.ejogrb.2024.05.005`, and ScienceDirect PII `S0301211524002264`.

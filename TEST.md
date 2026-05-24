@@ -2470,7 +2470,7 @@ Verifies the consensus engine flags **disagreement** (|Δz| ≥ 1 SD between Lui
 [4] Luis JC, et al. (see [1]). PubMed PMID 39006400.
 [5] Carta S, et al. Outcome of fetuses with prenatal diagnosis of isolated severe bilateral ventriculomegaly: systematic review and meta-analysis. *Ultrasound Obstet Gynecol.* 2018;52(2):165–173. doi:10.1002/uog.19038.
 [6] Barzilay E, et al. Fetal magnetic resonance imaging in cases of inconclusive ultrasound. *AJNR Am J Neuroradiol.* 2017;38(7):1444–1448. doi:10.3174/ajnr.A5179.
-[7] Heaphy-Henault KJ, et al. Congenital aqueductal stenosis: findings at fetal MRI that accurately predict a postnatal diagnosis. *AJNR Am J Neuroradiol.* 2018;39(5):942–948. doi:10.3174/ajnr.A5590.
+[7] Heaphy-Henault KJ, Guimaraes CV, Mehollin-Ray AR, Cassady CI, Zhang W, Desai NK, Paldino MJ. Congenital aqueductal stenosis: findings at fetal MRI that accurately predict a postnatal diagnosis. *AJNR Am J Neuroradiol.* 2018;39(5):942–948. doi:10.3174/ajnr.A5590. PMID 29519789; PMCID PMC7410663.
 [8] Pagani G, Thilaganathan B, Prefumo F. Neurodevelopmental outcome in isolated mild fetal ventriculomegaly: systematic review and meta-analysis. *Ultrasound Obstet Gynecol.* 2014;44(3):254–260. doi:10.1002/uog.13364.
 [9] Nagaraj UD, et al. Fetal MRI of the posterior fossa: comparison of measurements in normal fetuses, Dandy-Walker malformation, vermian hypoplasia, and Blake's pouch cyst. *Pediatr Radiol.* 2021;51(11):2027–2035. doi:10.1007/s00247-021-05086-9. PMC8423037.
 [10] Tang PH, et al. Agenesis of the corpus callosum: an MR imaging analysis of associated abnormalities in the fetus. *AJNR Am J Neuroradiol.* 2009;30(2):257–263. doi:10.3174/ajnr.A1331. PMC7051410.

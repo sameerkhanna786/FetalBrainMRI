@@ -182,6 +182,21 @@ describe("publication-readiness source-document consistency", () => {
     expect(biometry).toContain("10.1016/j.ejogrb.2024.05.005");
   });
 
+  it("locks Heaphy-Henault 2018 aqueductal stenosis metadata to the AJNR article", () => {
+    const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
+    const testCorpus = readFileSync(resolve(process.cwd(), "TEST.md"), "utf8");
+
+    expect(spec).toContain("10.3174/ajnr.A5590");
+    expect(spec).toContain("29519789");
+    expect(spec).toContain("PMC7410663");
+    expect(spec).not.toContain("29545253");
+    expect(spec).not.toContain('citation correction: was "Garel 2018"');
+    expect(spec).not.toContain(
+      "Most common cause of obstructive hydrocephalus (Garel 2018)."
+    );
+    expect(testCorpus).toContain("PMID 29519789");
+  });
+
   it("locks the Woitek 2014 Table 3 control rows to the PMC source audit", () => {
     const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
     const dossier = readFileSync(
