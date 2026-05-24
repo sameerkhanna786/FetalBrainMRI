@@ -1117,3 +1117,10 @@
 - Correct the SPEC source-inventory row and reference metadata away from placeholder `(varies)` values.
 - Add the same DOI / PMID lock to the runtime Vatansever source record used on posterior-fossa cards and source details.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Malinger 2005 Absent-CSP Source Metadata Increment
+
+- Add source-document coverage proving `MALINGER_2005` resolves to the Ultrasound in Obstetrics & Gynecology absent-septum-pellucidum article, not the 2009 cerebellar-pitfalls review.
+- Correct the SPEC source-inventory row and reference metadata to DOI `10.1002/uog.1787`, PMID `15593321`, and no PMC record.
+- Add the same DOI / PMID lock to the runtime Malinger source strings used by absent-CSP / HPE cards.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

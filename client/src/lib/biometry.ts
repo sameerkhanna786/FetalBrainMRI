@@ -2006,7 +2006,7 @@ const CARDS: CardSpec[] = [
     limitations: "Estimates from cohort studies.",
     primary: {
       label: "Malinger 2005",
-      full: "Malinger G, et al. Ultrasound Obstet Gynecol. 2005;25(1):42–49.",
+      full: "Malinger G, Lev D, Kidron D, Heredia F, Hershkovitz R, Lerman-Sagie T. Differential diagnosis in fetuses with absent septum pellucidum. Ultrasound Obstet Gynecol. 2005;25(1):42–49. doi:10.1002/uog.1787. PMID 15593321.",
       url: "https://obgyn.onlinelibrary.wiley.com/doi/full/10.1002/uog.1787",
     },
     secondary: {
@@ -2056,7 +2056,7 @@ const CARDS: CardSpec[] = [
       "Qualitative add-on only; the calculator does not infer optic-nerve or optic-chiasm size from biometry.",
     primary: {
       label: "Malinger 2005",
-      full: "Malinger G, Lev D, Kidron D, Heredia F, Hershkowitz R, Lerman-Sagie T. Differential diagnosis in fetuses with absent septum pellucidum. Ultrasound Obstet Gynecol. 2005;25(1):42-49.",
+      full: "Malinger G, Lev D, Kidron D, Heredia F, Hershkovitz R, Lerman-Sagie T. Differential diagnosis in fetuses with absent septum pellucidum. Ultrasound Obstet Gynecol. 2005;25(1):42-49. doi:10.1002/uog.1787. PMID 15593321.",
       url: "https://obgyn.onlinelibrary.wiley.com/doi/full/10.1002/uog.1787",
     },
     match: ({ values }) =>
@@ -3052,7 +3052,7 @@ const CARDS: CardSpec[] = [
       "Pattern recognition; final diagnosis depends on detailed parenchymal imaging.",
     primary: {
       label: "Malinger 2005",
-      full: "Malinger G, et al. Ultrasound Obstet Gynecol. 2005;25(1):42–49.",
+      full: "Malinger G, Lev D, Kidron D, Heredia F, Hershkovitz R, Lerman-Sagie T. Differential diagnosis in fetuses with absent septum pellucidum. Ultrasound Obstet Gynecol. 2005;25(1):42–49. doi:10.1002/uog.1787. PMID 15593321.",
       url: "https://obgyn.onlinelibrary.wiley.com/doi/full/10.1002/uog.1787",
     },
     match: ({ values, zs }) => {

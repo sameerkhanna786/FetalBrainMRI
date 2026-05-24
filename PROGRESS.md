@@ -1,3 +1,20 @@
+## 2026-05-23, Malinger 2005 Absent-CSP Source Metadata Increment
+
+- Added failing-first source-document coverage that locks `MALINGER_2005` to the Ultrasound in Obstetrics & Gynecology absent-septum-pellucidum article with DOI `10.1002/uog.1787` and PMID `15593321`.
+- Verified via Crossref and PubMed that the article is Malinger et al. _Differential diagnosis in fetuses with absent septum pellucidum_, Ultrasound Obstet Gynecol 2005;25(1):42-49.
+- Verified via NCBI ID Converter that the article does not have a PMC record.
+- Corrected the SPEC tooltip, source inventory, and reference metadata, and added the DOI / PMID lock to runtime Malinger source strings used by absent-CSP and HPE cards.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before the citation update because SPEC.md did not contain `15593321`.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 197 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 197 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/biometry.ts client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, Vatansever 2013 Posterior-Fossa Source Metadata Increment
 
 - Added failing-first source-document coverage that locks `VATANSEVER_2013` to the Cerebellum posterior-fossa MRI article with DOI `10.1007/s12311-013-0470-2` and PMID `23553467`.

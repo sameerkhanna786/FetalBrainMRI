@@ -250,6 +250,29 @@ describe("publication-readiness source-document consistency", () => {
     expect(biometry).toContain("PMID 23553467");
   });
 
+  it("locks Malinger 2005 metadata to the absent-septum-pellucidum article", () => {
+    const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
+    const biometry = readFileSync(
+      resolve(process.cwd(), "client/src/lib/biometry.ts"),
+      "utf8"
+    );
+
+    expect(spec).toContain("10.1002/uog.1787");
+    expect(spec).toContain("15593321");
+    expect(spec).toContain(
+      "Differential diagnosis in fetuses with absent septum pellucidum"
+    );
+    expect(spec).toContain(
+      "| MALINGER_2005 | Malinger G, Lev D, Kidron D, Heredia F, Hershkovitz R, Lerman-Sagie T."
+    );
+    expect(spec).not.toContain(
+      "| MALINGER_2005 | Malinger G, Lev D, Lerman-Sagie T. *Fetal cerebellar pitfalls in diagnosis and management.*"
+    );
+    expect(spec).not.toContain("(publisher landing page)");
+    expect(biometry).toContain("doi:10.1002/uog.1787");
+    expect(biometry).toContain("PMID 15593321");
+  });
+
   it("locks the Woitek 2014 Table 3 control rows to the PMC source audit", () => {
     const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
     const dossier = readFileSync(
