@@ -171,6 +171,23 @@ describe("SPEC §4.11.4 hallucination guardrails", () => {
       fallback: null,
     });
   });
+
+  it("rejects bare numeric bracket citations as non-traceable Impression grounding", () => {
+    const result = verifyGeneratedImpressionCitations(
+      "IMPRESSION\nMild ventriculomegaly is the leading consideration [1]."
+    );
+
+    expect(result).toEqual({
+      ok: false,
+      failures: [
+        {
+          lineNumber: 2,
+          line: "Mild ventriculomegaly is the leading consideration [1].",
+        },
+      ],
+      fallback: "safe deterministic template",
+    });
+  });
 });
 
 describe("SPEC §4.11.5 accessible backend recommendations", () => {

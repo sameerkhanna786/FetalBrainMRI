@@ -212,7 +212,7 @@ export function verifyGeneratedImpressionCitations(
   impression: string
 ): ImpressionCitationVerificationResult {
   const citationPattern =
-    /\[[A-Za-z0-9][A-Za-z0-9._:-]*\]|\bPMID\s*:?\s*\d{6,9}\b/i;
+    /\[(?=[A-Za-z0-9._:-]*[A-Za-z])[A-Za-z0-9][A-Za-z0-9._:-]*\]|\bPMID\s*:?\s*\d{6,9}\b/i;
   const failures = impression
     .split(/\r?\n/)
     .map((line, index) => ({

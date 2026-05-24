@@ -1685,3 +1685,10 @@
 - Add a deterministic citation verifier that accepts retrieved chunk IDs or PMID citations and ignores section headings.
 - Reuse the safe deterministic-template fallback when citation grounding is incomplete.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## GenAI Traceable Citation Token Guard Increment
+
+- Add failing-first coverage that bare numeric bracket citations such as `[1]` do not satisfy GenAI Impression grounding.
+- Tighten the citation verifier so bracketed citations must look like retrieved chunk IDs rather than stale numeric reference markers.
+- Preserve PMID citation support for agentic-search sources.
+- Update the audit/progress trail, then run targeted/full gates before committing.

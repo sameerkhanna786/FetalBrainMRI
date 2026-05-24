@@ -1,3 +1,21 @@
+## 2026-05-24, GenAI Traceable Citation Token Guard Increment
+
+- Added failing-first coverage that bare numeric bracket citations such as `[1]` do not satisfy GenAI Impression grounding.
+- Tightened `verifyGeneratedImpressionCitations` so bracketed citations must look like retrieved chunk IDs instead of stale numeric reference markers.
+- Preserved PMID citation support for agentic-search sources.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/genai.test.ts -- --runInBand -t "bare numeric"` failed before implementation because `[1]` was accepted as grounded.
+- `npx pnpm@10.4.1 test client/src/lib/genai.test.ts -- --runInBand -t "bare numeric|Impression citation"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/genai.test.ts -- --runInBand` passes with 11 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 280 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md client/src/lib/genai.ts client/src/lib/genai.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, GenAI Impression Citation Guard Increment
 
 - Added failing-first coverage that generated Impression lines without inline literature citations fail verification.
