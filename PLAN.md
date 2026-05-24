@@ -736,3 +736,9 @@
 - Add DDx coverage for the SPEC §7.4 ACC combined-pattern likelihood manifest.
 - Confirm the ACC-pattern card no longer surfaces estimate-only numeric percentages.
 - Replace the complete-ACC, partial-ACC, and associated-syndrome likelihood labels with qualitative wording.
+
+## SPEC 7.4 DWM-Pattern Likelihood Qualitative Increment
+
+- Add DDx coverage for the SPEC §7.4 Dandy-Walker combined-pattern likelihood manifest.
+- Confirm the DWM-pattern card no longer surfaces estimate-only numeric percentages.
+- Replace the Dandy-Walker, vermian-hypoplasia, and Blake's-pouch-remnant likelihood labels with qualitative wording.

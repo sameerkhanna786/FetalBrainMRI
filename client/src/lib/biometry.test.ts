@@ -954,6 +954,35 @@ describe("SPEC §7.4 ACC-pattern likelihood manifest", () => {
   });
 });
 
+describe("SPEC §7.4 DWM-pattern likelihood manifest", () => {
+  it("qualitative-labels the estimate-only Dandy-Walker combined-pattern rows", () => {
+    const ga = { weeks: 28, days: 0 };
+    const gaWeeks = 28;
+    const values = {
+      vermis_cc:
+        mu(byId("vermis_cc"), gaWeeks) -
+        1.9 * sigma(byId("vermis_cc"), gaWeeks),
+      vermis_ap:
+        mu(byId("vermis_ap"), gaWeeks) -
+        1.9 * sigma(byId("vermis_ap"), gaWeeks),
+      tva: 60,
+      tcd: mu(byId("tcd"), gaWeeks),
+      pons_ap: mu(byId("pons_ap"), gaWeeks),
+    };
+    const { dxs } = evaluateAll(values, ga);
+    const dwm = dxs.find(dx => dx.id === "dwm-pattern");
+
+    expect(dwm?.rows.map(row => row.likelihood)).toEqual([
+      "Most common",
+      "Minority",
+      "Minority",
+    ]);
+    expect(dwm?.rows.map(row => row.likelihood).join(" ")).not.toMatch(
+      /~60|~25|~10/
+    );
+  });
+});
+
 describe("aqueductal-stenosis pattern report impression", () => {
   it("uses the TEST.md Case S1 triventricular hydrocephalus impression line", () => {
     const ga = { weeks: 26, days: 0 };

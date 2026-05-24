@@ -3271,17 +3271,17 @@ const CARDS: CardSpec[] = [
     rows: [
       {
         dx: "Dandy-Walker malformation",
-        likelihood: "~60%",
+        likelihood: "Most common",
         rationale: "Classic posterior-fossa anomaly.",
       },
       {
         dx: "Vermian hypoplasia (non-DWM)",
-        likelihood: "~25%",
+        likelihood: "Minority",
         rationale: "Without 4th-ventricle cyst.",
       },
       {
         dx: "Blake's pouch remnant",
-        likelihood: "~10%",
+        likelihood: "Minority",
         rationale: "Differentiated by 4th-ventricle communication.",
       },
     ],

@@ -1608,3 +1608,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/biometry.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 7.4 DWM-Pattern Likelihood Qualitative Increment
+
+- Added DDx coverage for the SPEC §7.4 Dandy-Walker combined-pattern likelihood manifest.
+- Confirmed the DWM-pattern card no longer surfaces estimate-only numeric percentages.
+- Replaced the Dandy-Walker, vermian-hypoplasia, and Blake's-pouch-remnant likelihood labels with qualitative wording.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 128 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/biometry.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
