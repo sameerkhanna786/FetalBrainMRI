@@ -1303,3 +1303,9 @@
 - Add failing-first source-document coverage that the canonical TEST.md filler table matches the active source-registry consensus mean for every z-scored filler parameter.
 - Correct the filler prose and table so rounded values are near z = 0 and the third-ventricle raw-threshold placeholder is not described as a z-scored cohort mean.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## TEST Hemispheric Fixture Calibration Increment
+
+- Add failing-first source-document coverage that parses the TEST.md hemispheric-asymmetry fixtures and verifies their documented OFD bands and asymmetry fire/no-fire expectations against the runtime engine.
+- Correct the stale Brain OFD values in HA1-HA6 and CH6 so the TEST corpus no longer labels high-z measurements as normal or <5th.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

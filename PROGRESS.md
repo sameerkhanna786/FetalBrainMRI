@@ -1,3 +1,20 @@
+## 2026-05-24, TEST Hemispheric Fixture Calibration Increment
+
+- Added failing-first source-document coverage that parses TEST.md cases HA1-HA6 and CH6, runs their numeric rows through the runtime engine, and verifies documented Brain OFD bands plus hemispheric-asymmetry fire/no-fire expectations.
+- Recalibrated stale Brain OFD fixture values in the hemispheric-asymmetry section from old high-z values to active registry-threshold values.
+- Corrected CH6 so the cerebellar-hypoplasia plus hemispheric-asymmetry cross-reference actually fires `tcd-small` and `brain-asym` under the runtime engine.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before implementation because HA1 labelled a +6 SD Brain OFD row as normal.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 225 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 225 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, TEST Filler Registry-Mean Consistency Increment
 
 - Added failing-first source-document coverage that parses the canonical TEST.md filler table and compares every z-scored filler value against the active source-registry consensus mean.

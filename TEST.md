@@ -951,9 +951,9 @@ The `small_tcd` card fires when TCD z < –1.645. When the vermis is preserved, 
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 28 w 0 d | — |
-| TCD | 30.0 mm (z ≈ –2.5) | <5th |
-| Brain OFD-L | 95.0 mm | <5th (asymmetric) |
-| Brain OFD-R | 99.0 mm | normal |
+| TCD | 28.5 mm (z ≈ –2.5) | <5th |
+| Brain OFD-L | 73.9 mm (z ≈ –2.2) | <5th (asymmetric) |
+| Brain OFD-R | 79.7 mm | normal |
 | Vermis CC | 16.0 mm | normal |
 | Pons AP | 9.0 mm | normal |
 | (other rows) | filler | normal |
@@ -2114,8 +2114,8 @@ The `hemispheric_asymmetry` card fires when the difference between the two cereb
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 28 w 0 d | — |
-| Brain OFD-L | 97 mm | normal |
-| Brain OFD-R | 88 mm (z ≈ –2 SD) | <5th |
+| Brain OFD-L | 79.7 mm | normal |
+| Brain OFD-R | 73.9 mm (z ≈ –2.2) | <5th |
 | Atrium-R | 14 mm | >95th |
 | Atrium-L | 8 mm | normal |
 | (others) | filler | normal |
@@ -2128,8 +2128,8 @@ The `hemispheric_asymmetry` card fires when the difference between the two cereb
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 26 w 0 d | — |
-| Brain OFD-L | 80 mm (z ≈ –2 SD) | <5th |
-| Brain OFD-R | 88 mm | normal |
+| Brain OFD-L | 67.5 mm (z ≈ –2.2) | <5th |
+| Brain OFD-R | 72.7 mm | normal |
 | Atrium-L | 12 mm | >95th |
 | Atrium-R | 7 mm | normal |
 | (others) | filler | normal |
@@ -2142,8 +2142,8 @@ The `hemispheric_asymmetry` card fires when the difference between the two cereb
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 30 w 0 d | — |
-| Brain OFD-L | 95 mm | <5th |
-| Brain OFD-R | 100 mm | <5th |
+| Brain OFD-L | 80.5 mm | <5th |
+| Brain OFD-R | 81.0 mm | <5th |
 | Atrium-R | 12 mm | >95th |
 | Atrium-L | 14 mm | >95th |
 | (others) | filler | normal |
@@ -2156,8 +2156,8 @@ The `hemispheric_asymmetry` card fires when the difference between the two cereb
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 28 w 0 d | — |
-| Brain OFD-L | 97 mm | normal |
-| Brain OFD-R | 97 mm | normal |
+| Brain OFD-L | 79.7 mm | normal |
+| Brain OFD-R | 79.7 mm | normal |
 | (others) | filler | normal |
 
 `hemispheric_asymmetry` should *not* fire. Negative control.
@@ -2167,8 +2167,8 @@ The `hemispheric_asymmetry` card fires when the difference between the two cereb
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 30 w 0 d | — |
-| Brain OFD-L | 100 mm | normal |
-| Brain OFD-R | 96 mm | normal |
+| Brain OFD-L | 88.3 mm | normal |
+| Brain OFD-R | 83.9 mm | normal |
 | (others) | filler | normal |
 
 `hemispheric_asymmetry` should *not* fire. Boundary verification.
@@ -2178,10 +2178,10 @@ The `hemispheric_asymmetry` card fires when the difference between the two cereb
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 30 w 0 d | — |
-| Brain OFD-L | 95 mm | <5th |
-| Brain OFD-R | 80 mm | <5th |
+| Brain OFD-L | 86.1 mm | normal |
+| Brain OFD-R | 79.7 mm | <5th |
 | Atrium-R | 16 mm | >95th |
-| Atrium-L | 10 mm | normal |
+| Atrium-L | 8 mm | normal |
 | (others) | filler | normal |
 
 `hemispheric_asymmetry`, `severe_ventriculomegaly` (right), `asymmetric_ventricles` fire.

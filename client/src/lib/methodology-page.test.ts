@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 
 import { describe, expect, it } from "vitest";
 
-import { PARAMETERS_ALL, mu } from "./biometry";
+import { evaluateAll, PARAMETERS_ALL, mu } from "./biometry";
 
 describe("SPEC §4.10 QI deployment protocol", () => {
   it("surfaces the pre/intervention/post report-audit endpoints on the Methodology page", () => {
@@ -217,6 +217,91 @@ describe("publication-readiness source-document consistency", () => {
       const thirdVentricle = valuesByColumn.get("3rd-V");
       expect(thirdVentricle).toMatch(/^\d+\.\d mm$/);
       expect(Number(thirdVentricle!.replace(" mm", ""))).toBeLessThan(3.5);
+    }
+  });
+
+  it("keeps TEST.md hemispheric-asymmetry fixtures calibrated to runtime z-scores", () => {
+    const testCorpus = readFileSync(resolve(process.cwd(), "TEST.md"), "utf8");
+    const parameterLabels = new Map([
+      ["Brain OFD-L", "brain_ofd_left"],
+      ["Brain OFD-R", "brain_ofd_right"],
+      ["Atrium-R", "atrial_right"],
+      ["Atrium-L", "atrial_left"],
+      ["TCD", "tcd"],
+      ["Vermis CC", "vermis_cc"],
+      ["Pons AP", "pons_ap"],
+    ]);
+    const expectations = [
+      ["HA1", true],
+      ["HA2", true],
+      ["HA3", false],
+      ["HA4", false],
+      ["HA5", false],
+      ["HA6", true],
+      ["CH6", true],
+    ] as const;
+
+    const extractCase = (caseId: string): string => {
+      const start = testCorpus.indexOf(`### Case ${caseId} `);
+      expect(start).toBeGreaterThanOrEqual(0);
+      const nextCase = testCorpus.indexOf("\n### Case ", start + 1);
+      const nextSection = testCorpus.indexOf("\n---", start + 1);
+      const endCandidates = [nextCase, nextSection].filter(index => index > 0);
+      return testCorpus.slice(start, Math.min(...endCandidates));
+    };
+
+    for (const [caseId, shouldFire] of expectations) {
+      const caseText = extractCase(caseId);
+      const values: Record<string, number> = {};
+      let ga: { weeks: number; days: number } | null = null;
+
+      for (const rawLine of caseText.split("\n")) {
+        if (!rawLine.startsWith("|")) continue;
+        const cells = rawLine
+          .split("|")
+          .slice(1, -1)
+          .map(cell => cell.replaceAll("**", "").trim());
+        const [label, rawValue, expectedBand] = cells;
+
+        if (label === "GA") {
+          const match = rawValue.match(/(\d+) w (\d+) d/);
+          expect(match).not.toBeNull();
+          ga = { weeks: Number(match![1]), days: Number(match![2]) };
+          continue;
+        }
+
+        const parameterId = parameterLabels.get(label);
+        if (!parameterId) continue;
+        const valueMatch = rawValue.match(/(-?\d+(?:\.\d+)?)\s*mm/);
+        if (!valueMatch) continue;
+        values[parameterId] = Number(valueMatch[1]);
+
+        if (label === "Brain OFD-L" || label === "Brain OFD-R") {
+          expect(expectedBand).toMatch(/normal|<5th/);
+        }
+      }
+
+      expect(ga).not.toBeNull();
+      const { zs, dxs } = evaluateAll(values, ga!);
+      expect(dxs.map(dx => dx.id).includes("brain-asym")).toBe(shouldFire);
+
+      for (const side of ["brain_ofd_left", "brain_ofd_right"] as const) {
+        const expectedBand = caseText
+          .split("\n")
+          .find(line =>
+            line.startsWith(
+              `| ${side === "brain_ofd_left" ? "Brain OFD-L" : "Brain OFD-R"} |`
+            )
+          )
+          ?.split("|")[3]
+          ?.trim();
+        expect(expectedBand).toBeDefined();
+        if (expectedBand!.includes("<5th")) {
+          expect(zs[side]!.z).toBeLessThan(-1.6448536269514722);
+        } else {
+          expect(Math.abs(zs[side]!.z)).toBeLessThan(1.6448536269514722);
+        }
+      }
     }
   });
 
