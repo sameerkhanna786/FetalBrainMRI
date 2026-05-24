@@ -606,6 +606,7 @@ describe("publication handoff checklist", () => {
     expect(checklist).toContain("paired delta confidence intervals");
     expect(checklist).toContain("raw NASA Task Load Index scoring");
     expect(checklist).toContain("System Usability Scale scoring");
+    expect(checklist).toContain("Welch two-sample comparison");
     expect(checklist).toContain("FeTA 2024");
     expect(checklist).toContain("reader-study timing");
     expect(checklist).toContain("source-data final lock");

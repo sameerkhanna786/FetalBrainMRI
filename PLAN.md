@@ -1243,3 +1243,10 @@
 - Implement deterministic scoring helpers with input validation for six NASA TLX subscales and ten SUS Likert items.
 - Update handoff docs so the reader-study packet points analysts at reusable usability-score helpers rather than spreadsheet-only formulas.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## FeTA Pathology-Neurotypical Comparison Increment
+
+- Add failing-first validation-metrics coverage for the SPEC §6.3 pathology-versus-neurotypical z-score distribution comparison.
+- Implement a Welch two-sample mean-difference helper with degrees of freedom, confidence interval, and significance-by-CI output.
+- Update handoff docs so FeTA pathology-vs-neurotypical analysis points to the reusable helper.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

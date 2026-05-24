@@ -14,6 +14,7 @@ import {
   computeReaderStudyCrossoverSummary,
   computeRawNasaTaskLoadIndex,
   computeSystemUsabilityScale,
+  computeWelchTwoSampleComparison,
 } from "./validation-metrics";
 
 describe("publication validation metrics", () => {
@@ -168,6 +169,10 @@ describe("publication validation metrics", () => {
     expect(() =>
       computeSystemUsabilityScale([5, 4, 5, 4, 5, 4, 5, 4, 5])
     ).toThrow("10 Likert items");
+
+    expect(() => computeWelchTwoSampleComparison([1, 1], [2, 3])).toThrow(
+      "non-zero variance"
+    );
   });
 
   it("computes per-parameter agreement and Bland-Altman summaries", () => {
@@ -400,5 +405,20 @@ describe("publication validation metrics", () => {
     expect(nasaTlx.subscales.mentalDemand).toBe(80);
     expect(sus.score).toBe(90);
     expect(sus.itemContributions).toEqual([4, 4, 4, 4, 3, 3, 4, 4, 3, 3]);
+  });
+
+  it("compares pathology and neurotypical z-score distributions with Welch statistics", () => {
+    const comparison = computeWelchTwoSampleComparison([2, 3, 4], [0, 1, 1]);
+
+    expect(comparison.nA).toBe(3);
+    expect(comparison.nB).toBe(3);
+    expect(comparison.meanA).toBe(3);
+    expect(comparison.meanB).toBeCloseTo(2 / 3, 6);
+    expect(comparison.meanDifference).toBeCloseTo(7 / 3, 6);
+    expect(comparison.standardError).toBeCloseTo(2 / 3, 6);
+    expect(comparison.degreesOfFreedom).toBeCloseTo(3.2, 6);
+    expect(comparison.tStatistic).toBeCloseTo(3.5, 6);
+    expect(comparison.differenceInterval.lower).toBeGreaterThan(0);
+    expect(comparison.significantByConfidenceInterval).toBe(true);
   });
 });

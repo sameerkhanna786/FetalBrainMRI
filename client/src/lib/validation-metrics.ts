@@ -156,6 +156,21 @@ export interface SystemUsabilityScaleScore {
   itemContributions: number[];
 }
 
+export interface WelchTwoSampleComparison {
+  nA: number;
+  nB: number;
+  meanA: number;
+  meanB: number;
+  varianceA: number;
+  varianceB: number;
+  meanDifference: number;
+  standardError: number;
+  degreesOfFreedom: number;
+  tStatistic: number;
+  differenceInterval: ConfidenceInterval;
+  significantByConfidenceInterval: boolean;
+}
+
 export type ReaderLabel = string | number | boolean;
 
 export interface CohenKappaPair {
@@ -845,6 +860,74 @@ const computeMeanConfidenceInterval = (
     lower: estimate - margin,
     upper: estimate + margin,
     confidenceLevel,
+  };
+};
+
+const normalizeContinuousSample = (name: string, values: number[]) => {
+  if (values.length < 2) {
+    throw new Error(`${name} requires at least two values`);
+  }
+  values.forEach(value => {
+    if (!Number.isFinite(value)) {
+      throw new Error(`${name} values must be finite`);
+    }
+  });
+  return values;
+};
+
+const sampleVariance = (values: number[], sampleMean: number) =>
+  values.reduce((sum, value) => sum + (value - sampleMean) ** 2, 0) /
+  (values.length - 1);
+
+export const computeWelchTwoSampleComparison = (
+  groupA: number[],
+  groupB: number[],
+  confidenceLevel = 0.95
+): WelchTwoSampleComparison => {
+  const sampleA = normalizeContinuousSample("groupA", groupA);
+  const sampleB = normalizeContinuousSample("groupB", groupB);
+  const meanA = mean(sampleA);
+  const meanB = mean(sampleB);
+  const varianceA = sampleVariance(sampleA, meanA);
+  const varianceB = sampleVariance(sampleB, meanB);
+  if (varianceA === 0 || varianceB === 0) {
+    throw new Error(
+      "Welch comparison requires non-zero variance in both groups"
+    );
+  }
+
+  const scaledVarianceA = varianceA / sampleA.length;
+  const scaledVarianceB = varianceB / sampleB.length;
+  const standardError = Math.sqrt(scaledVarianceA + scaledVarianceB);
+  const degreesOfFreedom =
+    (scaledVarianceA + scaledVarianceB) ** 2 /
+    (scaledVarianceA ** 2 / (sampleA.length - 1) +
+      scaledVarianceB ** 2 / (sampleB.length - 1));
+  const meanDifference = meanA - meanB;
+  const margin =
+    criticalTScore(Math.max(1, Math.floor(degreesOfFreedom)), confidenceLevel) *
+    standardError;
+  const differenceInterval = {
+    estimate: meanDifference,
+    lower: meanDifference - margin,
+    upper: meanDifference + margin,
+    confidenceLevel,
+  };
+
+  return {
+    nA: sampleA.length,
+    nB: sampleB.length,
+    meanA,
+    meanB,
+    varianceA,
+    varianceB,
+    meanDifference,
+    standardError,
+    degreesOfFreedom,
+    tStatistic: meanDifference / standardError,
+    differenceInterval,
+    significantByConfidenceInterval:
+      differenceInterval.lower > 0 || differenceInterval.upper < 0,
   };
 };
 
