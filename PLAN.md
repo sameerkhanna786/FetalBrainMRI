@@ -1002,3 +1002,10 @@
 - Replace the unresolved HPE4 Cureus placeholder with a PubMed/PMC/DOI-traceable Cureus source while removing the unsupported verbatim claim.
 - Replace the unresolved mega-cisterna reference with verified fetal MRI/US biometry literature and correct the app citation metadata away from the wrong Cureus journal label.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## SPEC 7.4 Qualitative-Likelihood Source-Document Alignment Increment
+
+- Add source-document coverage that the SPEC no longer asks for an already-closed Section 7.4 citation pass.
+- Update the SPEC §7.4 manifest introduction to state the implemented qualitative policy for estimate-only likelihood rows.
+- Replace stale Dandy-Walker citation-correction language with source-definition guidance and keep numeric estimates out of report-output claims.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

@@ -1019,7 +1019,7 @@ This subsection records, for every parameter the calculator computes, the model 
 
 ### 7.4 Differential-Diagnosis Likelihood Manifest
 
-The manifest below records, for every DDx card the calculator may emit, the cited primary source for each numeric likelihood, the transcription status, and any citation correction or qualitative-relabelling action that should be taken. Likelihoods labelled "Estimate" are reasonable orders-of-magnitude consistent with the cited reviews and guidance documents but are *not* transcribed from a single epidemiologic table; they should either acquire a single citation or be relabelled qualitatively ("most cases", "minority", "rare") in the report output before publication. The manifest is normative for the implementer: where it labels a number as Estimate, the implementer shall surface the qualitative form unless and until a transcribed citation is supplied.
+The manifest below records, for every DDx card the calculator may emit, the cited primary source for each numeric likelihood, the transcription status, and whether the report output uses a transcribed numeric likelihood or a qualitative likelihood label. Likelihoods labelled "Estimate" are reasonable orders-of-magnitude consistent with the cited reviews and guidance documents but are *not* transcribed from a single epidemiologic table. For those rows, the implemented report output surfaces qualitative labels ("Most common", "Common", "Minority", "Rare", or "Variable") rather than precise percentages. Numeric estimates remain in this manifest as literature-audit context only and must not be emitted as precise probabilities unless a transcribed primary source is supplied in a future revision.
 
 #### 7.4.1 Mild Ventriculomegaly (atrial 10-12 mm)
 
@@ -1043,7 +1043,7 @@ All likelihoods (isolated ~50%, associated CNS ~30%, chromosomal ~10%, CMV ~3-5%
 
 #### 7.4.4 Asymmetric Ventriculomegaly (\|L-R\| > 2 mm)
 
-No on-card primary source for likelihoods. Likelihoods are clinical estimates and require a citation pass.
+No on-card primary source for likelihoods. Likelihoods are clinical estimates; report output uses qualitative labels.
 
 #### 7.4.5 Absent CSP (CSP < 1 mm)
 
@@ -1096,7 +1096,7 @@ Qualitative card.
 
 | Likelihood | Primary source | Transcription status |
 |---|---|---|
-| Dandy-Walker malformation / variant ~30-40% | (citation correction recommended; VATANSEVER_2013 is a normative reference, not an aetiology cohort) | Estimate; ISUOG posterior-fossa updates or BROMLEY's posterior-fossa series should be the primary citation |
+| Dandy-Walker malformation / variant ~30-40% | WHITEHEAD_2022 / NAGARAJ_2021 for posterior-fossa phenotype definition; VATANSEVER_2013 remains a normative biometry source only | Estimate retained as audit context; report output surfaces qualitative labels |
 | Joubert ~10%; isolated vermian hypoplasia ~20%; chromosomal ~15% | (no on-card primary source) | Estimates |
 
 #### 7.4.15 Wide Vermis (vermis z > +2)
@@ -1135,7 +1135,7 @@ The preceding manifest distinguishes four verification tiers. The first tier, **
 
 The action items below shall be completed by a clinician collaborator before this manifest is treated as production data for clinical reporting. They are cross-listed with the verification dossier in `source_verification_dossier.md` and shall be tracked to closure.
 
-First, open Wiley OBGYN doi:10.1002/uog.22162 Table 1 and confirm the eight slope/intercept pairs for TCD, vermian height, vermian AP, and pons AP (Sections 7.3.7 through 7.3.10) against the values printed in this manifest. Second, open PLOS ONE doi:10.1371/journal.pone.0112585 Table 3 and confirm the 17-row per-week TDPF and CSA values referenced in Section 7.3.13 and 7.3.14 against Section 6.5.2 of this document; regenerate the OLS-fitted coefficients in 7.3.13 and 7.3.14 if any per-week value changes. Third, resolve the extra-axial CSF coefficient decision by either encoding the exact Kyriakopoulou fetal-centiles coefficients or formally accepting the approximation-tier curve with its report caveat. Fourth, the third-ventricle policy is closed as raw-threshold-only for publication readiness: keep the 3.5 mm trigger, keep the entered value visible, and do not report a z-score until HERTZBERG_1997 or another accepted source is verified into the registry. Fifth, run a citation pass over Section 7.4 to either acquire a single primary citation for every Estimate likelihood or relabel those likelihoods qualitatively in the report output ("most cases", "minority", "rare") to avoid implying a precision the literature does not support. Sixth, the Section 6.5 Mahalanobis discriminator centroids and the ONTD-posterior threshold (>0.5) shall be calibrated on a local cohort before the Chiari II / ONTD differential card is used clinically; the report header shall flag this card as research-mode until that calibration is complete.
+First, open Wiley OBGYN doi:10.1002/uog.22162 Table 1 and confirm the eight slope/intercept pairs for TCD, vermian height, vermian AP, and pons AP (Sections 7.3.7 through 7.3.10) against the values printed in this manifest. Second, open PLOS ONE doi:10.1371/journal.pone.0112585 Table 3 and confirm the 17-row per-week TDPF and CSA values referenced in Section 7.3.13 and 7.3.14 against Section 6.5.2 of this document; regenerate the OLS-fitted coefficients in 7.3.13 and 7.3.14 if any per-week value changes. Third, resolve the extra-axial CSF coefficient decision by either encoding the exact Kyriakopoulou fetal-centiles coefficients or formally accepting the approximation-tier curve with its report caveat. Fourth, the third-ventricle policy is closed as raw-threshold-only for publication readiness: keep the 3.5 mm trigger, keep the entered value visible, and do not report a z-score until HERTZBERG_1997 or another accepted source is verified into the registry. Fifth, the Section 7.4 citation pass is closed for implementation: report output surfaces qualitative labels for estimate-only likelihood rows so the calculator does not imply unsupported numeric precision. Sixth, the Section 6.5 Mahalanobis discriminator centroids and the ONTD-posterior threshold (>0.5) shall be calibrated on a local cohort before the Chiari II / ONTD differential card is used clinically; the report header shall flag this card as research-mode until that calibration is complete.
 
 When this manifest is updated, the Methodology page of the calculator (Section 4.10) shall surface a per-parameter line indicating the verification tier (byte-identical, transcribed, derived, approximation) and the date of the most recent verification, so that the dictating radiologist always sees the tier on which the displayed z-score is computed.
 

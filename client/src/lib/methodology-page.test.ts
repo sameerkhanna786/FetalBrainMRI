@@ -76,6 +76,20 @@ describe("publication-readiness source-document consistency", () => {
     );
   });
 
+  it("keeps the closed Section 7.4 citation-pass policy aligned across source documents", () => {
+    const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
+    const dossier = readFileSync(
+      resolve(process.cwd(), "source_verification_dossier.md"),
+      "utf8"
+    );
+
+    expect(dossier).toContain("| Section 7.4 citation pass");
+    expect(dossier).toContain("| Closed | Implementation");
+    expect(spec).toContain("report output surfaces qualitative labels");
+    expect(spec).not.toContain("citation correction recommended");
+    expect(spec).not.toContain("Fifth, run a citation pass over Section 7.4");
+  });
+
   it("tracks literature-derived publication blockers in the handoff dossier", () => {
     const dossier = readFileSync(
       resolve(process.cwd(), "source_verification_dossier.md"),

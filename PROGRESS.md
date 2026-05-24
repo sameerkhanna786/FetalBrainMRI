@@ -1,3 +1,20 @@
+## 2026-05-23, SPEC 7.4 Qualitative-Likelihood Alignment Increment
+
+- Added source-document coverage that the closed Section 7.4 citation-pass status in `source_verification_dossier.md` stays aligned with `SPEC.md`.
+- Updated SPEC §7.4 to state that estimate-only likelihood rows are surfaced with qualitative labels rather than unsupported precise percentages.
+- Replaced stale Dandy-Walker citation-correction wording with Whitehead / Nagaraj posterior-fossa phenotype guidance while keeping numeric estimate values as audit context only.
+- Updated SPEC §7.5 to mark the Section 7.4 citation pass closed for implementation and preserve clinician-owned source-review items separately.
+
+Verification:
+
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 180 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 exec prettier --check SPEC.md` still reports the existing canonical-document formatting warning; `SPEC.md` was not mass-reflowed.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, TEST.md Verified-Citation Lock Increment
 
 - Added publication-readiness coverage that rejects pending citation placeholders in `TEST.md` and checks DOI / PubMed traceability for the HPE and mega-cisterna fixtures.
