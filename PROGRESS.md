@@ -1686,3 +1686,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/report.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.11.4 Citation-Grounded Impression Increment
+
+- Added report coverage for citation-grounding on generated Impression differential lines.
+- Included each fired DDx card's primary source inline in the plain-text report.
+- Included secondary source attribution when a fired DDx card has one.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 134 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/report.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

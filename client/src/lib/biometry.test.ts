@@ -378,6 +378,27 @@ describe("mild ventriculomegaly report impression", () => {
       "Isolated mild ventriculomegaly; consider postnatal MRI follow-up. Pooled neurodevelopmental delay rate ~7.9% (Pagani 2014)."
     );
   });
+
+  it("citation-grounds generated Impression differential lines", () => {
+    const ga = { weeks: 24, days: 0 };
+    const values = {
+      atrial_left: 11,
+      atrial_right: 11,
+    };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+
+    expect(report).toContain(
+      "Mild ventriculomegaly (atrial 10–12 mm) — WATCH — Atrial diameter 10–12 mm — soft marker. Sources: Pagani 2014 https://pubmed.ncbi.nlm.nih.gov/24623452/; SMFM 2018 https://www.ajog.org/article/S0002-9378(18)30336-3/fulltext"
+    );
+  });
 });
 
 describe("SPEC §7.4 mild ventriculomegaly likelihood manifest", () => {

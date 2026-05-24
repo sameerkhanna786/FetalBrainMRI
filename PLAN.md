@@ -772,3 +772,9 @@
 - Add report coverage for the SPEC §4.11.1 clinical-indication behavior.
 - Leave Clinical Indication blank for manual entry when no EHR context is supplied.
 - Allow an optional EHR/context indication string to populate the Clinical Indication section.
+
+## SPEC 4.11.4 Citation-Grounded Impression Increment
+
+- Add report coverage for citation-grounding on generated Impression differential lines.
+- Include each fired DDx card's primary source inline in the plain-text report.
+- Include secondary source attribution when a fired DDx card has one.

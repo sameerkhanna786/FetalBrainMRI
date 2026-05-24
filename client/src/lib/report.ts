@@ -82,6 +82,12 @@ const qualitativeLine = (
 ): string =>
   `${finding.name}: entered qualitative/context input. ${finding.finding}`;
 
+const dxSourceCitation = (dx: Differential): string => {
+  const sources = [`${dx.primary.label} ${dx.primary.url}`];
+  if (dx.secondary) sources.push(`${dx.secondary.label} ${dx.secondary.url}`);
+  return ` Sources: ${sources.join("; ")}`;
+};
+
 export function generateReport(ctx: ReportContext): string {
   const { ga, fieldStrength, motion, values, zs, dxs } = ctx;
   const gaLabel = `${ga.weeks}w ${ga.days}d (${gaToDecimalWeeks(ga).toFixed(1)} weeks)`;
@@ -363,7 +369,9 @@ export function generateReport(ctx: ReportContext): string {
     }
     dxs.forEach((dx, i) => {
       lines.push(
-        `  ${i + 1}. ${dx.title} — ${dx.severity.toUpperCase()} — ${dx.oneLine}`
+        `  ${i + 1}. ${dx.title} — ${dx.severity.toUpperCase()} — ${
+          dx.oneLine
+        }${dxSourceCitation(dx)}`
       );
     });
     lines.push("");
