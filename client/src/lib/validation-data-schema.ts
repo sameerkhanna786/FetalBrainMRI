@@ -1000,6 +1000,23 @@ export const validateValidationDataExport = (
     }
   });
 
+  const readerReadOrderCounts = new Map<string, number>();
+  for (const row of data["reader_study_rows.csv"] ?? []) {
+    const readerId = stringValue(row.reader_id);
+    const readOrder = numericValue(row.read_order);
+    if (readerId == null || readOrder == null) continue;
+    const key = `${readerId}\u0000${readOrder}`;
+    readerReadOrderCounts.set(key, (readerReadOrderCounts.get(key) ?? 0) + 1);
+  }
+  readerReadOrderCounts.forEach((count, key) => {
+    if (count > 1) {
+      const [readerId, readOrder] = key.split("\u0000");
+      errors.push(
+        `reader_study_rows.csv reader ${readerId} read_order ${readOrder} appears ${count} times; expected unique sequence positions`
+      );
+    }
+  });
+
   const readerPairs = new Map<string, Map<string, number>>();
   for (const row of data["reader_study_rows.csv"] ?? []) {
     const readerId = stringValue(row.reader_id);

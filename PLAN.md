@@ -1755,3 +1755,10 @@
 - Add failing-first coverage that calculator and AI-prefill measurement rows require `case_log.csv` prediction availability.
 - Extend cross-file export validation so agreement and measurement-layer analyses cannot use rows contradicted by case-level availability flags.
 - Update the data dictionary, progress log, and audit trail, then run targeted/full gates before committing.
+
+## Reader Study Read-Order Uniqueness Guard Increment
+
+- Add failing-first package-level validation coverage that each reader's `reader_study_rows.csv` `read_order` values are unique.
+- Extend cross-file export validation so duplicate sequence positions are caught before counterbalanced reader-study analysis.
+- Update the data dictionary export checks to document `read_order` uniqueness within each reader.
+- Update the audit/progress trail, then run targeted/full gates before committing.

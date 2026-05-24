@@ -1,3 +1,24 @@
+## 2026-05-24, Reader Study Read-Order Uniqueness Guard Increment
+
+- Added failing-first package-level validation-data-schema coverage that each
+  reader's `reader_study_rows.csv` `read_order` values must be unique.
+- Extended export validation so duplicate reader sequence positions are caught
+  before counterbalanced reader-study analysis.
+- Updated `validation_data_dictionary.md` to document `read_order` uniqueness
+  within each reader.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "read_order values"` failed before implementation because duplicate reader sequence positions produced no package-level export errors.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "read_order values"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 38 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 288 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Measurement Source Availability Guard Increment
 
 - Added failing-first package-level validation-data-schema coverage that
