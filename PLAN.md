@@ -1180,3 +1180,10 @@
 - Add source-document coverage that TEST.md no longer describes Dovjak as 18-35, 21-36, or 14-40 weeks.
 - Normalize SPEC.md, TEST.md, React registry, and Python registry to the same Dovjak 14.0-39.3 week range, grounded in the PMC/PubMed 14+0 to 39+2 source text.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Dovjak Visible Citation Lock Increment
+
+- Add failing-first coverage that the Methodology page no longer displays the stale Dovjak 14-40 week range.
+- Add source-document coverage that the SPEC reference list and runtime source string use the PubMed-resolved Dovjak 2021 page range, DOI, PMID, and author order.
+- Correct Methodology.tsx, SPEC.md, and the React source citation to match the audited PubMed / PMC metadata.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

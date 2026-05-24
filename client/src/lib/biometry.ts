@@ -98,8 +98,8 @@ const S_VATANSEVER: Source = {
 };
 const S_DOVJAK: Source = {
   label: "Dovjak 2021",
-  full: "Dovjak GO, Brugger PC, Gruber GM, et al. Normal human brainstem development in vivo: a quantitative fetal MRI study. Ultrasound Obstet Gynecol. 2021;58(2):254–263.",
-  url: "https://www.ebi.ac.uk/europepmc/abstract/MED/32730667",
+  full: "Dovjak GO, Schmidbauer V, Brugger PC, et al. Normal human brainstem development in vivo: a quantitative fetal MRI study. Ultrasound Obstet Gynecol. 2021;58(2):254-263. doi:10.1002/uog.22162. PMID 32730667.",
+  url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC8457244/",
 };
 const S_KERTES: Source = {
   label: "Kertes 2021",

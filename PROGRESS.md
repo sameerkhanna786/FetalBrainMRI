@@ -1,3 +1,21 @@
+## 2026-05-23, Dovjak Visible Citation Lock Increment
+
+- Added failing-first source-document coverage that the Methodology page, SPEC reference list, and runtime Dovjak source string use the audited Dovjak 2021 range and citation metadata.
+- Corrected the Methodology page from `validated 14-40 weeks` to `validated 14.0-39.3 weeks`.
+- Corrected the runtime Dovjak source string to include Schmidbauer as second author, the PubMed-resolved page range `254-263`, DOI `10.1002/uog.22162`, PMID `32730667`, and the PMC URL.
+- Corrected the SPEC reference-list Dovjak row from `254-262` to `254-263` with DOI, PMID, and PMC URL.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before the correction because Methodology.tsx still displayed `validated 14-40 weeks`.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 205 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 205 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/biometry.ts client/src/lib/methodology-page.test.ts client/src/pages/Methodology.tsx` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-23, Dovjak GA-Range Consistency Increment
 
 - Added failing-first runtime coverage that every Dovjak 2021 source-registry entry and UI-facing Dovjak parameter row uses the audited 14.0-39.3 week range.

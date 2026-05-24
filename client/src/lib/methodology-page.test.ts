@@ -424,6 +424,14 @@ describe("publication-readiness source-document consistency", () => {
   it("keeps Dovjak 2021 gestational-age ranges aligned to the audited source", () => {
     const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
     const testCorpus = readFileSync(resolve(process.cwd(), "TEST.md"), "utf8");
+    const methodology = readFileSync(
+      resolve(process.cwd(), "client/src/pages/Methodology.tsx"),
+      "utf8"
+    );
+    const biometry = readFileSync(
+      resolve(process.cwd(), "client/src/lib/biometry.ts"),
+      "utf8"
+    );
 
     expect(spec).toContain(
       "Dovjak 2021 source range audit performed on 2026-05-23: PMC8457244 and PubMed PMID 32730667 state a cohort range of 14+0 to 39+2 weeks"
@@ -431,6 +439,14 @@ describe("publication-readiness source-document consistency", () => {
     expect(testCorpus).toContain(
       "Dovjak 2021 source range audit: 14+0 to 39+2 weeks (encoded as 14.0-39.3 weeks)"
     );
+    expect(methodology).toContain("validated 14.0-39.3 weeks");
+    expect(biometry).toContain(
+      "Dovjak GO, Schmidbauer V, Brugger PC, et al. Normal human brainstem development in vivo: a quantitative fetal MRI study. Ultrasound Obstet Gynecol. 2021;58(2):254-263. doi:10.1002/uog.22162. PMID 32730667."
+    );
+    expect(spec).toContain(
+      "[11] Dovjak GO, Schmidbauer V, Brugger PC, et al. Normal human brainstem development in vivo: a quantitative fetal MRI study. *Ultrasound Obstet Gynecol*. 2021;58(2):254-263."
+    );
+    expect(spec).not.toContain("2021;58(2):254-262");
     expect(spec).toContain("n = 161 normal fetuses; 1.5 T T2 fetal MRI");
     expect(spec).not.toContain("n = 180 normal fetuses");
     for (const staleRange of [

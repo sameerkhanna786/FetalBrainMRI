@@ -153,7 +153,7 @@ export default function Methodology() {
             <li>
               <strong>Dovjak 2021</strong> publishes per-percentile linear
               equations for transcerebellar diameter, vermian height, vermian
-              AP, and pons AP, validated 14–40 weeks. μ(GA) is taken as the
+              AP, and pons AP, validated 14.0-39.3 weeks. μ(GA) is taken as the
               midpoint of the 5th and 95th centile lines and σ(GA) as
               (p₉₅ − p₅) / (2·1.6449), assuming Gaussianity.
             </li>
