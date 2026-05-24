@@ -10,6 +10,8 @@ export type ValidationDataRequirement = "yes" | "conditional" | "optional";
 export interface ValidationDataColumnSchema {
   name: string;
   required: ValidationDataRequirement;
+  allowedValues?: readonly string[];
+  numeric?: boolean;
 }
 
 export interface ValidationDataFileSchema {
@@ -41,11 +43,11 @@ export const VALIDATION_DATA_SCHEMAS: Record<
       { name: "cohort", required: "yes" },
       { name: "site_id", required: "yes" },
       { name: "scanner_vendor", required: "yes" },
-      { name: "field_strength_t", required: "yes" },
+      { name: "field_strength_t", required: "yes", numeric: true },
       { name: "svr_method", required: "yes" },
       { name: "image_quality_tier", required: "yes" },
-      { name: "ga_weeks", required: "yes" },
-      { name: "ga_days", required: "yes" },
+      { name: "ga_weeks", required: "yes", numeric: true },
+      { name: "ga_days", required: "yes", numeric: true },
       { name: "included", required: "yes" },
       { name: "exclusion_reason", required: "conditional" },
       { name: "reference_standard_available", required: "yes" },
@@ -60,8 +62,8 @@ export const VALIDATION_DATA_SCHEMAS: Record<
       { name: "parameter_id", required: "yes" },
       { name: "source_role", required: "yes" },
       { name: "reader_id", required: "conditional" },
-      { name: "value_mm", required: "conditional" },
-      { name: "value_deg", required: "conditional" },
+      { name: "value_mm", required: "conditional", numeric: true },
+      { name: "value_deg", required: "conditional", numeric: true },
       { name: "measurement_available", required: "yes" },
       { name: "missing_reason", required: "conditional" },
       { name: "image_quality_tier", required: "yes" },
@@ -75,8 +77,8 @@ export const VALIDATION_DATA_SCHEMAS: Record<
       { name: "trigger_id", required: "yes" },
       { name: "reference_label", required: "yes" },
       { name: "predicted_label", required: "yes" },
-      { name: "predicted_probability", required: "conditional" },
-      { name: "threshold", required: "yes" },
+      { name: "predicted_probability", required: "conditional", numeric: true },
+      { name: "threshold", required: "yes", numeric: true },
       { name: "indeterminate", required: "yes" },
       { name: "indeterminate_reason", required: "conditional" },
     ],
@@ -86,21 +88,37 @@ export const VALIDATION_DATA_SCHEMAS: Record<
     columns: [
       { name: "reader_id", required: "yes" },
       { name: "study_id", required: "yes" },
-      { name: "condition", required: "yes" },
-      { name: "read_order", required: "yes" },
-      { name: "washout_days", required: "yes" },
-      { name: "duration_sec", required: "yes" },
-      { name: "completeness_score", required: "yes" },
-      { name: "zscore_documentation_rate", required: "yes" },
+      {
+        name: "condition",
+        required: "yes",
+        allowedValues: ["without_tool", "with_tool"],
+      },
+      { name: "read_order", required: "yes", numeric: true },
+      { name: "washout_days", required: "yes", numeric: true },
+      { name: "duration_sec", required: "yes", numeric: true },
+      { name: "completeness_score", required: "yes", numeric: true },
+      { name: "zscore_documentation_rate", required: "yes", numeric: true },
       { name: "recommendation_congruent", required: "yes" },
       { name: "categorical_label", required: "optional" },
-      { name: "continuous_measurement", required: "optional" },
-      { name: "nasa_tlx_mental_demand", required: "conditional" },
-      { name: "nasa_tlx_physical_demand", required: "conditional" },
-      { name: "nasa_tlx_temporal_demand", required: "conditional" },
-      { name: "nasa_tlx_performance", required: "conditional" },
-      { name: "nasa_tlx_effort", required: "conditional" },
-      { name: "nasa_tlx_frustration", required: "conditional" },
+      { name: "continuous_measurement", required: "optional", numeric: true },
+      {
+        name: "nasa_tlx_mental_demand",
+        required: "conditional",
+        numeric: true,
+      },
+      {
+        name: "nasa_tlx_physical_demand",
+        required: "conditional",
+        numeric: true,
+      },
+      {
+        name: "nasa_tlx_temporal_demand",
+        required: "conditional",
+        numeric: true,
+      },
+      { name: "nasa_tlx_performance", required: "conditional", numeric: true },
+      { name: "nasa_tlx_effort", required: "conditional", numeric: true },
+      { name: "nasa_tlx_frustration", required: "conditional", numeric: true },
       { name: "sus_item_1 through sus_item_10", required: "conditional" },
     ],
   },
@@ -108,10 +126,14 @@ export const VALIDATION_DATA_SCHEMAS: Record<
     fileName: "report_audit_rows.csv",
     columns: [
       { name: "report_id", required: "yes" },
-      { name: "phase", required: "yes" },
-      { name: "duration_sec", required: "yes" },
-      { name: "required_measurement_count", required: "yes" },
-      { name: "documented_measurement_count", required: "yes" },
+      {
+        name: "phase",
+        required: "yes",
+        allowedValues: ["baseline", "post_tool"],
+      },
+      { name: "duration_sec", required: "yes", numeric: true },
+      { name: "required_measurement_count", required: "yes", numeric: true },
+      { name: "documented_measurement_count", required: "yes", numeric: true },
       { name: "explicit_zscore_documented", required: "yes" },
       { name: "explicit_percentile_documented", required: "yes" },
       { name: "recommendation_congruent", required: "conditional" },
@@ -123,6 +145,24 @@ const isMissing = (
   value: string | number | boolean | null | undefined
 ): boolean =>
   value == null || (typeof value === "string" && value.trim() === "");
+
+const isFalseLike = (
+  value: string | number | boolean | null | undefined
+): boolean =>
+  value === false || value === 0 || value === "false" || value === "0";
+
+const isTrueLike = (
+  value: string | number | boolean | null | undefined
+): boolean =>
+  value === true || value === 1 || value === "true" || value === "1";
+
+const isFiniteNumericValue = (
+  value: string | number | boolean | null | undefined
+): boolean => {
+  if (typeof value === "number") return Number.isFinite(value);
+  if (typeof value !== "string" || value.trim() === "") return false;
+  return Number.isFinite(Number(value));
+};
 
 export const validateValidationDataRows = (
   fileName: string,
@@ -139,14 +179,69 @@ export const validateValidationDataRows = (
   const errors: string[] = [];
 
   rows.forEach((row, rowIndex) => {
+    const rowLabel = `${schema.fileName} row ${rowIndex + 1}`;
     for (const column of requiredColumns) {
       if (isMissing(row[column.name])) {
+        errors.push(`${rowLabel} missing required field ${column.name}`);
+      }
+    }
+
+    for (const column of schema.columns) {
+      const value = row[column.name];
+      if (isMissing(value)) continue;
+      if (column.numeric && !isFiniteNumericValue(value)) {
+        errors.push(`${rowLabel} field ${column.name} must be finite`);
+      }
+      if (
+        column.allowedValues &&
+        !column.allowedValues.includes(String(value))
+      ) {
         errors.push(
-          `${schema.fileName} row ${rowIndex + 1} missing required field ${
-            column.name
-          }`
+          `${rowLabel} field ${column.name} must be one of ${column.allowedValues.join(
+            ", "
+          )}`
         );
       }
+    }
+
+    if (
+      schema.fileName === "case_log.csv" &&
+      isFalseLike(row.included) &&
+      isMissing(row.exclusion_reason)
+    ) {
+      errors.push(
+        `${rowLabel} requires exclusion_reason when included is false`
+      );
+    }
+
+    if (schema.fileName === "measurement_rows.csv") {
+      if (
+        isTrueLike(row.measurement_available) &&
+        isMissing(row.value_mm) &&
+        isMissing(row.value_deg)
+      ) {
+        errors.push(
+          `${rowLabel} requires value_mm or value_deg when measurement_available is true`
+        );
+      }
+      if (
+        isFalseLike(row.measurement_available) &&
+        isMissing(row.missing_reason)
+      ) {
+        errors.push(
+          `${rowLabel} requires missing_reason when measurement_available is false`
+        );
+      }
+    }
+
+    if (
+      schema.fileName === "diagnostic_labels.csv" &&
+      isTrueLike(row.indeterminate) &&
+      isMissing(row.indeterminate_reason)
+    ) {
+      errors.push(
+        `${rowLabel} requires indeterminate_reason when indeterminate is true`
+      );
     }
   });
 

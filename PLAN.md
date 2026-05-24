@@ -1454,3 +1454,10 @@
 - Implement `client/src/lib/validation-data-schema.ts` with required/conditional/optional columns for the five handoff CSV files and a required-field validator.
 - Update the data dictionary to point analysts at the schema guard before running validation metrics.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Validation Data Conditional Guard Increment
+
+- Add failing-first coverage for conditional export validation: excluded cases need an exclusion reason, unavailable measurements need a missing reason, available measurements need a value, indeterminate labels need a reason, and reader/report phase values must be locked.
+- Extend `validateValidationDataRows` with conditional checks, allowed values, and finite numeric validation for high-risk analysis fields.
+- Update `validation_data_dictionary.md` so analysts know the guard checks conditional fields, allowed values, and numeric fields before analysis.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.
