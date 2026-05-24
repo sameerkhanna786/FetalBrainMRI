@@ -844,3 +844,9 @@
 - Add architecture coverage that Python registry-build fits retain residual RMSE.
 - Add an optional max-RMSE guard matching the inter-rater-variability threshold requirement.
 - Return fit result records that keep both the fitted model and audit residuals.
+
+## SPEC 4.11.3 Python Bio.Entrez Fallback Scaffold Increment
+
+- Add architecture coverage for the optional Python Bio.Entrez agentic-search backend hook.
+- Declare Biopython as an optional GenAI dependency without enabling network calls in the client.
+- Add a Python plan module that builds the PubMed query shape, top-3 abstract limit, and PMID transparency metadata.

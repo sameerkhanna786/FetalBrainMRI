@@ -1848,3 +1848,17 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/architecture.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.11.3 Python Bio.Entrez Fallback Scaffold Increment
+
+- Added architecture coverage for the optional Python Bio.Entrez agentic-search backend hook.
+- Declared Biopython as an optional GenAI dependency without enabling network calls in the client.
+- Added a Python plan module that builds the PubMed query shape, top-3 abstract limit, and PMID transparency metadata.
+
+Verification:
+
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 151 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/architecture.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

@@ -88,6 +88,21 @@ describe("SPEC §4.3 Python/FastAPI architecture scaffold", () => {
     expect(core).toContain("fit residual exceeds inter-rater variability");
   });
 
+  it("scaffolds the optional Python Bio.Entrez agentic-search fallback", () => {
+    const pyproject = read("pyproject.toml");
+    const genaiPath = resolve(process.cwd(), "python_app/genai.py");
+
+    expect(pyproject).toContain("biopython");
+    expect(existsSync(genaiPath)).toBe(true);
+
+    const genai = read("python_app/genai.py");
+
+    expect(genai).toContain("from Bio import Entrez");
+    expect(genai).toContain("Entrez.efetch");
+    expect(genai).toContain("max_abstracts: int = 3");
+    expect(genai).toContain("PMID hyperlink");
+  });
+
   it("provides a lightweight Docker deployment artifact for the FastAPI scaffold", () => {
     const dockerfilePath = resolve(process.cwd(), "Dockerfile");
 

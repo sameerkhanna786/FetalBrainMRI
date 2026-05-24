@@ -16,6 +16,9 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+genai = [
+  "biopython>=1.84",
+]
 standalone = [
   "pyinstaller>=6.0",
 ]
