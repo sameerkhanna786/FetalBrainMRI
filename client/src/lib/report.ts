@@ -21,6 +21,7 @@ export type ReportContext = {
   ga: GA;
   fieldStrength: string; // "1.5T" | "3T" | "0.55T"
   motion: string; // "None" | "Mild" | "Moderate" | "Severe"
+  clinicalIndication?: string;
   values: Record<string, number | null>;
   zs: Record<string, ZResult | null>;
   dxs: Differential[];
@@ -87,9 +88,8 @@ export function generateReport(ctx: ReportContext): string {
 
   const lines: string[] = [];
   lines.push("CLINICAL INDICATION");
-  lines.push(
-    `Fetal brain MRI at ${gaLabel} for evaluation of brain development.`
-  );
+  const clinicalIndication = ctx.clinicalIndication?.trim();
+  if (clinicalIndication) lines.push(clinicalIndication);
   lines.push("");
 
   lines.push("TECHNIQUE");
@@ -97,7 +97,7 @@ export function generateReport(ctx: ReportContext): string {
     "Calculator operated in multi-source consensus mode: consensus z-score is the arithmetic mean across in-range sources, and source disagreement is flagged at Delta z >= 1.0 SD between in-range sources."
   );
   lines.push(
-    `Multiplanar T2-weighted single-shot fast spin-echo imaging of the fetal brain at ${fieldStrength}. Motion artefact: ${motion.toLowerCase()}.`
+    `Multiplanar T2-weighted single-shot fast spin-echo imaging of the fetal brain at ${fieldStrength}. Gestational age: ${gaLabel}. Motion artefact: ${motion.toLowerCase()}.`
   );
   if (dxs.some(dx => dx.id === "chiari-ii-ontd")) {
     lines.push(

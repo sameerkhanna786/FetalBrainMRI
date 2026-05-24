@@ -766,3 +766,9 @@
 - Add Methodology-page coverage for the Epic Radiant launch path and SMART-on-FHIR deferral.
 - Surface the PowerScribe paste workflow and plain-text clipboard constraint from SPEC §4.8.
 - Keep the implementation as documentation of Phase 1 integration rather than introducing PHI-bearing EHR code.
+
+## SPEC 4.11.1 Clinical-Indication Report Increment
+
+- Add report coverage for the SPEC §4.11.1 clinical-indication behavior.
+- Leave Clinical Indication blank for manual entry when no EHR context is supplied.
+- Allow an optional EHR/context indication string to populate the Clinical Indication section.

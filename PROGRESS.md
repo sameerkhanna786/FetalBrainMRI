@@ -1673,3 +1673,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/methodology-page.test.ts client/src/pages/Methodology.tsx` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.11.1 Clinical-Indication Report Increment
+
+- Added report coverage for the SPEC §4.11.1 clinical-indication behavior.
+- Left Clinical Indication blank for manual entry when no EHR context is supplied.
+- Allowed an optional EHR/context indication string to populate the Clinical Indication section.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 133 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/report.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

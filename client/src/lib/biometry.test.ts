@@ -271,6 +271,31 @@ describe("mean-SD table source fitting", () => {
 });
 
 describe("structured report source provenance", () => {
+  it("leaves Clinical Indication blank unless EHR context supplies text", () => {
+    const report = generateReport({
+      ga: { weeks: 28, days: 0 },
+      fieldStrength: "1.5T",
+      motion: "None",
+      values: {},
+      zs: {},
+      dxs: [],
+    });
+    const prefilled = generateReport({
+      ga: { weeks: 28, days: 0 },
+      fieldStrength: "1.5T",
+      motion: "None",
+      clinicalIndication: "Known fetal ventriculomegaly.",
+      values: {},
+      zs: {},
+      dxs: [],
+    });
+
+    expect(report).toMatch(/^CLINICAL INDICATION\n\nTECHNIQUE/);
+    expect(prefilled).toContain(
+      "CLINICAL INDICATION\nKnown fetal ventriculomegaly.\n\nTECHNIQUE"
+    );
+  });
+
   it("starts the Technique section with the fixed multi-source consensus sentence", () => {
     const report = generateReport({
       ga: { weeks: 28, days: 0 },
