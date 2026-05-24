@@ -1,3 +1,17 @@
+## 2026-05-23, SPEC 4.7 Python Posterior-Fossa Auxiliary Trigger Increment
+
+- Added architecture coverage for Python cisterna magna and TVA auxiliary trigger output.
+- Emitted a Python mega-cisterna-magna / Blake's-pouch differential when cisterna magna depth exceeds 10 mm.
+- Emitted a Python Blake's-pouch advisory when TVA is elevated without a small-vermis Dandy-Walker pattern.
+
+Verification:
+
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 163 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/architecture.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, SPEC 4.7 Python Colpocephaly Auxiliary Increment
 
 - Added architecture coverage that the Python worksheet includes frontal horn inputs for colpocephaly comparison.

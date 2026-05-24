@@ -206,6 +206,15 @@ describe("SPEC §4.3 Python/FastAPI architecture scaffold", () => {
     expect(app).toContain("normal same-side frontal horn");
   });
 
+  it("implements the Python posterior-fossa auxiliary trigger bridge", () => {
+    const app = read("python_app/main.py");
+
+    expect(app).toContain('"cisterna_magna_depth"');
+    expect(app).toContain('"tva"');
+    expect(app).toContain("mega cisterna magna");
+    expect(app).toContain("Blake's pouch");
+  });
+
   it("scaffolds scipy curve fitting for offline centile-table registry builds", () => {
     const core = read("python_app/biometry.py");
 

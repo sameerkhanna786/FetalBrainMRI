@@ -202,6 +202,13 @@ def _python_differential_rows(
     if tcd_z is not None and tcd_z < -1.645:
         rows.append("cerebellar hypoplasia: TCD is below the 5th percentile.")
 
+    cisterna_magna_depth = values.get("cisterna_magna_depth")
+    if cisterna_magna_depth is not None and cisterna_magna_depth > 10:
+        rows.append(
+            "mega cisterna magna / Blake's pouch cyst differential: "
+            "cisterna magna depth is > 10 mm."
+        )
+
     vermis_z_values = [
         z_value
         for parameter_id in ("vermis_cc", "vermis_ap")
@@ -212,6 +219,11 @@ def _python_differential_rows(
             rows.append("Dandy-Walker spectrum: small vermis with elevated TVA.")
         else:
             rows.append("vermian hypoplasia: vermian measurement is below the 5th percentile.")
+    elif (values.get("tva") or 0) > 23:
+        rows.append(
+            "Blake's pouch cyst advisory: elevated TVA without a small-vermis "
+            "Dandy-Walker pattern."
+        )
 
     pons_z = _z_value(results, "pons_ap")
     if pons_z is not None and pons_z < -1.645:

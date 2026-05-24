@@ -916,3 +916,9 @@
 - Add architecture coverage that the Python worksheet includes frontal horn inputs for colpocephaly comparison.
 - Add left/right frontal horn raw inputs to the Python ventricular-system group.
 - Emit a Python differential row when atrial dilation is disproportionate to a normal same-side frontal horn.
+
+## SPEC 4.7 Python Posterior-Fossa Auxiliary Trigger Increment
+
+- Add architecture coverage for Python cisterna magna and TVA auxiliary trigger output.
+- Emit a Python mega-cisterna-magna / Blake's-pouch differential when cisterna magna depth exceeds 10 mm.
+- Emit a Python Blake's-pouch advisory when TVA is elevated without a small-vermis Dandy-Walker pattern.
