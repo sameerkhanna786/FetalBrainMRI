@@ -619,6 +619,35 @@ describe("validation data export schema guard", () => {
     );
   });
 
+  it("requires reader IDs only for reader-sourced measurements", () => {
+    expect(
+      validateValidationDataRows("measurement_rows.csv", [
+        {
+          study_id: "S1",
+          parameter_id: "tcd",
+          source_role: "reader",
+          value_mm: 32,
+          measurement_available: true,
+          image_quality_tier: "diagnostic",
+        },
+        {
+          study_id: "S2",
+          parameter_id: "tcd",
+          source_role: "reference",
+          reader_id: "R1",
+          value_mm: 31,
+          measurement_available: true,
+          image_quality_tier: "diagnostic",
+        },
+      ])
+    ).toEqual(
+      expect.arrayContaining([
+        "measurement_rows.csv row 1 requires reader_id when source_role is reader",
+        "measurement_rows.csv row 2 must not include reader_id unless source_role is reader",
+      ])
+    );
+  });
+
   it("rejects impossible report-audit measurement counts before QI analysis", () => {
     expect(
       validateValidationDataRows("report_audit_rows.csv", [

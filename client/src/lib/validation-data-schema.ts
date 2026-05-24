@@ -572,6 +572,23 @@ export const validateValidationDataRows = (
         : String(row.parameter_id);
       const parameterUnit =
         parameterId == null ? null : PARAMETER_UNITS_BY_ID.get(parameterId);
+      const sourceRole = isMissing(row.source_role)
+        ? null
+        : String(row.source_role);
+      if (sourceRole === "reader" && isMissing(row.reader_id)) {
+        errors.push(
+          `${rowLabel} requires reader_id when source_role is reader`
+        );
+      }
+      if (
+        sourceRole != null &&
+        sourceRole !== "reader" &&
+        !isMissing(row.reader_id)
+      ) {
+        errors.push(
+          `${rowLabel} must not include reader_id unless source_role is reader`
+        );
+      }
       if (isTrueLike(row.measurement_available)) {
         if (!hasValueMm && !hasValueDeg) {
           errors.push(

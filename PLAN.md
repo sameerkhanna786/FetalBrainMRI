@@ -1622,3 +1622,10 @@
 - Use runtime `PARAMETERS_ALL` unit metadata to validate the populated value column for each `parameter_id`.
 - Update the data dictionary so analysts know the value column must match the runtime parameter unit.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Measurement Reader ID Consistency Guard Increment
+
+- Add failing-first coverage for `measurement_rows.csv` rows with `source_role=reader` but no `reader_id`, and non-reader rows that carry a `reader_id`.
+- Align validation export preflight with the data dictionary's repeated-reader measurement contract.
+- Update the data dictionary so reader IDs are explicitly tied to `source_role=reader`.
+- Update the audit/progress trail, then run targeted/full gates before committing.
