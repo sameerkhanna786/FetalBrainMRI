@@ -700,3 +700,9 @@
 - Add DDx coverage for the SPEC §7.4 small-vermis likelihood manifest.
 - Confirm the small-vermis card no longer surfaces estimate-only numeric percentages.
 - Replace the Dandy-Walker, isolated hypoplasia, Joubert, and chromosomal/syndromic likelihood labels with qualitative wording.
+
+## SPEC 7.4 Third-Ventricle Likelihood Qualitative Increment
+
+- Add DDx coverage for the SPEC §7.4 wide-third-ventricle likelihood manifest.
+- Confirm the third-ventricle card no longer surfaces estimate-only numeric percentages.
+- Replace the aqueductal-stenosis, ACC/dysgenesis, HPE, and cyst likelihood labels with qualitative wording.

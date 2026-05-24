@@ -2702,22 +2702,22 @@ const CARDS: CardSpec[] = [
     rows: [
       {
         dx: "Aqueductal stenosis",
-        likelihood: "~55%",
+        likelihood: "Common",
         rationale: "Common cause of obstructive hydrocephalus.",
       },
       {
         dx: "Agenesis / dysgenesis of corpus callosum",
-        likelihood: "~10–20%",
+        likelihood: "Minority",
         rationale: "Alters CSF dynamics.",
       },
       {
         dx: "Holoprosencephaly (mild / lobar)",
-        likelihood: "~5–15%",
+        likelihood: "Minority",
         rationale: "Incomplete forebrain cleavage.",
       },
       {
         dx: "Interhemispheric / velum interpositi cyst",
-        likelihood: "~5–10%",
+        likelihood: "Rare",
         rationale: "Mass-effect obstruction.",
       },
     ],

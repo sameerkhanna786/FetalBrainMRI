@@ -805,6 +805,27 @@ describe("SPEC §7.4 small-vermis likelihood manifest", () => {
   });
 });
 
+describe("SPEC §7.4 third-ventricle likelihood manifest", () => {
+  it("qualitative-labels the wide-third-ventricle estimate rows", () => {
+    const ga = { weeks: 30, days: 0 };
+    const values = {
+      third_ventricle: 4,
+    };
+    const { dxs } = evaluateAll(values, ga);
+    const thirdVentricle = dxs.find(dx => dx.id === "third-v-wide");
+
+    expect(thirdVentricle?.rows.map(row => row.likelihood)).toEqual([
+      "Common",
+      "Minority",
+      "Minority",
+      "Rare",
+    ]);
+    expect(
+      thirdVentricle?.rows.map(row => row.likelihood).join(" ")
+    ).not.toMatch(/~55|~10|~5/);
+  });
+});
+
 describe("aqueductal-stenosis pattern report impression", () => {
   it("uses the TEST.md Case S1 triventricular hydrocephalus impression line", () => {
     const ga = { weeks: 26, days: 0 };

@@ -1530,3 +1530,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/biometry.ts` passes after formatting `client/src/lib/biometry.test.ts`.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 7.4 Third-Ventricle Likelihood Qualitative Increment
+
+- Added DDx coverage for the SPEC §7.4 wide-third-ventricle likelihood manifest.
+- Confirmed the third-ventricle card no longer surfaces estimate-only numeric percentages.
+- Replaced the aqueductal-stenosis, ACC/dysgenesis, HPE, and cyst likelihood labels with qualitative wording.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 122 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/biometry.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
