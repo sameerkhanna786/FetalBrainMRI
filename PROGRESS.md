@@ -1,3 +1,25 @@
+## 2026-05-24, Available Measurement Missing-Reason Guard Increment
+
+- Added failing-first validation-data-schema coverage that
+  `measurement_rows.csv` rows with `measurement_available=true` cannot carry a
+  `missing_reason`.
+- Extended row validation so available measurements must carry exactly one
+  positive unit-appropriate value and no missingness explanation.
+- Updated `validation_data_dictionary.md` to reserve `missing_reason` for
+  unavailable measurements.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "available measurement"` failed before implementation because available measurement rows with `missing_reason` produced no export errors.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "available measurement"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 33 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 283 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Excluded Case Cross-File Guard Increment
 
 - Added failing-first package-level validation-data-schema coverage that

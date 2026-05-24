@@ -66,7 +66,7 @@ The unique row grain is `study_id`, `parameter_id`, `source_role`, and
 `reader_id` when applicable.
 Rows with `measurement_available=true` must populate exactly one positive
 `value_mm` or `value_deg`, and the populated column must match the runtime
-parameter unit.
+parameter unit. These rows must leave `missing_reason` blank.
 Rows with `measurement_available=false` must leave both value columns blank and
 provide `missing_reason`.
 
@@ -171,7 +171,8 @@ the other validation files.
    `exclusion_reason` blank.
 5. Missing measurements use `measurement_available=false` plus `missing_reason`,
    not numeric placeholders; available measurements use exactly one positive
-   `value_mm` or `value_deg`, matching the runtime parameter unit.
+   `value_mm` or `value_deg`, matching the runtime parameter unit, and leave
+   `missing_reason` blank.
 6. Every reader-study case has exactly one `without_tool` and exactly one
    `with_tool` row for each reader; duplicate condition rows are fixed before
    paired deltas are computed.

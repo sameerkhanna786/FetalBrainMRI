@@ -437,6 +437,24 @@ describe("validation data export schema guard", () => {
     );
   });
 
+  it("rejects available measurement rows that carry a missing_reason", () => {
+    expect(
+      validateValidationDataRows("measurement_rows.csv", [
+        {
+          study_id: "S1",
+          parameter_id: "tcd",
+          source_role: "reference",
+          value_mm: 32,
+          measurement_available: true,
+          missing_reason: "motion-degraded",
+          image_quality_tier: "diagnostic",
+        },
+      ])
+    ).toContain(
+      "measurement_rows.csv row 1 must not include missing_reason when measurement_available is true"
+    );
+  });
+
   it("rejects case-log gestational age weeks outside the calculator-supported range", () => {
     expect(
       validateValidationDataRows("case_log.csv", [

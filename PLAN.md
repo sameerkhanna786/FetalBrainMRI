@@ -1720,3 +1720,10 @@
 - Extend cross-file export validation so measurement, diagnostic-label, reader-study, and report-audit rows cannot pull excluded cases into downstream analyses.
 - Update the data dictionary export checks to document that analysis rows must reference included cases.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Available Measurement Missing-Reason Guard Increment
+
+- Add failing-first validation-data-schema coverage that `measurement_rows.csv` rows with `measurement_available=true` cannot carry a `missing_reason`.
+- Extend row validation so available measurements must have exactly one value and no missingness explanation.
+- Update the data dictionary export checks to document that `missing_reason` is reserved for unavailable measurements.
+- Update the audit/progress trail, then run targeted/full gates before committing.

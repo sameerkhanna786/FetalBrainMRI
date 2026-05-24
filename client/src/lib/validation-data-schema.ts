@@ -620,6 +620,11 @@ export const validateValidationDataRows = (
             `${rowLabel} field value_mm is not allowed for degree parameter ${parameterId}`
           );
         }
+        if (!isMissing(row.missing_reason)) {
+          errors.push(
+            `${rowLabel} must not include missing_reason when measurement_available is true`
+          );
+        }
       }
       if (
         isFalseLike(row.measurement_available) &&
