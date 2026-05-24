@@ -13,4 +13,20 @@ describe("SPEC §4.4 workflow controls", () => {
     expect(source).toContain("Clear All");
     expect(source).toContain("Copy to Clipboard");
   });
+
+  it("places the report-panel copy action below the report preview", () => {
+    const source = readFileSync(
+      resolve(process.cwd(), "client/src/pages/Home.tsx"),
+      "utf8"
+    );
+    const reportPanel = source.slice(source.indexOf("Structured report"));
+    const previewIndex = reportPanel.indexOf("<pre");
+    const reportCopyIndex = reportPanel.indexOf(
+      "Copy to Clipboard",
+      previewIndex
+    );
+
+    expect(previewIndex).toBeGreaterThan(-1);
+    expect(reportCopyIndex).toBeGreaterThan(previewIndex);
+  });
 });

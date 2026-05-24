@@ -645,16 +645,18 @@ export default function Home() {
                     ESPR-style · PowerScribe-ready
                   </div>
                 </div>
-                <button
-                  onClick={handleCopy}
-                  className="text-xs smallcaps text-[color:var(--paper)] bg-[color:var(--teal)] hover:bg-[color:var(--ink)] transition-colors flex items-center gap-1.5 px-3 py-1.5 rounded-sm"
-                >
-                  <Copy className="h-3 w-3" /> Copy
-                </button>
               </header>
               <pre className="px-5 py-4 text-[12.5px] leading-relaxed font-numeric whitespace-pre-wrap break-words text-[color:var(--ink)] max-h-[440px] overflow-auto">
                 {report}
               </pre>
+              <footer className="border-t border-[color:var(--rule)] px-5 py-3 flex justify-end">
+                <button
+                  onClick={handleCopy}
+                  className="text-xs smallcaps text-[color:var(--paper)] bg-[color:var(--teal)] hover:bg-[color:var(--ink)] transition-colors flex items-center gap-1.5 px-3 py-1.5 rounded-sm whitespace-nowrap"
+                >
+                  <Copy className="h-3 w-3" /> Copy to Clipboard
+                </button>
+              </footer>
             </article>
 
             <DifferentialPanel dxs={dxs} />

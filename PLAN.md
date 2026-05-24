@@ -550,3 +550,9 @@
 - Add source-level UI coverage for the SPEC-required `Copy to Clipboard` and `Clear All` workflow labels.
 - Update the top-bar copy button label from `Copy report` to `Copy to Clipboard`.
 - Update the worksheet reset button label from `Clear` to `Clear All` without changing behavior.
+
+## SPEC 4.4/4.8 Report Copy Placement Increment
+
+- Add source-level UI coverage proving the report-panel copy control appears below the report preview.
+- Change the report-panel copy label from `Copy` to the SPEC-required `Copy to Clipboard`.
+- Move the existing report-panel copy action below the structured report preview without changing clipboard behavior.

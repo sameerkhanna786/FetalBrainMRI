@@ -1205,3 +1205,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/workflow-ui.test.ts client/src/pages/Home.tsx` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.4/4.8 Report Copy Placement Increment
+
+- Added source-level UI coverage proving the report-panel `Copy to Clipboard` action appears below the structured report preview.
+- Changed the report-panel copy label from `Copy` to `Copy to Clipboard`.
+- Moved the report-panel copy action below the preview while preserving the existing plain-text clipboard behavior.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 98 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/workflow-ui.test.ts client/src/pages/Home.tsx` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
