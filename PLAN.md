@@ -1776,3 +1776,10 @@
 - Extend row validation so SUS item responses are reserved for `with_tool` reader-study rows.
 - Update the data dictionary export checks to document the condition-specific SUS rule.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Software Readiness Completion Audit Increment
+
+- Adjust the active-goal stop condition to software-ready for radiologist evaluation rather than publication evidence complete.
+- Audit SPEC.md, TEST.md, PROGRESS.md, completion_audit.md, source-verification records, validation export templates, and current gate outputs against that software-ready criterion.
+- Update the completion audit so external cohort, IRB/QI, reader-study, calibration, and signoff tasks are clearly post-software evaluation work.
+- Run final full gates and commit the audit before marking the active goal complete.

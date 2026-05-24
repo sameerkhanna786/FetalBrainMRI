@@ -2701,7 +2701,7 @@ describe("publication handoff checklist", () => {
     expect(dossier).toContain("10.1038/s41591-022-01951-8");
   });
 
-  it("keeps an active-goal completion audit linked to concrete evidence and blockers", () => {
+  it("keeps an active-goal completion audit linked to concrete software evidence and post-handoff work", () => {
     const audit = readFileSync(
       resolve(process.cwd(), "completion_audit.md"),
       "utf8"
@@ -2728,7 +2728,10 @@ describe("publication handoff checklist", () => {
     expect(audit).toContain("python3 -m py_compile");
     expect(audit).toContain("git diff --check");
     expect(audit).toContain("0 residual normal-label rows");
-    expect(audit).toContain("Goal status: Not complete");
+    expect(audit).toContain(
+      "Goal status: Software-ready complete; external evaluation pending"
+    );
+    expect(audit).toContain("Post-Software Evaluation Work");
     expect(audit).toContain("FeTA 2024 biometry gap");
     expect(audit).toContain("IRB / QI determination");
     expect(audit).toContain("Source-data final lock");

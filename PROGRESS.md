@@ -1,3 +1,27 @@
+## 2026-05-24, Software Readiness Completion Audit Increment
+
+- Adjusted the active-goal stop condition to software-ready for radiologist
+  evaluation rather than publication evidence complete.
+- Re-audited the repository against SPEC.md, TEST.md, validation export schemas,
+  source-verification records, current gate outputs, and the handoff documents.
+- Updated `completion_audit.md` to mark implementation-side work software-ready
+  while preserving external evaluation and publication tasks as post-handoff
+  work.
+
+Verification:
+
+- `git status --short && git log -5 --oneline` showed a clean tree before the
+  audit edits and the latest committed validation increments.
+- `grep -R "^describe\|^  it" -n client/src/lib/*.test.ts | awk -F: '{print $1}' | sort | uniq -c` showed test coverage across architecture, biometry, client shell, clipboard, GenAI, methodology, source-detail UI, validation-data schema, validation metrics, validation page, and workflow UI tests.
+- `grep -n "residual\|0 residual\|Closed\|Open" source_verification_dossier.md | head -120` confirmed implementation-side source checks and the TEST corpus numeric audit are closed while external evaluation items remain explicit.
+- Source-document check: `npx pnpm@10.4.1 test -- --runInBand` initially failed because `client/src/lib/methodology-page.test.ts` still asserted the old `Goal status: Not complete` wording; the test now asserts the adjusted software-ready status and post-handoff evaluation section.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 290 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Reader Study SUS Condition Guard Increment
 
 - Added failing-first validation-data-schema coverage that System Usability
