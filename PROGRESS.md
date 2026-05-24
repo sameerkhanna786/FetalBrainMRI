@@ -1,3 +1,20 @@
+## 2026-05-23, SPEC 2.2 Source-Dossier Alignment Increment
+
+- Added failing-first source-document coverage that requires SPEC Part 2's normative-source dossier to match the active Phase 1 registry rather than stale initial source recommendations.
+- Updated SPEC §2.1 to include the active extra-cerebral CSF, third-ventricle raw-threshold, cisterna magna, TVA, TDPF, and CSA measurements now present in Phase 1 behavior.
+- Rewrote SPEC §2.2 around active computational source groups: Luis 2025, Kyriakopoulou 2017, Dovjak 2021, Woitek 2014, and Hertzberg 1997 raw-threshold third-ventricle support.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before the SPEC update because Part 2 still listed Tilea and Vatansever as recommended default computational sources.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 187 tests.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 187 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 exec prettier --check SPEC.md` still reports the existing canonical-document formatting warning; `SPEC.md` was not mass-reflowed.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, SPEC 4.2.2 Extra-Axial Registry-Table Alignment Increment
 
 - Added failing-first source-document coverage that requires SPEC §4.2.2 to list the active Kyriakopoulou extra-cerebral CSF source-registry row.

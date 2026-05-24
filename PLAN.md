@@ -1047,3 +1047,10 @@
 - Update the default source-registry table with the direct extra-cerebral CSF row and validated GA window.
 - Align the §4.2.2 registry prose with the exact Kyriakopoulou workbook source-lock status.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## SPEC 2.2 Source-Dossier Alignment Increment
+
+- Add source-document coverage that the early normative-source dossier matches the active Phase 1 registry instead of stale initial recommendations.
+- Update SPEC §2.1 to mention active auxiliary and added publication-trigger measurements now implemented in Phase 1.
+- Rewrite SPEC §2.2 around computational source groups: Luis, Kyriakopoulou, Dovjak, Woitek, and raw-threshold third ventricle.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

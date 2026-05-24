@@ -213,6 +213,24 @@ describe("publication-readiness source-document consistency", () => {
       "The Kyriakopoulou 2017 extra-cerebral CSF coefficients are transcribed from supplementary workbook row 19"
     );
   });
+
+  it("aligns SPEC Part 2 normative-source dossier with the active registry", () => {
+    const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
+
+    expect(spec).toContain(
+      "| Global brain / skull growth | Luis et al. (2025) [2] | Active computational source for skull BPD/OFD and brain BPD/OFD; Tilea and Kyriakopoulou remain teaching or cross-validation references. |"
+    );
+    expect(spec).toContain(
+      "| Extra-cerebral CSF width | Kyriakopoulou et al. (2017) [3] | Supplementary workbook row 19 exact quadratic mean / linear SD coefficients. |"
+    );
+    expect(spec).toContain(
+      "| Third ventricle width | Hertzberg 1997 threshold [36] | Raw >3.5 mm threshold only; no Phase 1 z-score model. |"
+    );
+    expect(spec).not.toContain("| Skull BPD & OFD | Tilea et al. (2009) [7]");
+    expect(spec).not.toContain(
+      "| TCD & Vermis | Vatansever et al. (2013) [10]"
+    );
+  });
 });
 
 describe("publication handoff checklist", () => {

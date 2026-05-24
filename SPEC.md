@@ -90,25 +90,24 @@ To correctly draw conclusions about fetal health, the calculator must support a 
 
 | **Parameter Group** | **Specific Measurements** | **Primary Clinical Indications** |
 | --- | --- | --- |
-| Global Brain / Skull Growth | Skull biparietal diameter (BPD), skull occipito-frontal diameter (OFD), brain BPD (maximal width), brain OFD. | Microcephaly, macrocephaly, intrauterine growth restriction (IUGR), overall maturation. |
-| Ventricular System | Left and right atrial (ventricular) diameters. | Ventriculomegaly (mild 10–12 mm, moderate 12–15 mm, severe ≥15 mm). |
+| Global Brain / Skull Growth | Skull biparietal diameter (BPD), skull occipito-frontal diameter (OFD), brain BPD (maximal width), brain OFD, extra-cerebral CSF width. | Microcephaly, macrocephaly, intrauterine growth restriction (IUGR), overall maturation, widened extra-axial spaces. |
+| Ventricular System | Left and right atrial (ventricular) diameters, third-ventricle raw-threshold width. | Ventriculomegaly (mild 10–12 mm, moderate 12–15 mm, severe ≥15 mm), aqueductal stenosis pattern support. |
 | Midline Structures | Corpus callosum length, cavum septum pellucidum (CSP) width. | Agenesis of the corpus callosum, absent septum pellucidum, holoprosencephaly. |
-| Posterior Fossa | Transcerebellar diameter (TCD), vermian height (cranio-caudal), vermian antero-posterior (AP) diameter. | Dandy-Walker spectrum, vermian hypoplasia, cerebellar hypoplasia. |
+| Posterior Fossa | Transcerebellar diameter (TCD), vermian height (cranio-caudal), vermian antero-posterior (AP) diameter, cisterna magna depth, tegmento-vermian angle, TDPF, clivus-supraocciput angle. | Dandy-Walker spectrum, vermian hypoplasia, cerebellar hypoplasia, mega cisterna magna / Blake pouch pattern, Chiari II / open neural tube defect support. |
 | Brainstem | Pons AP diameter. | Pontocerebellar hypoplasia, brainstem maldevelopment. |
 
 ### 2.2 Normative Reference Data Sources
 
-To compute z-scores and percentiles, the calculator requires the mean and standard deviation (SD) for each parameter as a function of GA.
+To compute z-scores and percentiles, the calculator requires the mean and standard deviation (SD) for each active z-scored parameter as a function of GA. Raw-threshold auxiliary inputs are listed separately so they are not mistaken for centile models.
 
-| **Parameter** | **Recommended Default Source** | **Data Format & Availability** |
+| **Parameter group** | **Active computational source** | **Data format and Phase 1 use** |
 | --- | --- | --- |
-| Skull BPD & OFD | Tilea et al. (2009) [7] | Full regression equations for mean and SD published in the paper's appendix. |
-| Brain BPD & OFD | Kyriakopoulou et al. (2017) [3] | Centile tables (5th, 50th, 95th) available in supplementary materials. |
-| Atrial Diameter | Luis et al. (2025) [2] | Quadratic polynomial formulas for centiles published in open-source repository. |
-| Corpus Callosum Length | Corroenne et al. (2023) [8] | Systematic review of methodology for biometric chart construction. |
-| CSP Width | Kertes et al. (2021) [9] | Regression equations and raw scatter plot data provided in the publication. |
-| TCD & Vermis | Vatansever et al. (2013) [10] | Regression equations for mean and SD provided in the text. |
-| Pons AP Diameter | Dovjak et al. (2021) [11] | Centile tables and regression models published in the supplementary data. |
+| Global brain / skull growth | Luis et al. (2025) [2] | Active computational source for skull BPD/OFD and brain BPD/OFD; Tilea and Kyriakopoulou remain teaching or cross-validation references. |
+| Extra-cerebral CSF width | Kyriakopoulou et al. (2017) [3] | Supplementary workbook row 19 exact quadratic mean / linear SD coefficients. |
+| Ventricular atrial diameter, CSP width, corpus callosum length | Luis et al. (2025) [2] | Active quadratic mean / linear SD source from the open-source auto-proc-SVRTK reporting script; Kertes and Corroenne remain teaching or context references. |
+| TCD, vermian height, vermian AP, pons AP | Luis et al. (2025) [2] plus Dovjak et al. (2021) [11] | Multi-source consensus rows: Luis quadratic mean / linear SD plus Dovjak per-percentile linear equations byte-checked against PMC8457244 Table 1. |
+| TDPF and clivus-supraocciput angle | Woitek et al. (2014) [43] | Derived quadratic mean / linear SD fits from the byte-checked PMC4231033 Table 3 normal-CNS per-week rows. |
+| Third ventricle width | Hertzberg 1997 threshold [36] | Raw >3.5 mm threshold only; no Phase 1 z-score model. |
 
 ### 2.3 State-of-the-Art AI Methods for Automated Biometry
 
