@@ -54,6 +54,13 @@ class LinearMeanConstantSdFit:
     residual_rmse: dict[str, float]
 
 
+@dataclass(frozen=True)
+class ChiariPosterior:
+    controls: float
+    ontd: float
+    cntd: float
+
+
 Model = QuadraticMeanLinearSd | PerPercentileLinear | LinearMeanConstantSd
 
 
@@ -174,6 +181,47 @@ def fit_linear_mean_constant_sd_table(
         sigma,
     )
     return LinearMeanConstantSdFit(model=model, residual_rmse=residual_rmse)
+
+
+def mahalanobis2(
+    point: tuple[float, float],
+    mean: tuple[float, float],
+    covariance: tuple[tuple[float, float], tuple[float, float]],
+) -> float:
+    dx = point[0] - mean[0]
+    dy = point[1] - mean[1]
+    ((a, b), (c, d)) = covariance
+    det = a * d - b * c
+    if det <= 0:
+        return float("inf")
+
+    inv00 = d / det
+    inv01 = -b / det
+    inv10 = -c / det
+    inv11 = a / det
+    return dx * (inv00 * dx + inv01 * dy) + dy * (inv10 * dx + inv11 * dy)
+
+
+def chiari_ontd_posterior(z_tdpf: float, z_csa: float) -> ChiariPosterior:
+    point = (z_tdpf, z_csa)
+    distances = {
+        "controls": mahalanobis2(point, (0, 0), ((1, 0), (0, 1))),
+        "ontd": mahalanobis2(
+            point,
+            (-3.6, -2.6),
+            ((0.9 * 0.9, 0.54), (0.54, 1.1 * 1.1)),
+        ),
+        "cntd": mahalanobis2(point, (-1.4, -0.6), ((1, 0), (0, 1))),
+    }
+    controls = float(np.exp(-distances["controls"] / 2))
+    ontd = float(np.exp(-distances["ontd"] / 2))
+    cntd = float(np.exp(-distances["cntd"] / 2))
+    total = controls + ontd + cntd
+    return ChiariPosterior(
+        controls=controls / total,
+        ontd=ontd / total,
+        cntd=cntd / total,
+    )
 
 
 def zscore(model: Model, ga_weeks: float, value: float) -> dict[str, float]:

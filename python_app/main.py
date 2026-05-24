@@ -7,6 +7,7 @@ from fastapi.responses import HTMLResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
+from .biometry import chiari_ontd_posterior
 from .registry import evaluate_parameter
 
 
@@ -175,6 +176,18 @@ def _python_differential_rows(
     pons_z = _z_value(results, "pons_ap")
     if pons_z is not None and pons_z < -1.645:
         rows.append("pontocerebellar hypoplasia pattern: pons AP is below the 5th percentile.")
+
+    tdpf_z = _z_value(results, "tdpf")
+    csa_z = _z_value(results, "csa")
+    if tdpf_z is not None and csa_z is not None and tdpf_z < -2 and csa_z < -2:
+        posterior = chiari_ontd_posterior(tdpf_z, csa_z)
+        if posterior.ontd > 0.5:
+            rows.insert(
+                0,
+                "Chiari II / open neural tube defect: "
+                f"ONTD posterior {posterior.ontd:.0%} "
+                "(research-mode; evaluate the fetal spine).",
+            )
 
     return rows
 

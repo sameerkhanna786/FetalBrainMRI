@@ -886,3 +886,9 @@
 - Add architecture coverage for Python endpoint differential-consideration output.
 - Implement deterministic threshold triggers for the core ventriculomegaly, CSP, third-ventricle, size-summary, posterior-fossa, and pons patterns.
 - Use the Python DDx rows to make the report impression more specific when a core trigger fires.
+
+## SPEC 6.5 Python Chiari II Discriminator Increment
+
+- Add architecture coverage for the Python Mahalanobis ONTD posterior helper.
+- Implement the TDPF/CSA Chiari II trigger using consensus z-scores and posterior > 0.5.
+- Flag the Python report output as research-mode when the Chiari II / ONTD discriminator fires.

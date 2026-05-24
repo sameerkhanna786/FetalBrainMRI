@@ -172,6 +172,17 @@ describe("SPEC §4.3 Python/FastAPI architecture scaffold", () => {
     expect(app).toContain("Dandy-Walker");
   });
 
+  it("implements the Python Chiari II / ONTD discriminator hook", () => {
+    const app = read("python_app/main.py");
+    const core = read("python_app/biometry.py");
+
+    expect(core).toContain("def chiari_ontd_posterior");
+    expect(core).toContain("mahalanobis2");
+    expect(app).toContain("Chiari II / open neural tube defect");
+    expect(app).toContain("ONTD posterior");
+    expect(app).toContain("research-mode");
+  });
+
   it("scaffolds scipy curve fitting for offline centile-table registry builds", () => {
     const core = read("python_app/biometry.py");
 
