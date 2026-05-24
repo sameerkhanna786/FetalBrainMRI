@@ -904,49 +904,10 @@ export const QUALITATIVE_FINDINGS: QualitativeFinding[] = [
   },
 ];
 
-/* ---------- Legacy reference-set labels ----------
- *
- * The current SPEC removes cohort selection from the user-facing surface. These
- * exports remain only so older call sites and validation notes continue to
- * compile while the runtime scorer always uses the full source registry.
- */
-
-export type ReferenceSetId = "multi-source" | "luis-only";
-
-export type ReferenceSet = {
-  id: ReferenceSetId;
-  label: string;
-  short: string;
-  description: string;
-};
-
-export const REFERENCE_SETS: ReferenceSet[] = [
-  {
-    id: "multi-source",
-    label: "Multi-source (best per-parameter evidence)",
-    short: "Multi-source",
-    description:
-      "Posterior fossa and brainstem (TCD, vermis, pons) use Dovjak 2021 per-percentile linear equations; third ventricle uses Birnbaum 2018; everything else uses Luis 2025.",
-  },
-  {
-    id: "luis-only",
-    label: "Luis 2025 only (single-cohort consistency)",
-    short: "Luis 2025 only",
-    description:
-      "All 13 parameters Luis publishes use the Luis 2025 quadratic-mean / linear-SD coefficients from a single 406-fetus cohort. Third ventricle still uses Birnbaum 2018 because Luis does not publish a normative model for it.",
-  },
-];
-
-export const REFERENCE_SET_BY_ID: Record<ReferenceSetId, ReferenceSet> =
-  Object.fromEntries(REFERENCE_SETS.map(r => [r.id, r])) as Record<
-    ReferenceSetId,
-    ReferenceSet
-  >;
-
 /**
- * Luis 2025 quadratic-mean / linear-SD coefficients for the four parameters
- * that the multi-source set drives with non-Luis models. Verbatim from the
- * SVRTK auto-reporting pipeline (see project_docs/luis2025_coefficients.md).
+ * Luis 2025 quadratic-mean / linear-SD coefficients for the four
+ * posterior-fossa / brainstem registry entries that reconcile against Dovjak
+ * 2021. Verbatim from the SVRTK auto-reporting pipeline.
  */
 const LUIS_OVERRIDES: Record<string, LuisQuadratic> = {
   tcd: {
@@ -1198,23 +1159,6 @@ export function validateSourceRegistryExtension(
   };
 }
 
-/**
- * Returns the model that should drive the z-score for `param` under the active
- * reference set, plus the source label that should be displayed for that model.
- * For most parameters this is just the parameter's static `model` and
- * `primary` source. The four posterior-fossa / brainstem parameters switch to
- * the Luis overrides when the reference set is `"luis-only"`.
- */
-export function resolveModel(
-  param: Parameter,
-  refSet: ReferenceSetId = "multi-source"
-): { model: Model; source: Source } {
-  if (refSet === "luis-only" && LUIS_OVERRIDES[param.id]) {
-    return { model: LUIS_OVERRIDES[param.id], source: S_LUIS };
-  }
-  return { model: param.model, source: param.primary };
-}
-
 /* ---------- Math: normal CDF and z-score ---------- */
 
 // Abramowitz & Stegun 7.1.26 approximation of erf
@@ -1418,12 +1362,8 @@ export function computeCrossValidationAudits(
   });
 }
 
-/** Mean curve μ(GA) for a parameter under the active reference set. */
-export const mu = (
-  p: Parameter,
-  gaWeeks: number,
-  _refSet: ReferenceSetId = "multi-source"
-): number => {
+/** Consensus mean curve μ(GA) for a parameter under its source registry. */
+export const mu = (p: Parameter, gaWeeks: number): number => {
   const entries = sourceRegistryFor(p);
   const inRange = entries.filter(
     entry => gaWeeks >= entry.gaRange[0] && gaWeeks <= entry.gaRange[1]
@@ -1442,12 +1382,8 @@ export const mu = (
   );
 };
 
-/** Standard-deviation curve σ(GA) for a parameter under the active reference set. */
-export const sigma = (
-  p: Parameter,
-  gaWeeks: number,
-  _refSet: ReferenceSetId = "multi-source"
-): number => {
+/** Consensus standard-deviation curve σ(GA) for a parameter source registry. */
+export const sigma = (p: Parameter, gaWeeks: number): number => {
   const entries = sourceRegistryFor(p);
   const inRange = entries.filter(
     entry => gaWeeks >= entry.gaRange[0] && gaWeeks <= entry.gaRange[1]
@@ -1462,12 +1398,7 @@ export const sigma = (
   );
 };
 
-export function zscore(
-  param: Parameter,
-  ga: GA,
-  x: number,
-  _refSet: ReferenceSetId = "multi-source"
-): ZResult | null {
+export function zscore(param: Parameter, ga: GA, x: number): ZResult | null {
   if (!Number.isFinite(x)) return null;
   const w = gaToDecimalWeeks(ga);
   const registry = sourceRegistryFor(param);
@@ -3634,8 +3565,7 @@ const BOOSTS: {
 
 export function evaluateAll(
   values: Record<string, number | null>,
-  ga: GA,
-  refSet: ReferenceSetId = "multi-source"
+  ga: GA
 ): {
   zs: Record<string, ZResult | null>;
   dxs: Differential[];
@@ -3643,7 +3573,7 @@ export function evaluateAll(
   const zs: Record<string, ZResult | null> = {};
   for (const p of PARAMETERS_ALL) {
     const v = values[p.id];
-    zs[p.id] = v == null ? null : zscore(p, ga, v, refSet);
+    zs[p.id] = v == null ? null : zscore(p, ga, v);
   }
   const input: EngineInput = { values, zs };
 

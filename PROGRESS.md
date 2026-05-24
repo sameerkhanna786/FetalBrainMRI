@@ -1283,3 +1283,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/source-detail-ui.test.ts client/src/components/ParameterRow.tsx` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.2 Reference-Cohort Surface Removal Increment
+
+- Added source-surface coverage rejecting alternate reference-set selection code such as `luis-only`.
+- Removed legacy reference-set exports and the unused reference-set resolver from the biometry engine.
+- Kept the Luis coefficients used as source-registry entries for multi-source consensus reconciliation.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 103 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/client-shell.test.ts client/src/lib/biometry.ts` passes after formatting `client/src/lib/client-shell.test.ts` and `client/src/lib/biometry.ts`.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

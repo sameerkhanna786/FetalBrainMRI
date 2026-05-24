@@ -586,3 +586,9 @@
 - Add row-level UI coverage proving source breakdowns open by default when the agreement state is `disagree`.
 - Bind the parameter-row source breakdown `open` state to the computed disagreement state.
 - Preserve collapsed source breakdowns for non-disagree rows and keep the existing source-disagreement anchors.
+
+## SPEC 4.2 Reference-Cohort Surface Removal Increment
+
+- Add source-surface coverage rejecting alternate reference-set selection code such as `luis-only`.
+- Remove legacy reference-set exports and the unused reference-set resolver from the biometry engine.
+- Keep the Luis coefficients used as source-registry entries for multi-source consensus reconciliation.

@@ -149,3 +149,18 @@ describe("SPEC §4.9 client privacy shell", () => {
     expect(findForbiddenSourcePatterns(forbidden)).toEqual([]);
   });
 });
+
+describe("SPEC §4.2 reference cohort removal", () => {
+  it("does not expose alternate reference-set selection code", () => {
+    const forbidden = [
+      { label: "alternate cohort id", pattern: /luis-only/ },
+      {
+        label: "reference-set API",
+        pattern:
+          /REFERENCE_SETS|REFERENCE_SET_BY_ID|ReferenceSetId|resolveModel/,
+      },
+    ];
+
+    expect(findForbiddenSourcePatterns(forbidden)).toEqual([]);
+  });
+});
