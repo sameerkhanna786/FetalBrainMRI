@@ -342,6 +342,20 @@ export default function Methodology() {
         <section className="space-y-4 mb-12">
           <h2 className="font-display text-2xl">Privacy &amp; workflow</h2>
           <p>
+            Phase 1 Epic Radiant integration is a custom hyperlink from the
+            Radiant Learning Home or toolbar that opens the calculator URL in
+            the default system browser. SMART-on-FHIR launch is deferred because
+            manual gestational-age entry is faster than the security and build
+            overhead of handling hospital context tokens.
+          </p>
+          <p>
+            PowerScribe integration remains a plain text clipboard path: the
+            radiologist copies the generated report, places the cursor in the
+            PowerScribe Findings field, and pastes with Ctrl+V or the
+            platform-equivalent paste command. The copied payload contains line
+            breaks only, with no HTML or PHI-bearing fields.
+          </p>
+          <p>
             The prototype is entirely client-side. No patient data is ever
             transmitted, stored, or logged. Refreshing the page clears every
             input. Because no PHI is handled, the calculator sits outside HIPAA

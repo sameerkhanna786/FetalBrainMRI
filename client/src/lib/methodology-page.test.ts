@@ -35,3 +35,20 @@ describe("SPEC §7.5 source verification dossier", () => {
     expect(dossier).toContain("Closed");
   });
 });
+
+describe("SPEC §4.8 clinical integration workflow", () => {
+  it("surfaces the Epic Radiant launch path, SMART deferral, and PowerScribe paste workflow", () => {
+    const source = readFileSync(
+      resolve(process.cwd(), "client/src/pages/Methodology.tsx"),
+      "utf8"
+    );
+
+    expect(source).toContain("Epic Radiant");
+    expect(source).toContain("Learning Home");
+    expect(source).toContain("default system browser");
+    expect(source).toContain("SMART-on-FHIR");
+    expect(source).toContain("PowerScribe");
+    expect(source).toContain("Ctrl+V");
+    expect(source).toContain("plain text");
+  });
+});

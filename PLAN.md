@@ -760,3 +760,9 @@
 - Add regression coverage that the SPEC §7.5 verification dossier exists.
 - Cross-list the Dovjak, Woitek, third-ventricle, Section 7.4 citation-pass, and Chiari calibration action items.
 - Track each action item with an explicit status so unresolved clinician-collaborator work is visible.
+
+## SPEC 4.8 Clinical Integration Workflow Increment
+
+- Add Methodology-page coverage for the Epic Radiant launch path and SMART-on-FHIR deferral.
+- Surface the PowerScribe paste workflow and plain-text clipboard constraint from SPEC §4.8.
+- Keep the implementation as documentation of Phase 1 integration rather than introducing PHI-bearing EHR code.

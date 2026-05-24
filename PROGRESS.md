@@ -1660,3 +1660,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md source_verification_dossier.md client/src/lib/methodology-page.test.ts` passes after formatting `source_verification_dossier.md`.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.8 Clinical Integration Workflow Increment
+
+- Added Methodology-page coverage for the Epic Radiant launch path and SMART-on-FHIR deferral.
+- Surfaced the PowerScribe paste workflow and plain-text clipboard constraint from SPEC §4.8.
+- Kept the implementation as documentation of Phase 1 integration rather than introducing PHI-bearing EHR code.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 132 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/methodology-page.test.ts client/src/pages/Methodology.tsx` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
