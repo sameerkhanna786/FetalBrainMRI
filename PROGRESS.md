@@ -1,3 +1,20 @@
+## 2026-05-23, Ma 2019 Atrial-Diameter Source Metadata Increment
+
+- Added failing-first source-document coverage that locks `MA_2019` to the Medicine fetal-MRI lateral-ventricle article and rejects the unrelated Wiley `10.1002/jum.15003` ovarian cystadenofibroma article.
+- Verified via Crossref that `10.1002/jum.15003` resolves to an unrelated Journal of Ultrasound in Medicine ovarian cystadenofibroma paper, while `10.1097/MD.0000000000016118` resolves to the Ma 2019 fetal lateral-ventricle MRI article.
+- Verified via PubMed and NCBI ID Converter that the correct Ma 2019 identifiers are PMID `31261528` and PMCID `PMC6616102`.
+- Corrected the SPEC tooltip, source inventory, and atrial-diameter cross-validation row while preserving Ma 2019 as a teaching / cross-validation source rather than an active computational coefficient source.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before the citation update because SPEC.md did not contain `10.1097/MD.0000000000016118`.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 195 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 195 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, Corroenne 2023 Citation Metadata Increment
 
 - Added failing-first source-document coverage that locks Corroenne 2023 to DOI `10.1002/uog.26187` and PubMed PMID `36864530`.

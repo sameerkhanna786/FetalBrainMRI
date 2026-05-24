@@ -210,6 +210,24 @@ describe("publication-readiness source-document consistency", () => {
     );
   });
 
+  it("locks Ma 2019 atrial-diameter metadata to the Medicine fetal-MRI article", () => {
+    const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
+
+    expect(spec).toContain("10.1097/MD.0000000000016118");
+    expect(spec).toContain("31261528");
+    expect(spec).toContain("PMC6616102");
+    expect(spec).toContain(
+      "Volume growth trend and correlation of atrial diameter with lateral ventricular volume in normal fetus and fetus with ventriculomegaly"
+    );
+    expect(spec).not.toContain("10.1002/jum.15003");
+    expect(spec).not.toContain(
+      "Ultrasound and Histopathologic Correlation of Ovarian Cystadenofibromas"
+    );
+    expect(spec).not.toContain(
+      "Reference values for fetal lateral ventricular atrial diameter on MRI between 18 and 38 gestational weeks"
+    );
+  });
+
   it("locks the Woitek 2014 Table 3 control rows to the PMC source audit", () => {
     const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
     const dossier = readFileSync(

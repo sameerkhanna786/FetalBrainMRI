@@ -1103,3 +1103,10 @@
 - Correct the SPEC tooltip and source-inventory metadata away from the unrelated DOI `10.1002/uog.26280`, wrong PMID, and wrong PMCID.
 - Keep Corroenne as a teaching/cross-validation source, not an active Phase 1 computational registry row.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Ma 2019 Atrial-Diameter Source Metadata Increment
+
+- Add source-document coverage proving `MA_2019` resolves to the Medicine fetal lateral-ventricle MRI article, not the unrelated Wiley ovarian cystadenofibroma article at `10.1002/jum.15003`.
+- Correct the SPEC tooltip, source inventory, and atrial-diameter cross-validation row to DOI `10.1097/MD.0000000000016118`, PMID `31261528`, and PMCID `PMC6616102`.
+- Preserve Ma 2019 as a teaching/cross-validation source for atrial diameter, not an active computational coefficient source.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.
