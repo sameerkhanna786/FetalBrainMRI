@@ -1552,3 +1552,10 @@
 - Validate measurement export parameter IDs against the runtime `PARAMETERS_ALL` registry.
 - Document that the data dictionary's parameter IDs are runtime IDs, not free text.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Diagnostic Trigger ID Guard Increment
+
+- Add failing-first coverage for unknown `diagnostic_labels.csv` `trigger_id` values.
+- Expose runtime differential card IDs from the DDx engine and validate diagnostic-label exports against that list.
+- Document that diagnostic trigger IDs must match runtime card IDs rather than free-text labels.
+- Update the audit/progress trail, then run targeted/full gates before committing.

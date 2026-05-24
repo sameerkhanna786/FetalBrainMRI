@@ -578,6 +578,28 @@ describe("validation data export schema guard", () => {
     expect(errors.join("\n")).toContain("tcd");
   });
 
+  it("rejects unknown diagnostic trigger IDs before accuracy analysis", () => {
+    const errors = validateValidationDataRows("diagnostic_labels.csv", [
+      {
+        study_id: "S1",
+        trigger_id: "ventriculomegaly",
+        reference_label: true,
+        predicted_label: true,
+        threshold: 0.5,
+        indeterminate: false,
+      },
+    ]);
+
+    expect(
+      errors.some(error =>
+        error.startsWith(
+          "diagnostic_labels.csv row 1 field trigger_id must be one of "
+        )
+      )
+    ).toBe(true);
+    expect(errors.join("\n")).toContain("mild-vm");
+  });
+
   it("validates cross-file study IDs and reader-study pair completeness", () => {
     expect(
       validateValidationDataExport({

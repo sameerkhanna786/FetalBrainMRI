@@ -3445,6 +3445,8 @@ const CARDS: CardSpec[] = [
   },
 ];
 
+export const DIFFERENTIAL_CARD_IDS = CARDS.map(card => card.id);
+
 /* ---------- Boost rules (multiplier on score when both fire) ---------- */
 
 const BOOSTS: {

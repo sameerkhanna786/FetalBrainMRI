@@ -1,3 +1,21 @@
+## 2026-05-24, Diagnostic Trigger ID Guard Increment
+
+- Added failing-first coverage for unknown `diagnostic_labels.csv` `trigger_id` values.
+- Exported runtime differential card IDs from the DDx engine and validated diagnostic-label exports against that list.
+- Updated `validation_data_dictionary.md` to state that diagnostic trigger IDs must match runtime card IDs.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "trigger IDs"` failed before implementation because unknown diagnostic trigger IDs produced no schema errors.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "trigger IDs"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 17 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 262 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/biometry.ts client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Measurement Parameter ID Guard Increment
 
 - Added failing-first coverage for unknown `measurement_rows.csv` `parameter_id` values.

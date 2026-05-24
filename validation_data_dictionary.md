@@ -84,16 +84,16 @@ columns blank and provide `missing_reason`.
 Use one row per diagnostic trigger that will be reported in the manuscript. Lock
 the threshold before analysis in `validation_analysis_lock.md`.
 
-| Column                | Required    | Values / notes                                                                                                                                                                       |
-| --------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| study_id              | yes         | Links to `case_log.csv`.                                                                                                                                                             |
-| trigger_id            | yes         | Runtime card id such as `mild-vm`, `severe-vm`, `macrocephaly`, `microcephaly`, `acc-pattern`, `hpe-pattern`, `dwm-pattern`, `pch-pattern`, `extra-axial-wide`, or `chiari-ii-ontd`. |
-| reference_label       | yes         | `true` or `false` expert truth label.                                                                                                                                                |
-| predicted_label       | yes         | `true` or `false` calculator label at the locked threshold.                                                                                                                          |
-| predicted_probability | conditional | 0-1 probability; required when computing calibration, ROC-AUC, PR-AUC, Brier score, or decision-curve net benefit.                                                                   |
-| threshold             | yes         | Locked 0-1 threshold used for `predicted_label`.                                                                                                                                     |
-| indeterminate         | yes         | `true` if the case is excluded from the trigger analysis because truth is not adjudicable.                                                                                           |
-| indeterminate_reason  | conditional | Required when `indeterminate=true`.                                                                                                                                                  |
+| Column                | Required    | Values / notes                                                                                                                                                                                                 |
+| --------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| study_id              | yes         | Links to `case_log.csv`.                                                                                                                                                                                       |
+| trigger_id            | yes         | Must match a runtime differential card id such as `mild-vm`, `severe-vm`, `macrocephaly`, `microcephaly`, `acc-pattern`, `hpe-pattern`, `dwm-pattern`, `pch-pattern`, `extra-axial-wide`, or `chiari-ii-ontd`. |
+| reference_label       | yes         | `true` or `false` expert truth label.                                                                                                                                                                          |
+| predicted_label       | yes         | `true` or `false` calculator label at the locked threshold.                                                                                                                                                    |
+| predicted_probability | conditional | 0-1 probability; required when computing calibration, ROC-AUC, PR-AUC, Brier score, or decision-curve net benefit.                                                                                             |
+| threshold             | yes         | Locked 0-1 threshold used for `predicted_label`.                                                                                                                                                               |
+| indeterminate         | yes         | `true` if the case is excluded from the trigger analysis because truth is not adjudicable.                                                                                                                     |
+| indeterminate_reason  | conditional | Required when `indeterminate=true`.                                                                                                                                                                            |
 
 ## reader_study_rows.csv
 

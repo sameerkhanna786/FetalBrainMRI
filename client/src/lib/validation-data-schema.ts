@@ -1,4 +1,4 @@
-import { PARAMETERS_ALL } from "./biometry";
+import { DIFFERENTIAL_CARD_IDS, PARAMETERS_ALL } from "./biometry";
 
 export type ValidationDataFileName =
   | "case_log.csv"
@@ -61,6 +61,7 @@ const SOURCE_ROLE_VALUES = [
   "ai_prefill",
 ] as const;
 const PARAMETER_ID_VALUES = PARAMETERS_ALL.map(parameter => parameter.id);
+const TRIGGER_ID_VALUES = DIFFERENTIAL_CARD_IDS;
 const NASA_TLX_COLUMNS = [
   "nasa_tlx_mental_demand",
   "nasa_tlx_physical_demand",
@@ -161,7 +162,11 @@ export const VALIDATION_DATA_SCHEMAS: Record<
     fileName: "diagnostic_labels.csv",
     columns: [
       { name: "study_id", required: "yes" },
-      { name: "trigger_id", required: "yes" },
+      {
+        name: "trigger_id",
+        required: "yes",
+        allowedValues: TRIGGER_ID_VALUES,
+      },
       {
         name: "reference_label",
         required: "yes",
