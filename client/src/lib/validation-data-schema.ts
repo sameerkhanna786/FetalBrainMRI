@@ -15,6 +15,7 @@ export interface ValidationDataColumnSchema {
   allowedValues?: readonly string[];
   numeric?: boolean;
   min?: number;
+  exclusiveMin?: number;
   max?: number;
   integer?: boolean;
 }
@@ -207,7 +208,12 @@ export const VALIDATION_DATA_SCHEMAS: Record<
         integer: true,
       },
       { name: "washout_days", required: "yes", numeric: true, min: 14 },
-      { name: "duration_sec", required: "yes", numeric: true, min: 0 },
+      {
+        name: "duration_sec",
+        required: "yes",
+        numeric: true,
+        exclusiveMin: 0,
+      },
       { name: "completeness_score", required: "yes", numeric: true },
       {
         name: "zscore_documentation_rate",
@@ -347,7 +353,12 @@ export const VALIDATION_DATA_SCHEMAS: Record<
         required: "yes",
         allowedValues: ["baseline", "post_tool"],
       },
-      { name: "duration_sec", required: "yes", numeric: true, min: 0 },
+      {
+        name: "duration_sec",
+        required: "yes",
+        numeric: true,
+        exclusiveMin: 0,
+      },
       {
         name: "required_measurement_count",
         required: "yes",
@@ -487,6 +498,15 @@ export const validateValidationDataRows = (
             (column.max != null && numberValue > column.max))
         ) {
           errors.push(rangeMessage(rowLabel, column));
+        }
+        if (
+          column.exclusiveMin != null &&
+          numberValue != null &&
+          numberValue <= column.exclusiveMin
+        ) {
+          errors.push(
+            `${rowLabel} field ${column.name} must be greater than ${column.exclusiveMin}`
+          );
         }
       }
       if (

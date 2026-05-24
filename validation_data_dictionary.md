@@ -112,7 +112,7 @@ SUS item is present, all ten item responses must be present.
 | condition                 | yes         | `without_tool` or `with_tool`.                           |
 | read_order                | yes         | Integer order within the reader's assigned sequence.     |
 | washout_days              | yes         | Days between paired reads; minimum is 14.                |
-| duration_sec              | yes         | Reading or reporting duration in seconds.                |
+| duration_sec              | yes         | Positive reading or reporting duration in seconds.       |
 | completeness_score        | yes         | Locked rubric score, same scale in both conditions.      |
 | zscore_documentation_rate | yes         | Fraction 0-1 of required z-scores documented.            |
 | recommendation_congruent  | conditional | `true`, `false`, or blank if not applicable.             |
@@ -149,7 +149,7 @@ the other validation files.
 | report_id                      | yes         | De-identified report key.                                   |
 | study_id                       | yes         | Links to `case_log.csv`.                                    |
 | phase                          | yes         | `baseline` or `post_tool`.                                  |
-| duration_sec                   | yes         | Time to complete report.                                    |
+| duration_sec                   | yes         | Positive time to complete report.                           |
 | required_measurement_count     | yes         | Number of measurements required by the locked audit rubric. |
 | documented_measurement_count   | yes         | Number of required measurements documented in report.       |
 | explicit_zscore_documented     | yes         | `true` or `false`.                                          |
@@ -171,8 +171,8 @@ the other validation files.
 7. Locked thresholds and endpoint definitions are copied into
    `validation_analysis_lock.md` before analysis.
 8. Probability, rate, NASA Task Load Index, System Usability Scale, gestational
-   age day, duration, and count fields stay inside the documented numeric
-   ranges.
+   age day, positive duration, and count fields stay inside the documented
+   numeric ranges.
 9. Reader-study paired reads have at least 14 washout days.
 10. Partial NASA Task Load Index or System Usability Scale rows are fixed before
     scoring; do not export only selected subscales or selected SUS items.

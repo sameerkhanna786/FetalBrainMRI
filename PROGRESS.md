@@ -1,3 +1,21 @@
+## 2026-05-24, Validation Positive Duration Guard Increment
+
+- Added failing-first coverage for zero-second `reader_study_rows.csv` and `report_audit_rows.csv` durations.
+- Added exclusive lower-bound metadata to the validation export schema and applied it to timing fields that must be positive.
+- Updated `validation_data_dictionary.md` and `reader_study_protocol.md` so duration fields are documented as positive values before timing endpoints are analyzed.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "zero-second"` failed before implementation because `duration_sec=0` produced no schema errors.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "zero-second"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 20 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 265 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md reader_study_protocol.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Reader-Study Washout Guard Increment
 
 - Added failing-first coverage for `reader_study_rows.csv` rows with `washout_days` shorter than the locked two-week interval.

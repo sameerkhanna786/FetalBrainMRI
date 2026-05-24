@@ -1573,3 +1573,10 @@
 - Tighten the validation export schema so paired reader-study rows require at least 14 washout days before analysis.
 - Update the data dictionary and reader-study protocol wording from a target to a runtime-enforced minimum.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Validation Positive Duration Guard Increment
+
+- Add failing-first coverage for zero-second reader-study and report-audit durations.
+- Extend validation column metadata with an exclusive lower-bound guard for fields that must be positive.
+- Apply the positive-duration guard to reader-study and report-audit `duration_sec` before timing endpoints are analyzed.
+- Update the data dictionary, audit/progress trail, and full verification gate before committing.

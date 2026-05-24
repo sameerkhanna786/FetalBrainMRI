@@ -67,7 +67,7 @@ not duplicated in the reader-study export.
 | condition                 | `without_tool` or `with_tool`.                           |
 | read_order                | Integer order within the reader's assigned sequence.     |
 | washout_days              | Days between paired reads; minimum is 14.                |
-| duration_sec              | Interpretation time in seconds.                          |
+| duration_sec              | Positive interpretation time in seconds.                 |
 | completeness_score        | Predefined report-completeness score.                    |
 | zscore_documentation_rate | Per-case proportion from 0 to 1.                         |
 | recommendation_congruent  | Boolean adjudicated recommendation match.                |

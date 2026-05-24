@@ -324,6 +324,43 @@ describe("validation data export schema guard", () => {
     );
   });
 
+  it("rejects zero-second reader-study and report-audit durations before timing analysis", () => {
+    expect(
+      validateValidationDataRows("reader_study_rows.csv", [
+        {
+          reader_id: "R1",
+          study_id: "S1",
+          condition: "with_tool",
+          read_order: 2,
+          washout_days: 14,
+          duration_sec: 0,
+          completeness_score: 0.95,
+          zscore_documentation_rate: 1,
+          recommendation_congruent: true,
+        },
+      ])
+    ).toContain(
+      "reader_study_rows.csv row 1 field duration_sec must be greater than 0"
+    );
+
+    expect(
+      validateValidationDataRows("report_audit_rows.csv", [
+        {
+          report_id: "P1",
+          study_id: "S1",
+          phase: "post_tool",
+          duration_sec: 0,
+          required_measurement_count: 8,
+          documented_measurement_count: 8,
+          explicit_zscore_documented: true,
+          explicit_percentile_documented: true,
+        },
+      ])
+    ).toContain(
+      "report_audit_rows.csv row 1 field duration_sec must be greater than 0"
+    );
+  });
+
   it("rejects invalid boolean tokens and allows blank recommendation congruence when not applicable", () => {
     expect(
       validateValidationDataRows("case_log.csv", [
