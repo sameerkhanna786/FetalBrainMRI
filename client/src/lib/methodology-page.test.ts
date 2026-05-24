@@ -309,6 +309,21 @@ describe("publication-readiness source-document consistency", () => {
     expect(spec).not.toContain("10.1021/nl502994y");
   });
 
+  it("uses explicit PMCID absence labels in the source inventory", () => {
+    const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
+
+    expect(spec).not.toContain("(NA)");
+    expect(spec).toContain(
+      "| CORROENNE_2023 | Corroenne R, Grevent D, Kasprian G, Stirnemann J, Ville Y, Mahallati H, Salomon LJ."
+    );
+    expect(spec).toContain(
+      "| SMFM_2018 | Society for Maternal-Fetal Medicine."
+    );
+    expect(spec).toContain("| SMFM_2020_CSP | SMFM; Ward A, Monteagudo A.");
+    expect(spec).toContain("| SUN_2024 | Sun H, Li K, Wang L");
+    expect(spec).toContain("| GAREL_2003 | Garel C, Luton D, Oury JF");
+  });
+
   it("locks the Woitek 2014 Table 3 control rows to the PMC source audit", () => {
     const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
     const dossier = readFileSync(

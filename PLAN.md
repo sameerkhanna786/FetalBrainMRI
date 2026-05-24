@@ -1138,3 +1138,10 @@
 - Correct the SPEC source-inventory row and reference metadata away from wrong PMID `25333768`, which resolves to an unrelated nanoscience article.
 - Verify the article has no PMC record and mark the PMCID field explicitly as `(not in PMC)`.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Source Inventory PMCID Absence Label Increment
+
+- Add source-document coverage that the SPEC source inventory no longer uses ambiguous `(NA)` PMCID cells.
+- Replace verified no-PMC rows with `(not in PMC)` for Corroenne 2023, SMFM 2018, SMFM 2020 CSP, Sun 2024, and Garel 2003.
+- Record the NCBI ID Converter verification for those PMID lookups in PROGRESS.md.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.
