@@ -1889,7 +1889,7 @@ describe("isolated small TCD report impression", () => {
     const ga = { weeks: 32, days: 0 };
     const gaWeeks = 32;
     const values = {
-      tcd: 33,
+      tcd: 35,
       vermis_cc: 19.5,
       vermis_ap: mu(byId("vermis_ap"), gaWeeks),
       pons_ap: 11.5,

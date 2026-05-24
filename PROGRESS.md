@@ -1,3 +1,20 @@
+## 2026-05-24, TEST Cerebellar-Hypoplasia Fixture Runtime Consistency Increment
+
+- Added failing-first source-document coverage that parses TEST.md cases CH1-CH6, evaluates their TCD/vermis/pons/VM/asymmetry rows with the runtime engine, and verifies intended small-TCD, preserved-vermis, VM, and hemispheric-asymmetry card behavior.
+- Corrected stale CH rows so preserved-vermis cases no longer fire accidental `vermian_hypoplasia`, the CH4 small-TCD case crosses the active threshold, and the CH5 negative control is actually near the TCD boundary.
+- Updated the TEST corpus numeric audit blocker from 34 to 31 residual normal-label rows.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before implementation because CH1 documented preserved vermis while the stale AP vermis row fired `vermis-small`.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 232 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 232 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md source_verification_dossier.md client/src/lib/methodology-page.test.ts client/src/lib/biometry.test.ts` passes after formatting the dossier and methodology test.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, TEST Dandy-Walker / Blake's Pouch Fixture Runtime Consistency Increment
 
 - Added failing-first source-document coverage that parses TEST.md cases D1-D6 and BP1-BP6, evaluates their posterior-fossa and auxiliary rows with the runtime engine, and verifies expected DWM, PCH, mega-cisterna-magna, hydrocephalus, and negative-control card behavior.

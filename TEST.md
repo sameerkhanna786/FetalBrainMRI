@@ -885,7 +885,7 @@ The `small_tcd` card fires when TCD z < –1.645. When the vermis is preserved, 
 | GA | 26 w 0 d | — |
 | TCD | 26.0 mm (vs. expected 31.0, z ≈ –2.0) | <5th |
 | Vermis CC | 14.0 mm | normal |
-| Vermis AP | 6.5 mm | normal |
+| Vermis AP | 9.0 mm | normal |
 | Pons AP | 8.5 mm | normal |
 | (other rows) | filler | normal |
 
@@ -899,7 +899,7 @@ The `small_tcd` card fires when TCD z < –1.645. When the vermis is preserved, 
 | GA | 30 w 0 d | — |
 | TCD | 28.0 mm (z ≈ –4) | <5th |
 | Vermis CC | 18.0 mm | normal |
-| Vermis AP | 7.5 mm | <5th (z ≈ –1.7) |
+| Vermis AP | 9.8 mm | <5th (z ≈ –1.8) |
 | Pons AP | 10.5 mm | normal |
 | (other rows) | filler | normal |
 
@@ -911,9 +911,9 @@ The `small_tcd` card fires when TCD z < –1.645. When the vermis is preserved, 
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 32 w 0 d | — |
-| TCD | 33.0 mm (z ≈ –2.5) | <5th |
+| TCD | 35.0 mm (z ≈ –2.5) | <5th |
 | Vermis CC | 19.5 mm | normal |
-| Vermis AP | 8.5 mm | normal |
+| Vermis AP | 12.6 mm | normal |
 | Pons AP | 11.5 mm | normal |
 | (other rows) | filler | normal |
 
@@ -927,9 +927,9 @@ The `small_tcd` card fires when TCD z < –1.645. When the vermis is preserved, 
 | GA | 28 w 0 d | — |
 | Atrium-R | 11.5 mm | >95th |
 | Atrium-L | 11.5 mm | >95th |
-| TCD | 31.0 mm (z ≈ –2.0) | <5th |
+| TCD | 29.5 mm (z ≈ –1.8) | <5th |
 | Vermis CC | 15.0 mm | normal |
-| Vermis AP | 7.0 mm | normal |
+| Vermis AP | 10.2 mm | normal |
 | Pons AP | 9.0 mm | normal |
 | (other rows) | filler | normal |
 
@@ -941,7 +941,7 @@ The `small_tcd` card fires when TCD z < –1.645. When the vermis is preserved, 
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 30 w 0 d | — |
-| TCD | 36.0 mm (z ≈ –1.5) | normal |
+| TCD | 33.5 mm (z ≈ –1.5) | normal |
 | (others) | filler | normal |
 
 `small_tcd` should *not* fire (z is just above –1.645). Boundary verification.

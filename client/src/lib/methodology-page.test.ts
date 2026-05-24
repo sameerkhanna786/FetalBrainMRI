@@ -110,7 +110,7 @@ describe("publication-readiness source-document consistency", () => {
     expect(dossier).toContain("DECIDE-AI");
     expect(dossier).toContain("FeTA 2024 biometry gap");
     expect(dossier).toContain("TEST corpus numeric audit");
-    expect(dossier).toContain("34 residual normal-label rows");
+    expect(dossier).toContain("31 residual normal-label rows");
     expect(dossier).toContain("decision-curve net benefit");
     expect(dossier).toContain("IRB");
     expect(dossier).toContain("radiologist handoff");
@@ -893,6 +893,115 @@ describe("publication-readiness source-document consistency", () => {
 
       if (caseText.includes("| Third ventricle |")) {
         expect(values.third_ventricle).toBeGreaterThan(3.5);
+      }
+    }
+  });
+
+  it("keeps TEST.md cerebellar-hypoplasia fixtures calibrated to runtime bands and cards", () => {
+    const testCorpus = readFileSync(resolve(process.cwd(), "TEST.md"), "utf8");
+    const parameterLabels = new Map([
+      ["Brain OFD-L", "brain_ofd_left"],
+      ["Brain OFD-R", "brain_ofd_right"],
+      ["Atrium-R", "atrial_right"],
+      ["Atrium-L", "atrial_left"],
+      ["TCD", "tcd"],
+      ["Vermis CC", "vermis_cc"],
+      ["Vermis AP", "vermis_ap"],
+      ["Pons AP", "pons_ap"],
+    ]);
+    const expectations = [
+      [
+        "CH1",
+        ["tcd-small"],
+        ["vermis-small", "pons-small", "dwm-pattern", "pch-pattern"],
+      ],
+      [
+        "CH2",
+        ["tcd-small", "vermis-small"],
+        ["pons-small", "dwm-pattern", "pch-pattern"],
+      ],
+      [
+        "CH3",
+        ["tcd-small"],
+        ["vermis-small", "pons-small", "dwm-pattern", "pch-pattern"],
+      ],
+      [
+        "CH4",
+        ["mild-vm", "tcd-small"],
+        ["vermis-small", "pons-small", "dwm-pattern", "pch-pattern"],
+      ],
+      ["CH5", [], ["tcd-small", "tcd-large", "vermis-small", "pons-small"]],
+      [
+        "CH6",
+        ["tcd-small", "brain-asym"],
+        ["vermis-small", "pons-small", "dwm-pattern", "pch-pattern"],
+      ],
+    ] as const;
+
+    const extractCase = (caseId: string): string => {
+      const start = testCorpus.indexOf(`### Case ${caseId} `);
+      expect(start).toBeGreaterThanOrEqual(0);
+      const nextCase = testCorpus.indexOf("\n### Case ", start + 1);
+      const nextSection = testCorpus.indexOf("\n---", start + 1);
+      const endCandidates = [nextCase, nextSection].filter(index => index > 0);
+      return testCorpus.slice(start, Math.min(...endCandidates));
+    };
+
+    for (const [caseId, expectedDxIds, forbiddenDxIds] of expectations) {
+      const caseText = extractCase(caseId);
+      const values: Record<string, number> = {};
+      const bandChecks: { parameterId: string; expectedBand: string }[] = [];
+      let ga: { weeks: number; days: number } | null = null;
+
+      for (const rawLine of caseText.split("\n")) {
+        if (!rawLine.startsWith("|")) continue;
+        const [label, rawValue, expectedBand] = rawLine
+          .split("|")
+          .slice(1, -1)
+          .map(cell => cell.replaceAll("**", "").trim());
+
+        if (label === "GA") {
+          const match = rawValue.match(/(\d+) w (\d+) d/);
+          expect(match).not.toBeNull();
+          ga = { weeks: Number(match![1]), days: Number(match![2]) };
+          continue;
+        }
+
+        const parameterId = parameterLabels.get(label);
+        if (!parameterId) continue;
+        const valueMatch = rawValue.match(/(-?\d+(?:\.\d+)?)/);
+        if (!valueMatch) continue;
+        values[parameterId] = Number(valueMatch[1]);
+        bandChecks.push({ parameterId, expectedBand });
+      }
+
+      expect(ga).not.toBeNull();
+      const { zs, dxs } = evaluateAll(values, ga!);
+      const dxIds = dxs.map(dx => dx.id);
+      for (const expectedDxId of expectedDxIds) {
+        expect(dxIds).toContain(expectedDxId);
+      }
+      for (const forbiddenDxId of forbiddenDxIds) {
+        expect(dxIds).not.toContain(forbiddenDxId);
+      }
+
+      for (const { parameterId, expectedBand } of bandChecks) {
+        const band = expectedBand.toLowerCase();
+        const zResult = zs[parameterId];
+        if (zResult == null) continue;
+        const z = zResult.z;
+        const sourceZs = zResult.sourceDetails.map(detail => detail.z);
+        const lowZ = parameterId === "tcd" ? Math.min(z, ...sourceZs) : z;
+        if (band.includes("normal") && !band.includes("abnormal")) {
+          expect(Math.abs(z)).toBeLessThan(1.6448536269514722);
+          if (parameterId === "tcd") {
+            expect(lowZ).toBeGreaterThanOrEqual(-1.6448536269514722);
+          }
+        } else if (band.includes("<5th")) {
+          expect(lowZ).toBeLessThan(-1.6448536269514722);
+        } else if (band.includes(">95th")) {
+          expect(z).toBeGreaterThan(1.6448536269514722);
+        }
       }
     }
   });

@@ -1356,3 +1356,10 @@
 - Recalibrate stale normal posterior-fossa rows so Dandy-Walker positives and Blake's pouch negative controls match active registry thresholds without accidental small-pons/vermis/TCD cards.
 - Update the residual TEST corpus numeric audit blocker count after the Dandy-Walker / Blake's pouch section is reconciled.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## TEST Cerebellar-Hypoplasia Fixture Runtime Consistency Increment
+
+- Add failing-first source-document coverage that parses TEST.md cases CH1-CH6 and verifies small-TCD, preserved-vermis, VM, and hemispheric-asymmetry behavior against the runtime engine.
+- Recalibrate stale vermis AP and TCD rows so isolated cerebellar hypoplasia cases do not accidentally fire vermian-hypoplasia cards and intended small-TCD cases cross the active threshold.
+- Update the residual TEST corpus numeric audit blocker count after the cerebellar-hypoplasia section is reconciled.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.
