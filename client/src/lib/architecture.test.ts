@@ -87,6 +87,17 @@ describe("SPEC §4.3 Python/FastAPI architecture scaffold", () => {
     expect(htmx).toContain("addEventListener");
   });
 
+  it("bundles local stylesheet rules for the Python worksheet shell", () => {
+    const stylesheet = read("python_app/static/tailwind.css");
+
+    expect(stylesheet).not.toContain("placeholder");
+    expect(stylesheet).toContain("form[hx-post]");
+    expect(stylesheet).toContain("#report-preview");
+    expect(stylesheet).toContain("@media (min-width: 1024px)");
+    expect(stylesheet).toContain("background");
+    expect(stylesheet).toContain("border");
+  });
+
   it("provides a numpy/scipy Python biometry core scaffold for all model families", () => {
     const corePath = resolve(process.cwd(), "python_app/biometry.py");
 

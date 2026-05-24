@@ -862,3 +862,9 @@
 - Add architecture coverage that the bundled HTMX asset is not a placeholder.
 - Implement the local `hx-post`/`hx-target` form-update behavior used by the Python worksheet.
 - Preserve the offline/no-external-script deployment posture.
+
+## SPEC 4.3 Local Tailwind Stylesheet Increment
+
+- Add architecture coverage that the bundled Tailwind stylesheet is not a placeholder.
+- Provide local CSS for the FastAPI/Jinja worksheet shell layout, controls, and report preview.
+- Preserve the offline/no-CDN styling posture.

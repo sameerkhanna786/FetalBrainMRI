@@ -1889,3 +1889,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/architecture.test.ts python_app/static/htmx.min.js` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.3 Local Tailwind Stylesheet Increment
+
+- Added architecture coverage that the bundled Tailwind stylesheet is not a placeholder.
+- Provided local CSS for the FastAPI/Jinja worksheet shell layout, controls, and report preview.
+- Preserved the offline/no-CDN styling posture.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 154 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/architecture.test.ts python_app/static/tailwind.css` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
