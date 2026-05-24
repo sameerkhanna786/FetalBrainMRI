@@ -681,16 +681,16 @@ The institutional cohort is not expected to require an FDA Investigational Devic
 
 ### 6.5 Adding the Chiari II / Open Neural Tube Defect Differential Trigger
 
-Spina bifida is one of the four named pathologies in the FeTA 2024 dataset. The base differential-diagnosis layer specified in Section 4.6 captures its secondary findings (small TCD, ventriculomegaly) but does not surface a top-level "Chiari II / open neural tube defect" differential card. This subsection specifies the additional parameters, normative z-score model, discriminator, and differential-diagnosis card needed to close that gap. The specification follows the same labelled-prose convention as Section 4.5 (parameter definitions) and Section 4.6 (DDx cards), and uses the Woitek 2014 case-control cohort [43] for normative values and discriminator centroids, with Aertsen 2019 [44] supplying inter-rater reliability and external validation, D'Addario 2001 [45] supplying the original ultrasound criteria, and Bahlmann 2015 [46] supplying the lemon/banana sign quantification.
+Spina bifida is one of the four named pathologies in the FeTA 2024 dataset. The base differential-diagnosis layer specified in Section 4.6 captures its secondary findings (small TCD, ventriculomegaly) but does not surface a top-level "Chiari II / open neural tube defect" differential card. This subsection specifies the additional parameters, normative z-score model, discriminator, and differential-diagnosis card needed to close that gap. The specification follows the same labelled-prose convention as Section 4.5 (parameter definitions) and Section 4.6 (DDx cards), and uses the Woitek 2014 normal-CNS cohort [43] for normative values and the matched Woitek case-control cohort for discriminator centroids, with Aertsen 2019 [44] supplying inter-rater reliability and external validation, D'Addario 2001 [45] supplying the original ultrasound criteria, and Bahlmann 2015 [46] supplying the lemon/banana sign quantification.
 
 #### 6.5.1 New Parameters Required
 
-Two additional linear measurements shall be included in the calculator's specification. The first is the maximum transverse diameter of the posterior fossa (TDPF), measured in the axial plane at the widest extent of the posterior fossa from inner table to inner table of the occipital bone. The second is the clivus-supraocciput angle (CSA), measured in the strict mid-sagittal plane between a line drawn along the dorsal surface of the clivus and a line drawn along the inner table of the supraocciput. Both measurements are validated for fetal MRI between 21 and 37 weeks gestational age in the Woitek 2014 control cohort (n = 44). Inter-rater agreement is excellent on fetal MRI: intraclass correlation 0.94 for TDPF and 0.92 for CSA in Aertsen 2019 [44]. The summary parameter table:
+Two additional linear measurements shall be included in the calculator's specification. The first is the maximum transverse diameter of the posterior fossa (TDPF), measured in the axial plane at the widest extent of the posterior fossa from inner table to inner table of the occipital bone. The second is the clivus-supraocciput angle (CSA), measured in the strict mid-sagittal plane between a line drawn along the dorsal surface of the clivus and a line drawn along the inner table of the supraocciput. Both measurements have Woitek 2014 fetal-MRI normal-CNS reference rows between 21 and 37 weeks gestational age (n = 238), with a matched n = 44 control subset used for the ONTD group comparison. Inter-rater agreement is excellent on fetal MRI: intraclass correlation 0.94 for TDPF and 0.92 for CSA in Aertsen 2019 [44]. The summary parameter table:
 
 | **Parameter** | **Unit** | **Validated GA range and source** |
 | --- | --- | --- |
-| Maximum Transverse Diameter of the Posterior Fossa (TDPF) | mm | 21-37 weeks; Woitek 2014 [43] (n=44 controls), validated externally on 60 fetuses with open spinal dysraphism by Aertsen 2019 [44]. |
-| Clivus-Supraocciput Angle (CSA) | degrees | 21-37 weeks; Woitek 2014 [43] (n=44 controls), originally described on ultrasound by D'Addario 2001 [45], validated on fetal MRI by Woitek 2014 and Aertsen 2019 [44]. |
+| Maximum Transverse Diameter of the Posterior Fossa (TDPF) | mm | 21-37 weeks; Woitek 2014 [43] normal-CNS reference table (n = 238), validated externally on 60 fetuses with open spinal dysraphism by Aertsen 2019 [44]. |
+| Clivus-Supraocciput Angle (CSA) | degrees | 21-37 weeks; Woitek 2014 [43] normal-CNS reference table (n = 238), originally described on ultrasound by D'Addario 2001 [45], validated on fetal MRI by Woitek 2014 and Aertsen 2019 [44]. |
 
 #### Maximum Transverse Diameter of the Posterior Fossa (TDPF)
 
@@ -710,31 +710,33 @@ Two additional linear measurements shall be included in the calculator's specifi
 
 #### 6.5.2 Normative Z-Score Model
 
-Both parameters shall use the same model family used by Luis 2025 for the parameters defined in Section 4.2: a quadratic mean as a function of gestational age in weeks, with a linear standard deviation as a function of gestational age. The coefficients were obtained by ordinary-least-squares fits to the Woitek 2014 Table 3 control cohort (n = 44, gestational age 21 to 37 weeks). For TDPF, the mean was fit as μ(GA) = -0.01307·GA² + 2.55571·GA - 21.71 mm, with standard deviation σ(GA) = 0.06716·GA + 0.547 mm; the root-mean-square fit error against the published per-week means is 0.6 mm, well below the inter-rater variability of 1.0 to 1.4 mm reported by Aertsen 2019 [44]. For CSA, the mean was fit as μ(GA) = -0.04767·GA² + 4.20404·GA + 1.73 degrees, with standard deviation σ(GA) = 0.01814·GA + 5.821 degrees; the root-mean-square fit error is 2.1°, well below the inter-rater variability of approximately 8° reported by Aertsen 2019. The z-score is computed as z = (measured − μ(GA)) / σ(GA), and the percentile is Φ(z)·100 where Φ is the standard-normal cumulative distribution function. The full per-week normative reference table reproduced from the Woitek 2014 control cohort, against which both the model and any future revision should be validated:
+Both parameters shall use the same model family used by Luis 2025 for the parameters defined in Section 4.2: a quadratic mean as a function of gestational age in weeks, with a linear standard deviation as a function of gestational age. The coefficients were obtained by ordinary-least-squares fits to the Woitek 2014 Table 3 normal-CNS cohort (n = 238, gestational age 21 to 37 weeks). For TDPF, the mean was fit as μ(GA) = -0.01307·GA² + 2.55571·GA - 21.71 mm, with standard deviation σ(GA) = 0.06716·GA + 0.547 mm; the root-mean-square fit error against the published per-week means is 0.6 mm, well below the inter-rater variability of 1.0 to 1.4 mm reported by Aertsen 2019 [44]. For CSA, the mean was fit as μ(GA) = -0.04767·GA² + 4.20404·GA + 1.73 degrees, with standard deviation σ(GA) = 0.01814·GA + 5.821 degrees; the root-mean-square fit error is 2.1°, well below the inter-rater variability of approximately 8° reported by Aertsen 2019. The z-score is computed as z = (measured − μ(GA)) / σ(GA), and the percentile is Φ(z)·100 where Φ is the standard-normal cumulative distribution function. The full per-week normative reference table reproduced from the Woitek 2014 Table 3 normal-CNS mean and standard-deviation columns, against which both the model and any future revision should be validated:
 
-| **GA (weeks)** | **n** | **TDPF mean (mm)** | **TDPF SD (mm)** | **CSA mean (deg)** | **CSA SD (deg)** |
-| --- | --- | --- | --- | --- | --- |
-| 21 | 3 | 20.5 | 1.9 | 73.7 | 5.5 |
-| 22 | 4 | 23.4 | 2.1 | 75.5 | 6.3 |
-| 23 | 4 | 25.6 | 2.5 | 77.2 | 5.8 |
-| 24 | 4 | 27.2 | 2.0 | 78.0 | 6.7 |
-| 25 | 5 | 28.7 | 2.2 | 78.6 | 5.5 |
-| 26 | 4 | 30.0 | 1.5 | 79.6 | 6.6 |
-| 27 | 3 | 31.4 | 1.8 | 79.9 | 7.4 |
-| 28 | 3 | 32.4 | 2.4 | 80.4 | 6.8 |
-| 29 | 2 | 33.6 | 1.5 | 80.0 | 7.0 |
-| 30 | 2 | 34.5 | 2.0 | 80.2 | 5.5 |
-| 31 | 1 | 35.7 | — | 80.0 | — |
-| 32 | 2 | 36.8 | 1.5 | 78.5 | 5.0 |
-| 33 | 1 | 37.4 | — | 78.0 | — |
-| 34 | 2 | 38.2 | 2.5 | 77.5 | 6.0 |
-| 35 | 1 | 39.0 | — | 77.0 | — |
-| 36 | 1 | 39.8 | — | 76.5 | — |
-| 37 | 2 | 40.5 | 2.5 | 76.0 | 6.0 |
+| **GA (weeks)** | **TDPF normal mean (mm)** | **TDPF normal SD (mm)** | **CSA normal mean (deg)** | **CSA normal SD (deg)** |
+| --- | --- | --- | --- | --- |
+| 21 | 26.9 | 2.6 | 74.2 | 5.1 |
+| 22 | 28.4 | 1.7 | 70.2 | 6.5 |
+| 23 | 30.0 | 2.3 | 69.6 | 5.9 |
+| 24 | 31.7 | 1.2 | 74.6 | 8.8 |
+| 25 | 32.9 | 1.7 | 74.4 | 4.2 |
+| 26 | 36.0 | 2.0 | 76.8 | 5.1 |
+| 27 | 37.3 | 2.3 | 81.5 | 5.1 |
+| 28 | 39.7 | 2.2 | 82.0 | 4.9 |
+| 29 | 42.1 | 2.8 | 84.3 | 6.9 |
+| 30 | 42.6 | 3.0 | 86.0 | 8.6 |
+| 31 | 45.6 | 2.6 | 88.8 | 10.4 |
+| 32 | 47.0 | 4.3 | 88.8 | 8.3 |
+| 33 | 49.6 | 3.5 | 87.3 | 4.6 |
+| 34 | 49.4 | 3.4 | 91.2 | 8.2 |
+| 35 | 51.2 | 2.1 | 89.4 | 4.1 |
+| 36 | 53.9 | 2.8 | 91.7 | 7.6 |
+| 37 | 54.4 | 1.9 | 90.3 | 3.6 |
+
+PMC4231033 Table 3 byte-check performed on 2026-05-23: the table above matches the PMC-hosted Woitek 2014 normal-CNS TDPF and CSA mean / standard-deviation rows. The Table 3 0.1 and 0.9 centile columns and ONTD/CNTD descriptive values remain in the source article; the calculator's fitted z-score model uses only the normal-CNS mean and standard-deviation columns above.
 
 #### Worked Example
 
-Consider a fetus at 24 weeks 0 days gestational age with TDPF = 24.0 mm and CSA = 55.0°. Using GA = 24.0 weeks, the model produces μ_TDPF = -0.01307·576 + 2.55571·24 - 21.71 = 32.21 mm and σ_TDPF = 0.06716·24 + 0.547 = 2.16 mm, giving z_TDPF = (24.0 − 32.21) / 2.16 = -3.80 (well below the 5th percentile, which corresponds to z = -1.645). Likewise μ_CSA = -0.04767·576 + 4.20404·24 + 1.73 = 75.23° and σ_CSA = 0.01814·24 + 5.821 = 6.26°, giving z_CSA = (55.0 − 75.23) / 6.26 = -3.23 (well below the 5th percentile). Both parameters being severely below normal at the same gestational age is the signature of Chiari II malformation.
+Consider a fetus at 24 weeks 0 days gestational age with TDPF = 24.0 mm and CSA = 55.0°. Using GA = 24.0 weeks, the model produces μ_TDPF = -0.01307·576 + 2.55571·24 - 21.71 = 32.10 mm and σ_TDPF = 0.06716·24 + 0.547 = 2.16 mm, giving z_TDPF = (24.0 − 32.10) / 2.16 = -3.75 (well below the 5th percentile, which corresponds to z = -1.645). Likewise μ_CSA = -0.04767·576 + 4.20404·24 + 1.73 = 75.17° and σ_CSA = 0.01814·24 + 5.821 = 6.26°, giving z_CSA = (55.0 − 75.17) / 6.26 = -3.22 (well below the 5th percentile). Both parameters being severely below normal at the same gestational age is the signature of Chiari II malformation.
 
 #### 6.5.3 Mahalanobis Discriminator (TDPF + CSA Joint Test)
 
@@ -994,11 +996,11 @@ This subsection records, for every parameter the calculator computes, the model 
 
 | Field | Value |
 |---|---|
-| Model form | Quadratic mean, linear SD (same family as Luis 2025); coefficients are **derived** by fitting Woitek 2014 Table 3's per-week percentiles, not transcribed from a published equation. |
+| Model form | Quadratic mean, linear SD (same family as Luis 2025); coefficients are **derived** by fitting Woitek 2014 Table 3's per-week normal-CNS mean and standard-deviation rows, not transcribed from a published equation. |
 | Computational source | WOITEK_2014 (per-week table) |
 | Coefficients (derived, to be regenerated if Table 3 numbers change) | `a, b, c, a5, b5` shall be fitted by ordinary least squares on the verified 17-row per-week table specified in Section 6.5.2 of this document. The fit shall be regenerated whenever the per-week table is corrected. |
-| Source-of-record location | WOITEK_2014 Table 3 (PLOS ONE 0112585; PMC4231033). Contains 21-37 GW per-week 5th, 10th, 25th, 50th, 75th, 90th, 95th centile values for TDPF and CSA in normal controls, ONTDs, and CNTDs. |
-| Verification status | **Source verified, per-week table not yet byte-checked.** The HTML version of the article does not render Table 3's numeric body inline (PLOS embeds tables as separate files). A clinician collaborator must open the article's Tables tab and confirm the 17-row body row-by-row against Section 6.5.2 before this entry is used clinically. |
+| Source-of-record location | WOITEK_2014 Table 3 (PLOS ONE 0112585; PMC4231033). Contains 21-37 GW per-week normal-CNS mean, standard deviation, 0.1, and 0.9 values for TDPF and CSA, plus ONTD/CNTD descriptive values. |
+| Verification status | **PMC Table 3 byte-checked 2026-05-23.** The PMC4231033 HTML body renders Table 3 inline; the 17 normal-CNS TDPF mean / standard-deviation rows in Section 6.5.2 were checked row-by-row against that machine-readable source. The OLS coefficients above reproduce the checked table and do not change after this source correction. |
 | Validated GA range | 21-37 weeks (Woitek normal-CNS cohort, n = 238) |
 | Modality | Fetal MRI (T2-weighted, 1.5 T) |
 | Cross-validation source(s) | AERTSEN_2019 (independent OSD cohort, n = 27 pre-op and post-op; intraclass correlation 0.94 for TDPF on fetal MRI) |
@@ -1011,7 +1013,7 @@ This subsection records, for every parameter the calculator computes, the model 
 | Computational source | WOITEK_2014 |
 | Coefficients (derived) | `a, b, c, a5, b5` per Section 6.5.2; regenerated when Table 3 is corrected. |
 | Source-of-record location | WOITEK_2014 Table 3; original CSA description in DADDARIO_2001 (Ultrasound Obstet Gynecol 2001;18(2):146-149). |
-| Verification status | Same as TDPF: source verified; per-week table requires eyes-on Table 3. |
+| Verification status | Same as TDPF: PMC4231033 Table 3 byte-checked 2026-05-23 against the 17 normal-CNS CSA mean / standard-deviation rows in Section 6.5.2. |
 | Validated GA range | 21-37 weeks |
 | Modality | Fetal MRI (originally described on US in D'Addario 2001; Woitek 2014 validated for fetal MRI) |
 | Cross-validation source(s) | AERTSEN_2019 (intraclass correlation 0.92 for CSA on fetal MRI; pre-op CSA 65.9 +/- 12.5 deg vs post-op 76.6 +/- 10.9 deg in the OSD cohort) |
@@ -1131,11 +1133,11 @@ Likelihoods (hydrocephalus ~30%, BFM ~20%, megalencephaly ~15%, tumour ~5%) are 
 
 ### 7.5 Verification Status, Caveats, and Action Items
 
-The preceding manifest distinguishes four verification tiers. The first tier, **byte-identical**, applies to every Luis 2025 coefficient block in 7.3.1-7.3.6, 7.3.10, and the second registry entry of 7.3.7-7.3.10 and 7.3.11; these numbers are reproduced exactly from the open-source `auto-reporting-brain-biometry.py` script, and any future change to the upstream script must be reflected here. The second tier, **transcribed but not byte-checked**, applies to the four Dovjak 2021 per-percentile linear pairs in 7.3.7-7.3.10 and to the per-week reference table for TDPF and CSA referenced in 7.3.13-7.3.14: the cohort, model form, and parameter set are verified from open-access metadata, but the numeric pairs and the 17-row per-week table require eyes on the original paper tables before clinical use. The third tier, **derived**, applies to the OLS-fitted polynomial coefficients for TDPF and CSA in 7.3.13-7.3.14: these are produced from Woitek 2014's per-week table by us, and they must be regenerated whenever the per-week table is corrected. The fourth tier, **approximation**, applies to the extra-axial CSF quadratic curve currently used for the Kyriakopoulou 2017 extra-cerebral CSF measurement: the implementation uses a transparent quadratic approximation calibrated to the TEST.md Section 25 boundaries because the exact fetal-centiles source coefficients are not encoded in this specification. Approximation-tier rows must remain visibly caveated in row-level source details and report output until clinician source review either supplies exact coefficients or accepts the approximation. The approximation tier no longer applies to third-ventricle width; third ventricle is raw-threshold-only in Phase 1, and no third-ventricle z-score shall be reported until a verified fetal-MRI or explicitly accepted cross-modality model is encoded.
+The preceding manifest distinguishes four verification tiers. The first tier, **byte-identical**, applies to every Luis 2025 coefficient block in 7.3.1-7.3.6, 7.3.10, and the second registry entry of 7.3.7-7.3.10 and 7.3.11; these numbers are reproduced exactly from the open-source `auto-reporting-brain-biometry.py` script, and any future change to the upstream script must be reflected here. The second tier, **transcribed but not byte-checked**, applies to the four Dovjak 2021 per-percentile linear pairs in 7.3.7-7.3.10: the cohort, model form, and parameter set are verified from open-access metadata, but the numeric pairs require eyes on the original paper table before clinical use. The third tier, **derived**, applies to the OLS-fitted polynomial coefficients for TDPF and CSA in 7.3.13-7.3.14: these are produced from the PMC4231033 Table 3 byte-checked Woitek 2014 per-week normal-CNS table by us, and they must be regenerated whenever the per-week table is corrected. The fourth tier, **approximation**, applies to the extra-axial CSF quadratic curve currently used for the Kyriakopoulou 2017 extra-cerebral CSF measurement: the implementation uses a transparent quadratic approximation calibrated to the TEST.md Section 25 boundaries because the exact fetal-centiles source coefficients are not encoded in this specification. Approximation-tier rows must remain visibly caveated in row-level source details and report output until clinician source review either supplies exact coefficients or accepts the approximation. The approximation tier no longer applies to third-ventricle width; third ventricle is raw-threshold-only in Phase 1, and no third-ventricle z-score shall be reported until a verified fetal-MRI or explicitly accepted cross-modality model is encoded.
 
 The action items below shall be completed by a clinician collaborator before this manifest is treated as production data for clinical reporting. They are cross-listed with the verification dossier in `source_verification_dossier.md` and shall be tracked to closure.
 
-First, open Wiley OBGYN doi:10.1002/uog.22162 Table 1 and confirm the eight slope/intercept pairs for TCD, vermian height, vermian AP, and pons AP (Sections 7.3.7 through 7.3.10) against the values printed in this manifest. Second, open PLOS ONE doi:10.1371/journal.pone.0112585 Table 3 and confirm the 17-row per-week TDPF and CSA values referenced in Section 7.3.13 and 7.3.14 against Section 6.5.2 of this document; regenerate the OLS-fitted coefficients in 7.3.13 and 7.3.14 if any per-week value changes. Third, resolve the extra-axial CSF coefficient decision by either encoding the exact Kyriakopoulou fetal-centiles coefficients or formally accepting the approximation-tier curve with its report caveat. Fourth, the third-ventricle policy is closed as raw-threshold-only for publication readiness: keep the 3.5 mm trigger, keep the entered value visible, and do not report a z-score until HERTZBERG_1997 or another accepted source is verified into the registry. Fifth, the Section 7.4 citation pass is closed for implementation: report output surfaces qualitative labels for estimate-only likelihood rows so the calculator does not imply unsupported numeric precision. Sixth, the Section 6.5 Mahalanobis discriminator centroids and the ONTD-posterior threshold (>0.5) shall be calibrated on a local cohort before the Chiari II / ONTD differential card is used clinically; the report header shall flag this card as research-mode until that calibration is complete.
+First, open Wiley OBGYN doi:10.1002/uog.22162 Table 1 and confirm the eight slope/intercept pairs for TCD, vermian height, vermian AP, and pons AP (Sections 7.3.7 through 7.3.10) against the values printed in this manifest. Second, the Woitek 2014 Table 3 implementation byte-check is complete: Section 6.5.2 now matches the PMC4231033 Table 3 normal-CNS TDPF and CSA mean / standard-deviation rows, and the already-implemented OLS coefficients reproduce that corrected table. A radiologist may still countersign this item in `source_data_final_lock.md`, but no implementation-side Woitek source blocker remains. Third, resolve the extra-axial CSF coefficient decision by either encoding the exact Kyriakopoulou fetal-centiles coefficients or formally accepting the approximation-tier curve with its report caveat. Fourth, the third-ventricle policy is closed as raw-threshold-only for publication readiness: keep the 3.5 mm trigger, keep the entered value visible, and do not report a z-score until HERTZBERG_1997 or another accepted source is verified into the registry. Fifth, the Section 7.4 citation pass is closed for implementation: report output surfaces qualitative labels for estimate-only likelihood rows so the calculator does not imply unsupported numeric precision. Sixth, the Section 6.5 Mahalanobis discriminator centroids and the ONTD-posterior threshold (>0.5) shall be calibrated on a local cohort before the Chiari II / ONTD differential card is used clinically; the report header shall flag this card as research-mode until that calibration is complete.
 
 When this manifest is updated, the Methodology page of the calculator (Section 4.10) shall surface a per-parameter line indicating the verification tier (byte-identical, transcribed, derived, approximation) and the date of the most recent verification, so that the dictating radiologist always sees the tier on which the displayed z-score is computed.
 

@@ -1016,3 +1016,11 @@
 - Remove bracketed reference indices from citation lines while preserving author/year/DOI/PMID text.
 - Leave the end-of-file source inventory untouched to avoid a large bibliography rewrite.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## SPEC 7.5 Woitek Table 3 Source-Correction Increment
+
+- Add source-document coverage for the machine-readable Woitek 2014 PMC Table 3 audit.
+- Replace the incorrect SPEC §6.5.2 per-week TDPF/CSA control table with the PMC Table 3 normal-CNS means and standard deviations.
+- Keep the existing OLS coefficients because they already match the corrected table, and document the PMC byte-check date/status.
+- Update the source-verification dossier, final-lock checklist, and PROGRESS.md with the corrected source audit and remaining clinician-review scope.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

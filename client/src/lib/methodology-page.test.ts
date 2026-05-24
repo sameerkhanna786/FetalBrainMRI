@@ -137,6 +137,25 @@ describe("publication-readiness source-document consistency", () => {
     expect(citationLines.length).toBeGreaterThan(100);
     expect(citationLines.join("\n")).not.toMatch(/\[[0-9]+[a-z]?\]/);
   });
+
+  it("locks the Woitek 2014 Table 3 control rows to the PMC source audit", () => {
+    const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
+    const dossier = readFileSync(
+      resolve(process.cwd(), "source_verification_dossier.md"),
+      "utf8"
+    );
+    const finalLock = readFileSync(
+      resolve(process.cwd(), "source_data_final_lock.md"),
+      "utf8"
+    );
+
+    expect(spec).toContain("| 21 | 26.9 | 2.6 | 74.2 | 5.1 |");
+    expect(spec).toContain("| 37 | 54.4 | 1.9 | 90.3 | 3.6 |");
+    expect(spec).not.toContain("| 21 | 3 | 20.5 | 1.9 | 73.7 | 5.5 |");
+    expect(spec).toContain("PMC4231033 Table 3 byte-check");
+    expect(dossier).toContain("PMC Table 3 byte-checked");
+    expect(finalLock).toContain("Implementation byte-check complete");
+  });
 });
 
 describe("publication handoff checklist", () => {

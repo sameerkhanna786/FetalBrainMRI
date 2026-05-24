@@ -7,13 +7,13 @@ date, and outcome.
 
 ## Required Reviews
 
-| Item                                 | Required action                                                                                                                                                              | Outcome fields                                                          |
-| ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| Dovjak 2021 Table 1                  | Confirm the eight printed 5th/95th-centile slope/intercept pairs for TCD, vermian height, vermian AP, and pons AP against SPEC.md Sections 7.3.7-7.3.10 and both registries. | reviewer, date, values match yes/no, correction diff if needed          |
-| Woitek 2014 Table 3                  | Confirm the 17-row per-week TDPF and CSA control means / SDs used for the Section 6.5.2 OLS fits; regenerate coefficients if any row differs.                                | reviewer, date, values match yes/no, regenerated coefficients if needed |
-| extra-axial CSF coefficient decision | Either encode exact Kyriakopoulou fetal-centiles coefficients or formally accept the transparent approximation-tier quadratic with its report caveat.                        | reviewer, date, exact coefficients encoded / approximation accepted     |
-| third-ventricle raw-threshold policy | Confirm the Phase 1 policy remains raw-threshold-only: width is recorded, >3.5 mm can trigger DDx, and no z-score is reported.                                               | reviewer, date, policy accepted yes/no                                  |
-| Chiari II / ONTD calibration         | Calibrate the Mahalanobis centroids and ONTD posterior threshold on a local cohort before clinical reliance; keep reports research-mode until complete.                      | reviewer, date, local cohort size, threshold, sensitivity, specificity  |
+| Item                                 | Required action                                                                                                                                                                | Outcome fields                                                         |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------- |
+| Dovjak 2021 Table 1                  | Confirm the eight printed 5th/95th-centile slope/intercept pairs for TCD, vermian height, vermian AP, and pons AP against SPEC.md Sections 7.3.7-7.3.10 and both registries.   | reviewer, date, values match yes/no, correction diff if needed         |
+| Woitek 2014 Table 3                  | Review the completed PMC4231033 Table 3 byte-check: Section 6.5.2 now matches the 17 normal-CNS TDPF and CSA mean / SD rows, and the existing OLS coefficients reproduce them. | reviewer, date, countersign yes/no, correction diff if needed          |
+| extra-axial CSF coefficient decision | Either encode exact Kyriakopoulou fetal-centiles coefficients or formally accept the transparent approximation-tier quadratic with its report caveat.                          | reviewer, date, exact coefficients encoded / approximation accepted    |
+| third-ventricle raw-threshold policy | Confirm the Phase 1 policy remains raw-threshold-only: width is recorded, >3.5 mm can trigger DDx, and no z-score is reported.                                                 | reviewer, date, policy accepted yes/no                                 |
+| Chiari II / ONTD calibration         | Calibrate the Mahalanobis centroids and ONTD posterior threshold on a local cohort before clinical reliance; keep reports research-mode until complete.                        | reviewer, date, local cohort size, threshold, sensitivity, specificity |
 
 ## Mismatch Handling
 
@@ -28,13 +28,13 @@ date, and outcome.
 
 ## Clinician Signoff
 
-| Signoff field                        | Value                                                  |
-| ------------------------------------ | ------------------------------------------------------ |
-| Source reviewer                      | Pending                                                |
-| Radiologist PI                       | Pending                                                |
-| Dovjak 2021 Table 1 status           | Open                                                   |
-| Woitek 2014 Table 3 status           | Open                                                   |
-| extra-axial CSF coefficient decision | Open                                                   |
-| third-ventricle raw-threshold policy | Closed by implementation; pending clinician acceptance |
-| Chiari II / ONTD calibration         | Open                                                   |
-| Final clinical-reliance decision     | Pending                                                |
+| Signoff field                        | Value                                                                  |
+| ------------------------------------ | ---------------------------------------------------------------------- |
+| Source reviewer                      | Pending                                                                |
+| Radiologist PI                       | Pending                                                                |
+| Dovjak 2021 Table 1 status           | Open                                                                   |
+| Woitek 2014 Table 3 status           | Implementation byte-check complete; pending clinician countersignature |
+| extra-axial CSF coefficient decision | Open                                                                   |
+| third-ventricle raw-threshold policy | Closed by implementation; pending clinician acceptance                 |
+| Chiari II / ONTD calibration         | Open                                                                   |
+| Final clinical-reliance decision     | Pending                                                                |
