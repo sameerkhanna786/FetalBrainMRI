@@ -1222,7 +1222,7 @@ The `cc_thick` card fires when CC z > +1.645. Associations include overgrowth sy
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 30 w 0 d | — |
-| CC | 44 mm (z ≈ +2) | >95th |
+| CC | 37.4 mm (z ≈ +2) | >95th |
 | (others) | filler | normal |
 
 `cc_thick` fires.
@@ -1233,8 +1233,8 @@ The `cc_thick` card fires when CC z > +1.645. Associations include overgrowth sy
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 32 w 0 d | — |
-| Skull BPD | 95 mm (+2 SD) | >97th |
-| CC | 47 mm (z ≈ +2) | >95th |
+| Skull BPD | 89.9 mm (+2 SD) | >97th |
+| CC | 39.3 mm (z ≈ +2) | >95th |
 | (others) | filler | normal |
 
 `cc_thick`, `macrocephaly_pattern` fire.
@@ -1245,7 +1245,7 @@ The `cc_thick` card fires when CC z > +1.645. Associations include overgrowth sy
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 28 w 0 d | — |
-| CC | 35 mm (z ≈ +1.5) | normal |
+| CC | 34.4 mm (z ≈ +1.5) | normal |
 | (others) | filler | normal |
 
 `cc_thick` should *not* fire. Boundary verification.
@@ -1255,8 +1255,8 @@ The `cc_thick` card fires when CC z > +1.645. Associations include overgrowth sy
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 28 w 0 d | — |
-| CC | 39 mm (z ≈ +2) | >95th |
-| Pons AP | 11 mm (z ≈ +2) | >95th |
+| CC | 35.0 mm (z ≈ +2) | >95th |
+| Pons AP | 11.0 mm (z ≈ +2) | >95th |
 | (others) | filler | normal |
 
 `cc_thick`, `pons_large` fire.
@@ -1267,7 +1267,7 @@ The `cc_thick` card fires when CC z > +1.645. Associations include overgrowth sy
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 36 w 0 d | — |
-| CC | 50 mm (z ≈ +2) | >95th |
+| CC | 41.5 mm (z ≈ +2) | >95th |
 | (others) | filler | normal |
 
 `cc_thick` fires.
@@ -1278,8 +1278,8 @@ The `cc_thick` card fires when CC z > +1.645. Associations include overgrowth sy
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 30 w 0 d | — |
-| CC | 44 mm | >95th |
-| TCD | 42 mm | >95th |
+| CC | 37.4 mm | >95th |
+| TCD | 39.5 mm | >95th |
 | (others) | filler | normal |
 
 `cc_thick`, `large_tcd` fire.

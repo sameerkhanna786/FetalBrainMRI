@@ -110,7 +110,7 @@ describe("publication-readiness source-document consistency", () => {
     expect(dossier).toContain("DECIDE-AI");
     expect(dossier).toContain("FeTA 2024 biometry gap");
     expect(dossier).toContain("TEST corpus numeric audit");
-    expect(dossier).toContain("23 residual normal-label rows");
+    expect(dossier).toContain("22 residual normal-label rows");
     expect(dossier).toContain("decision-curve net benefit");
     expect(dossier).toContain("IRB");
     expect(dossier).toContain("radiologist handoff");
@@ -1308,6 +1308,85 @@ describe("publication-readiness source-document consistency", () => {
         } else if (band.includes("<5th")) {
           expect(z).toBeLessThan(-1.6448536269514722);
           expect(z).toBeGreaterThan(-3);
+        } else if (band.includes(">95th")) {
+          expect(z).toBeGreaterThan(1.6448536269514722);
+        }
+      }
+    }
+  });
+
+  it("keeps TEST.md thick-CC fixtures calibrated to runtime bands and cards", () => {
+    const testCorpus = readFileSync(resolve(process.cwd(), "TEST.md"), "utf8");
+    const parameterLabels = new Map([
+      ["Skull BPD", "skull_bpd"],
+      ["CC", "cc_length"],
+      ["Pons AP", "pons_ap"],
+      ["TCD", "tcd"],
+    ]);
+    const expectations = [
+      ["TC1", ["cc-thick"], ["macrocephaly", "pons-large", "tcd-large"]],
+      ["TC2", ["cc-thick", "macrocephaly"], ["pons-large", "tcd-large"]],
+      ["TC3", [], ["cc-thick", "macrocephaly", "pons-large", "tcd-large"]],
+      ["TC4", ["cc-thick", "pons-large"], ["macrocephaly", "tcd-large"]],
+      ["TC5", ["cc-thick"], ["macrocephaly", "pons-large", "tcd-large"]],
+      ["TC6", ["cc-thick", "tcd-large"], ["macrocephaly", "pons-large"]],
+    ] as const;
+
+    const extractCase = (caseId: string): string => {
+      const start = testCorpus.indexOf(`### Case ${caseId} `);
+      expect(start).toBeGreaterThanOrEqual(0);
+      const nextCase = testCorpus.indexOf("\n### Case ", start + 1);
+      const nextSection = testCorpus.indexOf("\n---", start + 1);
+      const endCandidates = [nextCase, nextSection].filter(index => index > 0);
+      return testCorpus.slice(start, Math.min(...endCandidates));
+    };
+
+    for (const [caseId, expectedDxIds, forbiddenDxIds] of expectations) {
+      const caseText = extractCase(caseId);
+      const values: Record<string, number> = {};
+      const bandChecks: { parameterId: string; expectedBand: string }[] = [];
+      let ga: { weeks: number; days: number } | null = null;
+
+      for (const rawLine of caseText.split("\n")) {
+        if (!rawLine.startsWith("|")) continue;
+        const [label, rawValue, expectedBand] = rawLine
+          .split("|")
+          .slice(1, -1)
+          .map(cell => cell.replaceAll("**", "").trim());
+
+        if (label === "GA") {
+          const match = rawValue.match(/(\d+) w (\d+) d/);
+          expect(match).not.toBeNull();
+          ga = { weeks: Number(match![1]), days: Number(match![2]) };
+          continue;
+        }
+
+        const parameterId = parameterLabels.get(label);
+        if (!parameterId) continue;
+        const valueMatch = rawValue.match(/(-?\d+(?:\.\d+)?)/);
+        if (!valueMatch) continue;
+        values[parameterId] = Number(valueMatch[1]);
+        bandChecks.push({ parameterId, expectedBand });
+      }
+
+      expect(ga).not.toBeNull();
+      const { zs, dxs } = evaluateAll(values, ga!);
+      const dxIds = dxs.map(dx => dx.id);
+      for (const expectedDxId of expectedDxIds) {
+        expect(dxIds).toContain(expectedDxId);
+      }
+      for (const forbiddenDxId of forbiddenDxIds) {
+        expect(dxIds).not.toContain(forbiddenDxId);
+      }
+
+      for (const { parameterId, expectedBand } of bandChecks) {
+        const band = expectedBand.toLowerCase();
+        const z = zs[parameterId]?.z;
+        if (z == null) continue;
+        if (band.includes("normal") && !band.includes("abnormal")) {
+          expect(Math.abs(z)).toBeLessThan(1.6448536269514722);
+        } else if (band.includes(">97th")) {
+          expect(z).toBeGreaterThan(1.8807936081512509);
         } else if (band.includes(">95th")) {
           expect(z).toBeGreaterThan(1.6448536269514722);
         }

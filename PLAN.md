@@ -1384,3 +1384,10 @@
 - Recalibrate stale CC and CSP rows so dysgenetic/short-CC fixtures remain above the complete-ACC threshold while preserved-CSP controls stay inside the active registry band.
 - Update the residual TEST corpus numeric audit blocker count after the short-CC section is reconciled.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## TEST Thick-CC Fixture Runtime Consistency Increment
+
+- Add failing-first source-document coverage that parses TEST.md cases TC1-TC6 and verifies thick-CC, macrocephaly, large-pons, large-TCD, and negative-control behavior against the runtime engine.
+- Recalibrate stale high-CC, macrocephaly, pons, and TCD rows so threshold-derived +2 SD comments and the TC3 negative control match active runtime thresholds.
+- Update the residual TEST corpus numeric audit blocker count after the thick-CC section is reconciled.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.
