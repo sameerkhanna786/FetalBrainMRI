@@ -138,6 +138,19 @@ describe("publication-readiness source-document consistency", () => {
     expect(citationLines.join("\n")).not.toMatch(/\[[0-9]+[a-z]?\]/);
   });
 
+  it("locks Aertsen 2019 citation metadata to the PMC AJNR article", () => {
+    const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
+    const testCorpus = readFileSync(resolve(process.cwd(), "TEST.md"), "utf8");
+
+    expect(spec).toContain("10.3174/ajnr.A5930");
+    expect(spec).not.toContain("10.3174/ajnr.A5921");
+    expect(testCorpus).toContain(
+      "Aertsen M, Verduyckt J, De Keyzer F, et al. Reliability of MR Imaging-Based Posterior Fossa and Brain Stem Measurements in Open Spinal Dysraphism in the Era of Fetal Surgery."
+    );
+    expect(testCorpus).toContain("10.3174/ajnr.A5930");
+    expect(testCorpus).not.toContain("10.1002/uog.20214");
+  });
+
   it("locks the Woitek 2014 Table 3 control rows to the PMC source audit", () => {
     const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
     const dossier = readFileSync(

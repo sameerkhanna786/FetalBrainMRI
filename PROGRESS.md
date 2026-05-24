@@ -1,3 +1,21 @@
+## 2026-05-23, Aertsen 2019 Citation Metadata Correction Increment
+
+- Added failing-first source-document coverage that locks Aertsen 2019 to the PMC7048594 AJNR article and DOI `10.3174/ajnr.A5930`.
+- Verified the DOI directly from the PMC page metadata using `curl`.
+- Corrected SPEC §7.2 `AERTSEN_2019` metadata from stale `10.3174/ajnr.A5921` to `10.3174/ajnr.A5930`.
+- Corrected the TEST.md source inventory entry away from the unrelated UOG citation while preserving the case-level AJNR citation and PMCID.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before the citation update because SPEC.md did not contain `10.3174/ajnr.A5930`.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 188 tests.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 188 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 exec prettier --check SPEC.md TEST.md` still reports the existing canonical-document formatting warnings; neither large document was mass-reflowed.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, SPEC 2.2 Source-Dossier Alignment Increment
 
 - Added failing-first source-document coverage that requires SPEC Part 2's normative-source dossier to match the active Phase 1 registry rather than stale initial source recommendations.

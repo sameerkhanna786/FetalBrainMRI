@@ -1054,3 +1054,10 @@
 - Update SPEC §2.1 to mention active auxiliary and added publication-trigger measurements now implemented in Phase 1.
 - Rewrite SPEC §2.2 around computational source groups: Luis, Kyriakopoulou, Dovjak, Woitek, and raw-threshold third ventricle.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Aertsen 2019 Citation Metadata Correction Increment
+
+- Add source-document coverage that Aertsen 2019 resolves to the PMC7048594 AJNR article and DOI 10.3174/ajnr.A5930.
+- Correct SPEC §7.2 AERTSEN_2019 metadata away from the stale A5921 DOI.
+- Correct the TEST.md source inventory entry away from the unrelated UOG citation while preserving the case-level AJNR citation.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.
