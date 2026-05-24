@@ -2259,17 +2259,17 @@ const CARDS: CardSpec[] = [
     rows: [
       {
         dx: "Isolated partial ACC",
-        likelihood: "~50–60%",
+        likelihood: "Most common",
         rationale: "Better prognosis than complete.",
       },
       {
         dx: "Monogenic syndromic disorder",
-        likelihood: "~25–30%",
+        likelihood: "Minority",
         rationale: "Recurrent in WES cohorts (Sun 2024).",
       },
       {
         dx: "Chromosomal abnormality / CNV",
-        likelihood: "~15%",
+        likelihood: "Minority",
         rationale: "Microarray indicated.",
       },
       {

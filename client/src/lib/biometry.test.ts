@@ -737,6 +737,28 @@ describe("SPEC §7.4 complete-ACC likelihood manifest", () => {
   });
 });
 
+describe("SPEC §7.4 partial-ACC likelihood manifest", () => {
+  it("qualitative-labels the estimate-only partial/hypogenesis CC rows", () => {
+    const ga = { weeks: 28, days: 0 };
+    const values = {
+      cc_length: 30,
+    };
+    const { dxs } = evaluateAll(values, ga);
+    const partialAcc = dxs.find(dx => dx.id === "cc-short");
+
+    expect(partialAcc?.rows.map(row => row.likelihood)).toEqual([
+      "Most common",
+      "Minority",
+      "Minority",
+      "Variable",
+    ]);
+    expect(partialAcc?.rows.map(row => row.likelihood).join(" ")).not.toMatch(
+      /~50|~25|~15/
+    );
+    expect(partialAcc?.rows[1].rationale).toContain("Sun 2024");
+  });
+});
+
 describe("aqueductal-stenosis pattern report impression", () => {
   it("uses the TEST.md Case S1 triventricular hydrocephalus impression line", () => {
     const ga = { weeks: 26, days: 0 };

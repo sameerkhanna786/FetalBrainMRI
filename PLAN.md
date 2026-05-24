@@ -682,3 +682,9 @@
 - Add DDx coverage for the SPEC §7.4 complete-ACC likelihood manifest.
 - Preserve the transcribed Santo 2012 isolated complete-ACC likelihood label and rationale.
 - Replace approximate or estimate-only monogenic and chromosomal likelihood labels with qualitative wording.
+
+## SPEC 7.4 Partial-ACC Likelihood Qualitative Increment
+
+- Add DDx coverage for the SPEC §7.4 partial/hypogenesis corpus-callosum likelihood manifest.
+- Confirm the partial-ACC card no longer surfaces estimate-only numeric percentages.
+- Replace the isolated, monogenic, and chromosomal/CNV likelihood labels with qualitative wording.
