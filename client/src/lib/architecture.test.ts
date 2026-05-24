@@ -67,4 +67,17 @@ describe("SPEC §4.3 Python/FastAPI architecture scaffold", () => {
     expect(core).toContain("linear_mean_constant_sd");
     expect(core).toContain("def zscore");
   });
+
+  it("provides a lightweight Docker deployment artifact for the FastAPI scaffold", () => {
+    const dockerfilePath = resolve(process.cwd(), "Dockerfile");
+
+    expect(existsSync(dockerfilePath)).toBe(true);
+    const dockerfile = read("Dockerfile");
+
+    expect(dockerfile).toContain("python:3.11");
+    expect(dockerfile).toContain("pyproject.toml");
+    expect(dockerfile).toContain("uvicorn");
+    expect(dockerfile).toContain("python_app.main:app");
+    expect(dockerfile).toContain("8000");
+  });
 });
