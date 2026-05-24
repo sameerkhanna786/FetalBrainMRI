@@ -1443,17 +1443,17 @@ The combined `hpe_pattern` card fires when monoventricle, absent CSP, fused thal
 |---|---|---|
 | GA | 24 w 0 d | — |
 | Skull BPD | 50 mm (–3 SD) | <3rd |
-| Skull OFD | 70 mm | <3rd |
-| Brain BPD | 48 mm | <3rd |
-| Brain OFD-L | 65 mm | <3rd |
-| Brain OFD-R | 65 mm | <3rd |
+| Skull OFD | 69.6 mm | <3rd |
+| Brain BPD | 46.9 mm | <3rd |
+| Brain OFD-L | 60.8 mm | <3rd |
+| Brain OFD-R | 60.8 mm | <3rd |
 | Atrium-R | 20 mm (monoventricle) | >95th |
 | Atrium-L | 20 mm | >95th |
 | CSP | absent | special-cased |
 | CC | absent | special-cased |
 | TCD | 27.5 mm | normal |
 | Vermis CC | 12.4 mm | normal |
-| Vermis AP | 5.8 mm | normal |
+| Vermis AP | 7.7 mm | normal |
 | Pons AP | 7.5 mm | normal |
 | Third ventricle | not measurable (fused thalami) | special-cased |
 
@@ -1466,11 +1466,11 @@ The combined `hpe_pattern` card fires when monoventricle, absent CSP, fused thal
 |---|---|---|
 | GA | 28 w 0 d | — |
 | Skull BPD | 65 mm (–2.5 SD) | <3rd |
-| Brain BPD | 63 mm | <3rd |
+| Brain BPD | 56.3 mm | <3rd |
 | Atrium-R | 16 mm | >95th |
 | Atrium-L | 16 mm | >95th |
 | CSP | absent | special-cased |
-| CC | partial (15 mm, splenium-only — cannot be reliably measured against the full Garel curve) | <5th by full-CC equation |
+| CC | partial (29.4 mm; splenium-only morphology is qualitative) | <5th by full-CC equation |
 | TCD | 34.5 mm | normal |
 | Pons AP | 9.5 mm | normal |
 | (others) | filler | normal |
@@ -1483,13 +1483,13 @@ The combined `hpe_pattern` card fires when monoventricle, absent CSP, fused thal
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 30 w 0 d | — |
-| Skull BPD | 78 mm | <5th |
-| Brain BPD | 76 mm | <5th |
+| Skull BPD | 73.5 mm | <5th |
+| Brain BPD | 61.1 mm | <5th |
 | Atrium-R | 12 mm | >95th |
 | Atrium-L | 12 mm | >95th |
 | CSP | absent | special-cased |
-| CC | 35 mm (slightly short, splenium present) | normal–<5th |
-| TCD | 38.5 mm | normal |
+| CC | 34.9 mm (splenium present) | normal–<5th |
+| TCD | 36.0 mm | normal |
 | (others) | filler | normal |
 
 `mild_ventriculomegaly`, `csp_absent` fire. **`hpe_pattern`** may fire only if the qualitative monoventricle / fused-thalami findings are also entered. Without those, this case looks like isolated absent CSP with mild VM.
@@ -1501,8 +1501,8 @@ The combined `hpe_pattern` card fires when monoventricle, absent CSP, fused thal
 |---|---|---|
 | GA | 22 w 0 d | — |
 | Skull BPD | 47 mm (–3 SD) | <3rd |
-| Atrium-R | monoventricle | >95th |
-| Atrium-L | monoventricle | >95th |
+| Atrium-R | 18 mm (monoventricle) | >95th |
+| Atrium-L | 18 mm (monoventricle) | >95th |
 | CSP | absent | special-cased |
 | CC | absent | special-cased |
 | (others) | filler | normal |
@@ -1523,11 +1523,11 @@ The combined `hpe_pattern` card fires when monoventricle, absent CSP, fused thal
 | Vermis CC | 8.0 mm | <5th |
 | Vermis AP | 3.5 mm | <5th |
 | TVA | 95° | qualitative DWM |
-| TCD | 28.0 mm | <5th |
+| TCD | 26.0 mm | <5th |
 | Pons AP | 6.5 mm | <5th |
 | (others) | filler | normal |
 
-`severe_ventriculomegaly`, `csp_absent`, `cc_absent`, `vermian_hypoplasia`, `small_tcd`, `small_pons`, `microcephaly_pattern`, **`hpe_pattern`**, **`dandy_walker_spectrum`** fire — three combined-pattern cards simultaneously.
+`severe_ventriculomegaly`, `csp_absent`, `cc_absent`, `vermian_hypoplasia`, `small_tcd`, `small_pons`, `microcephaly_pattern`, **`hpe_pattern`**, **`pch_pattern`**, **`dandy_walker_spectrum`** fire — overlapping combined-pattern cards simultaneously.
 **Citation.** Griffiths 2016; Whitehead 2022.
 
 ### Case HPE6 — Mild HPE-spectrum at 32 weeks (septo-preoptic) — partial pattern, no full HPE card
@@ -1539,7 +1539,7 @@ The combined `hpe_pattern` card fires when monoventricle, absent CSP, fused thal
 | Atrium-R | 8.0 mm | normal |
 | Atrium-L | 8.0 mm | normal |
 | CSP | absent | special-cased |
-| CC | 39.0 mm | normal |
+| CC | 36.6 mm | normal |
 | (others) | filler | normal |
 
 `csp_absent` fires only. `hpe_pattern` does *not* fire (no monoventricle, no microcephaly, no fused thalami). Negative-control case for the HPE combined-pattern card.

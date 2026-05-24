@@ -1398,3 +1398,10 @@
 - Recalibrate stale normal-CC rows in absent-CSP fixtures so negative controls do not accidentally fire CC-thick, CC-short, or ACC-pattern cards.
 - Update the residual TEST corpus numeric audit blocker count after the absent-CSP section is reconciled.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## TEST HPE Fixture Runtime Consistency Increment
+
+- Add failing-first source-document coverage that parses TEST.md cases HPE1-HPE6 and verifies HPE-pattern, microcephaly, VM, absent-CSP/CC, posterior-fossa, and negative-control behavior against the runtime engine.
+- Recalibrate stale HPE rows so normal posterior-fossa and CC fillers stay normal, microcephaly rows actually cross the runtime threshold, monoventricle rows are executable, and HPE+DWM/PCH overlap is deterministic.
+- Update the residual TEST corpus numeric audit blocker count after the HPE section is reconciled.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

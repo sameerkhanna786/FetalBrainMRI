@@ -1,3 +1,20 @@
+## 2026-05-24, TEST HPE Fixture Runtime Consistency Increment
+
+- Added failing-first source-document coverage that parses TEST.md cases HPE1-HPE6, evaluates HPE-pattern, microcephaly, VM, absent-CSP/CC, posterior-fossa, and negative-control behavior with the runtime engine, and verifies the intended DDx cards.
+- Recalibrated HPE rows so normal posterior-fossa and CC fillers stay normal, microcephaly rows cross runtime thresholds, monoventricle rows are executable, and HPE+DWM/PCH overlap is deterministic.
+- Updated the TEST corpus numeric audit blocker from 20 to 18 residual normal-label rows.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before implementation because HPE1 documented normal vermis while the stale vermis AP row fired `vermis-small`.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 238 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 238 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md source_verification_dossier.md client/src/lib/methodology-page.test.ts client/src/lib/biometry.test.ts` passes after formatting the dossier table.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, TEST Absent-CSP Fixture Runtime Consistency Increment
 
 - Added failing-first source-document coverage that parses TEST.md cases CSP-A1-CSP-A4 and CSP-A6, evaluates isolated absent-CSP, VM, ACC, HPE, short-CC, and thick-CC behavior with the runtime engine, and verifies negative-control behavior.
