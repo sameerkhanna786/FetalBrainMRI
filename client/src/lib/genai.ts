@@ -90,6 +90,17 @@ export type NumericVerificationResult = {
   fallback: "safe deterministic template" | null;
 };
 
+export type ImpressionCitationVerificationFailure = {
+  lineNumber: number;
+  line: string;
+};
+
+export type ImpressionCitationVerificationResult = {
+  ok: boolean;
+  failures: ImpressionCitationVerificationFailure[];
+  fallback: "safe deterministic template" | null;
+};
+
 const normalizeFinding = (finding: string): string =>
   finding.trim().replace(/\s+/g, " ");
 
@@ -189,6 +200,28 @@ export function verifyGeneratedReportAgainstNumericInputs(
     return failures;
   });
   const failures = [...missingAnchorFailures, ...contradictoryMentionFailures];
+
+  return {
+    ok: failures.length === 0,
+    failures,
+    fallback: failures.length === 0 ? null : GENAI_GUARDRAILS.fallback,
+  };
+}
+
+export function verifyGeneratedImpressionCitations(
+  impression: string
+): ImpressionCitationVerificationResult {
+  const citationPattern =
+    /\[[A-Za-z0-9][A-Za-z0-9._:-]*\]|\bPMID\s*:?\s*\d{6,9}\b/i;
+  const failures = impression
+    .split(/\r?\n/)
+    .map((line, index) => ({
+      lineNumber: index + 1,
+      line: line.trim(),
+    }))
+    .filter(({ line }) => line.length > 0)
+    .filter(({ line }) => !/^impression\s*:?\s*$/i.test(line))
+    .filter(({ line }) => !citationPattern.test(line));
 
   return {
     ok: failures.length === 0,

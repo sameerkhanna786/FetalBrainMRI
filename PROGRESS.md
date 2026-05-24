@@ -1,3 +1,21 @@
+## 2026-05-24, GenAI Impression Citation Guard Increment
+
+- Added failing-first coverage that generated Impression lines without inline literature citations fail verification.
+- Added `verifyGeneratedImpressionCitations` so generated Impression text must include retrieved chunk IDs or PMID citations on non-heading diagnosis lines.
+- Reused the safe deterministic-template fallback when citation grounding is incomplete.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/genai.test.ts -- --runInBand -t "Impression citation"` failed before implementation because no citation verifier existed.
+- `npx pnpm@10.4.1 test client/src/lib/genai.test.ts -- --runInBand -t "Impression citation"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/genai.test.ts -- --runInBand` passes with 10 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 279 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md client/src/lib/genai.ts client/src/lib/genai.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, GenAI Contradictory Measurement Guard Increment
 
 - Added failing-first coverage that a generated report fails verification when it includes the correct numeric anchor plus a contradictory duplicate measurement.

@@ -1678,3 +1678,10 @@
 - Extend the deterministic verifier to scan report text for label-linked numeric values that disagree with the original measurement input.
 - Keep the fallback path as the safe deterministic template whenever a contradiction is detected.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## GenAI Impression Citation Guard Increment
+
+- Add failing-first coverage that generated Impression lines without inline literature citations fail verification.
+- Add a deterministic citation verifier that accepts retrieved chunk IDs or PMID citations and ignores section headings.
+- Reuse the safe deterministic-template fallback when citation grounding is incomplete.
+- Update the audit/progress trail, then run targeted/full gates before committing.

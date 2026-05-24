@@ -7,6 +7,7 @@ import {
   RAG_SYSTEM_PROMPT,
   buildAgenticSearchPlan,
   buildRagPromptPayload,
+  verifyGeneratedImpressionCitations,
   verifyGeneratedReportAgainstNumericInputs,
 } from "./genai";
 
@@ -136,6 +137,39 @@ describe("SPEC §4.11.4 hallucination guardrails", () => {
         observedAnchor: "Left atrium: 22.0 mm",
       })
     );
+  });
+
+  it("fails Impression citation verification when a diagnosis lacks grounding", () => {
+    const result = verifyGeneratedImpressionCitations(
+      "IMPRESSION\nMild ventriculomegaly is the leading consideration."
+    );
+
+    expect(result).toEqual({
+      ok: false,
+      failures: [
+        {
+          lineNumber: 2,
+          line: "Mild ventriculomegaly is the leading consideration.",
+        },
+      ],
+      fallback: "safe deterministic template",
+    });
+  });
+
+  it("passes Impression citation verification for retrieved chunk IDs and PMID citations", () => {
+    const result = verifyGeneratedImpressionCitations(
+      [
+        "IMPRESSION",
+        "Mild ventriculomegaly is the leading consideration [pagani-2014-nd-delay].",
+        "Recommend follow-up because related fetal MRI evidence is limited (PMID 30591508).",
+      ].join("\n")
+    );
+
+    expect(result).toEqual({
+      ok: true,
+      failures: [],
+      fallback: null,
+    });
   });
 });
 
