@@ -1179,3 +1179,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check package.json PLAN.md client/src/lib/client-shell.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.8 Plain-Text Clipboard Export Increment
+
+- Added focused coverage for the PowerScribe copy path using a clipboard abstraction that only writes plain text.
+- Preserved report line breaks exactly when writing to the clipboard.
+- Routed the existing Copy to Clipboard button through the tested helper without changing report generation.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 96 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/clipboard.ts client/src/lib/clipboard.test.ts client/src/pages/Home.tsx` passes after formatting `client/src/lib/clipboard.test.ts`.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

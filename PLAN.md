@@ -538,3 +538,9 @@
 - Add client-shell coverage rejecting raw HTML injection surfaces in non-test client source.
 - Remove the unused chart component that relied on `dangerouslySetInnerHTML` for generated style injection.
 - Remove the unused Recharts dependency so the plain-text report shell has no unused rich-chart surface.
+
+## SPEC 4.8 Plain-Text Clipboard Export Increment
+
+- Add focused coverage for the PowerScribe copy path using a clipboard abstraction that only accepts plain text.
+- Preserve report line breaks exactly when writing to the clipboard.
+- Wire the existing Copy to Clipboard button through the tested helper without changing report generation.

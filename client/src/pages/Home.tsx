@@ -40,6 +40,7 @@ import {
   gaToDecimalWeeks,
   parseGestationalAge,
 } from "@/lib/biometry";
+import { copyReportPlainText } from "@/lib/clipboard";
 import { generateReport } from "@/lib/report";
 import type { Differential } from "@/lib/biometry";
 
@@ -229,7 +230,7 @@ export default function Home() {
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(report);
+      await copyReportPlainText(report);
       toast.success("Report copied to clipboard");
     } catch {
       toast.error("Unable to copy — select and copy manually");
