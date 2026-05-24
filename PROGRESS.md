@@ -1,3 +1,20 @@
+## 2026-05-24, Active Goal Completion Audit Increment
+
+- Added failing-first source-document coverage requiring `completion_audit.md` to map the active goal's deliverables to concrete evidence and unresolved blockers.
+- Created `completion_audit.md` with the objective restatement, prompt-to-artifact checklist, command gate list, 0-residual TEST audit evidence, and explicit not-complete decision.
+- Linked `completion_audit.md` from `publication_handoff_checklist.md` so radiologist collaborators can distinguish implementation-ready artifacts from external validation and signoff dependencies.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/methodology-page.test.ts -- --runInBand -t "completion audit"` failed before implementation because `completion_audit.md` did not exist.
+- `npx pnpm@10.4.1 test client/src/lib/methodology-page.test.ts -- --runInBand -t "completion audit"` passes.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 243 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md publication_handoff_checklist.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, TEST Endcap Fixture Runtime Consistency Increment
 
 - Added failing-first source-document coverage that parses TEST.md cases CII4, EA1, STRESS3, and STRESS6; verifies the final residual normal-label rows; checks expected DDx cards; and confirms STRESS6 keeps TCD source disagreement without firing a TCD size card.

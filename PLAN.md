@@ -1433,3 +1433,10 @@
 - Recalibrate the remaining Chiari-II, extra-axial, high-GA stress, and TCD-disagreement values so documented bands and no-card controls match the active runtime engine.
 - Update the TEST corpus numeric audit blocker when the residual normal-label audit reaches zero.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Active Goal Completion Audit Increment
+
+- Add failing-first source-document coverage requiring a completion audit artifact that maps the active goal's deliverables to concrete evidence.
+- Create `completion_audit.md` with a prompt-to-artifact checklist covering SPEC.md, TEST.md, PLAN.md, PROGRESS.md, validation/handoff docs, core gates, and publication-readiness blockers.
+- Link the audit from the publication handoff checklist so radiologists can see which requirements are implementation-complete versus externally blocked.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

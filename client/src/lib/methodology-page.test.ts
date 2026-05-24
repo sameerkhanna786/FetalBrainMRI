@@ -2674,6 +2674,41 @@ describe("publication handoff checklist", () => {
     expect(dossier).toContain("PMID 32908283");
     expect(dossier).toContain("10.1038/s41591-020-1034-x");
   });
+
+  it("keeps an active-goal completion audit linked to concrete evidence and blockers", () => {
+    const audit = readFileSync(
+      resolve(process.cwd(), "completion_audit.md"),
+      "utf8"
+    );
+    const checklist = readFileSync(
+      resolve(process.cwd(), "publication_handoff_checklist.md"),
+      "utf8"
+    );
+
+    expect(audit).toContain("Active Goal Completion Audit");
+    expect(audit).toContain("Prompt-to-artifact checklist");
+    expect(audit).toContain("SPEC.md");
+    expect(audit).toContain("TEST.md");
+    expect(audit).toContain("PLAN.md");
+    expect(audit).toContain("PROGRESS.md");
+    expect(audit).toContain("publication_handoff_checklist.md");
+    expect(audit).toContain("source_verification_dossier.md");
+    expect(audit).toContain("validation_analysis_lock.md");
+    expect(audit).toContain("reader_study_protocol.md");
+    expect(audit).toContain("source_data_final_lock.md");
+    expect(audit).toContain("npx pnpm@10.4.1 test -- --runInBand");
+    expect(audit).toContain("npx pnpm@10.4.1 check");
+    expect(audit).toContain("npx pnpm@10.4.1 build");
+    expect(audit).toContain("python3 -m py_compile");
+    expect(audit).toContain("git diff --check");
+    expect(audit).toContain("0 residual normal-label rows");
+    expect(audit).toContain("Goal status: Not complete");
+    expect(audit).toContain("FeTA 2024 biometry gap");
+    expect(audit).toContain("IRB / QI determination");
+    expect(audit).toContain("Source-data final lock");
+    expect(audit).toContain("Chiari II / ONTD calibration");
+    expect(checklist).toContain("completion_audit.md");
+  });
 });
 
 describe("reader-study protocol handoff", () => {
