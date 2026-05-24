@@ -52,3 +52,23 @@ describe("SPEC §4.8 clinical integration workflow", () => {
     expect(source).toContain("plain text");
   });
 });
+
+describe("SPEC §4.11 GenAI/RAG methodology exposure", () => {
+  it("surfaces the optional module guardrails, PubMed fallback, and backend recommendations", () => {
+    const source = readFileSync(
+      resolve(process.cwd(), "client/src/pages/Methodology.tsx"),
+      "utf8"
+    );
+
+    expect(source).toContain("Optional GenAI / RAG report module");
+    expect(source).toContain("Do not introduce external medical claims");
+    expect(source).toContain("Bio.Entrez");
+    expect(source).toContain("top 3 abstracts");
+    expect(source).toContain("temporary abstracts only");
+    expect(source).toContain("PMID hyperlink");
+    expect(source).toContain("safe deterministic template");
+    expect(source).toContain("llama.cpp");
+    expect(source).toContain("Google AI Studio");
+    expect(source).toContain("networkCallsEnabled");
+  });
+});

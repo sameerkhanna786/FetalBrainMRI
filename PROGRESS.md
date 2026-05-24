@@ -1725,3 +1725,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/genai.ts client/src/lib/genai.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.11 GenAI/RAG Methodology Exposure Increment
+
+- Added Methodology-page coverage for the optional GenAI/RAG module and strict no-external-claims prompt.
+- Surfaced the Bio.Entrez top-3 PubMed fallback, temporary abstract context, and PMID transparency requirement.
+- Surfaced the safe deterministic fallback and local/free-tier backend recommendations without enabling network calls.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 141 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/methodology-page.test.ts client/src/pages/Methodology.tsx` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

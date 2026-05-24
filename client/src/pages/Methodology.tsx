@@ -340,6 +340,38 @@ export default function Methodology() {
         </section>
 
         <section className="space-y-4 mb-12">
+          <h2 className="font-display text-2xl">
+            Optional GenAI / RAG report module
+          </h2>
+          <p>
+            The optional GenAI / RAG report module is scaffolded as a guarded
+            report-generation path. Findings remain deterministic string
+            interpolation, and any impression synthesis is constrained by the
+            prompt: "You must only use the provided numerical data and retrieved
+            literature to generate the report.{" "}
+            {"Do not introduce external medical claims"}."
+          </p>
+          <p>
+            The curated knowledge bank scope is the peer-reviewed paper set in
+            SPEC.md plus ISUOG guidance, ESPR guidance, and authoritative fetal
+            neuroradiology textbooks. When internal retrieval is insufficient,
+            the fallback plan uses Bio.Entrez with a Boolean PubMed query,
+            retrieves the top 3 abstracts, and injects temporary abstracts only.
+            Every agentic-search claim requires radiologist review and a{" "}
+            {"PMID hyperlink"}.
+          </p>
+          <p>
+            Post-generation verification checks the generated report against the
+            original numeric inputs; if a measurement anchor is missing, report
+            generation falls back to the safe deterministic template. Backend
+            recommendations remain deployment metadata: llama.cpp for local
+            inference and Google AI Studio, Groq Cloud, Hugging Face Serverless
+            Inference API, or OpenRouter for free-tier cloud evaluation.
+            networkCallsEnabled remains false in this client-side prototype.
+          </p>
+        </section>
+
+        <section className="space-y-4 mb-12">
           <h2 className="font-display text-2xl">Privacy &amp; workflow</h2>
           <p>
             Phase 1 Epic Radiant integration is a custom hyperlink from the

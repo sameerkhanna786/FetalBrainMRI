@@ -790,3 +790,9 @@
 - Add GenAI guardrail coverage for cross-checking generated report text against original numeric inputs.
 - Fail verification when a generated report omits the exact expected measurement anchor.
 - Return the safe deterministic-template fallback whenever verification fails.
+
+## SPEC 4.11 GenAI/RAG Methodology Exposure Increment
+
+- Add Methodology-page coverage for the optional GenAI/RAG module and strict no-external-claims prompt.
+- Surface the Bio.Entrez top-3 PubMed fallback, temporary abstract context, and PMID transparency requirement.
+- Surface the safe deterministic fallback and local/free-tier backend recommendations without enabling network calls.
