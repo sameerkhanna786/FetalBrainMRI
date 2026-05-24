@@ -28,4 +28,13 @@ describe("SPEC §7.5 row-level source detail disclosure", () => {
     expect(rowSource).toContain("source-breakdown-${param.id}");
     expect(cardSource).toContain("#source-breakdown-${item.parameterId}");
   });
+
+  it("opens the row source breakdown by default for disagreeing rows", () => {
+    const source = readFileSync(
+      resolve(process.cwd(), "client/src/components/ParameterRow.tsx"),
+      "utf8"
+    );
+
+    expect(source).toContain('open={zr.agreementState === "disagree"}');
+  });
 });

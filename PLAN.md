@@ -580,3 +580,9 @@
 - Add UI coverage proving differential source-disagreement badges link to the row-level source breakdown.
 - Give each measured parameter's source breakdown a stable `source-breakdown-{parameterId}` anchor target.
 - Render differential source-disagreement badges as links to those anchors without changing card ranking or trigger logic.
+
+## SPEC 4.2 Disagree Source Auto-Expansion Increment
+
+- Add row-level UI coverage proving source breakdowns open by default when the agreement state is `disagree`.
+- Bind the parameter-row source breakdown `open` state to the computed disagreement state.
+- Preserve collapsed source breakdowns for non-disagree rows and keep the existing source-disagreement anchors.

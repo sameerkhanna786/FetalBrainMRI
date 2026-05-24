@@ -207,6 +207,7 @@ export default function ParameterRow({ param, value, zr, onChange }: Props) {
       {zr && (
         <details
           id={`source-breakdown-${param.id}`}
+          open={zr.agreementState === "disagree"}
           className="col-span-12 text-[11px] text-[color:var(--ink-soft)]"
         >
           <summary className="cursor-pointer smallcaps text-[color:var(--teal)]">

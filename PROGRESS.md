@@ -1270,3 +1270,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/source-detail-ui.test.ts client/src/components/ParameterRow.tsx client/src/components/DifferentialCard.tsx` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.2 Disagree Source Auto-Expansion Increment
+
+- Added row-level UI coverage proving source breakdowns open by default when the agreement state is `disagree`.
+- Bound the parameter-row source breakdown `open` state to the computed disagreement state.
+- Preserved collapsed source breakdowns for non-disagree rows and kept the existing source-disagreement anchors.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 102 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/source-detail-ui.test.ts client/src/components/ParameterRow.tsx` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
