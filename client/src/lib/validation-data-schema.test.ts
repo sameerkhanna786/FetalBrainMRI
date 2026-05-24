@@ -898,6 +898,50 @@ describe("validation data export schema guard", () => {
     );
   });
 
+  it("rejects duplicate measurement rows at the documented export grain", () => {
+    expect(
+      validateValidationDataExport({
+        "case_log.csv": [
+          {
+            study_id: "S1",
+            cohort: "institutional",
+            site_id: "single_site",
+            scanner_vendor: "unknown",
+            field_strength_t: 1.5,
+            svr_method: "none",
+            image_quality_tier: "diagnostic",
+            ga_weeks: 28,
+            ga_days: 0,
+            included: true,
+            reference_standard_available: true,
+            prediction_available: true,
+            pathology_label_available: true,
+          },
+        ],
+        "measurement_rows.csv": [
+          {
+            study_id: "S1",
+            parameter_id: "tcd",
+            source_role: "reference",
+            value_mm: 32,
+            measurement_available: true,
+            image_quality_tier: "diagnostic",
+          },
+          {
+            study_id: "S1",
+            parameter_id: "tcd",
+            source_role: "reference",
+            value_mm: 33,
+            measurement_available: true,
+            image_quality_tier: "diagnostic",
+          },
+        ],
+      })
+    ).toContain(
+      "measurement_rows.csv study S1 parameter tcd source_role reference reader none appears 2 times; expected exactly one"
+    );
+  });
+
   it("rejects duplicate diagnostic labels for the same case and trigger", () => {
     expect(
       validateValidationDataExport({

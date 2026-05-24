@@ -1650,3 +1650,10 @@
 - Extend package-level validation so each audited report contributes at most one row before QI pre/post metrics run.
 - Update the data dictionary so `report_id` is documented as a unique report key.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Measurement Duplicate Row Guard Increment
+
+- Add failing-first coverage for duplicate `measurement_rows.csv` rows at the documented case/parameter/source-role/reader grain.
+- Extend package-level validation so measurement agreement, grouped robustness, and ICC inputs cannot double-count the same measurement source.
+- Update the data dictionary so the measurement row grain is explicitly unique.
+- Update the audit/progress trail, then run targeted/full gates before committing.

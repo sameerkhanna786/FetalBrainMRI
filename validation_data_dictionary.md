@@ -30,13 +30,13 @@ checked against the runtime schema.
 
 ## File set
 
-| File                  | Grain                                                              | Primary helper or use                                                                       |
-| --------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------- |
-| case_log.csv          | one row per fetal MRI case                                         | `summarizeValidationCohortFlow`                                                             |
-| measurement_rows.csv  | one row per case, parameter, source role, and reader if applicable | `computeAgreementMetrics`, `computeGroupedAgreementMetrics`, `computeIntraclassCorrelation` |
-| diagnostic_labels.csv | one unique row per case and diagnostic trigger                     | `computeBinaryValidationMetrics`, `computeDecisionCurve`                                    |
-| reader_study_rows.csv | one row per reader, case, and reading condition                    | `computeReaderStudyCrossoverSummary`, `computeCohenKappa`, `computeFleissKappa`             |
-| report_audit_rows.csv | one row per baseline or post-tool report linked to a case          | `computeQiAuditSummary`, `compareQiAuditPhases`                                             |
+| File                  | Grain                                                                     | Primary helper or use                                                                       |
+| --------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| case_log.csv          | one row per fetal MRI case                                                | `summarizeValidationCohortFlow`                                                             |
+| measurement_rows.csv  | one unique row per case, parameter, source role, and reader if applicable | `computeAgreementMetrics`, `computeGroupedAgreementMetrics`, `computeIntraclassCorrelation` |
+| diagnostic_labels.csv | one unique row per case and diagnostic trigger                            | `computeBinaryValidationMetrics`, `computeDecisionCurve`                                    |
+| reader_study_rows.csv | one row per reader, case, and reading condition                           | `computeReaderStudyCrossoverSummary`, `computeCohenKappa`, `computeFleissKappa`             |
+| report_audit_rows.csv | one row per baseline or post-tool report linked to a case                 | `computeQiAuditSummary`, `compareQiAuditPhases`                                             |
 
 ## case_log.csv
 
@@ -62,6 +62,8 @@ checked against the runtime schema.
 Use this file for FeTA external validation, institutional validation, and
 inter-rater reliability. Store millimetre and degree values in separate columns
 so angular parameters cannot be silently interpreted as millimetres.
+The unique row grain is `study_id`, `parameter_id`, `source_role`, and
+`reader_id` when applicable.
 Rows with `measurement_available=true` must populate exactly one of `value_mm`
 or `value_deg`, and the populated column must match the runtime parameter unit.
 Rows with `measurement_available=false` must leave both value columns blank and

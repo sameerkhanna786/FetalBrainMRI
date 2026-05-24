@@ -735,6 +735,24 @@ export const validateValidationDataExport = (
     data["measurement_rows.csv"] ?? [],
     caseIds
   );
+  const measurementRowCounts = new Map<string, number>();
+  for (const row of data["measurement_rows.csv"] ?? []) {
+    const studyId = stringValue(row.study_id);
+    const parameterId = stringValue(row.parameter_id);
+    const sourceRole = stringValue(row.source_role);
+    const readerId = stringValue(row.reader_id) ?? "none";
+    if (studyId == null || parameterId == null || sourceRole == null) continue;
+    const key = `${studyId}\u0000${parameterId}\u0000${sourceRole}\u0000${readerId}`;
+    measurementRowCounts.set(key, (measurementRowCounts.get(key) ?? 0) + 1);
+  }
+  measurementRowCounts.forEach((count, key) => {
+    if (count > 1) {
+      const [studyId, parameterId, sourceRole, readerId] = key.split("\u0000");
+      errors.push(
+        `measurement_rows.csv study ${studyId} parameter ${parameterId} source_role ${sourceRole} reader ${readerId} appears ${count} times; expected exactly one`
+      );
+    }
+  });
   pushMissingCaseReferences(
     errors,
     "diagnostic_labels.csv",
