@@ -204,6 +204,12 @@
 - Replace the stale small-vermis plus dilated-third-ventricle trigger text in SPEC §7.4 with the implemented TVA-based trigger.
 - Re-run targeted methodology tests, full Vitest, typecheck, formatting for touched docs/tests, and production build before committing.
 
+## Validation metrics utility increment
+
+- Add unit coverage for manuscript-grade validation metrics: Brier score, ROC-AUC, PR-AUC, locked-threshold sensitivity/specificity, calibration summary, and decision-curve net benefit.
+- Implement a deterministic validation metrics helper for analyst handoff, with explicit rejection of one-class or out-of-range prediction inputs.
+- Link the helper from the publication handoff checklist and rerun full tests, typecheck, formatting, and production build before committing.
+
 ## Isolated third-ventricle report increment
 
 - Add Vitest coverage for TEST.md §21 Case TV2: isolated third-ventricle dilatation at 30w0d should fire `third-v-wide` without ventriculomegaly or aqueductal-stenosis cards.

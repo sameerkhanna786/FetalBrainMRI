@@ -1,3 +1,20 @@
+## 2026-05-23, Validation Metrics Utility Increment
+
+- Added `client/src/lib/validation-metrics.ts` for analyst handoff of manuscript-grade validation endpoints: Brier score, ROC-AUC, PR-AUC, locked-threshold sensitivity / specificity, calibration-in-the-large, calibration slope, and decision-curve net benefit.
+- Added input validation so malformed cohort tables, out-of-range probabilities, invalid thresholds, and one-class datasets fail explicitly instead of producing unstable metrics.
+- Added Vitest coverage for discrimination, calibration summary, Brier score, decision-curve net benefit, treat-all / treat-none comparators, and invalid-input rejection.
+- Linked the helper from `publication_handoff_checklist.md` and updated `source_verification_dossier.md`; the calibration / clinical utility blocker remains open until real FeTA / institutional labels and exported results are available.
+
+Verification:
+
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/validation-metrics.test.ts` passes.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/validation-metrics.test.ts client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 174 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md source_verification_dossier.md publication_handoff_checklist.md client/src/lib/validation-metrics.ts client/src/lib/validation-metrics.test.ts client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, SPEC 7.4 Dandy-Walker TVA Trigger Correction Increment
 
 - Added source-document consistency coverage that the SPEC combined-pattern likelihood manifest uses the implemented Dandy-Walker trigger: small vermis plus elevated tegmento-vermian angle.
