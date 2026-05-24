@@ -1140,3 +1140,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check package.json PLAN.md client/src/lib/client-shell.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.9 Google Maps Package Removal Increment
+
+- Added client-shell coverage proving the package does not declare Google Maps integration or type packages.
+- Removed the unused `@types/google.maps` dev dependency left after the earlier Google Maps component deletion.
+- Preserved citation links while keeping executable and typed Maps integration surfaces out of the project.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 93 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check package.json PLAN.md client/src/lib/client-shell.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

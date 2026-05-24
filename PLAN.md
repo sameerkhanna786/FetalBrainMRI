@@ -520,3 +520,9 @@
 - Add client-shell coverage proving the package does not declare an unused streaming/Markdown response renderer dependency.
 - Remove the unused Streamdown dependency so report output remains tied to deterministic string interpolation.
 - Preserve existing report generation behavior; this increment only tightens the package surface.
+
+## SPEC 4.9 Google Maps Package Removal Increment
+
+- Add client-shell coverage proving the package does not declare Google Maps integration or type packages.
+- Remove the unused `@types/google.maps` dependency left after deleting the Google Maps component.
+- Preserve citation links while keeping executable and typed Maps integration surfaces out of the project.

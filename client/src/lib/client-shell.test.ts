@@ -83,6 +83,21 @@ describe("SPEC §4.9 client privacy shell", () => {
     expect(declaredPackages).not.toHaveProperty("streamdown");
   });
 
+  it("does not declare Google Maps packages", () => {
+    const packageJson = JSON.parse(
+      readFileSync(resolve(process.cwd(), "package.json"), "utf8")
+    ) as {
+      dependencies?: Record<string, string>;
+      devDependencies?: Record<string, string>;
+    };
+    const declaredPackages = {
+      ...packageJson.dependencies,
+      ...packageJson.devDependencies,
+    };
+
+    expect(declaredPackages).not.toHaveProperty("@types/google.maps");
+  });
+
   it("does not include dynamic external script or map loaders", () => {
     const forbidden = [
       {
