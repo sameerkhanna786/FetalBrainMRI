@@ -784,3 +784,9 @@
 - Add regression coverage for the SPEC §4.11.2 RAG prompt constraint and knowledge-bank scope.
 - Add coverage for the SPEC §4.11.3 agentic PubMed search query shape, top-3 retrieval limit, and transparency flag.
 - Add metadata coverage for the SPEC §4.11.5 local and free-tier backend recommendations without introducing network calls.
+
+## SPEC 4.11.4 Post-Generation Verification Increment
+
+- Add GenAI guardrail coverage for cross-checking generated report text against original numeric inputs.
+- Fail verification when a generated report omits the exact expected measurement anchor.
+- Return the safe deterministic-template fallback whenever verification fails.

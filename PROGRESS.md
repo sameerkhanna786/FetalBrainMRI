@@ -1712,3 +1712,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/genai.ts client/src/lib/genai.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.11.4 Post-Generation Verification Increment
+
+- Added GenAI guardrail coverage for cross-checking generated report text against original numeric inputs.
+- Failed verification when a generated report omits the exact expected measurement anchor.
+- Returned the safe deterministic-template fallback whenever verification fails.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 140 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/genai.ts client/src/lib/genai.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

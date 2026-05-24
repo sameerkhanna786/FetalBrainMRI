@@ -52,8 +52,28 @@ export type AgenticSearchPlan = {
   transparencySource: "PMID hyperlink required for every agentic claim";
 };
 
+export type NumericReportInput = {
+  label: string;
+  value: number;
+  unit: "mm" | "degrees";
+};
+
+export type NumericVerificationFailure = {
+  label: string;
+  expectedAnchor: string;
+};
+
+export type NumericVerificationResult = {
+  ok: boolean;
+  failures: NumericVerificationFailure[];
+  fallback: "safe deterministic template" | null;
+};
+
 const normalizeFinding = (finding: string): string =>
   finding.trim().replace(/\s+/g, " ");
+
+const numericAnchorFor = (input: NumericReportInput): string =>
+  `${input.label}: ${input.value.toFixed(1)} ${input.unit}`;
 
 export function buildAgenticSearchPlan(findings: string[]): AgenticSearchPlan {
   const normalizedFindings = findings
@@ -73,5 +93,23 @@ export function buildAgenticSearchPlan(findings: string[]): AgenticSearchPlan {
     contextInjection: "temporary abstracts only",
     requiresRadiologistReview: true,
     transparencySource: "PMID hyperlink required for every agentic claim",
+  };
+}
+
+export function verifyGeneratedReportAgainstNumericInputs(
+  report: string,
+  inputs: NumericReportInput[]
+): NumericVerificationResult {
+  const failures = inputs
+    .map(input => ({
+      label: input.label,
+      expectedAnchor: numericAnchorFor(input),
+    }))
+    .filter(anchor => !report.includes(anchor.expectedAnchor));
+
+  return {
+    ok: failures.length === 0,
+    failures,
+    fallback: failures.length === 0 ? null : GENAI_GUARDRAILS.fallback,
   };
 }

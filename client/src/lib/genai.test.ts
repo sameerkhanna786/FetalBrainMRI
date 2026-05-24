@@ -6,6 +6,7 @@ import {
   GENAI_KNOWLEDGE_BANK_SCOPE,
   RAG_SYSTEM_PROMPT,
   buildAgenticSearchPlan,
+  verifyGeneratedReportAgainstNumericInputs,
 } from "./genai";
 
 describe("SPEC §4.11.2 RAG knowledge bank and prompt guardrail", () => {
@@ -53,6 +54,40 @@ describe("SPEC §4.11.4 hallucination guardrails", () => {
       postGenerationVerification:
         "judge cross-checks generated report against numeric inputs",
       fallback: "safe deterministic template",
+    });
+  });
+
+  it("fails generated-report verification when the original numeric anchor is missing", () => {
+    const result = verifyGeneratedReportAgainstNumericInputs(
+      "FINDINGS\nThe left atrium measures 22.0 mm.",
+      [{ label: "Left atrium", value: 12, unit: "mm" }]
+    );
+
+    expect(result).toMatchObject({
+      ok: false,
+      fallback: "safe deterministic template",
+      failures: [
+        {
+          label: "Left atrium",
+          expectedAnchor: "Left atrium: 12.0 mm",
+        },
+      ],
+    });
+  });
+
+  it("passes generated-report verification when every numeric anchor is preserved", () => {
+    const result = verifyGeneratedReportAgainstNumericInputs(
+      "FINDINGS\nLeft atrium: 12.0 mm.\nCSA: 55.0 degrees.",
+      [
+        { label: "Left atrium", value: 12, unit: "mm" },
+        { label: "CSA", value: 55, unit: "degrees" },
+      ]
+    );
+
+    expect(result).toEqual({
+      ok: true,
+      failures: [],
+      fallback: null,
     });
   });
 });
