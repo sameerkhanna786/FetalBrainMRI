@@ -1166,3 +1166,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check package.json PLAN.md client/src/lib/client-shell.test.ts client/src/components/ui/sonner.tsx` passes after formatting `client/src/lib/client-shell.test.ts`.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.8/4.9 Raw HTML Surface Removal Increment
+
+- Added client-shell coverage rejecting raw HTML injection surfaces in non-test client source.
+- Removed the unused chart component that relied on `dangerouslySetInnerHTML` for generated style injection.
+- Removed the unused Recharts dependency so the plain-text report shell has no unused rich-chart surface.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 95 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check package.json PLAN.md client/src/lib/client-shell.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

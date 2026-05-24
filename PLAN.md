@@ -532,3 +532,9 @@
 - Add client-shell coverage proving the package does not declare `next-themes` or import it from client source.
 - Switch the toast component to the app's stateless local `ThemeContext`.
 - Remove the `next-themes` dependency so theme state cannot reintroduce browser persistence through an unused provider package.
+
+## SPEC 4.8/4.9 Raw HTML Surface Removal Increment
+
+- Add client-shell coverage rejecting raw HTML injection surfaces in non-test client source.
+- Remove the unused chart component that relied on `dangerouslySetInnerHTML` for generated style injection.
+- Remove the unused Recharts dependency so the plain-text report shell has no unused rich-chart surface.

@@ -137,4 +137,15 @@ describe("SPEC §4.9 client privacy shell", () => {
 
     expect(findForbiddenSourcePatterns(forbidden)).toEqual([]);
   });
+
+  it("does not include raw HTML injection surfaces", () => {
+    const forbidden = [
+      {
+        label: "dangerouslySetInnerHTML",
+        pattern: /dangerouslySetInnerHTML/,
+      },
+    ];
+
+    expect(findForbiddenSourcePatterns(forbidden)).toEqual([]);
+  });
 });
