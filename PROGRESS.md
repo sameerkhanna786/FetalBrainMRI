@@ -1,3 +1,20 @@
+## 2026-05-24, TEST Filler Registry-Mean Consistency Increment
+
+- Added failing-first source-document coverage that parses the canonical TEST.md filler table and compares every z-scored filler value against the active source-registry consensus mean.
+- Corrected the canonical filler prose and representative GA rows so rounded filler values remain within z = 0 rounding tolerance.
+- Clarified that third-ventricle filler entries are raw-threshold placeholders below the 3.5 mm alert threshold, not z-scored cohort means.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before implementation because TEST.md still had stale filler prose and registry-mean values.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 224 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 224 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, TEST Corpus Deterministic DDx Language Increment
 
 - Added failing-first source-document coverage that TEST.md no longer uses permissive "may or may not fire" differential-diagnosis language.

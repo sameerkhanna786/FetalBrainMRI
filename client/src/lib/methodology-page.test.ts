@@ -3,6 +3,8 @@ import { resolve } from "node:path";
 
 import { describe, expect, it } from "vitest";
 
+import { PARAMETERS_ALL, mu } from "./biometry";
+
 describe("SPEC §4.10 QI deployment protocol", () => {
   it("surfaces the pre/intervention/post report-audit endpoints on the Methodology page", () => {
     const source = readFileSync(
@@ -151,6 +153,71 @@ describe("publication-readiness source-document consistency", () => {
     expect(testCorpus).not.toMatch(/may\s+\*?or\s+may\s+not\*?\s+fire/i);
     expect(testCorpus).not.toContain("may fire on AP vermis depending");
     expect(testCorpus).not.toContain("depends on the specific calibration");
+  });
+
+  it("keeps TEST.md canonical filler rows aligned to the active registry means", () => {
+    const testCorpus = readFileSync(resolve(process.cwd(), "TEST.md"), "utf8");
+    const fillerColumns = [
+      ["Skull BPD", "skull_bpd"],
+      ["Skull OFD", "skull_ofd"],
+      ["Brain BPD", "brain_bpd"],
+      ["Brain OFD-L", "brain_ofd_left"],
+      ["Brain OFD-R", "brain_ofd_right"],
+      ["Atrium", "atrial_right"],
+      ["CSP", "csp_width"],
+      ["CC", "cc_length"],
+      ["TCD", "tcd"],
+      ["Vermis CC", "vermis_cc"],
+      ["Vermis AP", "vermis_ap"],
+      ["Pons AP", "pons_ap"],
+    ] as const;
+
+    expect(testCorpus).toContain("rounded to the nearest 0.1 mm");
+    expect(testCorpus).toContain(
+      "Third-ventricle values are raw-threshold placeholders"
+    );
+
+    const header = testCorpus
+      .split("\n")
+      .find(line => line.startsWith("| GA | Skull BPD |"));
+    expect(header).toBeDefined();
+    const headerColumns = header!
+      .split("|")
+      .slice(1, -1)
+      .map(cell => cell.trim());
+
+    for (const [label] of fillerColumns) {
+      expect(headerColumns).toContain(label);
+    }
+
+    const parametersById = new Map(
+      PARAMETERS_ALL.map(parameter => [parameter.id, parameter])
+    );
+    for (const gaWeeks of [21, 24, 28, 32, 36]) {
+      const row = testCorpus
+        .split("\n")
+        .find(line => line.startsWith(`| ${gaWeeks}+0 |`));
+      expect(row).toBeDefined();
+      const cells = row!
+        .split("|")
+        .slice(1, -1)
+        .map(cell => cell.trim());
+      const valuesByColumn = new Map(
+        headerColumns.map((label, index) => [label, cells[index]])
+      );
+
+      for (const [label, parameterId] of fillerColumns) {
+        const parameter = parametersById.get(parameterId);
+        expect(parameter).toBeDefined();
+        expect(valuesByColumn.get(label)).toBe(
+          `${mu(parameter!, gaWeeks).toFixed(1)} mm`
+        );
+      }
+
+      const thirdVentricle = valuesByColumn.get("3rd-V");
+      expect(thirdVentricle).toMatch(/^\d+\.\d mm$/);
+      expect(Number(thirdVentricle!.replace(" mm", ""))).toBeLessThan(3.5);
+    }
   });
 
   it("locks Aertsen 2019 citation metadata to the PMC AJNR article", () => {

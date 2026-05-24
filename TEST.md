@@ -35,7 +35,7 @@ Every test case is sourced from a paper, cohort, or threshold that is **not** pa
 
 ### 1.3 Measurement-set conventions
 
-Each case lists the full set of fourteen calculator inputs even when only a few are relevant to the diagnosis under test. Inputs that are not specified by the source case are filled with the cohort-mean value at the case's GA (computed from the µ(GA) = a·GA² + b·GA + c quadratic in `SPEC.md` §7.3 for skull, brain, atrium, CSP, and CC parameters, and from Dovjak 2021's per-percentile linear equations for TCD, vermis CC, vermis AP, and pons AP). This is labelled `(filler)` in each row. Filler values are constructed to be exactly at the cohort mean so that they produce z = 0 and never accidentally trigger an unrelated DDx card. A test runner that wants to perturb the corpus to test boundary conditions can do so by changing the filler values and running the corpus again.
+Each case lists the full set of fourteen calculator inputs even when only a few are relevant to the diagnosis under test. Inputs that are not specified by the source case are filled with the active source-registry consensus mean at the case's GA. This is labelled `(filler)` in each row. Filler values are rounded to the nearest 0.1 mm, so they remain within rounding tolerance of z = 0 and should not accidentally trigger an unrelated DDx card. Third-ventricle values are raw-threshold placeholders below the 3.5 mm alert threshold, not z-scored cohort means. A test runner that wants to perturb the corpus to test boundary conditions can do so by changing the filler values and running the corpus again.
 
 The columns "Expected band" and "Expected agreement" refer to the consensus output documented in `SPEC.md` §4.2. Bands are `<5th`, `5th–95th` (also written `normal`), `>95th`, and `<3rd` / `>97th` for the size-summary parameters. Agreement is `single` when only one source covers a parameter, `agree` when two sources cover the parameter and their z-scores differ by less than 1.0 SD, and `disagree` otherwise. Dovjak 2021 source range audit: 14+0 to 39+2 weeks (encoded as 14.0-39.3 weeks), based on PMC8457244 and PubMed PMID 32730667.
 
@@ -43,15 +43,15 @@ GA is written as `W+D` (weeks-and-days) and as a decimal `W.dd` interchangeably,
 
 ### 1.4 Filler equations used to populate non-specified parameters
 
-To make each case's full measurement table self-contained without bloating the prose, the table below provides the canonical filler values used throughout the corpus at five representative GAs. These come from the Luis 2025 quadratic mean curve and Dovjak 2021 5th-to-95th midline linear equations (`SPEC.md` §7.3). Cases below interpolate linearly between adjacent rows.
+To make each case's full measurement table self-contained without bloating the prose, the table below provides the canonical filler values used throughout the corpus at five representative GAs. Z-scored rows come from the active source-registry consensus mean curves in `SPEC.md` §7.3, rounded to the nearest 0.1 mm. Third-ventricle values are raw-threshold placeholders and should remain below the 3.5 mm alert threshold. Cases below interpolate linearly between adjacent rows.
 
 | GA | Skull BPD | Skull OFD | Brain BPD | Brain OFD-L | Brain OFD-R | Atrium | CSP | CC | TCD | Vermis CC | Vermis AP | Pons AP | 3rd-V |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 21+0 | 49.7 mm | 70.2 mm | 47.6 mm | 65.4 mm | 65.6 mm | 6.6 mm | 2.6 mm | 17.8 mm | 22.4 mm | 9.7 mm | 4.7 mm | 6.0 mm | 1.4 mm |
-| 24+0 | 60.6 mm | 84.5 mm | 58.4 mm | 79.5 mm | 79.6 mm | 6.9 mm | 3.4 mm | 24.0 mm | 27.6 mm | 12.4 mm | 5.8 mm | 7.5 mm | 1.5 mm |
-| 28+0 | 75.5 mm | 102.6 mm | 73.2 mm | 97.1 mm | 97.2 mm | 7.4 mm | 4.4 mm | 32.5 mm | 34.5 mm | 16.0 mm | 7.3 mm | 9.5 mm | 1.7 mm |
-| 32+0 | 89.3 mm | 117.8 mm | 87.4 mm | 110.6 mm | 110.7 mm | 7.6 mm | 5.0 mm | 39.2 mm | 41.4 mm | 19.4 mm | 8.7 mm | 11.5 mm | 1.8 mm |
-| 36+0 | 100.3 mm | 128.5 mm | 99.9 mm | 119.5 mm | 119.6 mm | 7.6 mm | 5.4 mm | 43.0 mm | 48.3 mm | 22.7 mm | 10.1 mm | 13.5 mm | 2.0 mm |
+| 21+0 | 51.3 mm | 60.9 mm | 43.1 mm | 52.4 mm | 52.4 mm | 7.9 mm | 6.3 mm | 20.0 mm | 20.5 mm | 8.5 mm | 5.7 mm | 6.8 mm | 1.4 mm |
+| 24+0 | 61.5 mm | 74.2 mm | 50.6 mm | 65.1 mm | 65.1 mm | 7.3 mm | 7.1 mm | 26.2 mm | 25.6 mm | 11.3 mm | 7.7 mm | 7.9 mm | 1.5 mm |
+| 28+0 | 73.5 mm | 89.1 mm | 60.9 mm | 79.7 mm | 79.7 mm | 6.9 mm | 7.6 mm | 32.5 mm | 32.5 mm | 14.8 mm | 10.2 mm | 9.5 mm | 1.7 mm |
+| 32+0 | 83.9 mm | 100.9 mm | 71.8 mm | 91.9 mm | 91.9 mm | 6.7 mm | 7.6 mm | 36.6 mm | 39.5 mm | 18.0 mm | 12.6 mm | 11.2 mm | 1.8 mm |
+| 36+0 | 92.6 mm | 109.6 mm | 83.2 mm | 101.5 mm | 101.5 mm | 6.7 mm | 7.2 mm | 38.6 mm | 46.7 mm | 20.9 mm | 14.8 mm | 12.9 mm | 2.0 mm |
 
 Cases at intermediate GAs use linear interpolation between adjacent rows. The filler equations themselves are stated in `SPEC.md` §7.3 and are not duplicated here.
 

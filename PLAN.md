@@ -1297,3 +1297,9 @@
 - Add failing-first source-document coverage that TEST.md no longer uses permissive "may or may not fire" DDx language.
 - Rewrite the ambiguous Dandy-Walker, aqueductal-stenosis, Chiari II post-op, and hemispheric-asymmetry fixture notes as deterministic expected behavior.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## TEST Filler Registry-Mean Consistency Increment
+
+- Add failing-first source-document coverage that the canonical TEST.md filler table matches the active source-registry consensus mean for every z-scored filler parameter.
+- Correct the filler prose and table so rounded values are near z = 0 and the third-ventricle raw-threshold placeholder is not described as a z-scored cohort mean.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.
