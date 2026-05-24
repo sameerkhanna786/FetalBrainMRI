@@ -670,3 +670,9 @@
 - Add DDx coverage for the SPEC §7.4 absent-CSP likelihood manifest.
 - Keep the SMFM absent-CSP/ACC rationale visible while avoiding numeric likelihood labels for estimate rows.
 - Replace the holoprosencephaly, ACC, hydrocephalus, SOD, and isolated likelihood labels with qualitative wording.
+
+## SPEC 7.4 Enlarged-CSP Likelihood Qualitative Increment
+
+- Add DDx coverage for the SPEC §7.4 wide/enlarged-CSP likelihood manifest.
+- Confirm the enlarged-CSP card no longer surfaces estimate-only numeric percentages.
+- Replace the normal-variant, cavum-vergae, cavum-velum-interpositum, associated-anomaly, and obstructive-hydrocephalus labels with qualitative wording.

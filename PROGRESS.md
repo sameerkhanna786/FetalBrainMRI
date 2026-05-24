@@ -1465,3 +1465,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/biometry.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 7.4 Enlarged-CSP Likelihood Qualitative Increment
+
+- Added DDx coverage for the SPEC §7.4 wide/enlarged-CSP likelihood manifest.
+- Confirmed the enlarged-CSP card no longer surfaces estimate-only numeric percentages.
+- Replaced the normal-variant, cavum-vergae, cavum-velum-interpositum, associated-anomaly, and obstructive-hydrocephalus labels with qualitative wording.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 117 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/biometry.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

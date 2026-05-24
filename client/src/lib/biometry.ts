@@ -2105,27 +2105,27 @@ const CARDS: CardSpec[] = [
     rows: [
       {
         dx: "Normal variant / isolated",
-        likelihood: "~85–90%",
+        likelihood: "Most cases",
         rationale: "Generally good prognosis.",
       },
       {
         dx: "Cavum vergae",
-        likelihood: "~5–10%",
+        likelihood: "Minority",
         rationale: "Common posterior extension.",
       },
       {
         dx: "Cavum velum interpositum cyst",
-        likelihood: "<5%",
+        likelihood: "Rare",
         rationale: "Triangular postero-superior; key DDx.",
       },
       {
         dx: "Associated anomalies (ACC, cardiac)",
-        likelihood: "~1–5%",
+        likelihood: "Rare",
         rationale: "Prognosis depends on co-findings.",
       },
       {
         dx: "Symptomatic / obstructive hydrocephalus",
-        likelihood: "<1%",
+        likelihood: "Very rare",
         rationale: "Rare; may need neurosurgical intervention.",
       },
     ],

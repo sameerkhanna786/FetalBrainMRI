@@ -688,6 +688,28 @@ describe("SPEC §7.4 absent-CSP likelihood manifest", () => {
   });
 });
 
+describe("SPEC §7.4 enlarged-CSP likelihood manifest", () => {
+  it("qualitative-labels the estimate-only enlarged-CSP likelihood rows", () => {
+    const ga = { weeks: 28, days: 0 };
+    const values = {
+      csp_width: 11,
+    };
+    const { dxs } = evaluateAll(values, ga);
+    const enlargedCsp = dxs.find(dx => dx.id === "enlarged-csp");
+
+    expect(enlargedCsp?.rows.map(row => row.likelihood)).toEqual([
+      "Most cases",
+      "Minority",
+      "Rare",
+      "Rare",
+      "Very rare",
+    ]);
+    expect(enlargedCsp?.rows.map(row => row.likelihood).join(" ")).not.toMatch(
+      /~85|~5|<5|~1|<1/
+    );
+  });
+});
+
 describe("aqueductal-stenosis pattern report impression", () => {
   it("uses the TEST.md Case S1 triventricular hydrocephalus impression line", () => {
     const ga = { weeks: 26, days: 0 };
