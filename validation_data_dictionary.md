@@ -20,9 +20,10 @@ contains the required fields documented below, catch blank required values,
 enforce high-risk conditional fields such as exclusion and missingness reasons,
 check locked enum values such as reader-study condition and report-audit phase,
 reject non-boolean tokens in `true` / `false` fields, reject non-finite or
-out-of-range numeric values, ensure exported rows reference known `case_log.csv`
-study IDs, and require paired `without_tool` / `with_tool` reader-study rows
-before downstream analysis code runs.
+out-of-range numeric values, reject fractional values in integer fields, ensure
+exported rows reference known `case_log.csv` study IDs, and require paired
+`without_tool` / `with_tool` reader-study rows before downstream analysis code
+runs.
 
 Starter CSV header templates live in `validation_export_templates/` and are
 checked against the runtime schema.
@@ -172,3 +173,6 @@ calculator study. `required_measurement_count` must be greater than zero, and
    scoring; do not export only selected subscales or selected SUS items.
 10. Report-audit rows have a non-zero required-measurement denominator and never
     document more measurements than the locked audit rubric requires.
+11. Integer fields such as `ga_weeks`, `ga_days`, `read_order`,
+    `required_measurement_count`, and `documented_measurement_count` do not use
+    fractional values.

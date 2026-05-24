@@ -14,6 +14,7 @@ export interface ValidationDataColumnSchema {
   numeric?: boolean;
   min?: number;
   max?: number;
+  integer?: boolean;
 }
 
 export interface ValidationDataFileSchema {
@@ -74,8 +75,21 @@ export const VALIDATION_DATA_SCHEMAS: Record<
       { name: "field_strength_t", required: "yes", numeric: true, min: 0 },
       { name: "svr_method", required: "yes" },
       { name: "image_quality_tier", required: "yes" },
-      { name: "ga_weeks", required: "yes", numeric: true, min: 0 },
-      { name: "ga_days", required: "yes", numeric: true, min: 0, max: 6 },
+      {
+        name: "ga_weeks",
+        required: "yes",
+        numeric: true,
+        min: 0,
+        integer: true,
+      },
+      {
+        name: "ga_days",
+        required: "yes",
+        numeric: true,
+        min: 0,
+        max: 6,
+        integer: true,
+      },
       { name: "included", required: "yes", allowedValues: BOOLEAN_VALUES },
       { name: "exclusion_reason", required: "conditional" },
       {
@@ -151,7 +165,13 @@ export const VALIDATION_DATA_SCHEMAS: Record<
         required: "yes",
         allowedValues: ["without_tool", "with_tool"],
       },
-      { name: "read_order", required: "yes", numeric: true, min: 1 },
+      {
+        name: "read_order",
+        required: "yes",
+        numeric: true,
+        min: 1,
+        integer: true,
+      },
       { name: "washout_days", required: "yes", numeric: true, min: 0 },
       { name: "duration_sec", required: "yes", numeric: true, min: 0 },
       { name: "completeness_score", required: "yes", numeric: true },
@@ -298,12 +318,14 @@ export const VALIDATION_DATA_SCHEMAS: Record<
         required: "yes",
         numeric: true,
         min: 0,
+        integer: true,
       },
       {
         name: "documented_measurement_count",
         required: "yes",
         numeric: true,
         min: 0,
+        integer: true,
       },
       {
         name: "explicit_zscore_documented",
@@ -410,13 +432,21 @@ export const validateValidationDataRows = (
     for (const column of schema.columns) {
       const value = row[column.name];
       if (isMissing(value)) continue;
-      if (column.numeric && !isFiniteNumericValue(value)) {
-        errors.push(`${rowLabel} field ${column.name} must be finite`);
-        continue;
-      }
-      if (column.numeric && (column.min != null || column.max != null)) {
+      if (column.numeric) {
+        if (!isFiniteNumericValue(value)) {
+          errors.push(`${rowLabel} field ${column.name} must be finite`);
+          continue;
+        }
         const numberValue = numericValue(value);
         if (
+          column.integer &&
+          numberValue != null &&
+          !Number.isInteger(numberValue)
+        ) {
+          errors.push(`${rowLabel} field ${column.name} must be an integer`);
+        }
+        if (
+          (column.min != null || column.max != null) &&
           numberValue != null &&
           ((column.min != null && numberValue < column.min) ||
             (column.max != null && numberValue > column.max))

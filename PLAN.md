@@ -1531,3 +1531,10 @@
 - Align `report_audit_rows.csv` preflight validation with the QI audit metric invariants.
 - Document count consistency in the validation data dictionary.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Validation Integer Field Guard Increment
+
+- Add failing-first coverage for fractional values in fields documented as integer weeks, days, read order, and report-audit counts.
+- Extend validation-data column schemas with integer metadata for high-risk count and order fields.
+- Reject fractional values before cohort flow, reader-study ordering, or QI report-audit metrics run.
+- Update the data dictionary and audit/progress trail, then run targeted/full gates before committing.

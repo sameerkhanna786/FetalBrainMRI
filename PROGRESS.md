@@ -1,3 +1,21 @@
+## 2026-05-24, Validation Integer Field Guard Increment
+
+- Added failing-first coverage for fractional values in integer validation export fields such as gestational age weeks/days, reader-study read order, and report-audit measurement counts.
+- Extended runtime validation-data schemas with integer metadata for high-risk count and order fields.
+- Updated `validation_data_dictionary.md` so analysts know fractional values are rejected before cohort flow, reader ordering, or QI report-audit metrics run.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "fractional values"` failed before implementation because fractional integer fields produced no schema errors.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "fractional values"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 14 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 259 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Report-Audit Count Consistency Guard Increment
 
 - Added failing-first coverage for `report_audit_rows.csv` rows with zero required measurements or documented measurements exceeding required measurements.

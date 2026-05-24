@@ -451,6 +451,69 @@ describe("validation data export schema guard", () => {
     );
   });
 
+  it("rejects fractional values in fields documented as integers", () => {
+    expect(
+      validateValidationDataRows("case_log.csv", [
+        {
+          study_id: "S1",
+          cohort: "institutional",
+          site_id: "single_site",
+          scanner_vendor: "unknown",
+          field_strength_t: 1.5,
+          svr_method: "none",
+          image_quality_tier: "diagnostic",
+          ga_weeks: 28.5,
+          ga_days: 2.5,
+          included: true,
+          reference_standard_available: true,
+          prediction_available: true,
+          pathology_label_available: true,
+        },
+      ])
+    ).toEqual(
+      expect.arrayContaining([
+        "case_log.csv row 1 field ga_weeks must be an integer",
+        "case_log.csv row 1 field ga_days must be an integer",
+      ])
+    );
+
+    expect(
+      validateValidationDataRows("reader_study_rows.csv", [
+        {
+          reader_id: "R1",
+          study_id: "S1",
+          condition: "without_tool",
+          read_order: 1.5,
+          washout_days: 14,
+          duration_sec: 300,
+          completeness_score: 0.8,
+          zscore_documentation_rate: 0.75,
+        },
+      ])
+    ).toContain(
+      "reader_study_rows.csv row 1 field read_order must be an integer"
+    );
+
+    expect(
+      validateValidationDataRows("report_audit_rows.csv", [
+        {
+          report_id: "P1",
+          phase: "baseline",
+          duration_sec: 600,
+          required_measurement_count: 8.5,
+          documented_measurement_count: 6.5,
+          explicit_zscore_documented: true,
+          explicit_percentile_documented: false,
+        },
+      ])
+    ).toEqual(
+      expect.arrayContaining([
+        "report_audit_rows.csv row 1 field required_measurement_count must be an integer",
+        "report_audit_rows.csv row 1 field documented_measurement_count must be an integer",
+      ])
+    );
+  });
+
   it("validates cross-file study IDs and reader-study pair completeness", () => {
     expect(
       validateValidationDataExport({
