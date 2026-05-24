@@ -197,6 +197,15 @@ describe("SPEC §4.3 Python/FastAPI architecture scaffold", () => {
     expect(app).toContain("research-mode");
   });
 
+  it("implements the Python colpocephaly auxiliary frontal-horn comparison", () => {
+    const app = read("python_app/main.py");
+
+    expect(app).toContain('"frontal_horn_left"');
+    expect(app).toContain('"frontal_horn_right"');
+    expect(app).toContain("colpocephaly pattern");
+    expect(app).toContain("normal same-side frontal horn");
+  });
+
   it("scaffolds scipy curve fitting for offline centile-table registry builds", () => {
     const core = read("python_app/biometry.py");
 

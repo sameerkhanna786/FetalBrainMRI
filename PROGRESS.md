@@ -1,3 +1,17 @@
+## 2026-05-23, SPEC 4.7 Python Colpocephaly Auxiliary Increment
+
+- Added architecture coverage that the Python worksheet includes frontal horn inputs for colpocephaly comparison.
+- Added left/right frontal horn raw inputs to the Python ventricular-system group.
+- Emitted a Python differential row when atrial dilation is disproportionate to a normal same-side frontal horn.
+
+Verification:
+
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 162 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/architecture.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, Production Label Cleanup Increment
 
 - Added coverage that user-facing source and package metadata no longer label the calculator as a prototype or scaffold.

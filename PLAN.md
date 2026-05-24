@@ -910,3 +910,9 @@
 - Add coverage that user-facing source and package metadata no longer label the calculator as a prototype or scaffold.
 - Replace report, methodology, and home-screen prototype language with release-neutral wording.
 - Update Python package/docstring metadata to describe implemented modules.
+
+## SPEC 4.7 Python Colpocephaly Auxiliary Increment
+
+- Add architecture coverage that the Python worksheet includes frontal horn inputs for colpocephaly comparison.
+- Add left/right frontal horn raw inputs to the Python ventricular-system group.
+- Emit a Python differential row when atrial dilation is disproportionate to a normal same-side frontal horn.

@@ -33,6 +33,8 @@ PARAMETER_GROUPS = [
         "parameters": [
             {"id": "atrial_left", "label": "Atrial diameter left", "unit": "mm"},
             {"id": "atrial_right", "label": "Atrial diameter right", "unit": "mm"},
+            {"id": "frontal_horn_left", "label": "Frontal horn left", "unit": "mm"},
+            {"id": "frontal_horn_right", "label": "Frontal horn right", "unit": "mm"},
             {"id": "third_ventricle", "label": "Third ventricle", "unit": "mm"},
         ],
     },
@@ -157,6 +159,24 @@ def _python_differential_rows(
         rows.append("moderate ventriculomegaly: atrial diameter is 12-15 mm.")
     elif max_atrium is not None and max_atrium >= 10:
         rows.append("mild ventriculomegaly: atrial diameter is 10-12 mm.")
+
+    for side, atrium_id, frontal_horn_id in (
+        ("left", "atrial_left", "frontal_horn_left"),
+        ("right", "atrial_right", "frontal_horn_right"),
+    ):
+        atrium = values.get(atrium_id)
+        frontal_horn = values.get(frontal_horn_id)
+        if (
+            atrium is not None
+            and frontal_horn is not None
+            and atrium > 10
+            and frontal_horn < 10
+        ):
+            rows.append(
+                f"colpocephaly pattern: {side} atrium is > 10 mm with "
+                "normal same-side frontal horn."
+            )
+            break
 
     csp_width = values.get("csp_width")
     if csp_width is not None and csp_width < 1:
