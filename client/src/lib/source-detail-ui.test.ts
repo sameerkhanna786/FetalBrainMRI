@@ -14,4 +14,18 @@ describe("SPEC §7.5 row-level source detail disclosure", () => {
     expect(source).toContain("source.verificationDate");
     expect(source).toContain("source.caveat");
   });
+
+  it("links differential source-disagreement badges to row source breakdowns", () => {
+    const rowSource = readFileSync(
+      resolve(process.cwd(), "client/src/components/ParameterRow.tsx"),
+      "utf8"
+    );
+    const cardSource = readFileSync(
+      resolve(process.cwd(), "client/src/components/DifferentialCard.tsx"),
+      "utf8"
+    );
+
+    expect(rowSource).toContain("source-breakdown-${param.id}");
+    expect(cardSource).toContain("#source-breakdown-${item.parameterId}");
+  });
 });

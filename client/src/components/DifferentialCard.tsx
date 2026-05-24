@@ -70,13 +70,14 @@ export default function DifferentialCard({
       {dx.sourceDisagreements && dx.sourceDisagreements.length > 0 && (
         <div className="mb-3 inline-flex flex-wrap gap-1.5 text-[11px] smallcaps text-[color:var(--state-rare)]">
           {dx.sourceDisagreements.map(item => (
-            <span
+            <a
               key={item.parameterId}
+              href={`#source-breakdown-${item.parameterId}`}
               className="border border-[color:var(--state-rare)]/40 rounded-sm px-1.5 py-0.5"
             >
               Source disagreement: {item.parameterName} Delta z{" "}
               {item.disagreementWidth.toFixed(2)}
-            </span>
+            </a>
           ))}
         </div>
       )}

@@ -574,3 +574,9 @@
 - Add source-registry acceptance coverage requiring failed candidates to log the offending parameter.
 - Extend registry validation failures with the parameter id and display name alongside GA, Delta, candidate source, and existing source.
 - Preserve accepted-candidate behavior and the existing half-week overlap sampling rule.
+
+## SPEC 4.6 Source-Disagreement Link Increment
+
+- Add UI coverage proving differential source-disagreement badges link to the row-level source breakdown.
+- Give each measured parameter's source breakdown a stable `source-breakdown-{parameterId}` anchor target.
+- Render differential source-disagreement badges as links to those anchors without changing card ranking or trigger logic.

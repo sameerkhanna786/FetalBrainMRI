@@ -1257,3 +1257,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/biometry.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.6 Source-Disagreement Link Increment
+
+- Added UI coverage proving differential source-disagreement badges link to row-level source breakdown anchors.
+- Gave each measured parameter source breakdown a stable `source-breakdown-{parameterId}` anchor target.
+- Rendered differential source-disagreement badges as links to those anchors without changing card ranking or trigger logic.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 101 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/source-detail-ui.test.ts client/src/components/ParameterRow.tsx client/src/components/DifferentialCard.tsx` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

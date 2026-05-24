@@ -205,7 +205,10 @@ export default function ParameterRow({ param, value, zr, onChange }: Props) {
       </div>
 
       {zr && (
-        <details className="col-span-12 text-[11px] text-[color:var(--ink-soft)]">
+        <details
+          id={`source-breakdown-${param.id}`}
+          className="col-span-12 text-[11px] text-[color:var(--ink-soft)]"
+        >
           <summary className="cursor-pointer smallcaps text-[color:var(--teal)]">
             Source breakdown
           </summary>
