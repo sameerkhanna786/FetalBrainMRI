@@ -19,3 +19,21 @@ describe("SPEC §6.3 FeTA validation endpoints", () => {
     expect(source).toContain("ROC-AUC");
   });
 });
+
+describe("SPEC §6.4 institutional validation cohort", () => {
+  it("surfaces the institutional cohort composition and study roles", () => {
+    const source = readFileSync(
+      resolve(process.cwd(), "client/src/pages/Validation.tsx"),
+      "utf8"
+    );
+
+    expect(source).toContain("60-case institutional cohort");
+    expect(source).toContain("20 neurotypical");
+    expect(source).toContain("20 mild-or-moderate pathology");
+    expect(source).toContain("20 severe pathology");
+    expect(source).toContain("expert ground-truth measurements");
+    expect(source).toContain("per-condition labels");
+    expect(source).toContain("with-tool-versus-without-tool reader study");
+    expect(source).toContain("inter-rater reliability");
+  });
+});

@@ -610,3 +610,9 @@
 - Add Validation-page coverage for the four SPEC §6.3 FeTA 2024 manuscript endpoints.
 - Surface per-parameter agreement, multi-site/multi-vendor/multi-field-strength robustness, pathology-versus-neurotypical comparison, and ROC-AUC.
 - Keep the text documentation-only; no scoring-engine behavior changes are required for this increment.
+
+## SPEC 6.4 Institutional Validation Cohort Increment
+
+- Add Validation-page coverage for the SPEC §6.4 institutional cohort composition and study roles.
+- Surface the 60-case target with 20 neurotypical, 20 mild-or-moderate pathology, and 20 severe pathology scans.
+- Document the cohort roles: expert ground truth, per-condition labels, with-tool-versus-without-tool reader study, and inter-rater reliability.

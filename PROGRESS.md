@@ -1335,3 +1335,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/validation-page.test.ts client/src/pages/Validation.tsx` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 6.4 Institutional Validation Cohort Increment
+
+- Added Validation-page coverage for the SPEC §6.4 institutional cohort composition and study roles.
+- Surfaced the 60-case target with 20 neurotypical, 20 mild-or-moderate pathology, and 20 severe pathology scans.
+- Documented the cohort roles: expert ground truth, per-condition labels, with-tool-versus-without-tool reader study, and inter-rater reliability.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 107 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/validation-page.test.ts client/src/pages/Validation.tsx` passes after formatting `client/src/pages/Validation.tsx`.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

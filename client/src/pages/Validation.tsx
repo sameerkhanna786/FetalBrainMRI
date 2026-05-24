@@ -182,6 +182,25 @@ export default function Validation() {
           </p>
         </section>
 
+        <section className="mt-14">
+          <div className="smallcaps text-[color:var(--ink-soft)]">§ 0.1</div>
+          <h2 className="font-display text-[28px] mt-1">
+            Institutional validation cohort
+          </h2>
+          <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
+            The 60-case institutional cohort targets 20 neurotypical scans,{" "}
+            {"20 mild-or-moderate pathology"} scans, and {"20 severe pathology"}{" "}
+            scans from a single-site consecutive fetal brain MRI series.
+          </p>
+          <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
+            The cohort supplies {"expert ground-truth measurements"},{" "}
+            per-condition labels, the{" "}
+            {"with-tool-versus-without-tool reader study"}, and{" "}
+            {"inter-rater reliability"} evidence requested for clinical-utility
+            reporting.
+          </p>
+        </section>
+
         {/* §1 model */}
         <section className="mt-14">
           <div className="smallcaps text-[color:var(--ink-soft)]">§ 1</div>
