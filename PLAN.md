@@ -1159,3 +1159,10 @@
 - Correct Katorza 2016, Conte 2018, Woitek 2014, Aertsen 2019, and Santo 2012 PMID / PMCID cells to the PubMed/PMC-resolved identifiers.
 - Record the NCBI ID Converter, PubMed E-utilities, and Crossref evidence in PROGRESS.md.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## PubMed DOI-Title Source-Inventory Audit Increment
+
+- Add failing-first source-document coverage for DOI/title mismatches that the PMC-only audit cannot catch on non-PMC rows.
+- Correct Tilea 2009, D'Addario 2001, SMFM 2020 absent-CSP, and Garel 2003 DOI / PMID cells to the PubMed-resolved articles.
+- Record the PubMed ESummary / ESearch and NCBI ID Converter no-PMC evidence in PROGRESS.md.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

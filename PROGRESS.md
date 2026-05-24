@@ -1,3 +1,22 @@
+## 2026-05-23, PubMed DOI-Title Source-Inventory Audit Increment
+
+- Added failing-first source-document coverage for DOI/title mismatches that the PMC-only source-inventory audit cannot catch on non-PMC rows.
+- Verified via PubMed ESearch / ESummary that Tilea 2009 resolves to PMID `19172662`, D'Addario 2001 resolves to PMID `11529995`, SMFM absent-CSP resolves to DOI `10.1016/j.ajog.2020.08.180` and PMID `33168214`, and Garel 2003 resolves to PMID `12879346`.
+- Verified via NCBI ID Converter that those four corrected PMIDs do not have PMC records.
+- Corrected the SPEC source-inventory PMID / DOI cells and the SMFM absent-CSP AJOG article link.
+- Re-ran a PubMed ESummary sweep across every SPEC §7.2 source-inventory PMID; each PMID now resolves to the stated article title and DOI.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before the citation update because SPEC.md still contained the stale Tilea 2009 identifier.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 202 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 202 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-23, NCBI Source-Inventory Identifier Audit Increment
 
 - Added failing-first source-document coverage for the remaining source-inventory identifier mismatches exposed by an NCBI ID Converter pass across all PMIDs in SPEC §7.2.

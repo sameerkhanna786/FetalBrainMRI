@@ -314,6 +314,12 @@ describe("publication-readiness source-document consistency", () => {
     const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
 
     expect(spec).toContain(
+      "| TILEA_2009 | Tilea B, Alberti C, Adamsbaum C, et al."
+    );
+    expect(spec).toContain(
+      "| MRI | 10.1002/uog.6276 | 19172662 | (not in PMC) |"
+    );
+    expect(spec).toContain(
       "| KATORZA_2016 | Katorza E, Bertucci E, Perlman S, et al."
     );
     expect(spec).toContain(
@@ -338,16 +344,37 @@ describe("publication-readiness source-document consistency", () => {
       "| MRI | 10.3174/ajnr.A5930 | 30591508 | PMC7048594 |"
     );
     expect(spec).toContain(
+      "| DADDARIO_2001 | D'Addario V, Pinto V, Di Cagno L, Pintucci A."
+    );
+    expect(spec).toContain(
+      "| US (CSA originally) | 10.1046/j.1469-0705.2001.00409.x | 11529995 | (not in PMC) |"
+    );
+    expect(spec).toContain("| SMFM_2020_CSP | SMFM; Ward A, Monteagudo A.");
+    expect(spec).toContain(
+      "| (DDx layer) | 10.1016/j.ajog.2020.08.180 | 33168214 | (not in PMC) |"
+    );
+    expect(spec).toContain(
       "| SANTO_2012 | Santo S, D'Antonio F, Homfray T, et al."
     );
     expect(spec).toContain("| 10.1002/uog.12315 | 23024003 | (not in PMC) |");
+    expect(spec).toContain(
+      "| GAREL_2003 | Garel C, Luton D, Oury JF, Gressens P."
+    );
+    expect(spec).toContain(
+      "| (DDx layer review) | 10.1007/s00381-003-0795-0 | 12879346 | (not in PMC) |"
+    );
+    expect(spec).not.toContain("19173238");
     expect(spec).not.toContain("26988817");
     expect(spec).not.toContain("PMC7960174");
     expect(spec).not.toContain("29545254");
     expect(spec).not.toContain("PMC7410554");
     expect(spec).not.toContain("25393026");
     expect(spec).not.toContain("30606726");
+    expect(spec).not.toContain("11529997");
+    expect(spec).not.toContain("10.1016/j.ajog.2020.02.033");
+    expect(spec).not.toContain("32114082");
     expect(spec).not.toContain("23024028");
+    expect(spec).not.toContain("12879338");
   });
 
   it("locks Bahlmann 2015 spina-bifida metadata to the Prenatal Diagnosis article", () => {
