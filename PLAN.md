@@ -598,3 +598,9 @@
 - Add row-level UI coverage proving the clickable source-breakdown summary includes the dynamic source count.
 - Change the source breakdown summary from generic `Source breakdown` text to an `N source(s) breakdown` affordance.
 - Preserve the existing source-breakdown anchor and disagreement default-open behavior.
+
+## SPEC 4.10 QI Protocol Methodology Increment
+
+- Add Methodology-page coverage for the SPEC-required pre/intervention/post QI deployment tracking protocol.
+- Surface the 100 historical-report baseline audit, intervention deployment, and 100 new-report post-audit endpoints.
+- Name the required baseline metrics: time to report, measurement completeness, and explicit z-score/percentile documentation.

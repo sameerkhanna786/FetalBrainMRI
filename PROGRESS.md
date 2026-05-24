@@ -1309,3 +1309,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/source-detail-ui.test.ts client/src/components/ParameterRow.tsx` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.10 QI Protocol Methodology Increment
+
+- Added Methodology-page coverage for the SPEC-required pre/intervention/post QI deployment tracking protocol.
+- Surfaced the 100 historical-report baseline audit, intervention deployment, and 100 new-report post-audit endpoints.
+- Named the required baseline metrics: time to report, measurement completeness, and explicit z-score/percentile documentation.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 105 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/methodology-page.test.ts client/src/pages/Methodology.tsx` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

@@ -307,6 +307,24 @@ export default function Methodology() {
 
         <section className="space-y-4 mb-12">
           <h2 className="font-display text-2xl">
+            QI deployment tracking protocol
+          </h2>
+          <p>
+            The pre-intervention phase audits 100 historical fetal MRI reports
+            to establish baseline average time to report,{" "}
+            {"measurement completeness"}, and frequency of explicit{" "}
+            {"z-score and percentile documentation"}.
+          </p>
+          <p>
+            The intervention phase deploys the calculator to the neuroradiology
+            team. The post-intervention phase audits 100 new reports produced
+            with the tool and compares the same endpoints against baseline to
+            assess completeness, standardization, and reduced reporting time.
+          </p>
+        </section>
+
+        <section className="space-y-4 mb-12">
+          <h2 className="font-display text-2xl">
             Differential-diagnosis engine
           </h2>
           <p>
