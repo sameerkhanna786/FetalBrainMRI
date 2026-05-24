@@ -1,3 +1,18 @@
+## 2026-05-23, Source-Data Final-Lock Checklist Increment
+
+- Added `source_data_final_lock.md` as the clinician-facing signoff packet for declaring source data ready for clinical reliance or manuscript submission.
+- Covered Dovjak 2021 Table 1, Woitek 2014 Table 3, extra-axial CSF coefficient decision, third-ventricle raw-threshold policy, Chiari II / ONTD calibration, mismatch handling, and clinician signoff fields.
+- Linked the checklist from `publication_handoff_checklist.md` and `source_verification_dossier.md` while keeping clinician review items open until signed.
+
+Verification:
+
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 178 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md source_data_final_lock.md publication_handoff_checklist.md source_verification_dossier.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, FeTA Agreement Metrics Utility Increment
 
 - Extended `client/src/lib/validation-metrics.ts` with per-parameter agreement helpers for MAE, MAPE, bias, error standard deviation, and Bland-Altman 95% limits of agreement.

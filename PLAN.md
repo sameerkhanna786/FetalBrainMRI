@@ -222,6 +222,12 @@
 - Add grouped agreement summaries so FeTA results can be stratified by site, vendor, field strength, SVR method, and image-quality tier.
 - Update handoff and dossier notes to point analysts at the agreement helper while preserving FeTA access/results as open.
 
+## Source-data final-lock checklist increment
+
+- Add coverage that a source-data final-lock checklist exists for Dovjak, Woitek, extra-axial CSF, third-ventricle raw-threshold policy, and Chiari calibration signoff.
+- Create the checklist as a clinician-facing review packet with mismatch handling and signoff fields.
+- Link the checklist from the publication handoff packet and source-verification dossier while keeping clinician signoff open.
+
 ## Isolated third-ventricle report increment
 
 - Add Vitest coverage for TEST.md §21 Case TV2: isolated third-ventricle dilatation at 30w0d should fire `third-v-wide` without ventriculomegaly or aqueductal-stenosis cards.

@@ -148,6 +148,33 @@ describe("reader-study protocol handoff", () => {
   });
 });
 
+describe("source-data final-lock handoff", () => {
+  it("gives clinician collaborators a signoff packet for source verification before clinical reliance", () => {
+    const lock = readFileSync(
+      resolve(process.cwd(), "source_data_final_lock.md"),
+      "utf8"
+    );
+    const checklist = readFileSync(
+      resolve(process.cwd(), "publication_handoff_checklist.md"),
+      "utf8"
+    );
+    const dossier = readFileSync(
+      resolve(process.cwd(), "source_verification_dossier.md"),
+      "utf8"
+    );
+
+    expect(lock).toContain("Dovjak 2021 Table 1");
+    expect(lock).toContain("Woitek 2014 Table 3");
+    expect(lock).toContain("extra-axial CSF coefficient decision");
+    expect(lock).toContain("third-ventricle raw-threshold policy");
+    expect(lock).toContain("Chiari II / ONTD calibration");
+    expect(lock).toContain("Mismatch Handling");
+    expect(lock).toContain("Clinician Signoff");
+    expect(checklist).toContain("source_data_final_lock.md");
+    expect(dossier).toContain("source_data_final_lock.md");
+  });
+});
+
 describe("SPEC §4.8 clinical integration workflow", () => {
   it("surfaces the Epic Radiant launch path, SMART deferral, and PowerScribe paste workflow", () => {
     const source = readFileSync(
