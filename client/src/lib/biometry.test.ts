@@ -663,6 +663,31 @@ describe("SPEC §7.4 severe ventriculomegaly likelihood manifest", () => {
   });
 });
 
+describe("SPEC §7.4 absent-CSP likelihood manifest", () => {
+  it("qualitative-labels absent-CSP estimates while preserving the ACC rationale", () => {
+    const ga = { weeks: 28, days: 0 };
+    const values = {
+      csp_width: 0,
+    };
+    const { dxs } = evaluateAll(values, ga);
+    const absentCsp = dxs.find(dx => dx.id === "absent-csp");
+
+    expect(absentCsp?.rows.map(row => row.likelihood)).toEqual([
+      "Common",
+      "Common",
+      "Minority",
+      "Minority",
+      "Rare",
+    ]);
+    expect(absentCsp?.rows.map(row => row.likelihood).join(" ")).not.toMatch(
+      /~50|~55|~10|~5|<5/
+    );
+    expect(absentCsp?.rows[1].rationale).toContain(
+      "Absent CSP in ~2/3 of ACC cases (SMFM 2020)."
+    );
+  });
+});
+
 describe("aqueductal-stenosis pattern report impression", () => {
   it("uses the TEST.md Case S1 triventricular hydrocephalus impression line", () => {
     const ga = { weeks: 26, days: 0 };

@@ -2005,27 +2005,27 @@ const CARDS: CardSpec[] = [
     rows: [
       {
         dx: "Holoprosencephaly",
-        likelihood: "~50–60%",
+        likelihood: "Common",
         rationale: "Especially with midline facial anomalies (Malinger 2005).",
       },
       {
         dx: "Agenesis of the corpus callosum",
-        likelihood: "~55%",
+        likelihood: "Common",
         rationale: "Absent CSP in ~2/3 of ACC cases (SMFM 2020).",
       },
       {
         dx: "Severe hydrocephalus / VM",
-        likelihood: "~10–20%",
+        likelihood: "Minority",
         rationale: "Pressure-induced fenestration of septal leaves.",
       },
       {
         dx: "Septo-optic dysplasia",
-        likelihood: "~5–10%",
+        likelihood: "Minority",
         rationale: "Optic hypoplasia hard to confirm prenatally.",
       },
       {
         dx: "Isolated / idiopathic",
-        likelihood: "<5%",
+        likelihood: "Rare",
         rationale: "Diagnosis of exclusion.",
       },
     ],

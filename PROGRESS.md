@@ -1452,3 +1452,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/biometry.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 7.4 Absent-CSP Likelihood Qualitative Increment
+
+- Added DDx coverage for the SPEC §7.4 absent-CSP likelihood manifest.
+- Kept the SMFM absent-CSP/ACC rationale visible while avoiding numeric likelihood labels for estimate rows.
+- Replaced the holoprosencephaly, ACC, hydrocephalus, SOD, and isolated likelihood labels with qualitative wording.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 116 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/biometry.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

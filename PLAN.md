@@ -664,3 +664,9 @@
 - Add DDx coverage for the SPEC §7.4 severe-ventriculomegaly likelihood manifest.
 - Replace estimate-only severe-VM numeric likelihood labels with qualitative wording.
 - Correct the aqueductal-stenosis rationale attribution from the placeholder Garel 2018 wording to the canonical Heaphy-Henault 2018 fetal-MRI source.
+
+## SPEC 7.4 Absent-CSP Likelihood Qualitative Increment
+
+- Add DDx coverage for the SPEC §7.4 absent-CSP likelihood manifest.
+- Keep the SMFM absent-CSP/ACC rationale visible while avoiding numeric likelihood labels for estimate rows.
+- Replace the holoprosencephaly, ACC, hydrocephalus, SOD, and isolated likelihood labels with qualitative wording.
