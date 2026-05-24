@@ -1,3 +1,17 @@
+## 2026-05-23, SPEC 4.9 Public Telemetry Removal Increment
+
+- Added privacy-shell coverage that public assets and Vite config do not ship Manus telemetry collectors or storage proxies.
+- Removed the copied debug collector asset from `client/public`.
+- Stripped Manus/Builder dev plugins and proxy middleware from the Vite config and package manifest.
+- Rebuilt production output so `dist/public` no longer contains the collector asset.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 160 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/client-shell.test.ts package.json vite.config.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, SPEC 4.8 Python Source Detail Completeness Increment
 
 - Added architecture coverage that Python report source details include z, percentile, mean, sigma, validated GA range, and extrapolated state.

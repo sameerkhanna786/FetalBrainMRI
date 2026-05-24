@@ -898,3 +898,9 @@
 - Add architecture coverage that Python report source details include z, percentile, mean, sigma, validated GA range, and extrapolated state.
 - Carry source registry metadata into each Python per-source detail row.
 - Expand the Python report source-detail formatter without changing consensus math.
+
+## SPEC 4.9 Public Telemetry Removal Increment
+
+- Add privacy-shell coverage that public assets and Vite config do not ship Manus telemetry collectors or storage proxies.
+- Remove the copied debug collector asset from `client/public`.
+- Strip Manus/Builder dev plugins and proxy middleware from the Vite config and package manifest.

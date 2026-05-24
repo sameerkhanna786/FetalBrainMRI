@@ -148,6 +148,31 @@ describe("SPEC §4.9 client privacy shell", () => {
 
     expect(findForbiddenSourcePatterns(forbidden)).toEqual([]);
   });
+
+  it("does not ship public telemetry collectors or development proxy hooks", () => {
+    const publicManusPath = resolve(process.cwd(), "client/public/__manus__");
+    const viteConfig = readFileSync(
+      resolve(process.cwd(), "vite.config.ts"),
+      "utf8"
+    );
+    const packageJson = JSON.parse(
+      readFileSync(resolve(process.cwd(), "package.json"), "utf8")
+    ) as {
+      dependencies?: Record<string, string>;
+      devDependencies?: Record<string, string>;
+    };
+    const declaredPackages = {
+      ...packageJson.dependencies,
+      ...packageJson.devDependencies,
+    };
+
+    expect(existsSync(publicManusPath)).toBe(false);
+    expect(viteConfig).not.toMatch(/__manus__|manus-storage|debug-collector/i);
+    expect(declaredPackages).not.toHaveProperty("vite-plugin-manus-runtime");
+    expect(declaredPackages).not.toHaveProperty(
+      "@builder.io/vite-plugin-jsx-loc"
+    );
+  });
 });
 
 describe("SPEC §4.2 reference cohort removal", () => {
