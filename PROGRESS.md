@@ -1834,3 +1834,17 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/architecture.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.2.5 Python Fit Residual Audit Increment
+
+- Added architecture coverage that Python registry-build fits retain residual RMSE.
+- Added an optional max-RMSE guard matching the inter-rater-variability threshold requirement.
+- Returned fit result records that keep both the fitted model and audit residuals.
+
+Verification:
+
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 150 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/architecture.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

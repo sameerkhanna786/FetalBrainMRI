@@ -838,3 +838,9 @@
 - Add architecture coverage for the offline `scipy.optimize.curve_fit` registry-build path.
 - Provide Python helpers that fit per-week 5th/95th centile tables into the supported per-percentile linear family.
 - Provide a companion helper for per-week mean/SD tables using the linear-mean constant-SD family.
+
+## SPEC 4.2.5 Python Fit Residual Audit Increment
+
+- Add architecture coverage that Python registry-build fits retain residual RMSE.
+- Add an optional max-RMSE guard matching the inter-rater-variability threshold requirement.
+- Return fit result records that keep both the fitted model and audit residuals.

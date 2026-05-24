@@ -78,6 +78,16 @@ describe("SPEC §4.3 Python/FastAPI architecture scaffold", () => {
     expect(core).toContain("fit_linear_mean_constant_sd_table");
   });
 
+  it("retains residual RMSE audits for offline Python table fits", () => {
+    const core = read("python_app/biometry.py");
+
+    expect(core).toContain("class PerPercentileLinearFit");
+    expect(core).toContain("class LinearMeanConstantSdFit");
+    expect(core).toContain("residual_rmse");
+    expect(core).toContain("max_allowed_rmse");
+    expect(core).toContain("fit residual exceeds inter-rater variability");
+  });
+
   it("provides a lightweight Docker deployment artifact for the FastAPI scaffold", () => {
     const dockerfilePath = resolve(process.cwd(), "Dockerfile");
 

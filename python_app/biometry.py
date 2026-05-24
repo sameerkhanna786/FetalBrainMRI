@@ -38,6 +38,22 @@ class LinearMeanConstantSd:
     sigma: float
 
 
+@dataclass(frozen=True)
+class PerPercentileLinearFit:
+    """Auditable fit result retained for registry-build review."""
+
+    model: PerPercentileLinear
+    residual_rmse: dict[str, float]
+
+
+@dataclass(frozen=True)
+class LinearMeanConstantSdFit:
+    """Auditable fit result retained for registry-build review."""
+
+    model: LinearMeanConstantSd
+    residual_rmse: dict[str, float]
+
+
 Model = QuadraticMeanLinearSd | PerPercentileLinear | LinearMeanConstantSd
 
 
@@ -49,6 +65,25 @@ def _as_float_array(name: str, values: Sequence[float]) -> np.ndarray:
 
 def _linear(ga_weeks: np.ndarray, slope: float, intercept: float) -> np.ndarray:
     return slope * ga_weeks + intercept
+
+
+def _rmse(actual: np.ndarray, predicted: np.ndarray) -> float:
+    return float(np.sqrt(np.mean((actual - predicted) ** 2)))
+
+
+def _enforce_rmse_threshold(
+    residual_rmse: dict[str, float], max_allowed_rmse: float | None
+) -> None:
+    if max_allowed_rmse is None:
+        return
+    worst_name, worst_rmse = max(
+        residual_rmse.items(), key=lambda item: item[1]
+    )
+    if worst_rmse > max_allowed_rmse:
+        raise ValueError(
+            "fit residual exceeds inter-rater variability: "
+            f"{worst_name} RMSE {worst_rmse:.3f} > {max_allowed_rmse:.3f}"
+        )
 
 
 def quadratic_mean_linear_sd(
@@ -88,7 +123,8 @@ def fit_per_percentile_linear_table(
     ga_weeks: Sequence[float],
     p5_values: Sequence[float],
     p95_values: Sequence[float],
-) -> PerPercentileLinear:
+    max_allowed_rmse: float | None = None,
+) -> PerPercentileLinearFit:
     ga = _as_float_array("ga_weeks", ga_weeks)
     p5 = _as_float_array("p5_values", p5_values)
     p95 = _as_float_array("p95_values", p95_values)
@@ -97,19 +133,26 @@ def fit_per_percentile_linear_table(
 
     p5_slope, p5_intercept = curve_fit(_linear, ga, p5)[0]
     p95_slope, p95_intercept = curve_fit(_linear, ga, p95)[0]
-    return PerPercentileLinear(
+    residual_rmse = {
+        "p5": _rmse(p5, _linear(ga, p5_slope, p5_intercept)),
+        "p95": _rmse(p95, _linear(ga, p95_slope, p95_intercept)),
+    }
+    _enforce_rmse_threshold(residual_rmse, max_allowed_rmse)
+    model = PerPercentileLinear(
         float(p5_slope),
         float(p5_intercept),
         float(p95_slope),
         float(p95_intercept),
     )
+    return PerPercentileLinearFit(model=model, residual_rmse=residual_rmse)
 
 
 def fit_linear_mean_constant_sd_table(
     ga_weeks: Sequence[float],
     mean_values: Sequence[float],
     sd_values: Sequence[float],
-) -> LinearMeanConstantSd:
+    max_allowed_rmse: float | None = None,
+) -> LinearMeanConstantSdFit:
     ga = _as_float_array("ga_weeks", ga_weeks)
     means = _as_float_array("mean_values", mean_values)
     sds = _as_float_array("sd_values", sd_values)
@@ -119,11 +162,18 @@ def fit_linear_mean_constant_sd_table(
         raise ValueError("sd_values must be positive")
 
     mean_slope, mean_intercept = curve_fit(_linear, ga, means)[0]
-    return LinearMeanConstantSd(
+    sigma = float(np.mean(sds))
+    residual_rmse = {
+        "mean": _rmse(means, _linear(ga, mean_slope, mean_intercept)),
+        "sd": _rmse(sds, np.full_like(sds, sigma)),
+    }
+    _enforce_rmse_threshold(residual_rmse, max_allowed_rmse)
+    model = LinearMeanConstantSd(
         float(mean_slope),
         float(mean_intercept),
-        float(np.mean(sds)),
+        sigma,
     )
+    return LinearMeanConstantSdFit(model=model, residual_rmse=residual_rmse)
 
 
 def zscore(model: Model, ga_weeks: float, value: float) -> dict[str, float]:
