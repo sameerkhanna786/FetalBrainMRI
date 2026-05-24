@@ -5,6 +5,8 @@ import {
   computeDecisionCurve,
   computeAgreementMetrics,
   computeGroupedAgreementMetrics,
+  compareQiAuditPhases,
+  computeQiAuditSummary,
 } from "./validation-metrics";
 
 describe("publication validation metrics", () => {
@@ -117,5 +119,59 @@ describe("publication validation metrics", () => {
     expect(grouped[0].metrics.meanAbsoluteError).toBeCloseTo(1.5, 6);
     expect(grouped[1].stratum).toBe("UCSF");
     expect(grouped[1].metrics.meanAbsolutePercentageError).toBeCloseTo(20, 6);
+  });
+
+  it("computes SPEC 4.10 pre/post QI report-audit summaries", () => {
+    const baseline = computeQiAuditSummary([
+      {
+        durationSec: 600,
+        requiredMeasurementCount: 14,
+        documentedMeasurementCount: 9,
+        explicitZScoreDocumented: false,
+        explicitPercentileDocumented: false,
+        recommendationCongruent: false,
+      },
+      {
+        durationSec: 480,
+        requiredMeasurementCount: 14,
+        documentedMeasurementCount: 14,
+        explicitZScoreDocumented: true,
+        explicitPercentileDocumented: false,
+        recommendationCongruent: true,
+      },
+    ]);
+    const intervention = computeQiAuditSummary([
+      {
+        durationSec: 360,
+        requiredMeasurementCount: 14,
+        documentedMeasurementCount: 14,
+        explicitZScoreDocumented: true,
+        explicitPercentileDocumented: true,
+        recommendationCongruent: true,
+      },
+      {
+        durationSec: 300,
+        requiredMeasurementCount: 14,
+        documentedMeasurementCount: 14,
+        explicitZScoreDocumented: true,
+        explicitPercentileDocumented: true,
+        recommendationCongruent: true,
+      },
+    ]);
+    const comparison = compareQiAuditPhases(baseline, intervention);
+
+    expect(baseline.n).toBe(2);
+    expect(baseline.meanDurationSec).toBe(540);
+    expect(baseline.allRequiredMeasurementsDocumentedRate).toBe(0.5);
+    expect(baseline.meanMeasurementCompletenessRate).toBeCloseTo(23 / 28, 6);
+    expect(baseline.explicitZScoreDocumentationRate).toBe(0.5);
+    expect(baseline.explicitPercentileDocumentationRate).toBe(0);
+    expect(baseline.recommendationCongruenceRate).toBe(0.5);
+    expect(intervention.allRequiredMeasurementsDocumentedRate).toBe(1);
+    expect(comparison.meanDurationDeltaSec).toBe(-210);
+    expect(comparison.allRequiredMeasurementsDocumentedRateDelta).toBe(0.5);
+    expect(comparison.explicitZScoreDocumentationRateDelta).toBe(0.5);
+    expect(comparison.explicitPercentileDocumentationRateDelta).toBe(1);
+    expect(comparison.recommendationCongruenceRateDelta).toBe(0.5);
   });
 });

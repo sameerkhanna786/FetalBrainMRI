@@ -265,6 +265,7 @@ describe("publication handoff checklist", () => {
 
     expect(checklist).toContain("TRIPOD+AI");
     expect(checklist).toContain("CLAIM");
+    expect(checklist).toContain("SQUIRE 2.0");
     expect(checklist).toContain("STARD-AI");
     expect(checklist).toContain("DECIDE-AI");
     expect(checklist).toContain("CONSORT-AI");
@@ -277,6 +278,7 @@ describe("publication handoff checklist", () => {
     expect(checklist).toContain("FeTA 2024");
     expect(checklist).toContain("reader-study timing");
     expect(checklist).toContain("source-data final lock");
+    expect(checklist).toContain("pre/post report-audit metrics");
     expect(checklist).toContain("Go / no-go");
   });
 });

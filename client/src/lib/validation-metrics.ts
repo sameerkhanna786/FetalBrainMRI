@@ -59,6 +59,38 @@ export interface DecisionCurvePoint {
   treatNoneNetBenefit: 0;
 }
 
+export interface QiReportAuditRecord {
+  durationSec: number;
+  requiredMeasurementCount: number;
+  documentedMeasurementCount: number;
+  explicitZScoreDocumented: boolean;
+  explicitPercentileDocumented: boolean;
+  recommendationCongruent?: boolean | null;
+}
+
+export interface QiAuditSummary {
+  n: number;
+  meanDurationSec: number;
+  allRequiredMeasurementsDocumentedRate: number;
+  meanMeasurementCompletenessRate: number;
+  explicitZScoreDocumentationRate: number;
+  explicitPercentileDocumentationRate: number;
+  recommendationCongruenceRate: number | null;
+  recommendationCongruenceDenominator: number;
+}
+
+export interface QiAuditComparison {
+  baseline: QiAuditSummary;
+  intervention: QiAuditSummary;
+  meanDurationDeltaSec: number;
+  meanDurationRelativeChange: number;
+  allRequiredMeasurementsDocumentedRateDelta: number;
+  meanMeasurementCompletenessRateDelta: number;
+  explicitZScoreDocumentationRateDelta: number;
+  explicitPercentileDocumentationRateDelta: number;
+  recommendationCongruenceRateDelta: number | null;
+}
+
 interface NormalizedPrediction {
   label: 0 | 1;
   probability: number;
@@ -427,3 +459,127 @@ export const computeGroupedAgreementMetrics = (
     metrics: computeAgreementMetrics(group),
   }));
 };
+
+const assertAuditCount = (name: string, value: number) => {
+  if (!Number.isInteger(value) || value < 0) {
+    throw new Error(`${name} must be a non-negative integer`);
+  }
+};
+
+const normalizeQiAuditRecords = (records: QiReportAuditRecord[]) => {
+  if (records.length === 0) {
+    throw new Error("QI audit records must not be empty");
+  }
+
+  records.forEach(record => {
+    if (!Number.isFinite(record.durationSec) || record.durationSec < 0) {
+      throw new Error("durationSec must be a finite non-negative value");
+    }
+    assertAuditCount(
+      "requiredMeasurementCount",
+      record.requiredMeasurementCount
+    );
+    assertAuditCount(
+      "documentedMeasurementCount",
+      record.documentedMeasurementCount
+    );
+    if (record.requiredMeasurementCount === 0) {
+      throw new Error("requiredMeasurementCount must be greater than zero");
+    }
+    if (record.documentedMeasurementCount > record.requiredMeasurementCount) {
+      throw new Error(
+        "documentedMeasurementCount cannot exceed requiredMeasurementCount"
+      );
+    }
+    if (typeof record.explicitZScoreDocumented !== "boolean") {
+      throw new Error("explicitZScoreDocumented must be boolean");
+    }
+    if (typeof record.explicitPercentileDocumented !== "boolean") {
+      throw new Error("explicitPercentileDocumented must be boolean");
+    }
+    if (
+      record.recommendationCongruent != null &&
+      typeof record.recommendationCongruent !== "boolean"
+    ) {
+      throw new Error("recommendationCongruent must be boolean when present");
+    }
+  });
+
+  return records;
+};
+
+export const computeQiAuditSummary = (
+  records: QiReportAuditRecord[]
+): QiAuditSummary => {
+  const normalized = normalizeQiAuditRecords(records);
+  const meanDurationSec =
+    normalized.reduce((sum, record) => sum + record.durationSec, 0) /
+    normalized.length;
+  const allRequiredMeasurementsDocumentedRate =
+    normalized.filter(
+      record =>
+        record.documentedMeasurementCount === record.requiredMeasurementCount
+    ).length / normalized.length;
+  const meanMeasurementCompletenessRate =
+    normalized.reduce(
+      (sum, record) =>
+        sum +
+        record.documentedMeasurementCount / record.requiredMeasurementCount,
+      0
+    ) / normalized.length;
+  const explicitZScoreDocumentationRate =
+    normalized.filter(record => record.explicitZScoreDocumented).length /
+    normalized.length;
+  const explicitPercentileDocumentationRate =
+    normalized.filter(record => record.explicitPercentileDocumented).length /
+    normalized.length;
+  const recommendationRows = normalized.filter(
+    record => record.recommendationCongruent != null
+  );
+
+  return {
+    n: normalized.length,
+    meanDurationSec,
+    allRequiredMeasurementsDocumentedRate,
+    meanMeasurementCompletenessRate,
+    explicitZScoreDocumentationRate,
+    explicitPercentileDocumentationRate,
+    recommendationCongruenceRate:
+      recommendationRows.length === 0
+        ? null
+        : recommendationRows.filter(record => record.recommendationCongruent)
+            .length / recommendationRows.length,
+    recommendationCongruenceDenominator: recommendationRows.length,
+  };
+};
+
+const nullableDelta = (baseline: number | null, intervention: number | null) =>
+  baseline == null || intervention == null ? null : intervention - baseline;
+
+export const compareQiAuditPhases = (
+  baseline: QiAuditSummary,
+  intervention: QiAuditSummary
+): QiAuditComparison => ({
+  baseline,
+  intervention,
+  meanDurationDeltaSec: intervention.meanDurationSec - baseline.meanDurationSec,
+  meanDurationRelativeChange:
+    (intervention.meanDurationSec - baseline.meanDurationSec) /
+    baseline.meanDurationSec,
+  allRequiredMeasurementsDocumentedRateDelta:
+    intervention.allRequiredMeasurementsDocumentedRate -
+    baseline.allRequiredMeasurementsDocumentedRate,
+  meanMeasurementCompletenessRateDelta:
+    intervention.meanMeasurementCompletenessRate -
+    baseline.meanMeasurementCompletenessRate,
+  explicitZScoreDocumentationRateDelta:
+    intervention.explicitZScoreDocumentationRate -
+    baseline.explicitZScoreDocumentationRate,
+  explicitPercentileDocumentationRateDelta:
+    intervention.explicitPercentileDocumentationRate -
+    baseline.explicitPercentileDocumentationRate,
+  recommendationCongruenceRateDelta: nullableDelta(
+    baseline.recommendationCongruenceRate,
+    intervention.recommendationCongruenceRate
+  ),
+});

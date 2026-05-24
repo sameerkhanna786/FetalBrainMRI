@@ -147,6 +147,7 @@ describe("publication-readiness literature audit", () => {
 
     expect(source).toContain("TRIPOD+AI");
     expect(source).toContain("CLAIM");
+    expect(source).toContain("SQUIRE 2.0");
     expect(source).toContain("DECIDE-AI");
     expect(source).toContain("CONSORT-AI");
     expect(source).toContain("STARD-AI");
@@ -157,6 +158,7 @@ describe("publication-readiness literature audit", () => {
     expect(source).toContain("NASA Task Load Index");
     expect(source).toContain("System Usability Scale");
     expect(source).toContain("reader-study timing");
+    expect(source).toContain("pre/post report-audit metrics");
   });
 
   it("surfaces FeTA 2024 biometry gaps and domain-shift controls", () => {

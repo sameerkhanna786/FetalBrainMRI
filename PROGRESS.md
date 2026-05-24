@@ -1,3 +1,21 @@
+## 2026-05-23, SPEC 4.10 QI Audit Metrics Increment
+
+- Added failing-first coverage for the SPEC §4.10 pre/post QI report-audit metrics and for SQUIRE 2.0 in the publication handoff.
+- Verified online via PubMed PMID 26369893 / DOI `10.1136/bmjqs-2015-004411` that SQUIRE 2.0 is the relevant Standards for QUality Improvement Reporting Excellence guideline for healthcare QI reports.
+- Added `computeQiAuditSummary` and `compareQiAuditPhases` to `client/src/lib/validation-metrics.ts` for average report time, all-required-measurement completion, mean measurement completeness, explicit z-score documentation, explicit percentile documentation, and recommendation congruence.
+- Updated the Validation page, publication handoff checklist, and source-verification dossier so the QI manuscript path is mapped to SQUIRE 2.0 and the new pre/post report-audit metrics.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/validation-metrics.test.ts` failed before implementation because `computeQiAuditSummary` was not exported and the SQUIRE handoff strings were absent.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/validation-metrics.test.ts` passes with 190 tests.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/validation-page.test.ts client/src/lib/methodology-page.test.ts` passes with 190 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 190 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md publication_handoff_checklist.md source_verification_dossier.md client/src/lib/validation-metrics.ts client/src/lib/validation-metrics.test.ts client/src/lib/validation-page.test.ts client/src/lib/methodology-page.test.ts client/src/pages/Validation.tsx` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, D'Addario 2001 Citation Metadata Correction Increment
 
 - Added failing-first source-document coverage that locks D'Addario 2001 to the clivus-supraocciput article DOI `10.1046/j.1469-0705.2001.00409.x`.

@@ -1068,3 +1068,10 @@
 - Use Crossref evidence to exclude the unrelated 00472.x article from TEST.md.
 - Correct the TEST.md case and source inventory D'Addario citation authors/DOI to match SPEC §7.2.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## SPEC 4.10 QI Audit Metrics Increment
+
+- Add failing coverage for SQUIRE 2.0 and the SPEC §4.10 pre/post report-audit endpoints.
+- Implement reusable QI report-audit metrics for mean time, all-required-measurement completion, explicit z-score/percentile documentation, and recommendation congruence.
+- Update the publication handoff and validation page so the QI manuscript path is mapped to SQUIRE 2.0 as well as AI/model reporting standards.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

@@ -321,7 +321,14 @@ export default function Validation() {
             <a href="https://doi.org/10.1148/ryai.2020200029" className="cite">
               CLAIM
             </a>{" "}
-            for imaging-AI and image-analysis reporting, STARD-AI development
+            for imaging-AI and image-analysis reporting,{" "}
+            <a
+              href="https://doi.org/10.1136/bmjqs-2015-004411"
+              className="cite"
+            >
+              SQUIRE 2.0
+            </a>{" "}
+            for the QI pre/post implementation study, STARD-AI development
             guidance for diagnostic-accuracy claims, and{" "}
             <a
               href="https://doi.org/10.1038/s41591-022-01772-9"
@@ -339,9 +346,13 @@ export default function Validation() {
             {"Brier score"}, ROC-AUC, PR-AUC for imbalanced endpoints,
             sensitivity and specificity at locked thresholds, and{" "}
             {"decision-curve net benefit"} across plausible follow-up
-            thresholds. The reader-study timing, report completeness, z-score
-            documentation rate, recommendation congruence, NASA Task Load Index,
-            and System Usability Scale provide the QI and workflow endpoints.
+            thresholds. The pre/post report-audit metrics should include average
+            time to report, all-required-measurement completion, explicit
+            z-score documentation, explicit percentile documentation, and
+            recommendation congruence. The reader-study timing, report
+            completeness, z-score documentation rate, recommendation congruence,
+            NASA Task Load Index, and System Usability Scale provide the QI and
+            workflow endpoints.
           </p>
           <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
             Zalevskyi 2026 shows why the current manual-entry scope is
