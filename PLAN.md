@@ -1201,3 +1201,10 @@
 - Verify PubMed ESummary evidence that PMID `9169682` is Hertzberg 1997, while PMID `9169681` is an unrelated congenital diaphragmatic hernia MRI paper.
 - Correct TEST.md and SPEC.md Hertzberg citation text to Radiology 1997;203(3):641-644 with DOI `10.1148/radiology.203.3.9169682`.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## SPIRIT-AI Prospective-Protocol Handoff Increment
+
+- Add failing-first source-document coverage that the publication handoff packet names SPIRIT-AI separately from CONSORT-AI.
+- Verify PubMed ESummary evidence for SPIRIT-AI protocol guidance and CONSORT-AI trial-report guidance.
+- Update the handoff checklist and verification dossier so prospective protocol publication requirements are visible before a future intervention study.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

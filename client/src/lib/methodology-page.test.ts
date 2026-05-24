@@ -587,7 +587,11 @@ describe("publication handoff checklist", () => {
     expect(checklist).toContain("SQUIRE 2.0");
     expect(checklist).toContain("STARD-AI");
     expect(checklist).toContain("DECIDE-AI");
+    expect(checklist).toContain("SPIRIT-AI");
     expect(checklist).toContain("CONSORT-AI");
+    expect(checklist).toContain("clinical trial protocol");
+    expect(checklist).toContain("PMID 32908284");
+    expect(checklist).toContain("PMID 32908283");
     expect(checklist).toContain("Manuscript section");
     expect(checklist).toContain("Required evidence");
     expect(checklist).toContain("Owner");
@@ -600,6 +604,20 @@ describe("publication handoff checklist", () => {
     expect(checklist).toContain("source-data final lock");
     expect(checklist).toContain("pre/post report-audit metrics");
     expect(checklist).toContain("Go / no-go");
+  });
+
+  it("records PubMed-verified SPIRIT-AI and CONSORT-AI handoff evidence", () => {
+    const dossier = readFileSync(
+      resolve(process.cwd(), "source_verification_dossier.md"),
+      "utf8"
+    );
+
+    expect(dossier).toContain("SPIRIT-AI");
+    expect(dossier).toContain("CONSORT-AI");
+    expect(dossier).toContain("PMID 32908284");
+    expect(dossier).toContain("10.1038/s41591-020-1037-7");
+    expect(dossier).toContain("PMID 32908283");
+    expect(dossier).toContain("10.1038/s41591-020-1034-x");
   });
 });
 

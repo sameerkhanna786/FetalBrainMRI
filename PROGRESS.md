@@ -1,3 +1,21 @@
+## 2026-05-23, SPIRIT-AI Prospective-Protocol Handoff Increment
+
+- Added failing-first source-document coverage that the publication handoff packet names SPIRIT-AI separately from CONSORT-AI and that the verification dossier preserves PubMed/DOI evidence for both prospective-study reporting paths.
+- Verified via PubMed ESummary that SPIRIT-AI protocol guidance is indexed as PMID `32908284`, DOI `10.1038/s41591-020-1037-7`, and CONSORT-AI trial-report guidance is indexed as PMID `32908283`, DOI `10.1038/s41591-020-1034-x`.
+- Updated `publication_handoff_checklist.md` so a future prospective intervention protocol maps to SPIRIT-AI before enrollment and a future intervention trial report maps to CONSORT-AI after evaluation.
+- Updated `source_verification_dossier.md` to preserve the SPIRIT-AI / CONSORT-AI distinction while keeping the current retrospective QI manuscript path as the active phase.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before the correction because the checklist and dossier lacked `SPIRIT-AI`.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 207 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 207 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md publication_handoff_checklist.md source_verification_dossier.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-23, Hertzberg Third-Ventricle Citation Increment
 
 - Added failing-first source-document coverage that the Hertzberg 1997 third-ventricle citation uses DOI/PMID suffix `9169682` and does not preserve stale DOI suffix `9169681`.
