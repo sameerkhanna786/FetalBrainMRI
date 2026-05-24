@@ -336,6 +336,29 @@ describe("structured report source provenance", () => {
     expect(report).toContain("SOURCE-AGREEMENT NOTES");
     expect(report).toContain("Transcerebellar diameter Delta z 1.03");
   });
+
+  it("places source-agreement notes immediately after Findings before auxiliary inputs", () => {
+    const ga = { weeks: 28, days: 0 };
+    const values = { tcd: 33.2, cisterna_magna_depth: 11 };
+    const { zs, dxs } = evaluateAll(values, ga);
+    const report = generateReport({
+      ga,
+      fieldStrength: "1.5T",
+      motion: "None",
+      values,
+      zs,
+      dxs,
+    });
+    const findingsIndex = report.indexOf("FINDINGS");
+    const notesIndex = report.indexOf("SOURCE-AGREEMENT NOTES");
+    const auxiliaryIndex = report.indexOf("AUXILIARY INPUTS");
+
+    expect(notesIndex).toBeGreaterThan(findingsIndex);
+    expect(auxiliaryIndex).toBeGreaterThan(notesIndex);
+    expect(report.slice(findingsIndex, notesIndex)).not.toContain(
+      "AUXILIARY INPUTS"
+    );
+  });
 });
 
 describe("normal-control report impression", () => {

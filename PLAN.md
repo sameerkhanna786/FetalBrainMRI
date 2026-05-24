@@ -796,3 +796,9 @@
 - Add Methodology-page coverage for the optional GenAI/RAG module and strict no-external-claims prompt.
 - Surface the Bio.Entrez top-3 PubMed fallback, temporary abstract context, and PMID transparency requirement.
 - Surface the safe deterministic fallback and local/free-tier backend recommendations without enabling network calls.
+
+## SPEC 4.8 Source-Agreement Note Ordering Increment
+
+- Add report coverage for a disagreeing measurement rendered alongside auxiliary inputs.
+- Confirm SOURCE-AGREEMENT NOTES appears immediately after FINDINGS, before auxiliary or qualitative sections.
+- Keep auxiliary and qualitative sections intact after source-agreement notes.

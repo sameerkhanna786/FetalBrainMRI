@@ -130,6 +130,21 @@ export function generateReport(ctx: ReportContext): string {
     lines.push("");
   }
 
+  if (disagreeingRows.length > 0) {
+    lines.push("SOURCE-AGREEMENT NOTES");
+    for (const row of disagreeingRows) {
+      const detail = row.result.sourceDetails
+        .map(source => `${source.sourceLabel} z ${formatZ(source.z)}`)
+        .join("; ");
+      lines.push(
+        `${row.parameter.name} Delta z ${row.result.disagreementWidth?.toFixed(
+          2
+        )}: ${detail}.`
+      );
+    }
+    lines.push("");
+  }
+
   const measuredAuxiliary = AUXILIARY_MEASUREMENTS.filter(
     field => values[field.id] != null
   );
@@ -148,21 +163,6 @@ export function generateReport(ctx: ReportContext): string {
     lines.push("QUALITATIVE / CONTEXT INPUTS");
     for (const finding of enteredQualitative) {
       lines.push(`  • ${qualitativeLine(finding)}`);
-    }
-    lines.push("");
-  }
-
-  if (disagreeingRows.length > 0) {
-    lines.push("SOURCE-AGREEMENT NOTES");
-    for (const row of disagreeingRows) {
-      const detail = row.result.sourceDetails
-        .map(source => `${source.sourceLabel} z ${formatZ(source.z)}`)
-        .join("; ");
-      lines.push(
-        `${row.parameter.name} Delta z ${row.result.disagreementWidth?.toFixed(
-          2
-        )}: ${detail}.`
-      );
     }
     lines.push("");
   }

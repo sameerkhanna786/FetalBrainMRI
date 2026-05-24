@@ -1738,3 +1738,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/methodology-page.test.ts client/src/pages/Methodology.tsx` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.8 Source-Agreement Note Ordering Increment
+
+- Added report coverage for a disagreeing measurement rendered alongside auxiliary inputs.
+- Confirmed SOURCE-AGREEMENT NOTES appears immediately after FINDINGS, before auxiliary or qualitative sections.
+- Kept auxiliary and qualitative sections intact after source-agreement notes.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 142 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/report.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
