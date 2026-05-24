@@ -1296,3 +1296,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/client-shell.test.ts client/src/lib/biometry.ts` passes after formatting `client/src/lib/client-shell.test.ts` and `client/src/lib/biometry.ts`.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.4 N-Sources Affordance Label Increment
+
+- Added row-level UI coverage proving the clickable source-breakdown summary includes the dynamic source count.
+- Changed the source breakdown summary from generic `Source breakdown` text to an `N source(s) breakdown` affordance.
+- Preserved the existing source-breakdown anchor and disagreement default-open behavior.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 104 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/source-detail-ui.test.ts client/src/components/ParameterRow.tsx` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

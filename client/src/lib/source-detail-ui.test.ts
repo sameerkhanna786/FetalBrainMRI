@@ -37,4 +37,18 @@ describe("SPEC §7.5 row-level source detail disclosure", () => {
 
     expect(source).toContain('open={zr.agreementState === "disagree"}');
   });
+
+  it("labels the clickable source breakdown affordance with the source count", () => {
+    const source = readFileSync(
+      resolve(process.cwd(), "client/src/components/ParameterRow.tsx"),
+      "utf8"
+    );
+    const summarySource = source.slice(
+      source.indexOf("<summary"),
+      source.indexOf("</summary>")
+    );
+
+    expect(summarySource).toContain("{sourceCount} source");
+    expect(summarySource).toContain("breakdown");
+  });
 });

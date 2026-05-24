@@ -211,7 +211,7 @@ export default function ParameterRow({ param, value, zr, onChange }: Props) {
           className="col-span-12 text-[11px] text-[color:var(--ink-soft)]"
         >
           <summary className="cursor-pointer smallcaps text-[color:var(--teal)]">
-            Source breakdown
+            {sourceCount} source{sourceCount === 1 ? "" : "s"} breakdown
           </summary>
           <div className="mt-2 grid gap-1">
             {zr.sourceDetails.map(source => (

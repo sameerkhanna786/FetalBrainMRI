@@ -592,3 +592,9 @@
 - Add source-surface coverage rejecting alternate reference-set selection code such as `luis-only`.
 - Remove legacy reference-set exports and the unused reference-set resolver from the biometry engine.
 - Keep the Luis coefficients used as source-registry entries for multi-source consensus reconciliation.
+
+## SPEC 4.4 N-Sources Affordance Label Increment
+
+- Add row-level UI coverage proving the clickable source-breakdown summary includes the dynamic source count.
+- Change the source breakdown summary from generic `Source breakdown` text to an `N source(s) breakdown` affordance.
+- Preserve the existing source-breakdown anchor and disagreement default-open behavior.
