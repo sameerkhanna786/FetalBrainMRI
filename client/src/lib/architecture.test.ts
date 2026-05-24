@@ -151,6 +151,15 @@ describe("SPEC §4.3 Python/FastAPI architecture scaffold", () => {
     expect(app).toContain("percentile");
   });
 
+  it("propagates Python per-source detail and disagreement notes into reports", () => {
+    const app = read("python_app/main.py");
+
+    expect(app).toContain("source_details");
+    expect(app).toContain("SOURCE-AGREEMENT NOTES");
+    expect(app).toContain("Delta z");
+    expect(app).toContain("agreement:");
+  });
+
   it("scaffolds scipy curve fitting for offline centile-table registry builds", () => {
     const core = read("python_app/biometry.py");
 

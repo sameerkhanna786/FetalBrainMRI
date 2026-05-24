@@ -108,6 +108,13 @@ def _entered_measurements(form: dict[str, str]) -> list[tuple[str, str, str, str
     return rows
 
 
+def _source_detail_text(source_details: list[dict[str, object]]) -> str:
+    return "; ".join(
+        f"{detail['source_label']} z {float(detail['z']):+.2f}"
+        for detail in source_details
+    )
+
+
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request) -> HTMLResponse:
     """Render the offline-capable calculator shell."""
@@ -140,6 +147,7 @@ async def calculate(request: Request) -> PlainTextResponse:
     motion = form.get("motion", "None")
     measurements = _entered_measurements(form)
     has_abnormal_z = False
+    disagreeing_rows: list[tuple[str, dict[str, object]]] = []
 
     ga_label = f"{weeks}w {days}d ({weeks + days / 7:.1f} weeks)"
     ga_weeks = weeks + days / 7
@@ -168,18 +176,30 @@ async def calculate(request: Request) -> PlainTextResponse:
                 result = evaluate_parameter(parameter_id, ga_weeks, numeric_value)
                 z_value = float(result["z"])
                 has_abnormal_z = has_abnormal_z or abs(z_value) > 2
-                source_labels = ", ".join(result["source_labels"])
+                source_details = result["source_details"]
+                source_text = _source_detail_text(source_details)
+                if result["agreement_state"] == "disagree":
+                    disagreeing_rows.append((label, result))
                 lines.append(
                     f"  * {label}: {numeric_value:.1f} {unit} "
                     f"(consensus z {z_value:+.2f}, "
                     f"{float(result['percentile']):.0f} percentile; "
                     f"agreement: {result['agreement_state']}). "
-                    f"Sources: {source_labels}."
+                    f"Sources: {source_text}."
                 )
             except (KeyError, ValueError):
                 lines.append(f"  * {label}: {value} {unit}.")
     else:
         lines.append("No measurements entered.")
+
+    if disagreeing_rows:
+        lines.extend(["", "SOURCE-AGREEMENT NOTES"])
+        for label, result in disagreeing_rows:
+            source_text = _source_detail_text(result["source_details"])
+            lines.append(
+                f"{label} Delta z {float(result['disagreement_width']):.2f}: "
+                f"{source_text}."
+            )
 
     impression = (
         "One or more measurements fall outside the expected range; review source details."

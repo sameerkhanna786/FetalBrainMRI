@@ -874,3 +874,9 @@
 - Add architecture coverage for a Python source registry covering every z-scored worksheet parameter.
 - Port the model coefficients and multi-source overrides needed for consensus evaluation.
 - Use the Python registry in the FastAPI report-preview endpoint to emit consensus z-score, percentile, agreement, and source labels.
+
+## SPEC 4.8 Python Source Detail Report Increment
+
+- Add architecture coverage that the Python report endpoint propagates per-source z values.
+- Add SOURCE-AGREEMENT NOTES for Python rows whose registry sources disagree.
+- Keep the report preview plain text for PowerScribe paste compatibility.
