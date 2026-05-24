@@ -1419,3 +1419,10 @@
 - Recalibrate stale preserved-CSP and skull-BPD rows so documented normal bands match active runtime thresholds while raw third-ventricle threshold behavior remains auxiliary.
 - Update the residual TEST corpus numeric audit blocker count after the third-ventricle/aqueductal-stenosis rows are reconciled.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## TEST Negative-Control Fixture Runtime Consistency Increment
+
+- Add failing-first source-document coverage that parses TEST.md cases NEG1-NEG5 and verifies partial-pattern negative controls against the runtime engine.
+- Recalibrate stale skull-BPD, CSP, CC, TCD, vermis, brain-BPD, and CC rows so the documented standalone cards fire without accidentally triggering excluded combined patterns.
+- Update the residual TEST corpus numeric audit blocker count after the negative-control rows are reconciled.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

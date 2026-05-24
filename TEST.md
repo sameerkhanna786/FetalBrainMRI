@@ -2274,7 +2274,7 @@ These cases verify that the engine **does not** fire combined-pattern cards when
 | Atrium-R | 11 mm | >95th |
 | Atrium-L | 11 mm | >95th |
 | CSP | absent | special-cased |
-| Skull BPD | 88 mm | normal |
+| Skull BPD | 74 mm | normal |
 | (others) | filler | normal |
 
 `mild_ventriculomegaly`, `csp_absent` fire. **`hpe_pattern`** must *not* fire (no monoventricle, no microcephaly, no fused thalami).
@@ -2284,8 +2284,8 @@ These cases verify that the engine **does not** fire combined-pattern cards when
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 28 w 0 d | — |
-| CC | 28 mm (z ≈ –2.5) | <5th |
-| CSP | 4.0 mm | normal |
+| CC | 30.0 mm (z ≈ –2.0) | <5th |
+| CSP | 7.6 mm | normal |
 | (others) | filler | normal |
 
 `cc_short` fires. `acc_pattern` does *not* fire (CSP present, CC partially present, no colpocephaly).
@@ -2297,7 +2297,7 @@ These cases verify that the engine **does not** fire combined-pattern cards when
 | GA | 28 w 0 d | — |
 | Atrium-R | 17 mm | >95th |
 | Atrium-L | 17 mm | >95th |
-| CSP | 4.4 mm | normal |
+| CSP | 7.6 mm | normal |
 | Third ventricle | 2.0 mm | normal |
 | (others) | filler | normal |
 
@@ -2308,8 +2308,8 @@ These cases verify that the engine **does not** fire combined-pattern cards when
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 28 w 0 d | — |
-| TCD | 33 mm (z ≈ –1.7) | <5th |
-| Vermis CC | 17 mm | normal |
+| TCD | 29.5 mm (z ≈ –1.8) | <5th |
+| Vermis CC | 14.8 mm | normal |
 | Pons AP | 9.5 mm | normal |
 | (others) | filler | normal |
 
@@ -2320,9 +2320,9 @@ These cases verify that the engine **does not** fire combined-pattern cards when
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 32 w 0 d | — |
-| Skull BPD | 95 mm (+2 SD) | >97th |
-| Brain BPD | 90 mm | normal |
-| CC | 41 mm | normal |
+| Skull BPD | 95 mm | >97th |
+| Brain BPD | 72 mm | normal |
+| CC | 36.6 mm | normal |
 | Pons AP | 11 mm | normal |
 | (others) | filler | normal |
 

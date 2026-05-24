@@ -1,3 +1,20 @@
+## 2026-05-24, TEST Negative-Control Fixture Runtime Consistency Increment
+
+- Added failing-first source-document coverage that parses TEST.md cases NEG1-NEG5, evaluates partial-pattern negative controls with the runtime engine, and verifies that excluded combined patterns stay suppressed.
+- Recalibrated NEG1-NEG5 skull-BPD, CSP, CC, TCD, vermis, and brain-BPD rows so standalone-card fixtures fire deterministically without accidental macrocephaly, complete-ACC, DWM/PCH, or thick-CC behavior.
+- Updated the TEST corpus numeric audit blocker from 12 to 6 residual normal-label rows.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/methodology-page.test.ts -- --runInBand -t "negative-control fixtures"` failed before implementation because NEG1 documented normal skull size while the stale row fired `macrocephaly`.
+- `npx pnpm@10.4.1 test client/src/lib/methodology-page.test.ts -- --runInBand -t "negative-control fixtures"` passes.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 241 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md source_verification_dossier.md client/src/lib/methodology-page.test.ts` passes after formatting the dossier and test file.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, TEST Third-Ventricle/Aqueductal-Stenosis Fixture Runtime Consistency Increment
 
 - Added failing-first source-document coverage that parses TEST.md cases TV1, AS-P2, AS-P4, and AS-P5, evaluates third-ventricle raw-threshold behavior, VM severity, macrocephaly, and hydrocephalus-pattern behavior with the runtime engine, and verifies the intended DDx cards.
