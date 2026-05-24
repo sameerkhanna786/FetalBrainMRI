@@ -1,3 +1,21 @@
+## 2026-05-24, Measurement Value Exclusivity Guard Increment
+
+- Added failing-first coverage for ambiguous measurement rows that populate both `value_mm` and `value_deg`, or carry numeric values while `measurement_available=false`.
+- Tightened `measurement_rows.csv` validation so available measurements require exactly one value column and unavailable measurements require no value columns.
+- Updated `validation_data_dictionary.md` so analysts preserve missingness semantics before FeTA, institutional, or reader agreement analysis.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "ambiguous measurement"` failed before implementation because contradictory value columns produced no schema errors.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "ambiguous measurement"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 12 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 257 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Reader-Study Duplicate Pair Guard Increment
 
 - Added failing-first coverage for duplicate `reader_study_rows.csv` condition rows with the same reader and case.

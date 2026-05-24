@@ -391,6 +391,36 @@ describe("validation data export schema guard", () => {
     );
   });
 
+  it("rejects ambiguous measurement value columns before agreement analysis", () => {
+    expect(
+      validateValidationDataRows("measurement_rows.csv", [
+        {
+          study_id: "S1",
+          parameter_id: "tcd",
+          source_role: "reference",
+          value_mm: 32,
+          value_deg: 12,
+          measurement_available: true,
+          image_quality_tier: "diagnostic",
+        },
+        {
+          study_id: "S2",
+          parameter_id: "tcd",
+          source_role: "reference",
+          value_mm: 31,
+          measurement_available: false,
+          missing_reason: "motion-degraded",
+          image_quality_tier: "motion_limited",
+        },
+      ])
+    ).toEqual(
+      expect.arrayContaining([
+        "measurement_rows.csv row 1 requires exactly one of value_mm or value_deg when measurement_available is true",
+        "measurement_rows.csv row 2 must not include value_mm or value_deg when measurement_available is false",
+      ])
+    );
+  });
+
   it("validates cross-file study IDs and reader-study pair completeness", () => {
     expect(
       validateValidationDataExport({

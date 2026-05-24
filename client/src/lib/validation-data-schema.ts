@@ -447,14 +447,19 @@ export const validateValidationDataRows = (
     }
 
     if (schema.fileName === "measurement_rows.csv") {
-      if (
-        isTrueLike(row.measurement_available) &&
-        isMissing(row.value_mm) &&
-        isMissing(row.value_deg)
-      ) {
-        errors.push(
-          `${rowLabel} requires value_mm or value_deg when measurement_available is true`
-        );
+      const hasValueMm = !isMissing(row.value_mm);
+      const hasValueDeg = !isMissing(row.value_deg);
+      if (isTrueLike(row.measurement_available)) {
+        if (!hasValueMm && !hasValueDeg) {
+          errors.push(
+            `${rowLabel} requires value_mm or value_deg when measurement_available is true`
+          );
+        }
+        if (hasValueMm && hasValueDeg) {
+          errors.push(
+            `${rowLabel} requires exactly one of value_mm or value_deg when measurement_available is true`
+          );
+        }
       }
       if (
         isFalseLike(row.measurement_available) &&
@@ -462,6 +467,14 @@ export const validateValidationDataRows = (
       ) {
         errors.push(
           `${rowLabel} requires missing_reason when measurement_available is false`
+        );
+      }
+      if (
+        isFalseLike(row.measurement_available) &&
+        (hasValueMm || hasValueDeg)
+      ) {
+        errors.push(
+          `${rowLabel} must not include value_mm or value_deg when measurement_available is false`
         );
       }
     }

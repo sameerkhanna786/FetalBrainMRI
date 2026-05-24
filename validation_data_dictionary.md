@@ -61,6 +61,9 @@ checked against the runtime schema.
 Use this file for FeTA external validation, institutional validation, and
 inter-rater reliability. Store millimetre and degree values in separate columns
 so angular parameters cannot be silently interpreted as millimetres.
+Rows with `measurement_available=true` must populate exactly one of `value_mm`
+or `value_deg`. Rows with `measurement_available=false` must leave both value
+columns blank and provide `missing_reason`.
 
 | Column                | Required    | Values / notes                                                                                                                                                                    |
 | --------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -154,7 +157,8 @@ calculator study.
 3. `ga_weeks` and `ga_days` are populated for every included case.
 4. Excluded cases have non-empty `exclusion_reason`.
 5. Missing measurements use `measurement_available=false` plus `missing_reason`,
-   not numeric placeholders.
+   not numeric placeholders; available measurements use exactly one of
+   `value_mm` or `value_deg`.
 6. Every reader-study case has exactly one `without_tool` and exactly one
    `with_tool` row for each reader; duplicate condition rows are fixed before
    paired deltas are computed.

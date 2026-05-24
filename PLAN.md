@@ -1517,3 +1517,10 @@
 - Extend export validation from "both conditions are present" to "exactly one `without_tool` and exactly one `with_tool` row per reader/case pair".
 - Keep the data dictionary aligned with the paired-analysis requirement.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Measurement Value Exclusivity Guard Increment
+
+- Add failing-first coverage for measurement rows that provide both `value_mm` and `value_deg`, or provide a numeric value while `measurement_available=false`.
+- Tighten `measurement_rows.csv` validation so available measurements have exactly one value column.
+- Reject unavailable measurements that still carry value columns, preserving missingness semantics.
+- Update the data dictionary and audit/progress trail, then run targeted/full gates before committing.
