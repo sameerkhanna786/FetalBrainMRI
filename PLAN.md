@@ -1096,3 +1096,10 @@
 - Correct SPEC and TEST metadata away from the unrelated PMID `29545253`.
 - Remove stale `Garel 2018` / citation-correction wording from the severe-ventriculomegaly likelihood manifest.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Corroenne 2023 Citation Metadata Increment
+
+- Add source-document coverage that Corroenne 2023 resolves to DOI `10.1002/uog.26187` and PubMed PMID `36864530`.
+- Correct the SPEC tooltip and source-inventory metadata away from the unrelated DOI `10.1002/uog.26280`, wrong PMID, and wrong PMCID.
+- Keep Corroenne as a teaching/cross-validation source, not an active Phase 1 computational registry row.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

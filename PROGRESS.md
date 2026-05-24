@@ -1,3 +1,19 @@
+## 2026-05-23, Corroenne 2023 Citation Metadata Increment
+
+- Added failing-first source-document coverage that locks Corroenne 2023 to DOI `10.1002/uog.26187` and PubMed PMID `36864530`.
+- Verified via Crossref that DOI `10.1002/uog.26187` is the corpus-callosal reference-ranges systematic review and DOI `10.1002/uog.26280` is an unrelated acrania-exencephaly-anencephaly letter.
+- Corrected SPEC tooltip, source inventory, and reference metadata away from the wrong DOI, wrong PMID, and unrelated PMCID while preserving Corroenne as a teaching / cross-validation source.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before the citation update because SPEC.md did not contain `36864530`.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 194 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 194 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, Heaphy-Henault 2018 Citation Metadata Increment
 
 - Added failing-first source-document coverage that locks the aqueductal-stenosis source to DOI `10.3174/ajnr.A5590`, PMID `29519789`, and PMCID `PMC7410663`.

@@ -197,6 +197,19 @@ describe("publication-readiness source-document consistency", () => {
     expect(testCorpus).toContain("PMID 29519789");
   });
 
+  it("locks Corroenne 2023 corpus-callosum review metadata to the UOG article", () => {
+    const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
+
+    expect(spec).toContain("10.1002/uog.26187");
+    expect(spec).toContain("36864530");
+    expect(spec).not.toContain("10.1002/uog.26280");
+    expect(spec).not.toContain("36786414");
+    expect(spec).not.toContain("PMC10464495");
+    expect(spec).toContain(
+      "Corpus callosal reference ranges: systematic review of methodology of biometric chart construction and measurements obtained"
+    );
+  });
+
   it("locks the Woitek 2014 Table 3 control rows to the PMC source audit", () => {
     const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
     const dossier = readFileSync(
