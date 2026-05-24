@@ -769,6 +769,19 @@ export const validateValidationDataExport = (
     data["report_audit_rows.csv"] ?? [],
     caseIds
   );
+  const reportIdCounts = new Map<string, number>();
+  for (const row of data["report_audit_rows.csv"] ?? []) {
+    const reportId = stringValue(row.report_id);
+    if (reportId == null) continue;
+    reportIdCounts.set(reportId, (reportIdCounts.get(reportId) ?? 0) + 1);
+  }
+  reportIdCounts.forEach((count, reportId) => {
+    if (count > 1) {
+      errors.push(
+        `report_audit_rows.csv report_id ${reportId} appears ${count} times; expected exactly one`
+      );
+    }
+  });
 
   const readerPairs = new Map<string, Map<string, number>>();
   for (const row of data["reader_study_rows.csv"] ?? []) {

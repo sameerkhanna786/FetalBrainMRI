@@ -148,7 +148,7 @@ the other validation files.
 
 | Column                         | Required    | Values / notes                                              |
 | ------------------------------ | ----------- | ----------------------------------------------------------- |
-| report_id                      | yes         | De-identified report key.                                   |
+| report_id                      | yes         | Unique de-identified report key.                            |
 | study_id                       | yes         | Links to `case_log.csv`.                                    |
 | phase                          | yes         | `baseline` or `post_tool`.                                  |
 | duration_sec                   | yes         | Positive time to complete report.                           |

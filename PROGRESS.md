@@ -1,3 +1,21 @@
+## 2026-05-24, Report-Audit Duplicate Report ID Guard Increment
+
+- Added failing-first coverage for duplicate `report_audit_rows.csv` `report_id` rows.
+- Extended package-level validation so each audited report contributes at most one row before QI pre/post metrics run.
+- Updated `validation_data_dictionary.md` to document `report_id` as a unique report key.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "duplicate report-audit"` failed before implementation because duplicate report IDs produced no export errors.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "duplicate report-audit"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 29 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 274 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Diagnostic Label Duplicate Guard Increment
 
 - Added failing-first coverage for duplicate `diagnostic_labels.csv` rows with the same `study_id` and `trigger_id`.

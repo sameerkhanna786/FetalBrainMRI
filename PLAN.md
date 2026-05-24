@@ -1643,3 +1643,10 @@
 - Extend package-level validation so each case/trigger label contributes at most one row before diagnostic accuracy, calibration, or decision-curve metrics run.
 - Update the data dictionary so diagnostic labels are documented as unique per case and runtime trigger.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Report-Audit Duplicate Report ID Guard Increment
+
+- Add failing-first coverage for duplicate `report_audit_rows.csv` `report_id` rows.
+- Extend package-level validation so each audited report contributes at most one row before QI pre/post metrics run.
+- Update the data dictionary so `report_id` is documented as a unique report key.
+- Update the audit/progress trail, then run targeted/full gates before committing.
