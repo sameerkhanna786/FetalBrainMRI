@@ -27,15 +27,16 @@ submission and for the with-tool versus without-tool reader study.
 
 ## Reader-Study Design
 
-| Design element | Requirement                                                                                             |
-| -------------- | ------------------------------------------------------------------------------------------------------- |
-| Readers        | Two to five fetal/neuro radiologists or radiology trainees approved by the PI.                          |
-| Cases          | Target 60 cases: 20 neurotypical, 20 mild/moderate pathology, 20 severe pathology.                      |
-| Design         | Within-reader crossover: each reader interprets each case once without the calculator and once with it. |
-| Ordering       | Counter-balanced case order and tool condition by reader.                                               |
-| Washout        | Minimum two-week washout between without-tool and with-tool reads for the same case.                    |
-| Training       | Five pilot cases for tool familiarization; exclude pilot cases from endpoint analysis.                  |
-| Blinding       | Readers are blinded to final consensus labels during interpretation.                                    |
+| Design element | Requirement                                                                                                                                 |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| Readers        | Two to five fetal/neuro radiologists or radiology trainees approved by the PI.                                                              |
+| Cases          | Target 60 cases: 20 neurotypical, 20 mild/moderate pathology, 20 severe pathology.                                                          |
+| Precision plan | Lock expected paired effect sizes, paired-difference SDs, alpha, and power with `estimatePairedMeanDifferenceSampleSize` before scheduling. |
+| Design         | Within-reader crossover: each reader interprets each case once without the calculator and once with it.                                     |
+| Ordering       | Counter-balanced case order and tool condition by reader.                                                                                   |
+| Washout        | Minimum two-week washout between without-tool and with-tool reads for the same case.                                                        |
+| Training       | Five pilot cases for tool familiarization; exclude pilot cases from endpoint analysis.                                                      |
+| Blinding       | Readers are blinded to final consensus labels during interpretation.                                                                        |
 
 ## Endpoint Capture
 

@@ -649,6 +649,34 @@ describe("publication handoff checklist", () => {
     expect(dossier).toContain("Last updated: 2026-05-24.");
   });
 
+  it("keeps sample-size and precision planning visible in the handoff artifacts", () => {
+    const checklist = readFileSync(
+      resolve(process.cwd(), "publication_handoff_checklist.md"),
+      "utf8"
+    );
+    const dossier = readFileSync(
+      resolve(process.cwd(), "source_verification_dossier.md"),
+      "utf8"
+    );
+    const lock = readFileSync(
+      resolve(process.cwd(), "validation_analysis_lock.md"),
+      "utf8"
+    );
+
+    expect(checklist).toContain("sample-size / precision plan");
+    expect(checklist).toContain(
+      "estimateDiagnosticAccuracyPrecisionSampleSize"
+    );
+    expect(checklist).toContain("estimatePairedMeanDifferenceSampleSize");
+    expect(dossier).toContain("TRIPOD+AI statement");
+    expect(dossier).toContain("PMID 38626948");
+    expect(dossier).toContain("STARD-AI diagnostic accuracy guideline");
+    expect(dossier).toContain("PMID 40954311");
+    expect(dossier).toContain("CLAIM 2024 Update");
+    expect(dossier).toContain("PMID 38809149");
+    expect(lock).toContain("sample-size / precision plan");
+  });
+
   it("records PubMed-verified SPIRIT-AI and CONSORT-AI handoff evidence", () => {
     const dossier = readFileSync(
       resolve(process.cwd(), "source_verification_dossier.md"),

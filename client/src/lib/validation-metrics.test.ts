@@ -15,6 +15,9 @@ import {
   computeRawNasaTaskLoadIndex,
   computeSystemUsabilityScale,
   computeWelchTwoSampleComparison,
+  estimateBinaryProportionSampleSize,
+  estimateDiagnosticAccuracyPrecisionSampleSize,
+  estimatePairedMeanDifferenceSampleSize,
 } from "./validation-metrics";
 
 describe("publication validation metrics", () => {
@@ -60,6 +63,36 @@ describe("publication validation metrics", () => {
     expect(interval.lower).toBeLessThan(0.7);
     expect(interval.upper).toBeGreaterThan(0.97);
     expect(interval.upper).toBeLessThan(0.99);
+  });
+
+  it("estimates diagnostic-accuracy sample sizes from Wilson half-width targets", () => {
+    const plan = estimateDiagnosticAccuracyPrecisionSampleSize({
+      expectedSensitivity: 0.9,
+      expectedSpecificity: 0.85,
+      targetHalfWidth: 0.1,
+    });
+
+    expect(plan.positiveCases).toBe(62);
+    expect(plan.negativeCases).toBe(73);
+    expect(plan.totalCasesLowerBound).toBe(135);
+    expect(plan.sensitivity.expectedSuccesses).toBe(56);
+    expect(plan.sensitivity.halfWidth).toBeLessThanOrEqual(0.1);
+    expect(plan.specificity.expectedSuccesses).toBe(62);
+    expect(plan.specificity.halfWidth).toBeLessThanOrEqual(0.1);
+  });
+
+  it("estimates paired reader-study sample sizes for mean-difference endpoints", () => {
+    const plan = estimatePairedMeanDifferenceSampleSize({
+      expectedMeanDifference: 45,
+      pairedDifferenceStandardDeviation: 90,
+      alpha: 0.05,
+      power: 0.8,
+    });
+
+    expect(plan.sampleSize).toBe(32);
+    expect(plan.alpha).toBe(0.05);
+    expect(plan.power).toBe(0.8);
+    expect(plan.normalApproximation).toBe(true);
   });
 
   it("computes decision-curve net benefit against treat-all and treat-none comparators", () => {
@@ -173,6 +206,20 @@ describe("publication validation metrics", () => {
     expect(() => computeWelchTwoSampleComparison([1, 1], [2, 3])).toThrow(
       "non-zero variance"
     );
+
+    expect(() =>
+      estimateBinaryProportionSampleSize({
+        expectedProportion: 1,
+        targetHalfWidth: 0.1,
+      })
+    ).toThrow("expectedProportion");
+
+    expect(() =>
+      estimatePairedMeanDifferenceSampleSize({
+        expectedMeanDifference: 0,
+        pairedDifferenceStandardDeviation: 90,
+      })
+    ).toThrow("non-zero");
   });
 
   it("computes per-parameter agreement and Bland-Altman summaries", () => {

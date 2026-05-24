@@ -29,6 +29,33 @@ export interface ConfidenceInterval {
   confidenceLevel: number;
 }
 
+export interface BinaryProportionSampleSizePlan {
+  expectedProportion: number;
+  targetHalfWidth: number;
+  confidenceLevel: number;
+  sampleSize: number;
+  expectedSuccesses: number;
+  interval: ConfidenceInterval;
+  halfWidth: number;
+}
+
+export interface DiagnosticAccuracyPrecisionSampleSizePlan {
+  sensitivity: BinaryProportionSampleSizePlan;
+  specificity: BinaryProportionSampleSizePlan;
+  positiveCases: number;
+  negativeCases: number;
+  totalCasesLowerBound: number;
+}
+
+export interface PairedMeanDifferenceSampleSizePlan {
+  expectedMeanDifference: number;
+  pairedDifferenceStandardDeviation: number;
+  alpha: 0.1 | 0.05 | 0.01;
+  power: 0.8 | 0.9 | 0.95;
+  sampleSize: number;
+  normalApproximation: true;
+}
+
 export interface GroupedAgreementMetrics {
   stratum: string;
   metrics: AgreementMetrics;
@@ -253,6 +280,152 @@ export const computeWilsonScoreInterval = (
     lower: Math.max(0, adjustedCenter - adjustedMargin),
     upper: Math.min(1, adjustedCenter + adjustedMargin),
     confidenceLevel,
+  };
+};
+
+const assertOpenUnitInterval = (name: string, value: number) => {
+  if (!Number.isFinite(value) || value <= 0 || value >= 1) {
+    throw new Error(
+      `${name} must be a finite value greater than 0 and less than 1`
+    );
+  }
+};
+
+export const estimateBinaryProportionSampleSize = ({
+  expectedProportion,
+  targetHalfWidth,
+  confidenceLevel = 0.95,
+  maxSampleSize = 10000,
+}: {
+  expectedProportion: number;
+  targetHalfWidth: number;
+  confidenceLevel?: number;
+  maxSampleSize?: number;
+}): BinaryProportionSampleSizePlan => {
+  assertOpenUnitInterval("expectedProportion", expectedProportion);
+  assertOpenUnitInterval("targetHalfWidth", targetHalfWidth);
+  if (!Number.isInteger(maxSampleSize) || maxSampleSize < 1) {
+    throw new Error("maxSampleSize must be a positive integer");
+  }
+
+  for (let sampleSize = 1; sampleSize <= maxSampleSize; sampleSize += 1) {
+    const expectedSuccesses = Math.round(expectedProportion * sampleSize);
+    const interval = computeWilsonScoreInterval(
+      expectedSuccesses,
+      sampleSize,
+      confidenceLevel
+    );
+    const halfWidth = Math.max(
+      interval.estimate - interval.lower,
+      interval.upper - interval.estimate
+    );
+
+    if (halfWidth <= targetHalfWidth) {
+      return {
+        expectedProportion,
+        targetHalfWidth,
+        confidenceLevel,
+        sampleSize,
+        expectedSuccesses,
+        interval,
+        halfWidth,
+      };
+    }
+  }
+
+  throw new Error("targetHalfWidth was not reached within maxSampleSize");
+};
+
+export const estimateDiagnosticAccuracyPrecisionSampleSize = ({
+  expectedSensitivity,
+  expectedSpecificity,
+  targetHalfWidth,
+  confidenceLevel = 0.95,
+  maxSampleSize = 10000,
+}: {
+  expectedSensitivity: number;
+  expectedSpecificity: number;
+  targetHalfWidth: number;
+  confidenceLevel?: number;
+  maxSampleSize?: number;
+}): DiagnosticAccuracyPrecisionSampleSizePlan => {
+  const sensitivity = estimateBinaryProportionSampleSize({
+    expectedProportion: expectedSensitivity,
+    targetHalfWidth,
+    confidenceLevel,
+    maxSampleSize,
+  });
+  const specificity = estimateBinaryProportionSampleSize({
+    expectedProportion: expectedSpecificity,
+    targetHalfWidth,
+    confidenceLevel,
+    maxSampleSize,
+  });
+
+  return {
+    sensitivity,
+    specificity,
+    positiveCases: sensitivity.sampleSize,
+    negativeCases: specificity.sampleSize,
+    totalCasesLowerBound: sensitivity.sampleSize + specificity.sampleSize,
+  };
+};
+
+const criticalAlphaZScore = (alpha: number) => {
+  if (alpha === 0.1) return criticalZScore(0.9);
+  if (alpha === 0.05) return criticalZScore(0.95);
+  if (alpha === 0.01) return criticalZScore(0.99);
+  throw new Error("alpha must be 0.1, 0.05, or 0.01");
+};
+
+const criticalPowerZScore = (power: number) => {
+  if (power === 0.8) return 0.8416212335729143;
+  if (power === 0.9) return 1.2815515655446004;
+  if (power === 0.95) return 1.6448536269514722;
+  throw new Error("power must be 0.8, 0.9, or 0.95");
+};
+
+export const estimatePairedMeanDifferenceSampleSize = ({
+  expectedMeanDifference,
+  pairedDifferenceStandardDeviation,
+  alpha = 0.05,
+  power = 0.8,
+}: {
+  expectedMeanDifference: number;
+  pairedDifferenceStandardDeviation: number;
+  alpha?: 0.1 | 0.05 | 0.01;
+  power?: 0.8 | 0.9 | 0.95;
+}): PairedMeanDifferenceSampleSizePlan => {
+  if (
+    !Number.isFinite(expectedMeanDifference) ||
+    expectedMeanDifference === 0
+  ) {
+    throw new Error("expectedMeanDifference must be a finite non-zero value");
+  }
+  if (
+    !Number.isFinite(pairedDifferenceStandardDeviation) ||
+    pairedDifferenceStandardDeviation <= 0
+  ) {
+    throw new Error(
+      "pairedDifferenceStandardDeviation must be a finite positive value"
+    );
+  }
+
+  const zAlpha = criticalAlphaZScore(alpha);
+  const zPower = criticalPowerZScore(power);
+  const standardizedEffect =
+    Math.abs(expectedMeanDifference) / pairedDifferenceStandardDeviation;
+
+  return {
+    expectedMeanDifference,
+    pairedDifferenceStandardDeviation,
+    alpha,
+    power,
+    sampleSize: Math.max(
+      2,
+      Math.ceil(((zAlpha + zPower) / standardizedEffect) ** 2)
+    ),
+    normalApproximation: true,
   };
 };
 

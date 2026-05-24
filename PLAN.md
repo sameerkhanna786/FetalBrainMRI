@@ -1264,3 +1264,10 @@
 - Keep the dossier linked to `validation_analysis_lock.md` so radiologists see the threshold/cohort/endpoint/code freeze artifact from the blocker table.
 - Update `source_verification_dossier.md` metadata without changing the open external blockers.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Validation Precision Planning Increment
+
+- Add failing-first validation-metrics coverage for diagnostic-accuracy sample-size planning by Wilson confidence-interval half-width.
+- Add failing-first validation-metrics coverage for paired reader-study mean-difference sample-size planning.
+- Update the publication handoff, source verification dossier, and analysis lock so TRIPOD+AI / STARD-AI / CLAIM sample-size and precision expectations are visible before data collection.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

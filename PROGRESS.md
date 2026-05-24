@@ -1,3 +1,22 @@
+## 2026-05-24, Validation Precision Planning Increment
+
+- Added failing-first validation-metrics coverage for diagnostic-accuracy sample-size planning by Wilson confidence-interval half-width.
+- Added failing-first validation-metrics coverage for paired reader-study mean-difference sample-size planning.
+- Implemented `estimateBinaryProportionSampleSize`, `estimateDiagnosticAccuracyPrecisionSampleSize`, and `estimatePairedMeanDifferenceSampleSize`.
+- Updated the publication handoff checklist, source verification dossier, validation analysis lock, and reader-study protocol so sample-size / precision assumptions must be locked before data collection.
+- Verified online guideline metadata via PubMed E-utilities: TRIPOD+AI statement PMID 38626948 / DOI 10.1136/bmj-2023-078378, STARD-AI diagnostic accuracy guideline PMID 40954311 / DOI 10.1038/s41591-025-03953-8, and CLAIM 2024 Update PMID 38809149 / DOI 10.1148/ryai.240300.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/validation-metrics.test.ts client/src/lib/methodology-page.test.ts` failed before implementation because the sample-size helpers and handoff references were missing.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/validation-metrics.test.ts client/src/lib/methodology-page.test.ts` passes with 218 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 218 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md publication_handoff_checklist.md source_verification_dossier.md validation_analysis_lock.md reader_study_protocol.md client/src/lib/validation-metrics.ts client/src/lib/validation-metrics.test.ts client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Source Verification Dossier Date Lock Increment
 
 - Added failing-first source-document coverage that the source verification dossier's visible update date matches the current validation-analysis-lock handoff.
