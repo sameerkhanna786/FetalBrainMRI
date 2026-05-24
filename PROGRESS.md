@@ -1,3 +1,20 @@
+## 2026-05-23, Bahlmann 2015 Spina-Bifida Source Metadata Increment
+
+- Added failing-first source-document coverage that locks `BAHLMANN_2015` to DOI `10.1002/pd.4524` and PubMed PMID `25346419`.
+- Verified via Crossref and PubMed E-utilities that the article is Bahlmann et al. _Cranial and cerebral signs in the diagnosis of spina bifida between 18 and 22 weeks of gestation: a German multicentre study_, Prenat Diagn 2015;35(3):228-235.
+- Verified that the previously listed PMID `25333768` resolves to an unrelated nanoscience article and that the correct PMID has no PMC record.
+- Corrected the SPEC source inventory and reference metadata, including the explicit `(not in PMC)` PMCID state.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before the citation update because SPEC.md did not contain `25346419`.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 199 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 199 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, Kertes 2021 CSP Source Metadata Increment
 
 - Added failing-first source-document coverage that locks `KERTES_2021` to the European Journal of Radiology CSP MRI article with DOI `10.1016/j.ejrad.2020.109470` and PMID `33338761`.

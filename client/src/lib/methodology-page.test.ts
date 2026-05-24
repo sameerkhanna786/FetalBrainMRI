@@ -297,6 +297,18 @@ describe("publication-readiness source-document consistency", () => {
     expect(biometry).toContain("PMID 33338761");
   });
 
+  it("locks Bahlmann 2015 spina-bifida metadata to the Prenatal Diagnosis article", () => {
+    const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
+
+    expect(spec).toContain("10.1002/pd.4524");
+    expect(spec).toContain("25346419");
+    expect(spec).toContain(
+      "Cranial and cerebral signs in the diagnosis of spina bifida between 18 and 22 weeks of gestation"
+    );
+    expect(spec).not.toContain("25333768");
+    expect(spec).not.toContain("10.1021/nl502994y");
+  });
+
   it("locks the Woitek 2014 Table 3 control rows to the PMC source audit", () => {
     const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
     const dossier = readFileSync(

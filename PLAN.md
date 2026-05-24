@@ -1131,3 +1131,10 @@
 - Correct the SPEC tooltip, source inventory, and reference metadata away from the ScienceDirect PII-in-DOI-field row and author/title typos.
 - Add the same DOI / PMID lock to the runtime Kertes source record used by CSP source details.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Bahlmann 2015 Spina-Bifida Source Metadata Increment
+
+- Add source-document coverage proving `BAHLMANN_2015` resolves to DOI `10.1002/pd.4524` and PubMed PMID `25346419`.
+- Correct the SPEC source-inventory row and reference metadata away from wrong PMID `25333768`, which resolves to an unrelated nanoscience article.
+- Verify the article has no PMC record and mark the PMCID field explicitly as `(not in PMC)`.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.
