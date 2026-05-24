@@ -2054,7 +2054,7 @@ The `chiari_ii_open_ntd` card fires when CSA z < –2 AND TDPF z < –2 AND the 
 | (others) | filler | normal |
 
 `mild_ventriculomegaly`, `small_tcd`, `vermian_hypoplasia`, `small_pons`, **`chiari_ii_open_ntd`** fire.
-**Citation.** Aertsen 2019; D'Addario V, Pinto V, Del Bianco A, et al. The clivus-supraocciput angle: a useful measurement to evaluate the shape and size of the fetal posterior fossa and to diagnose Chiari II malformation. *Ultrasound Obstet Gynecol.* 2001;18(2):146–149. doi:10.1046/j.1469-0705.2001.00472.x.
+**Citation.** Aertsen 2019; D'Addario V, Pinto V, Di Cagno L, Pintucci A. The clivus-supraocciput angle: a useful measurement to evaluate the shape and size of the fetal posterior fossa and to diagnose Chiari II malformation. *Ultrasound Obstet Gynecol.* 2001;18(2):146–149. doi:10.1046/j.1469-0705.2001.00409.x.
 
 ### Case CII4 — Chiari II at 32 weeks with severe hydrocephalus (combined pattern)
 
@@ -2504,7 +2504,7 @@ Verifies the consensus engine flags **disagreement** (|Δz| ≥ 1 SD between Lui
 [38] Pei R, Wang G, Wang Y, et al. Diagnostic and prognostic value of fetal MRI in microcephaly. *J Matern Fetal Neonatal Med.* 2024;37(1):2299109. doi:10.1080/14767058.2023.2299109.
 [39] Cannie MM, Devlieger R, Leyder M, et al. Congenital cytomegalovirus infection: contribution and best timing of prenatal MR imaging. *Eur Radiol.* 2016;26(10):3760–3769. doi:10.1007/s00330-015-4187-0.
 [40] Hertzberg 1997 (see [22]).
-[41] D'Addario V, Pinto V, Del Bianco A, et al. The clivus-supraocciput angle. *Ultrasound Obstet Gynecol.* 2001;18(2):146–149. doi:10.1046/j.1469-0705.2001.00472.x.
+[41] D'Addario V, Pinto V, Di Cagno L, Pintucci A. The clivus-supraocciput angle: a useful measurement to evaluate the shape and size of the fetal posterior fossa and to diagnose Chiari II malformation. *Ultrasound Obstet Gynecol.* 2001;18(2):146–149. doi:10.1046/j.1469-0705.2001.00409.x.
 [42] Kyriakopoulou V, Vatansever D, Davidson A, et al. Normative biometry of the fetal brain using MRI. *Brain Struct Funct.* 2017;222(5):2295–2307. doi:10.1007/s00429-016-1342-6.
 
 ---

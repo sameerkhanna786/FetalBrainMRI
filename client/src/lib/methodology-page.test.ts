@@ -151,6 +151,16 @@ describe("publication-readiness source-document consistency", () => {
     expect(testCorpus).not.toContain("10.1002/uog.20214");
   });
 
+  it("locks D'Addario 2001 citation metadata to the clivus-supraocciput article", () => {
+    const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
+    const testCorpus = readFileSync(resolve(process.cwd(), "TEST.md"), "utf8");
+
+    expect(spec).toContain("10.1046/j.1469-0705.2001.00409.x");
+    expect(testCorpus).toContain("10.1046/j.1469-0705.2001.00409.x");
+    expect(testCorpus).toContain("Di Cagno L, Pintucci A");
+    expect(testCorpus).not.toContain("10.1046/j.1469-0705.2001.00472.x");
+  });
+
   it("locks the Woitek 2014 Table 3 control rows to the PMC source audit", () => {
     const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
     const dossier = readFileSync(

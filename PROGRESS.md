@@ -1,3 +1,20 @@
+## 2026-05-23, D'Addario 2001 Citation Metadata Correction Increment
+
+- Added failing-first source-document coverage that locks D'Addario 2001 to the clivus-supraocciput article DOI `10.1046/j.1469-0705.2001.00409.x`.
+- Verified via Crossref that DOI `00409.x` is the 146-149 clivus-supraocciput article and DOI `00472.x` belongs to a different pages 157-162 article.
+- Corrected the TEST.md case citation and source inventory entry from the unrelated `00472.x` DOI to `00409.x`, and aligned the author list with SPEC §7.2.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before the TEST.md update because TEST.md did not contain `10.1046/j.1469-0705.2001.00409.x`.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 189 tests.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 189 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 exec prettier --check TEST.md` still reports the existing canonical-document formatting warning; `TEST.md` was not mass-reflowed.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, Aertsen 2019 Citation Metadata Correction Increment
 
 - Added failing-first source-document coverage that locks Aertsen 2019 to the PMC7048594 AJNR article and DOI `10.3174/ajnr.A5930`.

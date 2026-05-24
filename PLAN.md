@@ -1061,3 +1061,10 @@
 - Correct SPEC §7.2 AERTSEN_2019 metadata away from the stale A5921 DOI.
 - Correct the TEST.md source inventory entry away from the unrelated UOG citation while preserving the case-level AJNR citation.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## D'Addario 2001 Citation Metadata Correction Increment
+
+- Add source-document coverage that D'Addario 2001 resolves to the clivus-supraocciput article DOI 10.1046/j.1469-0705.2001.00409.x.
+- Use Crossref evidence to exclude the unrelated 00472.x article from TEST.md.
+- Correct the TEST.md case and source inventory D'Addario citation authors/DOI to match SPEC §7.2.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.
