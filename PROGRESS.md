@@ -1114,3 +1114,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check package.json PLAN.md client/src/lib/client-shell.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 7.5 Row Source-Caveat UI Disclosure Increment
+
+- Added source-detail UI coverage proving the parameter row consumes verification tier, verification date, and caveat fields from source details.
+- Rendered verification tier/date in the expanded parameter-row source breakdown beside the existing z, percentile, range, and cross-modality tags.
+- Rendered registry caveat text only inside the expanded source breakdown so routine rows remain compact.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 91 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/components/ParameterRow.tsx client/src/lib/source-detail-ui.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

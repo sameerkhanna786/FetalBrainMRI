@@ -508,3 +508,9 @@
 - Add client-shell coverage proving the production package does not declare a generic HTTP client dependency.
 - Remove the unused Axios dependency so the stateless client surface has no bundled HTTP helper library.
 - Keep source-level network API checks unchanged; this increment tightens package-level privacy posture.
+
+## SPEC 7.5 Row Source-Caveat UI Disclosure Increment
+
+- Add coverage proving the parameter-row source breakdown consumes verification tier, verification date, and source caveat fields.
+- Render source verification tier/date beside the existing per-source z, percentile, range, and cross-modality tags.
+- Render registry caveat text only inside the expanded source breakdown so routine rows stay compact.

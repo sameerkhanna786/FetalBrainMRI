@@ -226,6 +226,20 @@ export default function ParameterRow({ param, value, zr, onChange }: Props) {
                     · cross-modality
                   </span>
                 )}
+                {source.verificationTier && (
+                  <span>
+                    {" "}
+                    · verification {source.verificationTier}
+                    {source.verificationDate
+                      ? ` (${source.verificationDate})`
+                      : ""}
+                  </span>
+                )}
+                {source.caveat && (
+                  <div className="mt-1 font-sans text-[11px] leading-snug text-[color:var(--state-watch)]">
+                    Caveat: {source.caveat}
+                  </div>
+                )}
               </div>
             ))}
           </div>
