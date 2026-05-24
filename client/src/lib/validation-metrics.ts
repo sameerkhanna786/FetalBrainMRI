@@ -118,6 +118,17 @@ export interface CohenKappaMetrics {
   kappa: number;
 }
 
+export interface FleissKappaMetrics {
+  nSubjects: number;
+  nRaters: number;
+  categories: string[];
+  subjectAgreement: number[];
+  categoryPrevalence: Record<string, number>;
+  meanObservedAgreement: number;
+  expectedAgreement: number;
+  kappa: number;
+}
+
 export interface IntraclassCorrelationMetrics {
   model: "ICC(2,1)";
   nSubjects: number;
@@ -753,6 +764,87 @@ export const computeCohenKappa = (
     observedAgreement,
     expectedAgreement,
     kappa: (observedAgreement - expectedAgreement) / (1 - expectedAgreement),
+  };
+};
+
+export const computeFleissKappa = (
+  ratings: ReaderLabel[][]
+): FleissKappaMetrics => {
+  if (ratings.length < 2) {
+    throw new Error("Fleiss's kappa requires at least two subjects");
+  }
+
+  const nSubjects = ratings.length;
+  const nRaters = ratings[0]?.length ?? 0;
+  if (nRaters < 3) {
+    throw new Error("Fleiss's kappa requires at least three raters");
+  }
+
+  const categories = new Set<string>();
+  const normalized = ratings.map(row => {
+    if (row.length !== nRaters) {
+      throw new Error(
+        "Fleiss's kappa ratings must form a complete rectangular matrix"
+      );
+    }
+
+    return row.map(label => {
+      const key = labelKey(label);
+      categories.add(key);
+      return key;
+    });
+  });
+
+  const categoryList = Array.from(categories).sort();
+  if (categoryList.length < 2) {
+    throw new Error("Fleiss's kappa requires at least two categories");
+  }
+
+  const categoryCounts = Object.fromEntries(
+    categoryList.map(category => [category, 0])
+  ) as Record<string, number>;
+
+  const subjectAgreement = normalized.map(row => {
+    const rowCounts = new Map<string, number>();
+    row.forEach(category => {
+      rowCounts.set(category, (rowCounts.get(category) ?? 0) + 1);
+      categoryCounts[category] += 1;
+    });
+
+    const agreementNumerator = categoryList.reduce((sum, category) => {
+      const count = rowCounts.get(category) ?? 0;
+      return sum + count * (count - 1);
+    }, 0);
+    return agreementNumerator / (nRaters * (nRaters - 1));
+  });
+
+  const categoryPrevalence = Object.fromEntries(
+    categoryList.map(category => [
+      category,
+      categoryCounts[category] / (nSubjects * nRaters),
+    ])
+  ) as Record<string, number>;
+  const meanObservedAgreement =
+    subjectAgreement.reduce((sum, value) => sum + value, 0) / nSubjects;
+  const expectedAgreement = categoryList.reduce(
+    (sum, category) => sum + categoryPrevalence[category] ** 2,
+    0
+  );
+
+  if (expectedAgreement >= 1) {
+    throw new Error("Fleiss's kappa is undefined when expected agreement is 1");
+  }
+
+  return {
+    nSubjects,
+    nRaters,
+    categories: categoryList,
+    subjectAgreement,
+    categoryPrevalence,
+    meanObservedAgreement,
+    expectedAgreement,
+    kappa:
+      (meanObservedAgreement - expectedAgreement) / (1 - expectedAgreement),
   };
 };
 

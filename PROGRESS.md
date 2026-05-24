@@ -1,3 +1,22 @@
+## 2026-05-24, Fleiss Kappa Multi-Reader Metrics Increment
+
+- Added failing-first validation-metrics coverage for Fleiss's kappa on three-or-more-reader categorical label matrices, closing the reader-study gap left by two-reader Cohen's kappa alone.
+- Implemented `computeFleissKappa` with category list, per-subject agreement, category prevalence, mean observed agreement, expected agreement, and kappa outputs.
+- Added invalid-input coverage for incomplete Fleiss matrices so multi-reader reliability tables must be rectangular before analysis.
+- Updated the publication handoff checklist, source verification dossier, and reader-study protocol so two-reader categorical labels use Cohen's kappa and three-plus-reader categorical labels use Fleiss's kappa.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/validation-metrics.test.ts` failed before implementation because `computeFleissKappa` was missing.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/validation-metrics.test.ts` passes with 210 tests.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/validation-metrics.test.ts client/src/lib/methodology-page.test.ts` passes with 210 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 210 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md publication_handoff_checklist.md source_verification_dossier.md reader_study_protocol.md client/src/lib/validation-metrics.ts client/src/lib/validation-metrics.test.ts client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Inter-Rater Reliability Metrics Increment
 
 - Added failing-first validation-metrics coverage for Cohen's kappa on categorical reader labels and ICC(2,1) absolute-agreement reliability on repeated continuous measurements.

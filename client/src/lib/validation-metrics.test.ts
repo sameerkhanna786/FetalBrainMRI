@@ -9,6 +9,7 @@ import {
   computeQiAuditSummary,
   computeWilsonScoreInterval,
   computeCohenKappa,
+  computeFleissKappa,
   computeIntraclassCorrelation,
 } from "./validation-metrics";
 
@@ -104,6 +105,13 @@ describe("publication validation metrics", () => {
         { raterA: "normal", raterB: "normal" },
       ])
     ).toThrow("at least two categories");
+
+    expect(() =>
+      computeFleissKappa([
+        ["normal", "abnormal", "normal"],
+        ["normal", "abnormal"],
+      ])
+    ).toThrow("rectangular matrix");
 
     expect(() => computeIntraclassCorrelation([[10, 11], [12]])).toThrow(
       "rectangular matrix"
@@ -219,6 +227,23 @@ describe("publication validation metrics", () => {
     expect(metrics.observedAgreement).toBeCloseTo(4 / 6, 6);
     expect(metrics.expectedAgreement).toBeCloseTo(0.5, 6);
     expect(metrics.kappa).toBeCloseTo(1 / 3, 6);
+  });
+
+  it("computes multi-reader categorical reliability with Fleiss's kappa", () => {
+    const metrics = computeFleissKappa([
+      ["positive", "positive", "negative"],
+      ["positive", "positive", "positive"],
+      ["negative", "negative", "negative"],
+      ["positive", "negative", "negative"],
+    ]);
+
+    expect(metrics.nSubjects).toBe(4);
+    expect(metrics.nRaters).toBe(3);
+    expect(metrics.categories).toEqual(["negative", "positive"]);
+    expect(metrics.meanObservedAgreement).toBeCloseTo(2 / 3, 6);
+    expect(metrics.expectedAgreement).toBeCloseTo(0.5, 6);
+    expect(metrics.kappa).toBeCloseTo(1 / 3, 6);
+    expect(metrics.subjectAgreement).toEqual([1 / 3, 1, 1, 1 / 3]);
   });
 
   it("computes two-way random absolute-agreement ICC for repeated measurements", () => {

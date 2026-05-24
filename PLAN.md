@@ -1215,3 +1215,10 @@
 - Implement deterministic reliability helpers with input validation for empty, incomplete, or non-variable rating sets.
 - Update the publication handoff docs so the radiologist reader-study packet points analysts at the new kappa / ICC helpers.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Fleiss Kappa Multi-Reader Metrics Increment
+
+- Add failing-first validation-metrics coverage for Fleiss's kappa on three-or-more-reader categorical label matrices.
+- Implement a deterministic Fleiss's kappa helper with per-subject agreement and category-prevalence outputs.
+- Update the reader-study and handoff docs so the two-reader path uses Cohen's kappa while the multi-reader path uses Fleiss's kappa.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

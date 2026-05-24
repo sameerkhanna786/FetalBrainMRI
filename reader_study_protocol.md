@@ -39,16 +39,16 @@ submission and for the with-tool versus without-tool reader study.
 
 ## Endpoint Capture
 
-| Endpoint                     | Capture method                                                                                                        |
-| ---------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| reader-study timing          | Start/stop timer per case and condition; report median and interquartile range.                                       |
-| report-completeness endpoint | Score whether required biometric measurements, z-scores/percentiles, source caveats, and recommendations are present. |
-| recommendation congruence    | Compare follow-up or counselling recommendation against expert adjudication.                                          |
-| z-score documentation rate   | Proportion of measured parameters with z-score and percentile documented.                                             |
-| inter-rater reliability      | Compute Cohen's kappa for categorical labels and ICC(2,1) for repeated continuous measurements.                       |
-| NASA Task Load Index         | Collect raw NASA Task Load Index after each reader completes each condition block.                                    |
-| System Usability Scale       | Collect System Usability Scale after the with-tool block.                                                             |
-| qualitative feedback         | Record short free-text comments about confusing outputs, missing controls, and workflow friction.                     |
+| Endpoint                     | Capture method                                                                                                                                                       |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| reader-study timing          | Start/stop timer per case and condition; report median and interquartile range.                                                                                      |
+| report-completeness endpoint | Score whether required biometric measurements, z-scores/percentiles, source caveats, and recommendations are present.                                                |
+| recommendation congruence    | Compare follow-up or counselling recommendation against expert adjudication.                                                                                         |
+| z-score documentation rate   | Proportion of measured parameters with z-score and percentile documented.                                                                                            |
+| inter-rater reliability      | Compute Cohen's kappa for two-reader categorical labels, Fleiss's kappa for three-plus-reader categorical labels, and ICC(2,1) for repeated continuous measurements. |
+| NASA Task Load Index         | Collect raw NASA Task Load Index after each reader completes each condition block.                                                                                   |
+| System Usability Scale       | Collect System Usability Scale after the with-tool block.                                                                                                            |
+| qualitative feedback         | Record short free-text comments about confusing outputs, missing controls, and workflow friction.                                                                    |
 
 ## Analysis Table Schema
 
