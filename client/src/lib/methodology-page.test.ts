@@ -273,6 +273,7 @@ describe("publication handoff checklist", () => {
     expect(checklist).toContain("Required evidence");
     expect(checklist).toContain("Owner");
     expect(checklist).toContain("calibration-in-the-large");
+    expect(checklist).toContain("Wilson confidence intervals");
     expect(checklist).toContain("decision-curve net benefit");
     expect(checklist).toContain("client/src/lib/validation-metrics.ts");
     expect(checklist).toContain("FeTA 2024");

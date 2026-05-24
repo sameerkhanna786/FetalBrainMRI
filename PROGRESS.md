@@ -1,3 +1,19 @@
+## 2026-05-23, Publication Confidence-Interval Metrics Increment
+
+- Added failing-first coverage that binary validation outputs include Wilson confidence intervals for locked-threshold proportions.
+- Added `computeWilsonScoreInterval` and attached confidence intervals to sensitivity, specificity, positive predictive value, negative predictive value, and accuracy in `computeBinaryValidationMetrics`.
+- Updated the Validation page, publication handoff checklist, and source-verification dossier so analyst exports include uncertainty intervals rather than point estimates alone.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/validation-metrics.test.ts` failed before implementation because `computeWilsonScoreInterval` was not exported and `sensitivityInterval` was undefined.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/validation-metrics.test.ts client/src/lib/validation-page.test.ts client/src/lib/methodology-page.test.ts` passes with 191 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 191 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md publication_handoff_checklist.md source_verification_dossier.md client/src/lib/validation-metrics.ts client/src/lib/validation-metrics.test.ts client/src/lib/validation-page.test.ts client/src/lib/methodology-page.test.ts client/src/pages/Validation.tsx` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, SPEC 4.10 QI Audit Metrics Increment
 
 - Added failing-first coverage for the SPEC §4.10 pre/post QI report-audit metrics and for SQUIRE 2.0 in the publication handoff.

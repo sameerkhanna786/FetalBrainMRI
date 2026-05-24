@@ -344,15 +344,15 @@ export default function Validation() {
             clinical utility rather than only unit-test pass rates. Required
             statistics are calibration-in-the-large, calibration slope,{" "}
             {"Brier score"}, ROC-AUC, PR-AUC for imbalanced endpoints,
-            sensitivity and specificity at locked thresholds, and{" "}
-            {"decision-curve net benefit"} across plausible follow-up
-            thresholds. The pre/post report-audit metrics should include average
-            time to report, all-required-measurement completion, explicit
-            z-score documentation, explicit percentile documentation, and
-            recommendation congruence. The reader-study timing, report
-            completeness, z-score documentation rate, recommendation congruence,
-            NASA Task Load Index, and System Usability Scale provide the QI and
-            workflow endpoints.
+            sensitivity and specificity with Wilson confidence intervals at
+            locked thresholds, and {"decision-curve net benefit"} across
+            plausible follow-up thresholds. The pre/post report-audit metrics
+            should include average time to report, all-required-measurement
+            completion, explicit z-score documentation, explicit percentile
+            documentation, and recommendation congruence. The{" "}
+            {"reader-study timing"}, report completeness, z-score documentation
+            rate, recommendation congruence, NASA Task Load Index, and{" "}
+            {"System Usability Scale"} provide the QI and workflow endpoints.
           </p>
           <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
             Zalevskyi 2026 shows why the current manual-entry scope is

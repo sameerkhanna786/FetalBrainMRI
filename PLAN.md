@@ -1075,3 +1075,10 @@
 - Implement reusable QI report-audit metrics for mean time, all-required-measurement completion, explicit z-score/percentile documentation, and recommendation congruence.
 - Update the publication handoff and validation page so the QI manuscript path is mapped to SQUIRE 2.0 as well as AI/model reporting standards.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Publication Confidence-Interval Metrics Increment
+
+- Add failing coverage that binary validation outputs include Wilson confidence intervals for locked-threshold proportions.
+- Implement a reusable Wilson score interval helper and attach 95% intervals to sensitivity, specificity, predictive values, and accuracy.
+- Update handoff documentation so analyst exports use confidence intervals rather than point estimates alone.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

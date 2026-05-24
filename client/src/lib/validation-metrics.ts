@@ -22,6 +22,13 @@ export interface AgreementMetrics {
   upperLimitOfAgreement: number | null;
 }
 
+export interface ConfidenceInterval {
+  estimate: number;
+  lower: number;
+  upper: number;
+  confidenceLevel: number;
+}
+
 export interface GroupedAgreementMetrics {
   stratum: string;
   metrics: AgreementMetrics;
@@ -41,6 +48,11 @@ export interface BinaryValidationMetrics {
   positivePredictiveValue: number | null;
   negativePredictiveValue: number | null;
   accuracy: number;
+  sensitivityInterval: ConfidenceInterval;
+  specificityInterval: ConfidenceInterval;
+  positivePredictiveValueInterval: ConfidenceInterval | null;
+  negativePredictiveValueInterval: ConfidenceInterval | null;
+  accuracyInterval: ConfidenceInterval;
   brierScore: number;
   rocAuc: number;
   prAuc: number;
@@ -97,6 +109,46 @@ interface NormalizedPrediction {
 }
 
 const EPSILON = 1e-6;
+
+const criticalZScore = (confidenceLevel: number) => {
+  if (confidenceLevel === 0.9) return 1.6448536269514722;
+  if (confidenceLevel === 0.95) return 1.959963984540054;
+  if (confidenceLevel === 0.99) return 2.5758293035489004;
+  throw new Error("confidenceLevel must be 0.9, 0.95, or 0.99");
+};
+
+export const computeWilsonScoreInterval = (
+  successes: number,
+  total: number,
+  confidenceLevel = 0.95
+): ConfidenceInterval => {
+  if (!Number.isInteger(successes) || successes < 0) {
+    throw new Error("successes must be a non-negative integer");
+  }
+  if (!Number.isInteger(total) || total <= 0) {
+    throw new Error("total must be a positive integer");
+  }
+  if (successes > total) {
+    throw new Error("successes cannot exceed total");
+  }
+
+  const z = criticalZScore(confidenceLevel);
+  const estimate = successes / total;
+  const zSquared = z * z;
+  const denominator = 1 + zSquared / total;
+  const adjustedCenter = (estimate + zSquared / (2 * total)) / denominator;
+  const adjustedMargin =
+    (z *
+      Math.sqrt((estimate * (1 - estimate) + zSquared / (4 * total)) / total)) /
+    denominator;
+
+  return {
+    estimate,
+    lower: Math.max(0, adjustedCenter - adjustedMargin),
+    upper: Math.min(1, adjustedCenter + adjustedMargin),
+    confidenceLevel,
+  };
+};
 
 const labelToNumber = (label: BinaryLabel): 0 | 1 => {
   if (label === true || label === 1) return 1;
@@ -271,9 +323,10 @@ const calibrationSlope = (predictions: NormalizedPrediction[]) => {
 
 export const computeBinaryValidationMetrics = (
   predictions: ValidationPrediction[],
-  options: { threshold?: number } = {}
+  options: { threshold?: number; confidenceLevel?: number } = {}
 ): BinaryValidationMetrics => {
   const threshold = options.threshold ?? 0.5;
+  const confidenceLevel = options.confidenceLevel ?? 0.95;
   assertThreshold(threshold);
   const normalized = normalizePredictions(predictions);
 
@@ -298,6 +351,10 @@ export const computeBinaryValidationMetrics = (
     normalized.length;
   const predictedPositive = truePositive + falsePositive;
   const predictedNegative = trueNegative + falseNegative;
+  const positivePredictiveValue =
+    predictedPositive === 0 ? null : truePositive / predictedPositive;
+  const negativePredictiveValue =
+    predictedNegative === 0 ? null : trueNegative / predictedNegative;
 
   return {
     n: normalized.length,
@@ -310,11 +367,40 @@ export const computeBinaryValidationMetrics = (
     falseNegative,
     sensitivity: truePositive / positives,
     specificity: trueNegative / negatives,
-    positivePredictiveValue:
-      predictedPositive === 0 ? null : truePositive / predictedPositive,
-    negativePredictiveValue:
-      predictedNegative === 0 ? null : trueNegative / predictedNegative,
+    positivePredictiveValue,
+    negativePredictiveValue,
     accuracy: (truePositive + trueNegative) / normalized.length,
+    sensitivityInterval: computeWilsonScoreInterval(
+      truePositive,
+      positives,
+      confidenceLevel
+    ),
+    specificityInterval: computeWilsonScoreInterval(
+      trueNegative,
+      negatives,
+      confidenceLevel
+    ),
+    positivePredictiveValueInterval:
+      positivePredictiveValue == null
+        ? null
+        : computeWilsonScoreInterval(
+            truePositive,
+            predictedPositive,
+            confidenceLevel
+          ),
+    negativePredictiveValueInterval:
+      negativePredictiveValue == null
+        ? null
+        : computeWilsonScoreInterval(
+            trueNegative,
+            predictedNegative,
+            confidenceLevel
+          ),
+    accuracyInterval: computeWilsonScoreInterval(
+      truePositive + trueNegative,
+      normalized.length,
+      confidenceLevel
+    ),
     brierScore: brierScore(normalized),
     rocAuc: rocAuc(normalized),
     prAuc: prAuc(normalized),

@@ -7,6 +7,7 @@ import {
   computeGroupedAgreementMetrics,
   compareQiAuditPhases,
   computeQiAuditSummary,
+  computeWilsonScoreInterval,
 } from "./validation-metrics";
 
 describe("publication validation metrics", () => {
@@ -30,6 +31,10 @@ describe("publication validation metrics", () => {
     expect(metrics.falseNegative).toBe(0);
     expect(metrics.sensitivity).toBe(1);
     expect(metrics.specificity).toBe(1);
+    expect(metrics.sensitivityInterval.estimate).toBe(1);
+    expect(metrics.sensitivityInterval.lower).toBeLessThan(1);
+    expect(metrics.specificityInterval.estimate).toBe(1);
+    expect(metrics.accuracyInterval.estimate).toBe(1);
     expect(metrics.brierScore).toBeCloseTo(0.025, 6);
     expect(metrics.rocAuc).toBe(1);
     expect(metrics.prAuc).toBe(1);
@@ -37,6 +42,17 @@ describe("publication validation metrics", () => {
     expect(metrics.meanPredictedRisk).toBe(0.5);
     expect(metrics.calibrationInTheLarge).toBeCloseTo(0, 6);
     expect(Number.isFinite(metrics.calibrationSlope)).toBe(true);
+  });
+
+  it("computes Wilson confidence intervals for locked-threshold proportions", () => {
+    const interval = computeWilsonScoreInterval(18, 20);
+
+    expect(interval.estimate).toBe(0.9);
+    expect(interval.confidenceLevel).toBe(0.95);
+    expect(interval.lower).toBeGreaterThan(0.68);
+    expect(interval.lower).toBeLessThan(0.7);
+    expect(interval.upper).toBeGreaterThan(0.97);
+    expect(interval.upper).toBeLessThan(0.99);
   });
 
   it("computes decision-curve net benefit against treat-all and treat-none comparators", () => {

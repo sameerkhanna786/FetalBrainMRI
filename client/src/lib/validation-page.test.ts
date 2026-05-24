@@ -154,6 +154,7 @@ describe("publication-readiness literature audit", () => {
     expect(source).toContain("calibration-in-the-large");
     expect(source).toContain("calibration slope");
     expect(source).toContain("Brier score");
+    expect(source).toContain("Wilson confidence intervals");
     expect(source).toContain("decision-curve net benefit");
     expect(source).toContain("NASA Task Load Index");
     expect(source).toContain("System Usability Scale");
