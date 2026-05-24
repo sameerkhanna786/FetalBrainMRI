@@ -1152,3 +1152,10 @@
 - Correct the SPEC source-inventory row away from PMID `21183617` / PMCID `PMC7965598`, which do not identify the Harreld corpus-callosum article.
 - Record PubMed, NCBI ID Converter, and Crossref verification in PROGRESS.md.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## NCBI Source-Inventory Identifier Audit Increment
+
+- Add failing-first source-document coverage for the five remaining source-inventory identifier mismatches found by the NCBI ID Converter pass.
+- Correct Katorza 2016, Conte 2018, Woitek 2014, Aertsen 2019, and Santo 2012 PMID / PMCID cells to the PubMed/PMC-resolved identifiers.
+- Record the NCBI ID Converter, PubMed E-utilities, and Crossref evidence in PROGRESS.md.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

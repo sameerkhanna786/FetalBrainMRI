@@ -310,6 +310,46 @@ describe("publication-readiness source-document consistency", () => {
     expect(spec).not.toContain("PMC7965598");
   });
 
+  it("locks NCBI-audited source-inventory identifiers to their stated articles", () => {
+    const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
+
+    expect(spec).toContain(
+      "| KATORZA_2016 | Katorza E, Bertucci E, Perlman S, et al."
+    );
+    expect(spec).toContain(
+      "| MRI | 10.3174/ajnr.A4725 | 27032974 | PMC7960333 |"
+    );
+    expect(spec).toContain(
+      "| CONTE_2018 | Conte G, Milani S, Palumbo G, et al."
+    );
+    expect(spec).toContain(
+      "| MRI | 10.3174/ajnr.A5574 | 29519792 | PMC7410661 |"
+    );
+    expect(spec).toContain(
+      "| WOITEK_2014 | Woitek R, Dvorak A, Weber M, et al."
+    );
+    expect(spec).toContain(
+      "| MRI | 10.1371/journal.pone.0112585 | 25393279 | PMC4231033 |"
+    );
+    expect(spec).toContain(
+      "| AERTSEN_2019 | Aertsen M, Verduyckt J, De Keyzer F, et al."
+    );
+    expect(spec).toContain(
+      "| MRI | 10.3174/ajnr.A5930 | 30591508 | PMC7048594 |"
+    );
+    expect(spec).toContain(
+      "| SANTO_2012 | Santo S, D'Antonio F, Homfray T, et al."
+    );
+    expect(spec).toContain("| 10.1002/uog.12315 | 23024003 | (not in PMC) |");
+    expect(spec).not.toContain("26988817");
+    expect(spec).not.toContain("PMC7960174");
+    expect(spec).not.toContain("29545254");
+    expect(spec).not.toContain("PMC7410554");
+    expect(spec).not.toContain("25393026");
+    expect(spec).not.toContain("30606726");
+    expect(spec).not.toContain("23024028");
+  });
+
   it("locks Bahlmann 2015 spina-bifida metadata to the Prenatal Diagnosis article", () => {
     const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
 

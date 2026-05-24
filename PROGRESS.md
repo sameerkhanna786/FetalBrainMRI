@@ -1,3 +1,22 @@
+## 2026-05-23, NCBI Source-Inventory Identifier Audit Increment
+
+- Added failing-first source-document coverage for the remaining source-inventory identifier mismatches exposed by an NCBI ID Converter pass across all PMIDs in SPEC §7.2.
+- Verified via NCBI ID Converter / PubMed E-utilities that Katorza 2016 resolves to PMID `27032974` and PMCID `PMC7960333`, Conte 2018 resolves to PMID `29519792` and PMCID `PMC7410661`, Woitek 2014 resolves to PMID `25393279` and PMCID `PMC4231033`, Aertsen 2019 resolves to PMID `30591508` and PMCID `PMC7048594`, and Santo 2012 resolves to PMID `23024003` with no PMC record.
+- Verified via PubMed E-utilities that the stale PMIDs in those rows identified unrelated articles, including Roelants 2016, Verheij 2018, Okser 2014, Sreekumari 2019, and Khanna 2012.
+- Corrected the SPEC source-inventory DOI / PMID / PMCID cells and re-ran the full NCBI ID Converter pass over the source inventory.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before the citation update because SPEC.md still contained the stale Katorza 2016 identifiers.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 202 tests.
+- NCBI ID Converter pass over all SPEC §7.2 source-inventory PMIDs resolves the corrected PMC-backed rows to their stated PMCID values; non-PMC rows return `Identifier not found in PMC` as expected.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 202 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-23, Harreld 2011 Corpus-Callosum Metadata Increment
 
 - Added failing-first source-document coverage that locks `HARRELD_2011` to the AJNR fetal-MRI corpus-callosum article with DOI `10.3174/ajnr.A2310`, PMID `21183616`, and PMCID `PMC8013091`.
