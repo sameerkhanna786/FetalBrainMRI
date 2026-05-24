@@ -2347,27 +2347,27 @@ const CARDS: CardSpec[] = [
     rows: [
       {
         dx: "PCH Type 2 (esp. PCH2A)",
-        likelihood: "~40–50%",
+        likelihood: "Most common",
         rationale: "Most common subtype (van Dijk 2018).",
       },
       {
         dx: "PCH Type 1",
-        likelihood: "~10–20%",
+        likelihood: "Minority",
         rationale: "Second most common; motor neuronopathy.",
       },
       {
         dx: "Other PCH (3–11)",
-        likelihood: "~10%",
+        likelihood: "Minority",
         rationale: "Numerous but rare genetic subtypes.",
       },
       {
         dx: "CASK-related disorders",
-        likelihood: "~5–10%",
+        likelihood: "Rare",
         rationale: "Can present with PCH.",
       },
       {
         dx: "Tubulinopathies",
-        likelihood: "~5%",
+        likelihood: "Rare",
         rationale: "Wide spectrum of brain malformations.",
       },
       {

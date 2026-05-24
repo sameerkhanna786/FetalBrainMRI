@@ -759,6 +759,30 @@ describe("SPEC §7.4 partial-ACC likelihood manifest", () => {
   });
 });
 
+describe("SPEC §7.4 small-pons likelihood manifest", () => {
+  it("qualitative-labels small-pons estimate rows while preserving van Dijk attribution", () => {
+    const ga = { weeks: 32, days: 0 };
+    const values = {
+      pons_ap: 9,
+    };
+    const { dxs } = evaluateAll(values, ga);
+    const smallPons = dxs.find(dx => dx.id === "pons-small");
+
+    expect(smallPons?.rows.map(row => row.likelihood)).toEqual([
+      "Most common",
+      "Minority",
+      "Minority",
+      "Rare",
+      "Rare",
+      "Modest",
+    ]);
+    expect(smallPons?.rows.map(row => row.likelihood).join(" ")).not.toMatch(
+      /~40|~10|~5/
+    );
+    expect(smallPons?.rows[0].rationale).toContain("van Dijk 2018");
+  });
+});
+
 describe("aqueductal-stenosis pattern report impression", () => {
   it("uses the TEST.md Case S1 triventricular hydrocephalus impression line", () => {
     const ga = { weeks: 26, days: 0 };

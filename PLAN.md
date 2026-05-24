@@ -688,3 +688,9 @@
 - Add DDx coverage for the SPEC §7.4 partial/hypogenesis corpus-callosum likelihood manifest.
 - Confirm the partial-ACC card no longer surfaces estimate-only numeric percentages.
 - Replace the isolated, monogenic, and chromosomal/CNV likelihood labels with qualitative wording.
+
+## SPEC 7.4 Small-Pons Likelihood Qualitative Increment
+
+- Add DDx coverage for the SPEC §7.4 small-pons likelihood manifest.
+- Preserve the van Dijk 2018 PCH Type 2 rationale while avoiding a precise estimate label.
+- Replace the PCH subtype, CASK, and tubulinopathy likelihood labels with qualitative wording.
