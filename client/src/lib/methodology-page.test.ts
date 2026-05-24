@@ -36,6 +36,48 @@ describe("SPEC §7.5 source verification dossier", () => {
   });
 });
 
+describe("publication-readiness source-document consistency", () => {
+  it("keeps the third-ventricle policy raw-threshold-only outside the app code", () => {
+    const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
+    const testCorpus = readFileSync(resolve(process.cwd(), "TEST.md"), "utf8");
+    const home = readFileSync(
+      resolve(process.cwd(), "client/src/pages/Home.tsx"),
+      "utf8"
+    );
+
+    expect(spec).toContain(
+      "Third Ventricle Width (third_ventricle) -- raw-threshold auxiliary input"
+    );
+    expect(spec).toContain("z-score reporting is disabled");
+    expect(spec).not.toContain(
+      "The third-ventricle z-score should be treated as ordinal"
+    );
+    expect(testCorpus).toContain(
+      "Third ventricle is a raw-threshold auxiliary input"
+    );
+    expect(testCorpus).not.toContain(
+      "third-ventricle z-score is computed from a hand-fitted approximation"
+    );
+    expect(home).not.toContain("Birnbaum&nbsp;2018");
+    expect(home).toContain("third-ventricle raw-threshold checks");
+  });
+
+  it("tracks literature-derived publication blockers in the handoff dossier", () => {
+    const dossier = readFileSync(
+      resolve(process.cwd(), "source_verification_dossier.md"),
+      "utf8"
+    );
+
+    expect(dossier).toContain("TRIPOD+AI");
+    expect(dossier).toContain("CLAIM");
+    expect(dossier).toContain("DECIDE-AI");
+    expect(dossier).toContain("FeTA 2024 biometry gap");
+    expect(dossier).toContain("decision-curve net benefit");
+    expect(dossier).toContain("IRB");
+    expect(dossier).toContain("radiologist handoff");
+  });
+});
+
 describe("SPEC §4.8 clinical integration workflow", () => {
   it("surfaces the Epic Radiant launch path, SMART deferral, and PowerScribe paste workflow", () => {
     const source = readFileSync(

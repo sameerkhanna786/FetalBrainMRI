@@ -31,7 +31,7 @@ All three patterns are valid for unit testing because the calculator's job is to
 
 ### 1.2 Source independence
 
-Every test case is sourced from a paper, cohort, or threshold that is **not** part of the calculator's source registry (Section 7.2 of `SPEC.md`). The calculator's normative coefficients come from Luis 2025, Dovjak 2021, Birnbaum 2018, Woitek 2014, and (for the third-ventricle threshold) Hertzberg 1997. Test cases are drawn from Tilea 2009, Garel 2004, Kyriakopoulou 2017, Bromley 1994, Nagaraj 2021, Whitehead 2022, Tang 2009, Santo 2012, Griffiths 2016, Aertsen 2019, D'Addario 2001, Pagani 2014, Heaphy-Henault 2018, Carta 2018, Barzilay 2017, Pishjoo 2025, Pinto 2016 (Blake's pouch upward-rotation cohort), Limperopoulos 2006, Malinger 2013 (HPE), Patel 2019 (PCH fetal MRI), and several radiologic case-report compilations. Agreement between the calculator's output and the expected band on a test case therefore demonstrates *external validity* rather than self-confirmation.
+Every test case is sourced from a paper, cohort, or threshold that is **not** part of the calculator's source registry (Section 7.2 of `SPEC.md`). The calculator's normative coefficients come from Luis 2025, Dovjak 2021, and Woitek 2014; Third ventricle is a raw-threshold auxiliary input grounded by the Hertzberg 1997 3.5 mm threshold, not an active z-scored registry row. Test cases are drawn from Tilea 2009, Garel 2004, Kyriakopoulou 2017, Bromley 1994, Nagaraj 2021, Whitehead 2022, Tang 2009, Santo 2012, Griffiths 2016, Aertsen 2019, D'Addario 2001, Pagani 2014, Heaphy-Henault 2018, Carta 2018, Barzilay 2017, Pishjoo 2025, Pinto 2016 (Blake's pouch upward-rotation cohort), Limperopoulos 2006, Malinger 2013 (HPE), Patel 2019 (PCH fetal MRI), and several radiologic case-report compilations. Agreement between the calculator's output and the expected band on a test case therefore demonstrates *external validity* rather than self-confirmation.
 
 ### 1.3 Measurement-set conventions
 
@@ -83,7 +83,7 @@ These five cases are negative controls. They establish that when every parameter
 | Vermis CC | 10.7 mm | normal | agree |
 | Vermis AP | 5.1 mm | normal | agree |
 | Pons AP | 6.6 mm | normal | agree |
-| Third ventricle | 1.4 mm | normal | single (Birnbaum) |
+| Third ventricle | 1.4 mm | normal raw threshold | auxiliary threshold |
 
 **Expected DDx cards that should fire:** none.
 **Expected DDx cards that should not fire:** all 14 base triggers, all combined-pattern cards, all size-summary cards.
@@ -108,7 +108,7 @@ These five cases are negative controls. They establish that when every parameter
 | Vermis CC | 16.0 mm | normal | agree |
 | Vermis AP | 7.3 mm | normal | agree |
 | Pons AP | 9.5 mm | normal | agree |
-| Third ventricle | 1.7 mm | normal | single |
+| Third ventricle | 1.7 mm | normal raw threshold | auxiliary threshold |
 
 **Expected DDx cards that should fire:** none.
 **Expected IMPRESSION:** "No abnormal biometric findings."
@@ -132,7 +132,7 @@ These five cases are negative controls. They establish that when every parameter
 | Vermis CC | 19.4 mm | normal | agree |
 | Vermis AP | 8.7 mm | normal | agree |
 | Pons AP | 11.5 mm | normal | agree |
-| Third ventricle | 1.8 mm | normal | single |
+| Third ventricle | 1.8 mm | normal raw threshold | auxiliary threshold |
 
 **Expected DDx cards that should fire:** none.
 **Citation.** Kyriakopoulou V, Vatansever D, Davidson A, et al. Normative biometry of the fetal brain using magnetic resonance imaging. *Brain Struct Funct.* 2017;222(5):2295–2307. doi:10.1007/s00429-016-1342-6. PMID 27885428 [3]. Kyriakopoulou 2017 publishes a per-parameter centile calculator at developingbrain.co.uk/fetalcentiles drawn from a 127-fetus normal cohort across 21–38 weeks GA. The values above are at the cohort's mid-GA-window mean.
@@ -155,7 +155,7 @@ These five cases are negative controls. They establish that when every parameter
 | Vermis CC | 22.7 mm | normal | agree |
 | Vermis AP | 10.1 mm | normal | agree |
 | Pons AP | 13.5 mm | normal | agree |
-| Third ventricle | 2.0 mm | normal | single |
+| Third ventricle | 2.0 mm | normal raw threshold | auxiliary threshold |
 
 **Expected DDx cards that should fire:** none.
 **Citation.** Kyriakopoulou et al. 2017 [3], extrapolated to 36+0 from the cohort's published mean curves.
@@ -178,7 +178,7 @@ These five cases are negative controls. They establish that when every parameter
 | Vermis CC | 9.7 mm | normal | agree |
 | Vermis AP | 4.7 mm | normal | agree |
 | Pons AP | 6.0 mm | normal | agree |
-| Third ventricle | 1.4 mm | normal | single |
+| Third ventricle | 1.4 mm | normal raw threshold | auxiliary threshold |
 
 **Expected DDx cards that should fire:** none.
 **Boundary behaviour to test:** This case sits exactly at the 21-week lower bound of the Dovjak 2021 validity window. The TCD, vermis CC, vermis AP, and pons AP rows should report `agree` (both sources in range), not `single`. A separate boundary case at 20 + 6 (one day below Dovjak's lower bound) should fall back to single-source Luis 2025 with an `extrapolated: true` flag on Dovjak — that case is exercised in §29.2.
@@ -202,7 +202,7 @@ These five cases are negative controls. They establish that when every parameter
 | Vermis CC | 24.0 mm | normal | agree |
 | Vermis AP | 10.7 mm | normal | agree |
 | Pons AP | 14.3 mm | normal | agree |
-| Third ventricle | 2.1 mm | normal | single |
+| Third ventricle | 2.1 mm | normal raw threshold | auxiliary threshold |
 
 **Expected DDx cards that should fire:** none.
 **Boundary behaviour to test:** Kyriakopoulou's reference window ends at 38 + 0; Luis 2025's quadratic is validated to 40 + 0; Dovjak 2021 is validated to 36 + 0. This case should produce `agree` on Dovjak-covered parameters with the Dovjak rows flagged `extrapolated: true` because GA exceeds Dovjak's published 21–36 w window. The §4.2 consensus reconciliation rule states that extrapolated rows are still included in the consensus mean but are tagged in the per-source disclosure.
@@ -1849,7 +1849,7 @@ Cross-reference: see §4, Case S1 and §22, Case AS-P1.
 
 ## 21. Third ventricle dilatation (width > 3.5 mm)
 
-The `third_ventricle_dilatation` card fires when 3rd-V width > 3.5 mm. The Hertzberg 1997 threshold of 3.5 mm is the canonical fetal 3rd-V upper bound. Note: the calculator's third-ventricle z-score is computed from a hand-fitted approximation of the Birnbaum 2018 nomogram (see SPEC.md §7.3.13) and the *trigger* is the absolute 3.5-mm threshold, not the z-score.
+The `third_ventricle_dilatation` card fires when 3rd-V width > 3.5 mm. The Hertzberg 1997 threshold of 3.5 mm is the canonical fetal 3rd-V upper bound. Third ventricle is a raw-threshold auxiliary input: the calculator records the measurement and can fire the DDx card, but it does not compute or report a z-score for this row.
 
 ### Case TV1 — Triventricular hydrocephalus from aqueductal stenosis at 28 weeks (THRESHOLD-DERIVED, Hertzberg 1997)
 
@@ -2337,16 +2337,17 @@ Cross-reference: see §23, Case CII5. Verifies the Mahalanobis-posterior gating.
 
 These cases stress-test specific aspects of the engine's arithmetic and the report-generation logic.
 
-### Case STRESS1 — All-z = 0 fixture (every parameter exactly at the GA-specific mean)
+### Case STRESS1 — All-z = 0 fixture (every z-scored parameter exactly at the GA-specific mean)
 
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 28 w 0 d | — |
 | Skull BPD | exact μ at 28 w | normal (z = 0) |
-| All other 13 parameters | each set to the exact μ at 28 w from §7 source registry | normal (z = 0) |
+| All other z-scored parameters | each set to the exact μ at 28 w from §7 source registry | normal (z = 0) |
+| Third ventricle | 1.7 mm filler | normal raw threshold |
 
-No DDx card fires. Every measurement should report z = 0.0 ± 0.05. Tests the engine's arithmetic with no rounding noise.
-**Citation.** Source registry §7.3 of SPEC.md (Luis 2025 [4], Dovjak 2021 [35], Birnbaum 2018 [29], Hertzberg 1997 [40]).
+No DDx card fires. Every z-scored measurement should report z = 0.0 ± 0.05; the third ventricle should remain a raw-threshold auxiliary value with no z-score output. Tests the engine's arithmetic with no rounding noise.
+**Citation.** Source registry §7.3 of SPEC.md (Luis 2025 [4], Dovjak 2021 [35], Woitek 2014 [43]) and Hertzberg 1997 [40] for the raw third-ventricle threshold.
 
 ### Case STRESS2 — Lowest-supported GA (18 w) — confirms GA-bounds extrapolation flagging
 
@@ -2358,7 +2359,7 @@ No DDx card fires. Every measurement should report z = 0.0 ± 0.05. Tests the en
 | All others | filler | mostly extrapolated |
 
 The engine should fire no DDx cards because all values are within μ ± 1.645σ, but every parameter row should display the **extrapolated-band** flag (per SPEC.md §4.2.4).
-**Citation.** Luis 2025 [4] valid 20–40 w; Dovjak 2021 [35] valid 18–35 w; Birnbaum 2018 [29] valid 18–37 w.
+**Citation.** Luis 2025 [4] valid 20–40 w; Dovjak 2021 [35] valid 18–35 w; the third ventricle remains a raw-threshold auxiliary input.
 
 ### Case STRESS3 — Highest-supported GA (40 w) — confirms upper-bound behaviour
 

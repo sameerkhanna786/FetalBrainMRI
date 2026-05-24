@@ -12,4 +12,17 @@ the calculator data layer.
 | Section 7.4 citation pass                                                                               | Closed | Implementation         | Estimate-only likelihood labels have been relabelled qualitatively in report-output DDx cards; no new primary citations were acquired.                                                           |
 | Chiari II / ONTD calibration                                                                            | Open   | Clinician collaborator | Calibrate the Mahalanobis centroids and ONTD posterior threshold on a local cohort before clinical reliance; current reports flag this discriminator as research-mode.                           |
 
+## Publication-Readiness Blockers
+
+This table captures the online literature audit items that must be resolved or
+explicitly documented before radiologist handoff and manuscript submission.
+
+| Blocker                              | Status | Owner                  | Evidence and handoff note                                                                                                                                                                                 |
+| ------------------------------------ | ------ | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TRIPOD+AI / CLAIM reporting map      | Open   | Implementation + PI    | Map the Methods and Results tables to TRIPOD+AI and CLAIM before submission; DECIDE-AI / CONSORT-AI apply if the project becomes a prospective clinical-decision-support or intervention study.           |
+| FeTA 2024 biometry gap               | Open   | Analyst + radiologists | Zalevskyi 2026 reports best automated-biometry MAPE 7.72% versus inter-rater MAPE 5.38%, supporting manual-entry Phase 1 and requiring stratification by acquisition site, SVR method, and image quality. |
+| Calibration and clinical utility     | Open   | Analyst                | Report calibration-in-the-large, calibration slope, Brier score, locked-threshold sensitivity/specificity, and decision-curve net benefit rather than ROC-AUC alone.                                      |
+| IRB and radiologist handoff protocol | Open   | Clinician collaborator | Before any reader study, confirm IRB status, waiver/consent path, de-identification workflow, reader-study timing, NASA Task Load Index, System Usability Scale, and report-completeness endpoints.       |
+| Source-data final lock               | Open   | Clinician collaborator | Complete Dovjak and Woitek source checks, extra-axial CSF coefficient decision, and Chiari calibration before declaring the calculator ready for clinical reliance.                                       |
+
 Last updated: 2026-05-23.

@@ -934,3 +934,10 @@
 - Add tests that third-ventricle width is an auxiliary raw-threshold input rather than an approximate z-scored source row.
 - Remove the Birnbaum approximation from React and Python source registries while preserving the >3.5 mm DDx trigger.
 - Update Methodology, Validation, and the verification dossier to document the conservative raw-threshold policy.
+
+## Publication-Readiness Literature Audit Increment
+
+- Add tests that the Validation page names the current reporting standards and endpoint families expected by reviewers.
+- Add tests that source documents no longer describe third-ventricle width as an active Birnbaum z-scored registry row.
+- Update the Validation page and verification dossier with the online literature audit: TRIPOD+AI, CLAIM, DECIDE-AI, FeTA 2024, decision-curve utility, reader-study, IRB, and source-verification blockers.
+- Align SPEC.md, TEST.md, and the home footer with the raw-threshold third-ventricle policy.

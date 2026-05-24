@@ -151,8 +151,8 @@ export default function Validation() {
           What the numbers mean — and where they come from.
         </h1>
         <p className="text-[15px] text-[color:var(--ink-soft)] mt-4 max-w-[58ch]">
-          Every measurement entered into the worksheet is converted to a z-score
-          and centile using its source-registry model. Most standard brain
+          Every z-scored measurement entered into the worksheet is converted to
+          a centile using its source-registry model. Most standard brain
           measurements use{" "}
           <a
             href="https://link.springer.com/article/10.1007/s00247-025-06403-2"
@@ -302,6 +302,57 @@ export default function Validation() {
             {"six-to-twelve-week reader study"} once the cohort and approval are
             available. The planned end-to-end target is a{" "}
             {"six-to-nine-month manuscript path"}.
+          </p>
+        </section>
+
+        <section className="mt-14">
+          <div className="smallcaps text-[color:var(--ink-soft)]">§ 0.6</div>
+          <h2 className="font-display text-[28px] mt-1">
+            Publication-readiness audit
+          </h2>
+          <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
+            The manuscript package should be mapped before radiologist handoff
+            to the reporting standards reviewers now expect for imaging decision
+            support:{" "}
+            <a href="https://doi.org/10.1136/bmj-2023-078378" className="cite">
+              TRIPOD+AI
+            </a>{" "}
+            for prediction-model transparency,{" "}
+            <a href="https://doi.org/10.1148/ryai.2020200029" className="cite">
+              CLAIM
+            </a>{" "}
+            for imaging-AI and image-analysis reporting, STARD-AI development
+            guidance for diagnostic-accuracy claims, and{" "}
+            <a
+              href="https://doi.org/10.1038/s41591-022-01772-9"
+              className="cite"
+            >
+              DECIDE-AI
+            </a>{" "}
+            / CONSORT-AI for any prospective clinical-decision-support or
+            intervention study.
+          </p>
+          <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
+            Phase 1 should therefore report discrimination, calibration, and
+            clinical utility rather than only unit-test pass rates. Required
+            statistics are calibration-in-the-large, calibration slope,{" "}
+            {"Brier score"}, ROC-AUC, PR-AUC for imbalanced endpoints,
+            sensitivity and specificity at locked thresholds, and{" "}
+            {"decision-curve net benefit"} across plausible follow-up
+            thresholds. The reader-study timing, report completeness, z-score
+            documentation rate, recommendation congruence, NASA Task Load Index,
+            and System Usability Scale provide the QI and workflow endpoints.
+          </p>
+          <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
+            Zalevskyi 2026 shows why the current manual-entry scope is
+            defensible: in the FeTA 2024 biometry estimation task, the{" "}
+            {"best model reached 7.72% MAPE"} while{" "}
+            {"inter-rater MAPE of 5.38%"} remained lower, and many methods did
+            not beat a gestational-age baseline. The same paper identifies
+            acquisition site, super-resolution strategy, and {"image quality"}{" "}
+            as major domain-shift drivers, so the external validation table must
+            stratify results by site, vendor, field strength, SVR method, and
+            motion/image-quality tier.
           </p>
         </section>
 

@@ -1,3 +1,19 @@
+## 2026-05-23, Publication-Readiness Literature Audit Increment
+
+- Added tests that the Validation page surfaces reviewer-facing reporting standards and endpoint families: TRIPOD+AI, CLAIM, DECIDE-AI / CONSORT-AI, STARD-AI development, calibration, Brier score, decision-curve net benefit, reader timing, NASA Task Load Index, and System Usability Scale.
+- Recorded the online literature audit in the Validation page and source-verification dossier, including the FeTA 2024 / Zalevskyi 2026 biometry gap (best automated biometry 7.72% MAPE versus 5.38% inter-rater MAPE) and domain-shift controls for site, SVR strategy, and image quality.
+- Aligned SPEC.md, TEST.md, and the home footer with the publication-ready raw-threshold third-ventricle policy so the corpus no longer describes an active Birnbaum approximation z-score.
+
+Verification:
+
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 167 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md source_verification_dossier.md client/src/lib/methodology-page.test.ts client/src/lib/validation-page.test.ts client/src/pages/Home.tsx client/src/pages/Validation.tsx` passes.
+- `npx pnpm@10.4.1 exec prettier --check SPEC.md TEST.md` reports existing corpus-style warnings; those long canonical documents were not mass-reflowed.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- Production smoke check passes: `PORT=4174 npx pnpm@10.4.1 start` served `/`, `/validation`, and `/methodology` with HTTP 200 responses.
+
 ## 2026-05-23, SPEC 7.5 Third-Ventricle Raw-Threshold Policy Increment
 
 - Added tests that third-ventricle width is an auxiliary raw-threshold input rather than an approximate z-scored source row.

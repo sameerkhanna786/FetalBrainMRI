@@ -675,8 +675,9 @@ export default function Home() {
             reference data: Luis&nbsp;2025 (auto-proc-SVRTK), with
             cross-validation against Tilea&nbsp;2009, Kyriakopoulou&nbsp;2017,
             Vatansever&nbsp;2013, Dovjak&nbsp;2021, Kertes&nbsp;2021,
-            Conte&nbsp;2018, and Birnbaum&nbsp;2018. No patient data is
-            transmitted or stored; refreshing the page clears all inputs.
+            Conte&nbsp;2018, and third-ventricle raw-threshold checks. No
+            patient data is transmitted or stored; refreshing the page clears
+            all inputs.
           </div>
           <div className="flex items-center gap-5">
             <Link href="/methodology" className="cite">

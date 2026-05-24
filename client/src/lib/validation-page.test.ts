@@ -137,3 +137,40 @@ describe("SPEC §6.7 validation timeline", () => {
     expect(source).toContain("six-to-nine-month manuscript path");
   });
 });
+
+describe("publication-readiness literature audit", () => {
+  it("surfaces current reviewer checklists and manuscript endpoint families", () => {
+    const source = readFileSync(
+      resolve(process.cwd(), "client/src/pages/Validation.tsx"),
+      "utf8"
+    );
+
+    expect(source).toContain("TRIPOD+AI");
+    expect(source).toContain("CLAIM");
+    expect(source).toContain("DECIDE-AI");
+    expect(source).toContain("CONSORT-AI");
+    expect(source).toContain("STARD-AI");
+    expect(source).toContain("calibration-in-the-large");
+    expect(source).toContain("calibration slope");
+    expect(source).toContain("Brier score");
+    expect(source).toContain("decision-curve net benefit");
+    expect(source).toContain("NASA Task Load Index");
+    expect(source).toContain("System Usability Scale");
+    expect(source).toContain("reader-study timing");
+  });
+
+  it("surfaces FeTA 2024 biometry gaps and domain-shift controls", () => {
+    const source = readFileSync(
+      resolve(process.cwd(), "client/src/pages/Validation.tsx"),
+      "utf8"
+    );
+
+    expect(source).toContain("Zalevskyi 2026");
+    expect(source).toContain("biometry estimation task");
+    expect(source).toContain("best model reached 7.72% MAPE");
+    expect(source).toContain("inter-rater MAPE of 5.38%");
+    expect(source).toContain("acquisition site");
+    expect(source).toContain("super-resolution strategy");
+    expect(source).toContain("image quality");
+  });
+});
