@@ -353,6 +353,34 @@ describe("validation data export schema guard", () => {
     );
   });
 
+  it("rejects nonpositive measurement values before agreement analysis", () => {
+    expect(
+      validateValidationDataRows("measurement_rows.csv", [
+        {
+          study_id: "S1",
+          parameter_id: "tcd",
+          source_role: "reference",
+          value_mm: 0,
+          measurement_available: true,
+          image_quality_tier: "diagnostic",
+        },
+        {
+          study_id: "S2",
+          parameter_id: "csa",
+          source_role: "reference",
+          value_deg: -4,
+          measurement_available: true,
+          image_quality_tier: "diagnostic",
+        },
+      ])
+    ).toEqual(
+      expect.arrayContaining([
+        "measurement_rows.csv row 1 field value_mm must be greater than 0",
+        "measurement_rows.csv row 2 field value_deg must be greater than 0",
+      ])
+    );
+  });
+
   it("rejects case-log gestational age weeks outside the calculator-supported range", () => {
     expect(
       validateValidationDataRows("case_log.csv", [

@@ -1657,3 +1657,10 @@
 - Extend package-level validation so measurement agreement, grouped robustness, and ICC inputs cannot double-count the same measurement source.
 - Update the data dictionary so the measurement row grain is explicitly unique.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Measurement Positive Value Guard Increment
+
+- Add failing-first coverage for zero or negative `measurement_rows.csv` values in millimetres and degrees.
+- Extend export validation so impossible biometric distances or angles cannot enter agreement, calibration-adjacent, or reader-reliability analyses.
+- Update the data dictionary so measurement values are documented as positive physical quantities.
+- Update the audit/progress trail, then run targeted/full gates before committing.

@@ -64,8 +64,9 @@ inter-rater reliability. Store millimetre and degree values in separate columns
 so angular parameters cannot be silently interpreted as millimetres.
 The unique row grain is `study_id`, `parameter_id`, `source_role`, and
 `reader_id` when applicable.
-Rows with `measurement_available=true` must populate exactly one of `value_mm`
-or `value_deg`, and the populated column must match the runtime parameter unit.
+Rows with `measurement_available=true` must populate exactly one positive
+`value_mm` or `value_deg`, and the populated column must match the runtime
+parameter unit.
 Rows with `measurement_available=false` must leave both value columns blank and
 provide `missing_reason`.
 
@@ -75,8 +76,8 @@ provide `missing_reason`.
 | parameter_id          | yes         | Must match a runtime `PARAMETERS_ALL` id such as `skull_bpd`, `brain_bpd`, `atrial_right`, `csp_width`, `cc_length`, `tcd`, `vermis_cc`, `vermis_ap`, `pons_ap`, `extra_axial_csf`, `tdpf`, or `csa`. |
 | source_role           | yes         | `reference`, `calculator`, `reader`, or `ai_prefill`.                                                                                                                                                 |
 | reader_id             | conditional | Required when `source_role=reader`; otherwise blank.                                                                                                                                                  |
-| value_mm              | conditional | Numeric millimetres for runtime `mm` parameters.                                                                                                                                                      |
-| value_deg             | conditional | Numeric degrees for runtime `degrees` parameters such as `csa`.                                                                                                                                       |
+| value_mm              | conditional | Positive numeric millimetres for runtime `mm` parameters.                                                                                                                                             |
+| value_deg             | conditional | Positive numeric degrees for runtime `degrees` parameters such as `csa`.                                                                                                                              |
 | measurement_available | yes         | `true` or `false`; use `false` instead of sentinel numeric values.                                                                                                                                    |
 | missing_reason        | conditional | Required when `measurement_available=false`.                                                                                                                                                          |
 | image_quality_tier    | yes         | Repeat from `case_log.csv` if stratifying agreement by image quality.                                                                                                                                 |
@@ -168,7 +169,7 @@ the other validation files.
 4. Excluded cases have non-empty `exclusion_reason`; included cases leave
    `exclusion_reason` blank.
 5. Missing measurements use `measurement_available=false` plus `missing_reason`,
-   not numeric placeholders; available measurements use exactly one of
+   not numeric placeholders; available measurements use exactly one positive
    `value_mm` or `value_deg`, matching the runtime parameter unit.
 6. Every reader-study case has exactly one `without_tool` and exactly one
    `with_tool` row for each reader; duplicate condition rows are fixed before

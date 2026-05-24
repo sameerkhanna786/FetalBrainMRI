@@ -156,8 +156,18 @@ export const VALIDATION_DATA_SCHEMAS: Record<
         allowedValues: SOURCE_ROLE_VALUES,
       },
       { name: "reader_id", required: "conditional" },
-      { name: "value_mm", required: "conditional", numeric: true },
-      { name: "value_deg", required: "conditional", numeric: true },
+      {
+        name: "value_mm",
+        required: "conditional",
+        numeric: true,
+        exclusiveMin: 0,
+      },
+      {
+        name: "value_deg",
+        required: "conditional",
+        numeric: true,
+        exclusiveMin: 0,
+      },
       {
         name: "measurement_available",
         required: "yes",
