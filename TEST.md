@@ -1068,7 +1068,7 @@ The `cc_absent` and `cc_short` cards fire on the special-case "absent" value or 
 | Atrium-L | 13.0 mm | >95th |
 | (others) | filler | normal |
 
-`csp_absent`, `cc_absent`, `mild_ventriculomegaly`, **`acc_pattern`** fire. Tang 2009 Patient 29 also had heterotopia, which the calculator's quantitative engine cannot detect; it should appear in the qualitative panel if the radiologist toggles it.
+`csp_absent`, `cc_absent`, `moderate_ventriculomegaly`, **`acc_pattern`** fire. Tang 2009 Patient 29 also had heterotopia, which the calculator's quantitative engine cannot detect; it should appear in the qualitative panel if the radiologist toggles it.
 **Citation.** Tang 2009 Patient 29.
 
 ### Case A3 — Isolated ACC at 26 weeks (no associated anomalies) (THRESHOLD-DERIVED, Santo 2012)
@@ -1090,8 +1090,8 @@ The `cc_absent` and `cc_short` cards fire on the special-case "absent" value or 
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 28 w 0 d | — |
-| CSP | 4.4 mm (present) | normal |
-| CC | 22.0 mm (vs. expected 32.5, z ≈ –2.5) | <5th |
+| CSP | 7.6 mm (present) | normal |
+| CC | 29.4 mm (vs. expected 32.5, z ≈ –2.5) | <5th |
 | Atrium-R | 7.4 mm | normal |
 | Atrium-L | 7.4 mm | normal |
 | (others) | filler | normal |
@@ -1108,8 +1108,8 @@ The `cc_absent` and `cc_short` cards fire on the special-case "absent" value or 
 | CC | absent | special-cased |
 | Atrium-R | 16.0 mm | >95th |
 | Atrium-L | 16.0 mm | >95th |
-| Brain OFD-L | 78.0 mm | normal |
-| Brain OFD-R | 78.0 mm | normal |
+| Brain OFD-L | 65.1 mm | normal |
+| Brain OFD-R | 65.1 mm | normal |
 | (others) | filler | normal |
 
 `csp_absent`, `cc_absent`, `severe_ventriculomegaly`, **`acc_pattern`** fire. The interhemispheric cyst is a qualitative finding entered separately.
@@ -1128,7 +1128,7 @@ The `cc_absent` and `cc_short` cards fire on the special-case "absent" value or 
 | TCD | 28.0 mm | <5th |
 | (others) | filler | normal |
 
-`csp_absent`, `cc_absent`, **`acc_pattern`**, **`dandy_walker_spectrum`**. Two combined-pattern cards fire simultaneously.
+`csp_absent`, `cc_absent`, `vermian_hypoplasia`, `small_tcd`, **`acc_pattern`**, **`dandy_walker_spectrum`** fire. Two combined-pattern cards fire simultaneously.
 **Citation.** Tang 2009; Whitehead 2022.
 
 ---

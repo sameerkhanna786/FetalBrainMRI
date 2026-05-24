@@ -1330,8 +1330,8 @@ describe("ACC interhemispheric-cyst qualitative add-on", () => {
       cc_length: 0,
       atrial_right: 16,
       atrial_left: 16,
-      brain_ofd_left: 78,
-      brain_ofd_right: 78,
+      brain_ofd_left: 65.1,
+      brain_ofd_right: 65.1,
     };
     const baseIds = evaluateAll(baseValues, ga).dxs.map(dx => dx.id);
     const { zs, dxs } = evaluateAll(
@@ -1476,8 +1476,8 @@ describe("short corpus callosum report impression", () => {
   it("uses the TEST.md Case A4 partial corpus-callosum impression", () => {
     const ga = { weeks: 28, days: 0 };
     const values = {
-      csp_width: 4.4,
-      cc_length: 30,
+      csp_width: 7.6,
+      cc_length: 29.4,
       atrial_right: 7.4,
       atrial_left: 7.4,
     };

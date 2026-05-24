@@ -1,3 +1,20 @@
+## 2026-05-24, TEST ACC Fixture Runtime Consistency Increment
+
+- Added failing-first source-document coverage that parses TEST.md cases A1-A6, evaluates absent-CSP, absent/short-CC, VM severity, ACC-pattern, and associated DWM behavior with the runtime engine, and verifies the expected DDx cards.
+- Corrected A4 so the hypogenetic-CC fixture fires `cc-short` rather than complete ACC, corrected A5 normal OFD fillers, and aligned A2/A6 expected-card language with runtime VM and posterior-fossa behavior.
+- Updated the TEST corpus numeric audit blocker from 30 to 27 residual normal-label rows.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before implementation because A4 documented partial CC hypogenesis while the stale CC row fired `cc-absent`.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 234 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 234 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md source_verification_dossier.md client/src/lib/methodology-page.test.ts client/src/lib/biometry.test.ts` passes after formatting the dossier table.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, TEST Macrocerebellum Fixture Runtime Consistency Increment
 
 - Added failing-first source-document coverage that parses TEST.md cases LC1-LC6, evaluates their large-TCD, macrocephaly, thick-CC, enlarged-CSP, and negative-control rows with the runtime engine, and verifies expected DDx card behavior.

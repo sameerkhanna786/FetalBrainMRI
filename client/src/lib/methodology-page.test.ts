@@ -110,7 +110,7 @@ describe("publication-readiness source-document consistency", () => {
     expect(dossier).toContain("DECIDE-AI");
     expect(dossier).toContain("FeTA 2024 biometry gap");
     expect(dossier).toContain("TEST corpus numeric audit");
-    expect(dossier).toContain("30 residual normal-label rows");
+    expect(dossier).toContain("27 residual normal-label rows");
     expect(dossier).toContain("decision-curve net benefit");
     expect(dossier).toContain("IRB");
     expect(dossier).toContain("radiologist handoff");
@@ -1078,6 +1078,150 @@ describe("publication-readiness source-document consistency", () => {
           expect(Math.abs(z)).toBeLessThan(1.6448536269514722);
         } else if (band.includes(">97th")) {
           expect(z).toBeGreaterThan(1.8807936081512509);
+        } else if (band.includes(">95th")) {
+          expect(z).toBeGreaterThan(1.6448536269514722);
+        }
+      }
+    }
+  });
+
+  it("keeps TEST.md ACC fixtures calibrated to runtime bands and cards", () => {
+    const testCorpus = readFileSync(resolve(process.cwd(), "TEST.md"), "utf8");
+    const parameterLabels = new Map([
+      ["Brain OFD-L", "brain_ofd_left"],
+      ["Brain OFD-R", "brain_ofd_right"],
+      ["Atrium-R", "atrial_right"],
+      ["Atrium-L", "atrial_left"],
+      ["CSP", "csp_width"],
+      ["CC", "cc_length"],
+      ["TCD", "tcd"],
+      ["Vermis CC", "vermis_cc"],
+      ["Vermis AP", "vermis_ap"],
+      ["TVA", "tva"],
+    ]);
+    const zScoredParameterIds = new Set([
+      "brain_ofd_left",
+      "brain_ofd_right",
+      "atrial_right",
+      "atrial_left",
+      "csp_width",
+      "cc_length",
+      "tcd",
+      "vermis_cc",
+      "vermis_ap",
+    ]);
+    const expectations = [
+      [
+        "A1",
+        ["absent-csp", "cc-absent", "mild-vm", "acc-pattern"],
+        ["cc-short", "mod-vm", "severe-vm"],
+      ],
+      [
+        "A2",
+        ["absent-csp", "cc-absent", "mod-vm", "acc-pattern"],
+        ["cc-short", "mild-vm", "severe-vm"],
+      ],
+      [
+        "A3",
+        ["absent-csp", "cc-absent", "mild-vm", "acc-pattern"],
+        ["cc-short", "mod-vm", "severe-vm"],
+      ],
+      [
+        "A4",
+        ["cc-short"],
+        [
+          "absent-csp",
+          "cc-absent",
+          "acc-pattern",
+          "mild-vm",
+          "mod-vm",
+          "severe-vm",
+        ],
+      ],
+      [
+        "A5",
+        ["absent-csp", "cc-absent", "severe-vm", "acc-pattern"],
+        ["cc-short", "brain-asym"],
+      ],
+      [
+        "A6",
+        [
+          "absent-csp",
+          "cc-absent",
+          "acc-pattern",
+          "vermis-small",
+          "tcd-small",
+          "dwm-pattern",
+        ],
+        ["cc-short", "pons-small"],
+      ],
+    ] as const;
+
+    const extractCase = (caseId: string): string => {
+      const start = testCorpus.indexOf(`### Case ${caseId} `);
+      expect(start).toBeGreaterThanOrEqual(0);
+      const nextCase = testCorpus.indexOf("\n### Case ", start + 1);
+      const nextSection = testCorpus.indexOf("\n---", start + 1);
+      const endCandidates = [nextCase, nextSection].filter(index => index > 0);
+      return testCorpus.slice(start, Math.min(...endCandidates));
+    };
+
+    for (const [caseId, expectedDxIds, forbiddenDxIds] of expectations) {
+      const caseText = extractCase(caseId);
+      const values: Record<string, number> = {};
+      const bandChecks: { parameterId: string; expectedBand: string }[] = [];
+      let ga: { weeks: number; days: number } | null = null;
+
+      for (const rawLine of caseText.split("\n")) {
+        if (!rawLine.startsWith("|")) continue;
+        const [label, rawValue, expectedBand] = rawLine
+          .split("|")
+          .slice(1, -1)
+          .map(cell => cell.replaceAll("**", "").trim());
+
+        if (label === "GA") {
+          const match = rawValue.match(/(\d+) w (\d+) d/);
+          expect(match).not.toBeNull();
+          ga = { weeks: Number(match![1]), days: Number(match![2]) };
+          continue;
+        }
+
+        const parameterId = parameterLabels.get(label);
+        if (!parameterId) continue;
+        const absent = /absent/i.test(rawValue);
+        const valueMatch = rawValue.match(/(-?\d+(?:\.\d+)?)/);
+        if (!absent && !valueMatch) continue;
+        values[parameterId] = absent ? 0 : Number(valueMatch![1]);
+        if (zScoredParameterIds.has(parameterId)) {
+          bandChecks.push({ parameterId, expectedBand });
+        }
+      }
+
+      expect(ga).not.toBeNull();
+      const { zs, dxs } = evaluateAll(values, ga!);
+      const dxIds = dxs.map(dx => dx.id);
+      for (const expectedDxId of expectedDxIds) {
+        expect(dxIds).toContain(expectedDxId);
+      }
+      for (const forbiddenDxId of forbiddenDxIds) {
+        expect(dxIds).not.toContain(forbiddenDxId);
+      }
+
+      for (const { parameterId, expectedBand } of bandChecks) {
+        const band = expectedBand.toLowerCase();
+        if (band.includes("special-cased")) continue;
+        const zResult = zs[parameterId];
+        if (zResult == null) continue;
+        const z = zResult.z;
+        const sourceZs = zResult.sourceDetails.map(detail => detail.z);
+        const lowZ = parameterId === "tcd" ? Math.min(z, ...sourceZs) : z;
+        if (band.includes("normal") && !band.includes("abnormal")) {
+          expect(Math.abs(z)).toBeLessThan(1.6448536269514722);
+          if (parameterId === "tcd") {
+            expect(lowZ).toBeGreaterThanOrEqual(-1.6448536269514722);
+          }
+        } else if (band.includes("<5th")) {
+          expect(lowZ).toBeLessThan(-1.6448536269514722);
         } else if (band.includes(">95th")) {
           expect(z).toBeGreaterThan(1.6448536269514722);
         }

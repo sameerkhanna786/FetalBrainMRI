@@ -1370,3 +1370,10 @@
 - Recalibrate stale large-TCD, macrocephaly, and thick-CC rows so threshold-derived z-score comments and expected DDx cards match active runtime thresholds.
 - Update the residual TEST corpus numeric audit blocker count after the macrocerebellum section is reconciled.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## TEST ACC Fixture Runtime Consistency Increment
+
+- Add failing-first source-document coverage that parses TEST.md cases A1-A6 and verifies absent-CSP, absent/short-CC, VM severity, ACC-pattern, and associated DWM behavior against the runtime engine.
+- Recalibrate stale partial-CC and filler rows so A4 fires `cc-short` rather than complete ACC and A5 normal OFD fillers sit inside the active registry band.
+- Update the residual TEST corpus numeric audit blocker count after the ACC section is reconciled.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.
