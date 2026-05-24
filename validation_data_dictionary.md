@@ -98,7 +98,7 @@ manuscript. Lock the threshold before analysis in
 | predicted_probability | conditional | 0-1 probability; required when computing calibration, ROC-AUC, PR-AUC, Brier score, or decision-curve net benefit.                                                                                             |
 | threshold             | yes         | Locked threshold strictly greater than 0 and less than 1 used for `predicted_label`.                                                                                                                           |
 | indeterminate         | yes         | `true` if the case is excluded from the trigger analysis because truth is not adjudicable.                                                                                                                     |
-| indeterminate_reason  | conditional | Required when `indeterminate=true`.                                                                                                                                                                            |
+| indeterminate_reason  | conditional | Required when `indeterminate=true`; blank when `indeterminate=false`.                                                                                                                                          |
 
 ## reader_study_rows.csv
 
@@ -178,14 +178,16 @@ the other validation files.
    paired deltas are computed.
 7. Locked thresholds and endpoint definitions are copied into
    `validation_analysis_lock.md` before analysis.
-8. Probability, rate, NASA Task Load Index, System Usability Scale, gestational
+8. Indeterminate diagnostic-label rows include `indeterminate_reason`;
+   determinate rows leave `indeterminate_reason` blank.
+9. Probability, rate, NASA Task Load Index, System Usability Scale, gestational
    age day, positive duration, and count fields stay inside the documented
    numeric ranges.
-9. Reader-study paired reads have at least 14 washout days.
-10. Partial NASA Task Load Index or System Usability Scale rows are fixed before
+10. Reader-study paired reads have at least 14 washout days.
+11. Partial NASA Task Load Index or System Usability Scale rows are fixed before
     scoring; do not export only selected subscales or selected SUS items.
-11. Report-audit rows have a non-zero required-measurement denominator and never
+12. Report-audit rows have a non-zero required-measurement denominator and never
     document more measurements than the locked audit rubric requires.
-12. Integer fields such as `ga_weeks`, `ga_days`, `read_order`,
+13. Integer fields such as `ga_weeks`, `ga_days`, `read_order`,
     `required_measurement_count`, `documented_measurement_count`, and System
     Usability Scale item responses do not use fractional values.

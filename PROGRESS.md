@@ -1,3 +1,25 @@
+## 2026-05-24, Diagnostic Indeterminate Reason Guard Increment
+
+- Added failing-first validation-data-schema coverage that determinate
+  `diagnostic_labels.csv` rows cannot carry `indeterminate_reason`.
+- Extended diagnostic-label validation so indeterminate reasons are present only
+  for rows excluded from trigger analysis.
+- Updated `validation_data_dictionary.md` to document
+  `indeterminate_reason` as required for indeterminate rows and blank for
+  determinate rows.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "indeterminate_reason"` failed before implementation because determinate diagnostic-label rows with `indeterminate_reason` produced no export errors.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "indeterminate_reason"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 34 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 284 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Available Measurement Missing-Reason Guard Increment
 
 - Added failing-first validation-data-schema coverage that

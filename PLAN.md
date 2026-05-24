@@ -1727,3 +1727,10 @@
 - Extend row validation so available measurements must have exactly one value and no missingness explanation.
 - Update the data dictionary export checks to document that `missing_reason` is reserved for unavailable measurements.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Diagnostic Indeterminate Reason Guard Increment
+
+- Add failing-first validation-data-schema coverage that `diagnostic_labels.csv` rows with `indeterminate=false` cannot carry an `indeterminate_reason`.
+- Extend diagnostic-label row validation so indeterminate reasons are present only for cases excluded from trigger analysis.
+- Update the data dictionary export checks to document that `indeterminate_reason` is reserved for indeterminate rows.
+- Update the audit/progress trail, then run targeted/full gates before committing.

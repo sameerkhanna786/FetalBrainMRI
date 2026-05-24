@@ -959,6 +959,24 @@ describe("validation data export schema guard", () => {
     expect(errors.join("\n")).toContain("mild-vm");
   });
 
+  it("rejects determinate diagnostic rows that carry an indeterminate_reason", () => {
+    expect(
+      validateValidationDataRows("diagnostic_labels.csv", [
+        {
+          study_id: "S1",
+          trigger_id: "mild-vm",
+          reference_label: false,
+          predicted_label: false,
+          threshold: 0.5,
+          indeterminate: false,
+          indeterminate_reason: "truth label not adjudicable",
+        },
+      ])
+    ).toContain(
+      "diagnostic_labels.csv row 1 must not include indeterminate_reason when indeterminate is false"
+    );
+  });
+
   it("rejects duplicate case-log study IDs before cross-file analysis", () => {
     expect(
       validateValidationDataExport({

@@ -653,6 +653,15 @@ export const validateValidationDataRows = (
         `${rowLabel} requires indeterminate_reason when indeterminate is true`
       );
     }
+    if (
+      schema.fileName === "diagnostic_labels.csv" &&
+      isFalseLike(row.indeterminate) &&
+      !isMissing(row.indeterminate_reason)
+    ) {
+      errors.push(
+        `${rowLabel} must not include indeterminate_reason when indeterminate is false`
+      );
+    }
     if (schema.fileName === "diagnostic_labels.csv") {
       const predictedProbability = numericValue(row.predicted_probability);
       const threshold = numericValue(row.threshold);
