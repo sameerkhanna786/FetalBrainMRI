@@ -90,6 +90,29 @@ describe("publication-readiness source-document consistency", () => {
     expect(dossier).toContain("IRB");
     expect(dossier).toContain("radiologist handoff");
   });
+
+  it("keeps publication-critical TEST.md citations traceable and non-placeholder", () => {
+    const testCorpus = readFileSync(resolve(process.cwd(), "TEST.md"), "utf8");
+    const biometry = readFileSync(
+      resolve(process.cwd(), "client/src/lib/biometry.ts"),
+      "utf8"
+    );
+
+    expect(testCorpus).not.toMatch(
+      /full citation pending|citation pending|pending citation/i
+    );
+    expect(testCorpus).toContain("10.7759/cureus.74462");
+    expect(testCorpus).toContain("PMID 39726469");
+    expect(testCorpus).toContain("10.1080/14767058.2020.1849094");
+    expect(testCorpus).toContain("PMID 33207970");
+    expect(testCorpus).not.toContain(
+      "Cureus 2024 alobar HPE single-case fetus at 22 weeks (VERBATIM)"
+    );
+    expect(biometry).toContain("10.1080/14767058.2020.1849094");
+    expect(biometry).not.toContain(
+      "Mega Cisterna Magna: Current Perspectives and Future Directions. Cureus. 2025"
+    );
+  });
 });
 
 describe("publication handoff checklist", () => {

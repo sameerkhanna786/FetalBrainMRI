@@ -3377,9 +3377,9 @@ const CARDS: CardSpec[] = [
     limitations:
       "Raw depth threshold requires imaging-plane correlation and does not replace posterior-fossa morphology review.",
     primary: {
-      label: "Pishjoo 2025",
-      full: "Pishjoo M, et al. Mega Cisterna Magna: Current Perspectives and Future Directions. Cureus. 2025.",
-      url: "https://www.cureus.com/",
+      label: "Gafner 2022",
+      full: "Gafner M, Yagel I, Fried S, Ezra O, Bar-Yosef O, Katorza E. Fetal brain biometry in isolated mega cisterna magna: MRI and US study. J Matern Fetal Neonatal Med. 2022;35(21):4199-4207. doi:10.1080/14767058.2020.1849094.",
+      url: "https://doi.org/10.1080/14767058.2020.1849094",
     },
     match: ({ values }) => {
       const depth = values.cisterna_magna_depth;

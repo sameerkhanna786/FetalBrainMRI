@@ -995,3 +995,10 @@
 - Add a test that a manuscript handoff checklist maps reviewer standards to concrete manuscript sections, endpoints, owners, and evidence.
 - Create a concise publication_handoff_checklist.md for the radiologist handoff packet.
 - Link the source-verification dossier's reporting-map blocker to the checklist and mark the implementation side prepared for PI review.
+
+## TEST.md Verified-Citation Lock Increment
+
+- Add source-document coverage that `TEST.md` has no pending citation placeholders.
+- Replace the unresolved HPE4 Cureus placeholder with a PubMed/PMC/DOI-traceable Cureus source while removing the unsupported verbatim claim.
+- Replace the unresolved mega-cisterna reference with verified fetal MRI/US biometry literature and correct the app citation metadata away from the wrong Cureus journal label.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

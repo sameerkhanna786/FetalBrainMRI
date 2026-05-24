@@ -1,3 +1,19 @@
+## 2026-05-23, TEST.md Verified-Citation Lock Increment
+
+- Added publication-readiness coverage that rejects pending citation placeholders in `TEST.md` and checks DOI / PubMed traceability for the HPE and mega-cisterna fixtures.
+- Replaced the unresolved HPE4 Cureus placeholder with the PubMed/PMC/DOI-traceable Chafiq 2024 Cureus alobar-HPE case and removed the unsupported verbatim 22-week claim.
+- Replaced the unresolved mega-cisterna reference with the fetal MRI/US biometry study by Gafner et al. 2022 and corrected the app source metadata away from the wrong Cureus 2025 journal label.
+
+Verification:
+
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 179 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.ts client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 exec prettier --check TEST.md` still reports the existing canonical-corpus markdown formatting warning; `TEST.md` was not mass-reflowed.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, Source-Data Final-Lock Checklist Increment
 
 - Added `source_data_final_lock.md` as the clinician-facing signoff packet for declaring source data ready for clinical reliance or manuscript submission.

@@ -31,7 +31,7 @@ All three patterns are valid for unit testing because the calculator's job is to
 
 ### 1.2 Source independence
 
-Every test case is sourced from a paper, cohort, or threshold that is **not** part of the calculator's source registry (Section 7.2 of `SPEC.md`). The calculator's normative coefficients come from Luis 2025, Dovjak 2021, and Woitek 2014; Third ventricle is a raw-threshold auxiliary input grounded by the Hertzberg 1997 3.5 mm threshold, not an active z-scored registry row. Test cases are drawn from Tilea 2009, Garel 2004, Kyriakopoulou 2017, Bromley 1994, Nagaraj 2021, Whitehead 2022, Tang 2009, Santo 2012, Griffiths 2016, Aertsen 2019, D'Addario 2001, Pagani 2014, Heaphy-Henault 2018, Carta 2018, Barzilay 2017, Pishjoo 2025, Pinto 2016 (Blake's pouch upward-rotation cohort), Limperopoulos 2006, Malinger 2013 (HPE), Patel 2019 (PCH fetal MRI), and several radiologic case-report compilations. Agreement between the calculator's output and the expected band on a test case therefore demonstrates *external validity* rather than self-confirmation.
+Every test case is sourced from a paper, cohort, or threshold that is **not** part of the calculator's source registry (Section 7.2 of `SPEC.md`). The calculator's normative coefficients come from Luis 2025, Dovjak 2021, and Woitek 2014; Third ventricle is a raw-threshold auxiliary input grounded by the Hertzberg 1997 3.5 mm threshold, not an active z-scored registry row. Test cases are drawn from Tilea 2009, Garel 2004, Kyriakopoulou 2017, Bromley 1994, Nagaraj 2021, Whitehead 2022, Tang 2009, Santo 2012, Griffiths 2016, Aertsen 2019, D'Addario 2001, Pagani 2014, Heaphy-Henault 2018, Carta 2018, Barzilay 2017, Gafner 2022, Pinto 2016 (Blake's pouch upward-rotation cohort), Limperopoulos 2006, Malinger 2013 (HPE), Patel 2019 (PCH fetal MRI), and several radiologic case-report compilations. Agreement between the calculator's output and the expected band on a test case therefore demonstrates *external validity* rather than self-confirmation.
 
 ### 1.3 Measurement-set conventions
 
@@ -824,7 +824,7 @@ No DDx cards should fire. Boundary case verifying that `vermian_hypoplasia` corr
 | (other rows) | filler | normal |
 
 No quantitative DDx cards should fire (the calculator does not currently fire a card for cisterna magna alone). The IMPRESSION should mention "isolated mega cisterna magna with persistent Blake's pouch — likely benign normal variant" if the radiologist toggles the qualitative MCM panel.
-**Citation.** Pishjoo M, Jalali M, Saviz M. Mega Cisterna Magna: Current Perspectives and Future Directions. *Cureus* 2025 [24].
+**Citation.** Gafner M, Yagel I, Fried S, Ezra O, Bar-Yosef O, Katorza E. Fetal brain biometry in isolated mega cisterna magna: MRI and US study. *J Matern Fetal Neonatal Med.* 2022;35(21):4199–4207. doi:10.1080/14767058.2020.1849094. PMID 33207970 [21].
 
 ### Case BP4 — Blake's pouch with sub-threshold AP vermis at 30 weeks (negative control for vermian hypoplasia)
 
@@ -1494,7 +1494,7 @@ The combined `hpe_pattern` card fires when monoventricle, absent CSP, fused thal
 `mild_ventriculomegaly`, `csp_absent` fire. **`hpe_pattern`** may fire only if the qualitative monoventricle / fused-thalami findings are also entered. Without those, this case looks like isolated absent CSP with mild VM.
 **Citation.** Malinger 2013 [33].
 
-### Case HPE4 — Cureus 2024 alobar HPE single-case fetus at 22 weeks (VERBATIM)
+### Case HPE4 — Cureus 2024 alobar HPE source-anchored severe pattern (THRESHOLD-DERIVED)
 
 | Parameter | Value | Expected band |
 |---|---|---|
@@ -1506,8 +1506,8 @@ The combined `hpe_pattern` card fires when monoventricle, absent CSP, fused thal
 | CC | absent | special-cased |
 | (others) | filler | normal |
 
-`severe_ventriculomegaly`, `csp_absent`, `cc_absent`, `microcephaly_pattern`, **`hpe_pattern`** fire.
-**Citation.** [Cureus 2024 alobar HPE case report — full citation pending]; Malinger 2013 [33].
+`severe_ventriculomegaly`, `csp_absent`, `cc_absent`, `microcephaly_pattern`, **`hpe_pattern`** fire. The measurement table is threshold-derived to exercise the alobar-HPE pattern; the Cureus case anchors the same prenatal alobar-HPE constellation but does not publish this exact measurement table.
+**Citation.** Chafiq K, Toumi K, Khayi FE, Daoudi A. Alobar holoprosencephaly in a newborn: a case report of prenatal diagnosis and a review of the literature. *Cureus.* 2024;16(11):e74462. doi:10.7759/cureus.74462. PMID 39726469; PMCID PMC11669822; Malinger 2013 [33].
 
 ### Case HPE5 — HPE pattern with associated DWM at 26 weeks (rare combined fixture)
 
@@ -2484,7 +2484,7 @@ Verifies the consensus engine flags **disagreement** (|Δz| ≥ 1 SD between Lui
 [18] Bromley B. Fetal MRI of vermian hypoplasia: 24-week case at CC vermis 10.9 mm vs expected 14.8 mm. (Sonographic exemplar.)
 [19] Patel S, Barkovich AJ. Analysis and classification of cerebellar malformations. *AJNR Am J Neuroradiol.* 2002;23(7):1074–1087.
 [20] Whitehead MT, et al. Refining the neuroimaging definition of the Dandy-Walker phenotype. *AJNR Am J Neuroradiol.* 2022;43(10):1488–1493. doi:10.3174/ajnr.A7659.
-[21] Pishjoo M, et al. Mega cisterna magna in fetal MRI. (Recent series; full citation pending.)
+[21] Gafner M, Yagel I, Fried S, Ezra O, Bar-Yosef O, Katorza E. Fetal brain biometry in isolated mega cisterna magna: MRI and US study. *J Matern Fetal Neonatal Med.* 2022;35(21):4199–4207. doi:10.1080/14767058.2020.1849094. PMID 33207970.
 [22] Hertzberg BS, Kliewer MA, Freed KS, et al. Third ventricle: size and appearance in normal fetuses through gestation. *Radiology.* 1997;203(3):641–644. doi:10.1148/radiology.203.3.9169681.
 [23] Birnbaum R, et al. The third ventricle of the human fetal brain: normative data and pathologic correlation. *Prenat Diagn.* 2018;38(9):664–672. doi:10.1002/pd.5292.
 [24] Achiron R, et al. Fetal corpus callosum biometry from 14 to 25 weeks of gestation. *J Ultrasound Med.* 2001;20(4):343–348.
