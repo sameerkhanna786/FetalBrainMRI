@@ -514,3 +514,9 @@
 - Add coverage proving the parameter-row source breakdown consumes verification tier, verification date, and source caveat fields.
 - Render source verification tier/date beside the existing per-source z, percentile, range, and cross-modality tags.
 - Render registry caveat text only inside the expanded source breakdown so routine rows stay compact.
+
+## SPEC 4.11 Deterministic Report Dependency Increment
+
+- Add client-shell coverage proving the package does not declare an unused streaming/Markdown response renderer dependency.
+- Remove the unused Streamdown dependency so report output remains tied to deterministic string interpolation.
+- Preserve existing report generation behavior; this increment only tightens the package surface.

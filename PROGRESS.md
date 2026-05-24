@@ -1127,3 +1127,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/components/ParameterRow.tsx client/src/lib/source-detail-ui.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.11 Deterministic Report Dependency Increment
+
+- Added client-shell coverage proving the package does not declare an unused streaming/Markdown response renderer dependency.
+- Removed the unused Streamdown production dependency and its lockfile entries.
+- Preserved deterministic report behavior; this increment only tightens the package surface around report generation.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 92 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check package.json PLAN.md client/src/lib/client-shell.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
