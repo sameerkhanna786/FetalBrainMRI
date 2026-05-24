@@ -67,6 +67,15 @@ describe("publication-readiness source-document consistency", () => {
     expect(home).toContain("third-ventricle raw-threshold checks");
   });
 
+  it("keeps the Dandy-Walker combined-pattern manifest aligned to the TVA trigger", () => {
+    const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
+
+    expect(spec).toContain("| DWM pattern | Small vermis + elevated TVA |");
+    expect(spec).not.toContain(
+      "| DWM pattern | Small vermis + dilated 3rd V |"
+    );
+  });
+
   it("tracks literature-derived publication blockers in the handoff dossier", () => {
     const dossier = readFileSync(
       resolve(process.cwd(), "source_verification_dossier.md"),

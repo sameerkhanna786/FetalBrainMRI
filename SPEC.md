@@ -1125,7 +1125,7 @@ Likelihoods (hydrocephalus ~30%, BFM ~20%, megalencephaly ~15%, tumour ~5%) are 
 | Hydrocephalus pattern | Severe VM + 3rd V > 3.5 mm | Aqueductal stenosis ~70%, X-linked L1CAM ~5-10%, posterior-fossa mass / Chiari II ~10% | (no on-card primary source) | Estimates |
 | HPE pattern | Absent CSP + severe VM | Alobar / semilobar ~70%, lobar ~15%, SOD ~5% | MALINGER_2005 / SMFM_2020_CSP | Estimates |
 | ACC pattern | Absent CSP + short CC | Complete ACC ~70%, partial ACC ~25%, syndromic ~10% | SANTO_2012 / SMFM_2020_CSP | Estimates |
-| DWM pattern | Small vermis + dilated 3rd V | DWM ~60%, vermian hypoplasia ~25%, Blake's pouch remnant ~10% | (no on-card primary source) | Estimates |
+| DWM pattern | Small vermis + elevated TVA | DWM ~60%, vermian hypoplasia ~25%, Blake's pouch remnant ~10% | (no on-card primary source) | Estimates |
 | PCH pattern | Small pons + small TCD | PCH2 ~50%, PCH1 ~15%, other PCH/CASK/tubulinopathy ~20%, acquired (CMV) ~5% | VAN_DIJK_2018 narrative | Estimates |
 | Chiari II / open NTD pattern | Small TDPF + small CSA | (specified in Section 6.5.4) | WOITEK_2014 / AERTSEN_2019 / BAHLMANN_2015 | Specified separately in Section 6.5.4; consult that section |
 

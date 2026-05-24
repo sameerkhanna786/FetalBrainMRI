@@ -198,6 +198,12 @@
 - Update the verification-tier prose so the approximation tier names the extra-axial CSF curve and preserves the third-ventricle raw-threshold-only policy.
 - Re-run targeted methodology tests, full Vitest, typecheck, formatting for touched docs/tests, and production build before committing.
 
+## SPEC 7.4 Dandy-Walker TVA trigger correction increment
+
+- Add source-document consistency coverage that the SPEC combined-pattern manifest uses small vermis plus elevated TVA for the Dandy-Walker pattern.
+- Replace the stale small-vermis plus dilated-third-ventricle trigger text in SPEC §7.4 with the implemented TVA-based trigger.
+- Re-run targeted methodology tests, full Vitest, typecheck, formatting for touched docs/tests, and production build before committing.
+
 ## Isolated third-ventricle report increment
 
 - Add Vitest coverage for TEST.md §21 Case TV2: isolated third-ventricle dilatation at 30w0d should fire `third-v-wide` without ventriculomegaly or aqueductal-stenosis cards.
