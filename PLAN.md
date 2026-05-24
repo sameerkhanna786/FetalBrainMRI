@@ -1510,3 +1510,10 @@
 - Require all six NASA TLX subscales whenever any NASA TLX field is present in a reader-study row.
 - Require all ten SUS item responses whenever any SUS item field is present in a reader-study row.
 - Update the data dictionary and audit/progress trail, then run targeted/full gates before committing.
+
+## Reader-Study Duplicate Pair Guard Increment
+
+- Add failing-first coverage for duplicate `reader_study_rows.csv` rows with the same reader, case, and condition.
+- Extend export validation from "both conditions are present" to "exactly one `without_tool` and exactly one `with_tool` row per reader/case pair".
+- Keep the data dictionary aligned with the paired-analysis requirement.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

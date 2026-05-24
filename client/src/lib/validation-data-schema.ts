@@ -550,7 +550,7 @@ export const validateValidationDataExport = (
     caseIds
   );
 
-  const readerPairs = new Map<string, Set<string>>();
+  const readerPairs = new Map<string, Map<string, number>>();
   for (const row of data["reader_study_rows.csv"] ?? []) {
     const readerId = stringValue(row.reader_id);
     const studyId = stringValue(row.study_id);
@@ -563,13 +563,25 @@ export const validateValidationDataExport = (
       continue;
     }
     const key = `${readerId}\u0000${studyId}`;
-    const conditions = readerPairs.get(key) ?? new Set<string>();
-    conditions.add(condition);
-    readerPairs.set(key, conditions);
+    const conditionCounts = readerPairs.get(key) ?? new Map<string, number>();
+    conditionCounts.set(condition, (conditionCounts.get(condition) ?? 0) + 1);
+    readerPairs.set(key, conditionCounts);
   }
 
-  readerPairs.forEach((conditions, key) => {
-    if (!conditions.has("without_tool") || !conditions.has("with_tool")) {
+  readerPairs.forEach((conditionCounts, key) => {
+    for (const condition of ["without_tool", "with_tool"]) {
+      const count = conditionCounts.get(condition) ?? 0;
+      if (count > 1) {
+        const [readerId, studyId] = key.split("\u0000");
+        errors.push(
+          `reader_study_rows.csv reader ${readerId} study ${studyId} has ${count} ${condition} rows; expected exactly one`
+        );
+      }
+    }
+    if (
+      !conditionCounts.has("without_tool") ||
+      !conditionCounts.has("with_tool")
+    ) {
       const [readerId, studyId] = key.split("\u0000");
       errors.push(
         `reader_study_rows.csv reader ${readerId} study ${studyId} must include both without_tool and with_tool rows`

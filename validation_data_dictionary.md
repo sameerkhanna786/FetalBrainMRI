@@ -155,8 +155,9 @@ calculator study.
 4. Excluded cases have non-empty `exclusion_reason`.
 5. Missing measurements use `measurement_available=false` plus `missing_reason`,
    not numeric placeholders.
-6. Every reader-study case has paired `without_tool` and `with_tool` rows for
-   each reader.
+6. Every reader-study case has exactly one `without_tool` and exactly one
+   `with_tool` row for each reader; duplicate condition rows are fixed before
+   paired deltas are computed.
 7. Locked thresholds and endpoint definitions are copied into
    `validation_analysis_lock.md` before analysis.
 8. Probability, rate, NASA Task Load Index, System Usability Scale, gestational

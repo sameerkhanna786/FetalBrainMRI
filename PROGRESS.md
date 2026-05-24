@@ -1,3 +1,21 @@
+## 2026-05-24, Reader-Study Duplicate Pair Guard Increment
+
+- Added failing-first coverage for duplicate `reader_study_rows.csv` condition rows with the same reader and case.
+- Extended `validateValidationDataExport` so each reader/case pair must have exactly one `without_tool` row and exactly one `with_tool` row before paired deltas are computed.
+- Updated `validation_data_dictionary.md` so analysts fix duplicate condition rows before reader-study analysis.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "duplicate reader-study"` failed before implementation because duplicate `without_tool` rows were collapsed into a set and produced no export error.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "duplicate reader-study"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 11 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 256 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Reader-Study Usability Completeness Guard Increment
 
 - Added failing-first coverage for partial NASA Task Load Index and System Usability Scale fields in `reader_study_rows.csv`.
