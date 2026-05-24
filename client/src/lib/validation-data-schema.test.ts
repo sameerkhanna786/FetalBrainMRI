@@ -514,6 +514,48 @@ describe("validation data export schema guard", () => {
     );
   });
 
+  it("rejects invalid values for dictionary-defined categorical fields", () => {
+    expect(
+      validateValidationDataRows("case_log.csv", [
+        {
+          study_id: "S1",
+          cohort: "pilot",
+          site_id: "single_site",
+          scanner_vendor: "unknown",
+          field_strength_t: 1.5,
+          svr_method: "manual",
+          image_quality_tier: "diagnostic",
+          ga_weeks: 28,
+          ga_days: 0,
+          included: true,
+          reference_standard_available: true,
+          prediction_available: true,
+          pathology_label_available: true,
+        },
+      ])
+    ).toEqual(
+      expect.arrayContaining([
+        "case_log.csv row 1 field cohort must be one of feta_2024, institutional, reader_study, report_audit",
+        "case_log.csv row 1 field svr_method must be one of none, clinical_svr, research_svr, unknown",
+      ])
+    );
+
+    expect(
+      validateValidationDataRows("measurement_rows.csv", [
+        {
+          study_id: "S1",
+          parameter_id: "tcd",
+          source_role: "gold_standard",
+          value_mm: 32,
+          measurement_available: true,
+          image_quality_tier: "diagnostic",
+        },
+      ])
+    ).toContain(
+      "measurement_rows.csv row 1 field source_role must be one of reference, calculator, reader, ai_prefill"
+    );
+  });
+
   it("validates cross-file study IDs and reader-study pair completeness", () => {
     expect(
       validateValidationDataExport({

@@ -1538,3 +1538,10 @@
 - Extend validation-data column schemas with integer metadata for high-risk count and order fields.
 - Reject fractional values before cohort flow, reader-study ordering, or QI report-audit metrics run.
 - Update the data dictionary and audit/progress trail, then run targeted/full gates before committing.
+
+## Validation Categorical Enum Guard Increment
+
+- Add failing-first coverage for invalid values in dictionary-defined categorical fields such as `cohort`, `svr_method`, and `source_role`.
+- Add allowed-value metadata for validation cohorts, SVR methods, and measurement source roles.
+- Preserve locally variable fields such as scanner vendor and image-quality tier as free text where the dictionary allows local categories.
+- Update the audit/progress trail, then run targeted/full gates before committing.

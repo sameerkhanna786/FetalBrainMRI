@@ -40,6 +40,24 @@ export const VALIDATION_DATA_FILE_ORDER: ValidationDataFileName[] = [
 ];
 
 const BOOLEAN_VALUES = ["true", "false"] as const;
+const COHORT_VALUES = [
+  "feta_2024",
+  "institutional",
+  "reader_study",
+  "report_audit",
+] as const;
+const SVR_METHOD_VALUES = [
+  "none",
+  "clinical_svr",
+  "research_svr",
+  "unknown",
+] as const;
+const SOURCE_ROLE_VALUES = [
+  "reference",
+  "calculator",
+  "reader",
+  "ai_prefill",
+] as const;
 const NASA_TLX_COLUMNS = [
   "nasa_tlx_mental_demand",
   "nasa_tlx_physical_demand",
@@ -69,11 +87,11 @@ export const VALIDATION_DATA_SCHEMAS: Record<
     fileName: "case_log.csv",
     columns: [
       { name: "study_id", required: "yes" },
-      { name: "cohort", required: "yes" },
+      { name: "cohort", required: "yes", allowedValues: COHORT_VALUES },
       { name: "site_id", required: "yes" },
       { name: "scanner_vendor", required: "yes" },
       { name: "field_strength_t", required: "yes", numeric: true, min: 0 },
-      { name: "svr_method", required: "yes" },
+      { name: "svr_method", required: "yes", allowedValues: SVR_METHOD_VALUES },
       { name: "image_quality_tier", required: "yes" },
       {
         name: "ga_weeks",
@@ -114,7 +132,11 @@ export const VALIDATION_DATA_SCHEMAS: Record<
     columns: [
       { name: "study_id", required: "yes" },
       { name: "parameter_id", required: "yes" },
-      { name: "source_role", required: "yes" },
+      {
+        name: "source_role",
+        required: "yes",
+        allowedValues: SOURCE_ROLE_VALUES,
+      },
       { name: "reader_id", required: "conditional" },
       { name: "value_mm", required: "conditional", numeric: true },
       { name: "value_deg", required: "conditional", numeric: true },

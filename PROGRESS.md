@@ -1,3 +1,21 @@
+## 2026-05-24, Validation Categorical Enum Guard Increment
+
+- Added failing-first coverage for invalid values in dictionary-defined categorical fields including `cohort`, `svr_method`, and `source_role`.
+- Added allowed-value metadata for validation cohorts, SVR methods, and measurement source roles while leaving locally variable fields such as scanner vendor and image-quality tier flexible.
+- Preserved the runtime schema/dictionary contract so analyst exports fail before cohort-flow or agreement metrics consume unsupported categories.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "categorical fields"` failed before implementation because invalid categorical values produced no schema errors.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "categorical fields"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 15 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 260 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Validation Integer Field Guard Increment
 
 - Added failing-first coverage for fractional values in integer validation export fields such as gestational age weeks/days, reader-study read order, and report-audit measurement counts.
