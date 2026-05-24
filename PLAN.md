@@ -658,3 +658,9 @@
 - Add DDx coverage for the SPEC §7.4 moderate-ventriculomegaly likelihood manifest.
 - Confirm the moderate-VM card no longer surfaces estimate-only numeric percentages.
 - Replace the associated-anomaly, chromosomal, isolated, and CMV likelihood labels with qualitative wording.
+
+## SPEC 7.4 Severe-VM Likelihood Qualitative Increment
+
+- Add DDx coverage for the SPEC §7.4 severe-ventriculomegaly likelihood manifest.
+- Replace estimate-only severe-VM numeric likelihood labels with qualitative wording.
+- Correct the aqueductal-stenosis rationale attribution from the placeholder Garel 2018 wording to the canonical Heaphy-Henault 2018 fetal-MRI source.

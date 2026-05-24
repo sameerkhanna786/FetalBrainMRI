@@ -637,6 +637,32 @@ describe("isolated severe ventriculomegaly report impression", () => {
   });
 });
 
+describe("SPEC §7.4 severe ventriculomegaly likelihood manifest", () => {
+  it("qualitative-labels severe-VM estimates and uses the corrected aqueductal source", () => {
+    const ga = { weeks: 28, days: 0 };
+    const values = {
+      atrial_right: 17.5,
+      atrial_left: 17.5,
+      third_ventricle: 2,
+    };
+    const { dxs } = evaluateAll(values, ga);
+    const severeVm = dxs.find(dx => dx.id === "severe-vm");
+
+    expect(severeVm?.rows.map(row => row.likelihood)).toEqual([
+      "Common",
+      "High",
+      "Significant",
+      "Rare",
+      "Minority",
+    ]);
+    expect(severeVm?.rows.map(row => row.likelihood).join(" ")).not.toMatch(
+      /~20|~1|~10/
+    );
+    expect(severeVm?.rows[0].rationale).toContain("Heaphy-Henault 2018");
+    expect(severeVm?.rows[0].rationale).not.toContain("Garel 2018");
+  });
+});
+
 describe("aqueductal-stenosis pattern report impression", () => {
   it("uses the TEST.md Case S1 triventricular hydrocephalus impression line", () => {
     const ga = { weeks: 26, days: 0 };

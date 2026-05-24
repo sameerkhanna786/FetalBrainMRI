@@ -1693,9 +1693,9 @@ const CARDS: CardSpec[] = [
     rows: [
       {
         dx: "Aqueductal stenosis",
-        likelihood: "~20%",
+        likelihood: "Common",
         rationale:
-          "Most common cause of obstructive hydrocephalus (Garel 2018).",
+          "Canonical fetal-MRI obstructive hydrocephalus source (Heaphy-Henault 2018).",
       },
       {
         dx: "Associated CNS / non-CNS anomaly",
@@ -1710,12 +1710,12 @@ const CARDS: CardSpec[] = [
       },
       {
         dx: "Congenital infection (CMV, toxoplasmosis)",
-        likelihood: "~1–5%",
+        likelihood: "Rare",
         rationale: "Recognised less common causes.",
       },
       {
         dx: "Isolated / idiopathic",
-        likelihood: "~10–20%",
+        likelihood: "Minority",
         rationale: "Diagnosis of exclusion after extensive workup.",
       },
     ],
