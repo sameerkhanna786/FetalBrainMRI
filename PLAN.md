@@ -646,3 +646,9 @@
 - Add Validation-page coverage for the SPEC §6.2 FeTA ground-truth, derivable, and unavailable measurement groups.
 - Surface the five direct expert-measured FeTA biometric values and the four additional values derivable from segmentation masks.
 - Document the remaining parameters requiring the institutional cohort plus the 120-case training and 180-case test-set access split.
+
+## SPEC 7.4 Mild-VM Likelihood Qualitative Increment
+
+- Add DDx coverage for the SPEC §7.4 mild-ventriculomegaly likelihood manifest.
+- Keep the transcribed Pagani 2014 neurodevelopmental-delay statistic visible in the rationale and report impression.
+- Replace estimate-only mild-VM likelihood labels with qualitative wording rather than unsupported numeric percentages.

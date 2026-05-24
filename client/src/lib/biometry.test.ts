@@ -355,6 +355,33 @@ describe("mild ventriculomegaly report impression", () => {
   });
 });
 
+describe("SPEC §7.4 mild ventriculomegaly likelihood manifest", () => {
+  it("keeps the transcribed Pagani statistic but qualitative-labels estimate rows", () => {
+    const ga = { weeks: 24, days: 0 };
+    const values = {
+      atrial_left: 11,
+      atrial_right: 11,
+    };
+    const { dxs } = evaluateAll(values, ga);
+    const mildVm = dxs.find(dx => dx.id === "mild-vm");
+
+    expect(mildVm?.rows.map(row => row.likelihood)).toEqual([
+      "Most cases",
+      "Minority",
+      "Minority",
+      "Minority",
+      "Minority",
+      "Rare",
+    ]);
+    expect(mildVm?.rows.map(row => row.likelihood).join(" ")).not.toMatch(
+      /~70|~10|~5|~2/
+    );
+    expect(mildVm?.rows[0].rationale).toContain(
+      "Neurodevelopmental delay ~7.9% in isolated mild VM (Pagani 2014)."
+    );
+  });
+});
+
 describe("moderate ventriculomegaly report impression", () => {
   it("uses the TEST.md Case M4 moderate VM follow-up impression line", () => {
     const ga = { weeks: 26, days: 0 };

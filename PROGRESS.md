@@ -1413,3 +1413,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/validation-page.test.ts client/src/pages/Validation.tsx` passes after formatting `client/src/lib/validation-page.test.ts` and `client/src/pages/Validation.tsx`.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 7.4 Mild-VM Likelihood Qualitative Increment
+
+- Added DDx coverage for the SPEC §7.4 mild-ventriculomegaly likelihood manifest.
+- Kept the transcribed Pagani 2014 neurodevelopmental-delay statistic visible in the rationale and report impression.
+- Replaced estimate-only mild-VM likelihood labels with qualitative wording rather than unsupported numeric percentages.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 113 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/biometry.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

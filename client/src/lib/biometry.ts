@@ -1815,33 +1815,33 @@ const CARDS: CardSpec[] = [
     rows: [
       {
         dx: "Isolated / idiopathic",
-        likelihood: "~70–80%",
+        likelihood: "Most cases",
         rationale:
           "Neurodevelopmental delay ~7.9% in isolated mild VM (Pagani 2014).",
       },
       {
         dx: "Associated CNS anomalies",
-        likelihood: "~10–15%",
+        likelihood: "Minority",
         rationale: "Common underlying structural anomalies.",
       },
       {
         dx: "Chromosomal (Trisomy 21 in particular)",
-        likelihood: "~5%",
+        likelihood: "Minority",
         rationale: "Aneuploidy warrants discussion.",
       },
       {
         dx: "Aqueductal stenosis",
-        likelihood: "~5–10%",
+        likelihood: "Minority",
         rationale: "Common obstructive cause.",
       },
       {
         dx: "Agenesis of the corpus callosum",
-        likelihood: "~5%",
+        likelihood: "Minority",
         rationale: "Frequently associated with VM.",
       },
       {
         dx: "Congenital infection (CMV)",
-        likelihood: "~2–5%",
+        likelihood: "Rare",
         rationale: "Important to exclude.",
       },
     ],
