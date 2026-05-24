@@ -23,5 +23,11 @@ standalone = [
   "pyinstaller>=6.0",
 ]
 
+[tool.setuptools]
+packages = ["python_app", "python_app.static", "python_app.templates"]
+
+[tool.setuptools.package-data]
+python_app = ["templates/*.html", "static/*"]
+
 [tool.pyinstaller]
 entry-point = "python_app.main:app"

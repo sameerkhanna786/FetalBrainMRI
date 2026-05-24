@@ -22,6 +22,19 @@ describe("SPEC §4.3 Python/FastAPI architecture scaffold", () => {
     expect(pyproject).toContain("setuptools.build_meta");
   });
 
+  it("scopes Python packaging to the FastAPI app and bundled offline assets", () => {
+    const pyproject = read("pyproject.toml");
+
+    expect(pyproject).toContain("[tool.setuptools]");
+    expect(pyproject).toContain(
+      'packages = ["python_app", "python_app.static", "python_app.templates"]'
+    );
+    expect(pyproject).toContain("[tool.setuptools.package-data]");
+    expect(pyproject).toContain(
+      'python_app = ["templates/*.html", "static/*"]'
+    );
+  });
+
   it("provides a FastAPI app serving Jinja templates and local static assets", () => {
     const appPath = resolve(process.cwd(), "python_app/main.py");
 

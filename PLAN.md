@@ -186,6 +186,12 @@
 - Register extra-axial CSF through a Python `REGISTRY_OVERRIDES` row so report source details can disclose the approximation.
 - Re-run Python compile, Vitest, typecheck/lint, formatting checks for touched files, and production build before committing.
 
+## Python packaging hardening increment
+
+- Add architecture coverage that `pyproject.toml` explicitly scopes setuptools discovery to `python_app`.
+- Include the FastAPI/Jinja templates and local static assets as Python package data so wheel builds preserve the offline worksheet shell.
+- Verify `uv build --wheel`, Python runtime import through the built project environment, Vitest, typecheck, formatting, and production build before committing.
+
 ## Isolated third-ventricle report increment
 
 - Add Vitest coverage for TEST.md §21 Case TV2: isolated third-ventricle dilatation at 30w0d should fire `third-v-wide` without ventriculomegaly or aqueductal-stenosis cards.

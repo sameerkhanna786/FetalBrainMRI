@@ -1,3 +1,21 @@
+## 2026-05-23, Python Packaging Hardening Increment
+
+- Added architecture coverage that `pyproject.toml` explicitly scopes setuptools packaging to the FastAPI Python app instead of the full flat repository.
+- Configured setuptools to package `python_app`, `python_app.static`, and `python_app.templates`, while preserving the Jinja template and local HTMX/Tailwind assets as package data.
+- Reproduced the pre-fix `uv build --wheel` failure from setuptools package discovery, then verified the fixed wheel builds cleanly and includes `python_app/static/htmx.min.js`, `python_app/static/tailwind.css`, and `python_app/templates/index.html`.
+- Installed the built wheel in an isolated `uv --no-project` runtime and confirmed `evaluate_parameter("extra_axial_csf", 28, 4.0)` still returns the Kyriakopoulou caveat and packaged offline assets are discoverable via `importlib.resources`.
+
+Verification:
+
+- `uv build --wheel --out-dir /tmp/fbmri-wheel-test-after-clean` passes.
+- `uv run --no-project --with /tmp/fbmri-wheel-test-after-clean/fetal_brain_mri_python_app-0.1.0-py3-none-any.whl python ...` passes for registry import, caveat output, and packaged template/static asset checks.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/architecture.test.ts` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 170 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/architecture.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, Python Extra-Axial Caveat Parity Increment
 
 - Added architecture coverage that Python carries the same extra-axial CSF approximation disclosure expected by the React source registry.
