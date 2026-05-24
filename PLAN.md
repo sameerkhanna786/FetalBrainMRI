@@ -778,3 +778,9 @@
 - Add report coverage for citation-grounding on generated Impression differential lines.
 - Include each fired DDx card's primary source inline in the plain-text report.
 - Include secondary source attribution when a fired DDx card has one.
+
+## SPEC 4.11 GenAI/RAG Guardrail Scaffold Increment
+
+- Add regression coverage for the SPEC §4.11.2 RAG prompt constraint and knowledge-bank scope.
+- Add coverage for the SPEC §4.11.3 agentic PubMed search query shape, top-3 retrieval limit, and transparency flag.
+- Add metadata coverage for the SPEC §4.11.5 local and free-tier backend recommendations without introducing network calls.

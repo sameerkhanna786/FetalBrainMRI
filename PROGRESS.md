@@ -1699,3 +1699,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/report.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.11 GenAI/RAG Guardrail Scaffold Increment
+
+- Added regression coverage for the SPEC §4.11.2 RAG prompt constraint and knowledge-bank scope.
+- Added coverage for the SPEC §4.11.3 agentic PubMed search query shape, top-3 retrieval limit, and transparency flag.
+- Added metadata coverage for the SPEC §4.11.5 local and free-tier backend recommendations without introducing network calls.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 138 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/genai.ts client/src/lib/genai.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
