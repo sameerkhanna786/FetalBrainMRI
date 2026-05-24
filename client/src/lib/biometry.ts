@@ -1126,6 +1126,8 @@ export function sourceRegistryFor(param: Parameter): SourceRegistryEntry[] {
 }
 
 export type SourceRegistryValidationFailure = {
+  parameterId: string;
+  parameterName: string;
   candidateSource: string;
   existingSource: string;
   gaWeeks: number;
@@ -1174,6 +1176,8 @@ export function validateSourceRegistryExtension(
       if (delta > maxDelta) maxDelta = delta;
       if (!worst || delta > worst.delta) {
         worst = {
+          parameterId: param.id,
+          parameterName: param.name,
           candidateSource: candidate.source.label,
           existingSource: existing.source.label,
           gaWeeks,

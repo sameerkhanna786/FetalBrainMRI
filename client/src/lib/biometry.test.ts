@@ -2109,6 +2109,8 @@ describe("source-registry acceptance criterion", () => {
     expect(result.accepted).toBe(false);
     expect(result.maxDelta).toBeGreaterThan(0.5);
     expect(result.failures[0]).toMatchObject({
+      parameterId: "skull_bpd",
+      parameterName: "Skull biparietal diameter",
       candidateSource: "Shifted candidate",
       existingSource: "Luis 2025",
     });

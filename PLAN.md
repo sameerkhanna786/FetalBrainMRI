@@ -568,3 +568,9 @@
 - Add report coverage proving the Technique section begins with the fixed multi-source consensus sentence.
 - Preserve the existing reconciliation-rule and Delta z disagreement-threshold wording in that first Technique sentence.
 - Move the imaging-acquisition and motion sentence after the fixed consensus sentence without changing measured-parameter output.
+
+## SPEC 4.10 Registry Failure Parameter Logging Increment
+
+- Add source-registry acceptance coverage requiring failed candidates to log the offending parameter.
+- Extend registry validation failures with the parameter id and display name alongside GA, Delta, candidate source, and existing source.
+- Preserve accepted-candidate behavior and the existing half-week overlap sampling rule.

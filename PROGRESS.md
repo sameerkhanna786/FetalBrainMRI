@@ -1244,3 +1244,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/report.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.10 Registry Failure Parameter Logging Increment
+
+- Added source-registry acceptance coverage requiring failed candidates to log the offending parameter.
+- Extended registry validation failures with the parameter id and display name alongside GA, Delta, candidate source, and existing source.
+- Preserved accepted-candidate behavior and the existing half-week overlap sampling rule.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 100 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/biometry.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
