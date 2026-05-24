@@ -1750,22 +1750,22 @@ const CARDS: CardSpec[] = [
     rows: [
       {
         dx: "Associated CNS anomalies",
-        likelihood: "~30%",
+        likelihood: "Common",
         rationale: "Frequent ACC, aqueductal stenosis, cortical malformations.",
       },
       {
         dx: "Chromosomal abnormality",
-        likelihood: "~10%",
+        likelihood: "Minority",
         rationale: "Risk intermediate between mild and severe.",
       },
       {
         dx: "Isolated / idiopathic",
-        likelihood: "~50%",
+        likelihood: "Common",
         rationale: "Better prognosis when isolated and stable.",
       },
       {
         dx: "Congenital infection (CMV)",
-        likelihood: "~3–5%",
+        likelihood: "Rare",
         rationale: "Always exclude.",
       },
     ],

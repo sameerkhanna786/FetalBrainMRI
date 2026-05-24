@@ -652,3 +652,9 @@
 - Add DDx coverage for the SPEC §7.4 mild-ventriculomegaly likelihood manifest.
 - Keep the transcribed Pagani 2014 neurodevelopmental-delay statistic visible in the rationale and report impression.
 - Replace estimate-only mild-VM likelihood labels with qualitative wording rather than unsupported numeric percentages.
+
+## SPEC 7.4 Moderate-VM Likelihood Qualitative Increment
+
+- Add DDx coverage for the SPEC §7.4 moderate-ventriculomegaly likelihood manifest.
+- Confirm the moderate-VM card no longer surfaces estimate-only numeric percentages.
+- Replace the associated-anomaly, chromosomal, isolated, and CMV likelihood labels with qualitative wording.

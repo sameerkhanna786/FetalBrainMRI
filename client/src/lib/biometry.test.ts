@@ -409,6 +409,28 @@ describe("moderate ventriculomegaly report impression", () => {
   });
 });
 
+describe("SPEC §7.4 moderate ventriculomegaly likelihood manifest", () => {
+  it("qualitative-labels the estimate-only moderate-VM likelihood rows", () => {
+    const ga = { weeks: 26, days: 0 };
+    const values = {
+      atrial_left: 13.5,
+      atrial_right: 13.5,
+    };
+    const { dxs } = evaluateAll(values, ga);
+    const modVm = dxs.find(dx => dx.id === "mod-vm");
+
+    expect(modVm?.rows.map(row => row.likelihood)).toEqual([
+      "Common",
+      "Minority",
+      "Common",
+      "Rare",
+    ]);
+    expect(modVm?.rows.map(row => row.likelihood).join(" ")).not.toMatch(
+      /~30|~10|~50|~3/
+    );
+  });
+});
+
 describe("near-severe ventriculomegaly boundary report impression", () => {
   it("uses the TEST.md Case M2 approaching-severe-threshold wording", () => {
     const ga = { weeks: 32, days: 0 };
