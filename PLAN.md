@@ -1692,3 +1692,10 @@
 - Tighten the citation verifier so bracketed citations must look like retrieved chunk IDs rather than stale numeric reference markers.
 - Preserve PMID citation support for agentic-search sources.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Validation Metrics Positive Duration Guard Increment
+
+- Add failing-first validation-metrics coverage that QI report-audit and reader-study timing inputs reject zero-second durations.
+- Align metric-layer validation with the export schema's positive-duration guard so direct helper calls cannot analyze impossible timing records.
+- Keep non-duration non-negative score and count behavior unchanged.
+- Update the audit/progress trail, then run targeted/full gates before committing.

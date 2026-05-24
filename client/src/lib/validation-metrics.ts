@@ -1009,8 +1009,8 @@ const normalizeQiAuditRecords = (records: QiReportAuditRecord[]) => {
   }
 
   records.forEach(record => {
-    if (!Number.isFinite(record.durationSec) || record.durationSec < 0) {
-      throw new Error("durationSec must be a finite non-negative value");
+    if (!Number.isFinite(record.durationSec) || record.durationSec <= 0) {
+      throw new Error("durationSec must be a finite positive value");
     }
     assertAuditCount(
       "requiredMeasurementCount",
@@ -1136,6 +1136,12 @@ const assertUnitInterval = (name: string, value: number) => {
 const assertNonNegativeFinite = (name: string, value: number) => {
   if (!Number.isFinite(value) || value < 0) {
     throw new Error(`${name} must be a finite non-negative value`);
+  }
+};
+
+const assertPositiveFinite = (name: string, value: number) => {
+  if (!Number.isFinite(value) || value <= 0) {
+    throw new Error(`${name} must be a finite positive value`);
   }
 };
 
@@ -1353,7 +1359,7 @@ export const computeReaderStudyCrossoverSummary = (
     ) {
       throw new Error("condition must be without_tool or with_tool");
     }
-    assertNonNegativeFinite("durationSec", record.durationSec);
+    assertPositiveFinite("durationSec", record.durationSec);
     assertNonNegativeFinite("completenessScore", record.completenessScore);
     assertUnitInterval(
       "zscoreDocumentationRate",

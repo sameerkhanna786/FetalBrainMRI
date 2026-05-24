@@ -424,6 +424,41 @@ describe("publication validation metrics", () => {
     expect(comparison.recommendationCongruenceRateDelta).toBe(0.5);
   });
 
+  it("rejects zero-second QI and reader-study durations before timing analysis", () => {
+    expect(() =>
+      computeQiAuditSummary([
+        {
+          durationSec: 0,
+          requiredMeasurementCount: 14,
+          documentedMeasurementCount: 14,
+          explicitZScoreDocumented: true,
+          explicitPercentileDocumented: true,
+        },
+      ])
+    ).toThrow("durationSec must be a finite positive value");
+
+    expect(() =>
+      computeReaderStudyCrossoverSummary([
+        {
+          readerId: "R1",
+          studyId: "S1",
+          condition: "without_tool",
+          durationSec: 0,
+          completenessScore: 4,
+          zscoreDocumentationRate: 0.8,
+        },
+        {
+          readerId: "R1",
+          studyId: "S1",
+          condition: "with_tool",
+          durationSec: 420,
+          completenessScore: 5,
+          zscoreDocumentationRate: 1,
+        },
+      ])
+    ).toThrow("durationSec must be a finite positive value");
+  });
+
   it("computes paired reader-study crossover deltas by reader and case", () => {
     const summary = computeReaderStudyCrossoverSummary([
       {
