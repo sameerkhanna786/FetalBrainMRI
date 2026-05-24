@@ -1377,3 +1377,10 @@
 - Recalibrate stale partial-CC and filler rows so A4 fires `cc-short` rather than complete ACC and A5 normal OFD fillers sit inside the active registry band.
 - Update the residual TEST corpus numeric audit blocker count after the ACC section is reconciled.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## TEST Short-CC Fixture Runtime Consistency Increment
+
+- Add failing-first source-document coverage that parses TEST.md cases CC1-CC6 and verifies short-CC, complete-ACC exclusion, VM, absent-CSP, and ACC-pattern behavior against the runtime engine.
+- Recalibrate stale CC and CSP rows so dysgenetic/short-CC fixtures remain above the complete-ACC threshold while preserved-CSP controls stay inside the active registry band.
+- Update the residual TEST corpus numeric audit blocker count after the short-CC section is reconciled.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

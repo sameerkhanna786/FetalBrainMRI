@@ -1,3 +1,20 @@
+## 2026-05-24, TEST Short-CC Fixture Runtime Consistency Increment
+
+- Added failing-first source-document coverage that parses TEST.md cases CC1-CC6, evaluates short-CC, complete-ACC exclusion, VM, absent-CSP, and ACC-pattern behavior with the runtime engine, and verifies the intended DDx cards.
+- Recalibrated CC1-CC6 so dysgenetic/short-CC fixtures remain above the complete-ACC threshold, preserved-CSP controls use active normal values, and absent-CSP short-CC cases explicitly document the ACC-pattern card.
+- Updated the TEST corpus numeric audit blocker from 27 to 23 residual normal-label rows.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before implementation because CC1 documented short CC while the stale CC row fired `cc-absent`.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 235 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 235 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md source_verification_dossier.md client/src/lib/methodology-page.test.ts client/src/lib/biometry.test.ts` passes after formatting the dossier and methodology test.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, TEST ACC Fixture Runtime Consistency Increment
 
 - Added failing-first source-document coverage that parses TEST.md cases A1-A6, evaluates absent-CSP, absent/short-CC, VM severity, ACC-pattern, and associated DWM behavior with the runtime engine, and verifies the expected DDx cards.

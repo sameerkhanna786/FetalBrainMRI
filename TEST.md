@@ -1142,8 +1142,8 @@ Cases where CC is present but z < –1.645, distinguishable from full ACC by pre
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 30 w 0 d | — |
-| CC | 30.0 mm (z ≈ –1.9) | <5th |
-| CSP | 4.7 mm | normal |
+| CC | 32.5 mm (z ≈ –1.9) | <5th |
+| CSP | 7.7 mm | normal |
 | (others) | filler | normal |
 
 `cc_short` fires. `acc_pattern` does *not* fire (CSP is preserved).
@@ -1154,8 +1154,8 @@ Cases where CC is present but z < –1.645, distinguishable from full ACC by pre
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 28 w 0 d | — |
-| CC | 24.0 mm (z ≈ –2.5) | <5th |
-| CSP | 4.4 mm | normal |
+| CC | 29.4 mm (z ≈ –2.5) | <5th |
+| CSP | 7.6 mm | normal |
 | Atrium-R | 11.0 mm | >95th |
 | Atrium-L | 11.0 mm | >95th |
 | (others) | filler | normal |
@@ -1168,8 +1168,8 @@ Cases where CC is present but z < –1.645, distinguishable from full ACC by pre
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 32 w 0 d | — |
-| CC | 28.0 mm (z ≈ –3) | <5th |
-| CSP | 5.0 mm | normal |
+| CC | 32.7 mm (z ≈ –2.9) | <5th |
+| CSP | 7.6 mm | normal |
 | (others) | filler | normal |
 
 `cc_short` fires.
@@ -1181,7 +1181,7 @@ Cases where CC is present but z < –1.645, distinguishable from full ACC by pre
 |---|---|---|
 | GA | 28 w 0 d | — |
 | CC | 30.5 mm (z ≈ –1.5) | normal |
-| CSP | 4.4 mm | normal |
+| CSP | 7.6 mm | normal |
 | (others) | filler | normal |
 
 `cc_short` should *not* fire. Boundary verification.
@@ -1192,7 +1192,7 @@ Cases where CC is present but z < –1.645, distinguishable from full ACC by pre
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 26 w 0 d | — |
-| CC | 22.0 mm (z ≈ –2.0) | <5th |
+| CC | 27.3 mm (z ≈ –2.0) | <5th |
 | CSP | absent | special-cased |
 | (others) | filler | normal |
 
@@ -1204,11 +1204,11 @@ Cases where CC is present but z < –1.645, distinguishable from full ACC by pre
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 28 w 0 d | — |
-| CC | 26.0 mm (z ≈ –2.5) | <5th |
+| CC | 29.4 mm (z ≈ –2.5) | <5th |
 | CSP | absent | special-cased |
 | (others) | filler | normal |
 
-`cc_short`, `csp_absent` fire. The septo-optic dysplasia diagnosis is a qualitative add-on and is not currently covered by a dedicated combined-pattern card; it is captured by the absent-CSP card's IMPRESSION text.
+`cc_short`, `csp_absent`, and **`acc_pattern`** fire. The septo-optic dysplasia diagnosis is a qualitative add-on; it is captured by the absent-CSP card's IMPRESSION text and the qualitative SOD panel when toggled.
 **Citation.** Malinger G, Lev D, Lerman-Sagie T. The fetal cerebellum: pitfalls in diagnosis and management. *Prenat Diagn.* 2009;29(4):372–380. doi:10.1002/pd.2196.
 
 ---
