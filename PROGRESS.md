@@ -1,3 +1,19 @@
+## 2026-05-23, TEST.md Citation-Line Index Cleanup Increment
+
+- Added publication-readiness coverage that prevents `**Citation.**` lines in `TEST.md` from carrying stale numeric reference brackets.
+- Removed bracketed reference indices from citation lines while preserving source names, years, journal text, DOI, PMID, and explanatory fixture rationale.
+- Left the end-of-file source inventory untouched to avoid a broad bibliography rewrite; citation lines are now self-contained and no longer point at potentially stale numeric slots.
+
+Verification:
+
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 181 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 exec prettier --check TEST.md` still reports the existing canonical-corpus markdown formatting warning; `TEST.md` was not mass-reflowed.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, SPEC 7.4 Qualitative-Likelihood Alignment Increment
 
 - Added source-document coverage that the closed Section 7.4 citation-pass status in `source_verification_dossier.md` stays aligned with `SPEC.md`.

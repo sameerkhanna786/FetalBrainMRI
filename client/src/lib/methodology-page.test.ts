@@ -127,6 +127,16 @@ describe("publication-readiness source-document consistency", () => {
       "Mega Cisterna Magna: Current Perspectives and Future Directions. Cureus. 2025"
     );
   });
+
+  it("keeps TEST.md citation lines free of stale numeric reference brackets", () => {
+    const testCorpus = readFileSync(resolve(process.cwd(), "TEST.md"), "utf8");
+    const citationLines = testCorpus
+      .split("\n")
+      .filter(line => line.startsWith("**Citation.**"));
+
+    expect(citationLines.length).toBeGreaterThan(100);
+    expect(citationLines.join("\n")).not.toMatch(/\[[0-9]+[a-z]?\]/);
+  });
 });
 
 describe("publication handoff checklist", () => {

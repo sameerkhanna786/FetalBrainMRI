@@ -88,7 +88,7 @@ These five cases are negative controls. They establish that when every parameter
 **Expected DDx cards that should fire:** none.
 **Expected DDx cards that should not fire:** all 14 base triggers, all combined-pattern cards, all size-summary cards.
 **Expected IMPRESSION:** "No abnormal biometric findings."
-**Citation.** Tilea B, Alberti C, Adamsbaum C, et al. Cerebral biometry in fetal magnetic resonance imaging: new reference data. *Ultrasound Obstet Gynecol.* 2009;33(2):173–181. doi:10.1002/uog.6276 [1]. Tilea 2009 publishes per-parameter mean and 5th–95th centile equations for second-trimester fetal-MRI biometry on an independent French cohort. The values above are the Tilea 2009 mean curves evaluated at GA 22+3, and they are within the calculator's Luis 2025 and Dovjak 2021 5th–95th band by construction.
+**Citation.** Tilea B, Alberti C, Adamsbaum C, et al. Cerebral biometry in fetal magnetic resonance imaging: new reference data. *Ultrasound Obstet Gynecol.* 2009;33(2):173–181. doi:10.1002/uog.6276. Tilea 2009 publishes per-parameter mean and 5th–95th centile equations for second-trimester fetal-MRI biometry on an independent French cohort. The values above are the Tilea 2009 mean curves evaluated at GA 22+3, and they are within the calculator's Luis 2025 and Dovjak 2021 5th–95th band by construction.
 
 ### Case N2 — Normal control, 28 + 0 weeks (THRESHOLD-DERIVED)
 
@@ -112,7 +112,7 @@ These five cases are negative controls. They establish that when every parameter
 
 **Expected DDx cards that should fire:** none.
 **Expected IMPRESSION:** "No abnormal biometric findings."
-**Citation.** Garel C. *MRI of the Fetal Brain: Normal Development and Cerebral Pathologies.* Springer; 2004. ISBN 978-3-540-40747-7 [2]. The Garel atlas tabulates normative fetal-brain MRI biometry from a French cohort independent of Luis 2025 and Dovjak 2021, with values that closely match the Tilea 2009 second-trimester equations and extend cleanly into the third trimester.
+**Citation.** Garel C. *MRI of the Fetal Brain: Normal Development and Cerebral Pathologies.* Springer; 2004. ISBN 978-3-540-40747-7. The Garel atlas tabulates normative fetal-brain MRI biometry from a French cohort independent of Luis 2025 and Dovjak 2021, with values that closely match the Tilea 2009 second-trimester equations and extend cleanly into the third trimester.
 
 ### Case N3 — Normal control, 32 + 0 weeks (THRESHOLD-DERIVED)
 
@@ -135,7 +135,7 @@ These five cases are negative controls. They establish that when every parameter
 | Third ventricle | 1.8 mm | normal raw threshold | auxiliary threshold |
 
 **Expected DDx cards that should fire:** none.
-**Citation.** Kyriakopoulou V, Vatansever D, Davidson A, et al. Normative biometry of the fetal brain using magnetic resonance imaging. *Brain Struct Funct.* 2017;222(5):2295–2307. doi:10.1007/s00429-016-1342-6. PMID 27885428 [3]. Kyriakopoulou 2017 publishes a per-parameter centile calculator at developingbrain.co.uk/fetalcentiles drawn from a 127-fetus normal cohort across 21–38 weeks GA. The values above are at the cohort's mid-GA-window mean.
+**Citation.** Kyriakopoulou V, Vatansever D, Davidson A, et al. Normative biometry of the fetal brain using magnetic resonance imaging. *Brain Struct Funct.* 2017;222(5):2295–2307. doi:10.1007/s00429-016-1342-6. PMID 27885428. Kyriakopoulou 2017 publishes a per-parameter centile calculator at developingbrain.co.uk/fetalcentiles drawn from a 127-fetus normal cohort across 21–38 weeks GA. The values above are at the cohort's mid-GA-window mean.
 
 ### Case N4 — Normal control, 36 + 0 weeks (THRESHOLD-DERIVED)
 
@@ -158,7 +158,7 @@ These five cases are negative controls. They establish that when every parameter
 | Third ventricle | 2.0 mm | normal raw threshold | auxiliary threshold |
 
 **Expected DDx cards that should fire:** none.
-**Citation.** Kyriakopoulou et al. 2017 [3], extrapolated to 36+0 from the cohort's published mean curves.
+**Citation.** Kyriakopoulou et al. 2017, extrapolated to 36+0 from the cohort's published mean curves.
 
 ### Case N5 — Normal control at the engine's lower GA boundary, 21 + 0 weeks (THRESHOLD-DERIVED)
 
@@ -182,7 +182,7 @@ These five cases are negative controls. They establish that when every parameter
 
 **Expected DDx cards that should fire:** none.
 **Boundary behaviour to test:** This case sits exactly at the 21-week lower bound of the Dovjak 2021 validity window. The TCD, vermis CC, vermis AP, and pons AP rows should report `agree` (both sources in range), not `single`. A separate boundary case at 20 + 6 (one day below Dovjak's lower bound) should fall back to single-source Luis 2025 with an `extrapolated: true` flag on Dovjak — that case is exercised in §29.2.
-**Citation.** Tilea B et al. 2009 [1].
+**Citation.** Tilea B et al. 2009.
 
 ### Case N6 — Normal control at the engine's upper GA boundary, 38 + 0 weeks (THRESHOLD-DERIVED)
 
@@ -206,7 +206,7 @@ These five cases are negative controls. They establish that when every parameter
 
 **Expected DDx cards that should fire:** none.
 **Boundary behaviour to test:** Kyriakopoulou's reference window ends at 38 + 0; Luis 2025's quadratic is validated to 40 + 0; Dovjak 2021 is validated to 36 + 0. This case should produce `agree` on Dovjak-covered parameters with the Dovjak rows flagged `extrapolated: true` because GA exceeds Dovjak's published 21–36 w window. The §4.2 consensus reconciliation rule states that extrapolated rows are still included in the consensus mean but are tagged in the per-source disclosure.
-**Citation.** Kyriakopoulou 2017 [3].
+**Citation.** Kyriakopoulou 2017.
 
 ---
 
@@ -237,7 +237,7 @@ The calculator's `mild_ventriculomegaly` card fires when either atrial-R or atri
 **Expected DDx cards that should fire:** `mild_ventriculomegaly` (both atrium-R and atrium-L row references).
 **Expected DDx cards that should not fire:** `severe_ventriculomegaly`, `asymmetric_ventricles`, `acc_pattern`, `aqueductal_stenosis_pattern`, all posterior-fossa cards.
 **Expected IMPRESSION:** "Isolated mild ventriculomegaly; consider postnatal MRI follow-up. Pooled neurodevelopmental delay rate ~7.9% (Pagani 2014)."
-**Citation.** Pagani G, Thilaganathan B, Prefumo F. Neurodevelopmental outcome in isolated mild fetal ventriculomegaly: systematic review and meta-analysis. *Ultrasound Obstet Gynecol.* 2014;44(3):254–260. doi:10.1002/uog.13364 [4]. The 11.0 mm bilateral threshold matches Pagani 2014's mild-VM definition; the meta-analysis pooled 699 isolated mild-VM cases.
+**Citation.** Pagani G, Thilaganathan B, Prefumo F. Neurodevelopmental outcome in isolated mild fetal ventriculomegaly: systematic review and meta-analysis. *Ultrasound Obstet Gynecol.* 2014;44(3):254–260. doi:10.1002/uog.13364. The 11.0 mm bilateral threshold matches Pagani 2014's mild-VM definition; the meta-analysis pooled 699 isolated mild-VM cases.
 
 ### Case M2 — Isolated bilateral mild VM at 32 weeks, atrium near upper threshold (THRESHOLD-DERIVED)
 
@@ -262,7 +262,7 @@ The calculator's `mild_ventriculomegaly` card fires when either atrial-R or atri
 **Expected DDx cards that should fire:** `mild_ventriculomegaly`. Card prose should note that atrial dimensions are "approaching the severe threshold (15 mm)" and that follow-up imaging is warranted to detect progression.
 **Expected DDx cards that should not fire:** `severe_ventriculomegaly` (atrial < 15.0 mm).
 **Boundary behaviour to test.** This case sits 0.5 mm below the severe-VM threshold; a +0.5 mm perturbation should push both rows into `severe_ventriculomegaly`. This boundary is the highest-risk classification edge in the entire DDx table.
-**Citation.** Norton ME, Fox NS, Monteagudo A, Kuller JA, Craigo S; Society for Maternal-Fetal Medicine (SMFM). Fetal Ventriculomegaly. *Am J Obstet Gynecol.* 2020;223(6):B30–B33. doi:10.1016/j.ajog.2020.08.182 [5]. SMFM 2020 establishes the 10 / 15 mm dichotomy as the prenatal-care standard.
+**Citation.** Norton ME, Fox NS, Monteagudo A, Kuller JA, Craigo S; Society for Maternal-Fetal Medicine (SMFM). Fetal Ventriculomegaly. *Am J Obstet Gynecol.* 2020;223(6):B30–B33. doi:10.1016/j.ajog.2020.08.182. SMFM 2020 establishes the 10 / 15 mm dichotomy as the prenatal-care standard.
 
 ### Case M3 — Unilateral mild VM with normal contralateral atrium at 28 weeks (THRESHOLD-DERIVED)
 
@@ -287,7 +287,7 @@ The calculator's `mild_ventriculomegaly` card fires when either atrial-R or atri
 **Expected DDx cards that should fire:** `mild_ventriculomegaly` (right side), and **`asymmetric_ventricles`** (right−left = 4.6 mm > 2 mm threshold).
 **Expected DDx cards that should not fire:** `severe_ventriculomegaly`.
 **Expected IMPRESSION:** "Right-sided mild ventriculomegaly with marked side-to-side asymmetry; recommend dedicated workup for unilateral causes (intra-ventricular obstruction, encephaloclastic insult, germinal matrix haemorrhage)."
-**Citation.** Barzilay E, Bar-Yosef O, Dorembus S, Achiron R, Katorza E. Fetal Brain Anomalies Associated with Ventriculomegaly or Asymmetry: An MRI-Based Study. *AJNR Am J Neuroradiol.* 2017;38(2):371–375. doi:10.3174/ajnr.A4988 [6]. Barzilay 2017 explicitly studies the diagnostic yield of fetal MRI in unilateral and asymmetric VM and supports the > 2 mm asymmetry threshold.
+**Citation.** Barzilay E, Bar-Yosef O, Dorembus S, Achiron R, Katorza E. Fetal Brain Anomalies Associated with Ventriculomegaly or Asymmetry: An MRI-Based Study. *AJNR Am J Neuroradiol.* 2017;38(2):371–375. doi:10.3174/ajnr.A4988. Barzilay 2017 explicitly studies the diagnostic yield of fetal MRI in unilateral and asymmetric VM and supports the > 2 mm asymmetry threshold.
 
 ### Case M4 — Bilateral moderate VM at 26 weeks with normal CSP and CC (THRESHOLD-DERIVED)
 
@@ -311,7 +311,7 @@ The calculator's `mild_ventriculomegaly` card fires when either atrial-R or atri
 
 **Expected DDx cards that should fire:** `mild_ventriculomegaly` (10–14.9 mm range; prose should note "moderate" qualification at ≥ 12 mm).
 **Expected DDx cards that should not fire:** `severe_ventriculomegaly`, `asymmetric_ventricles` (Δ = 0 mm).
-**Citation.** Barzilay 2017 [6]. The paper's mild-vs-moderate-vs-severe ventriculomegaly subgrouping uses 10–11.9 / 12–14.9 / ≥ 15 mm; the 13.5 mm value is the midpoint of the moderate sub-band.
+**Citation.** Barzilay 2017. The paper's mild-vs-moderate-vs-severe ventriculomegaly subgrouping uses 10–11.9 / 12–14.9 / ≥ 15 mm; the 13.5 mm value is the midpoint of the moderate sub-band.
 
 ### Case M5 — Mild VM at 22 weeks with otherwise unremarkable exam (THRESHOLD-DERIVED, low-GA edge)
 
@@ -334,7 +334,7 @@ The calculator's `mild_ventriculomegaly` card fires when either atrial-R or atri
 | Third ventricle | 1.4 mm | normal |
 
 **Expected DDx cards that should fire:** `mild_ventriculomegaly` (right), `asymmetric_ventricles` (Δ = 3.8 mm).
-**Citation.** Pagani 2014 [4]; SMFM 2020 [5].
+**Citation.** Pagani 2014; SMFM 2020.
 
 ### Case M6 — Bilateral mild VM at 30 weeks with mild contralateral asymmetry, no other abnormalities (THRESHOLD-DERIVED)
 
@@ -357,7 +357,7 @@ The calculator's `mild_ventriculomegaly` card fires when either atrial-R or atri
 | Third ventricle | 1.7 mm | normal |
 
 **Expected DDx cards that should fire:** `mild_ventriculomegaly` on both rows. `asymmetric_ventricles` should *not* fire because Δ = 1.5 mm < 2 mm.
-**Citation.** Pagani 2014 [4]. This case is the bilateral-mild-VM analog of Case M3, with sub-threshold asymmetry, included to verify the asymmetric-VM threshold from below.
+**Citation.** Pagani 2014. This case is the bilateral-mild-VM analog of Case M3, with sub-threshold asymmetry, included to verify the asymmetric-VM threshold from below.
 
 ---
 
@@ -388,7 +388,7 @@ The calculator's `severe_ventriculomegaly` card fires when atrial-R or atrial-L 
 **Expected DDx cards that should fire:** `severe_ventriculomegaly`, `third_ventricle_dilatation`, `macrocephaly_pattern`, `aqueductal_stenosis_pattern` (combined: severe VM + 3rd-V > 3.5 mm + preserved CSP + macrocephaly).
 **Expected DDx cards that should not fire:** `mild_ventriculomegaly` (subsumed by severe), `acc_pattern` (CSP and CC preserved), `hpe_pattern`.
 **Expected IMPRESSION:** "Severe triventricular hydrocephalus with preserved CSP and macrocephaly — pattern most consistent with congenital aqueductal stenosis."
-**Citation.** Heaphy-Henault KJ, Guimaraes CV, Mehollin-Ray AR, et al. Congenital Aqueductal Stenosis: Findings at Fetal MRI That Accurately Predict a Postnatal Diagnosis. *AJNR Am J Neuroradiol.* 2018;39(5):942–948. doi:10.3174/ajnr.A5590 [7].
+**Citation.** Heaphy-Henault KJ, Guimaraes CV, Mehollin-Ray AR, et al. Congenital Aqueductal Stenosis: Findings at Fetal MRI That Accurately Predict a Postnatal Diagnosis. *AJNR Am J Neuroradiol.* 2018;39(5):942–948. doi:10.3174/ajnr.A5590.
 
 ### Case S2 — Severe bilateral VM at 24 weeks with absent CSP and absent CC, secondary to ACC (COHORT-MEAN, Tang 2009 / Santo 2012)
 
@@ -413,7 +413,7 @@ The calculator's `severe_ventriculomegaly` card fires when atrial-R or atrial-L 
 **Expected DDx cards that should fire:** `severe_ventriculomegaly`, `csp_absent`, `cc_absent`, **`acc_pattern`** (combined; subsumes the standalone VM and CSP-absent cards in the IMPRESSION).
 **Expected DDx cards that should not fire:** `mild_ventriculomegaly`, `aqueductal_stenosis_pattern` (CSP absent breaks the pattern), `hpe_pattern` (CC is the index, but HPE requires monoventricle + fused thalami which are not present here).
 **Expected IMPRESSION:** "Complete agenesis of the corpus callosum with associated colpocephaly. Counselling per Santo 2012: 65–75% normal neurodevelopment when isolated; 30% monogenic aetiology."
-**Citation.** Tang PH, Bartha AI, Norton ME, Barkovich AJ, Sherr EH, Glenn OA. Agenesis of the corpus callosum: an MR imaging analysis of associated abnormalities in the fetus. *AJNR Am J Neuroradiol.* 2009;30(2):257–263. doi:10.3174/ajnr.A1331 [8]; Santo S, D'Antonio F, Homfray T, et al. Counseling in fetal medicine: agenesis of the corpus callosum. *Ultrasound Obstet Gynecol.* 2012;40(5):513–521. doi:10.1002/uog.12315 [9].
+**Citation.** Tang PH, Bartha AI, Norton ME, Barkovich AJ, Sherr EH, Glenn OA. Agenesis of the corpus callosum: an MR imaging analysis of associated abnormalities in the fetus. *AJNR Am J Neuroradiol.* 2009;30(2):257–263. doi:10.3174/ajnr.A1331; Santo S, D'Antonio F, Homfray T, et al. Counseling in fetal medicine: agenesis of the corpus callosum. *Ultrasound Obstet Gynecol.* 2012;40(5):513–521. doi:10.1002/uog.12315.
 
 ### Case S3 — Severe bilateral VM at 28 weeks, isolated (no CSP/CC abnormality, no posterior-fossa abnormality) (THRESHOLD-DERIVED, Carta 2018)
 
@@ -438,7 +438,7 @@ The calculator's `severe_ventriculomegaly` card fires when atrial-R or atrial-L 
 **Expected DDx cards that should fire:** `severe_ventriculomegaly`.
 **Expected DDx cards that should not fire:** `aqueductal_stenosis_pattern` (third ventricle not dilated), `acc_pattern`, `hpe_pattern`, `mild_ventriculomegaly`.
 **Expected IMPRESSION:** "Apparently isolated severe ventriculomegaly. Postnatal MRI is recommended to confirm the absence of associated anomalies. Per Carta 2018: ~80% survival, ~40% normal neurodevelopment among survivors."
-**Citation.** Carta S, Kaelin Agten A, Belcaro C, Bhide A. Outcome of fetuses with prenatal diagnosis of isolated severe ventriculomegaly: systematic review and meta-analysis. *Ultrasound Obstet Gynecol.* 2018;52(2):165–173. doi:10.1002/uog.19038 [10].
+**Citation.** Carta S, Kaelin Agten A, Belcaro C, Bhide A. Outcome of fetuses with prenatal diagnosis of isolated severe ventriculomegaly: systematic review and meta-analysis. *Ultrasound Obstet Gynecol.* 2018;52(2):165–173. doi:10.1002/uog.19038.
 
 ### Case S4 — Asymmetric severe VM at 30 weeks (right ≥ 15 mm; left mild) (THRESHOLD-DERIVED)
 
@@ -461,7 +461,7 @@ The calculator's `severe_ventriculomegaly` card fires when atrial-R or atrial-L 
 | Third ventricle | 1.7 mm | normal |
 
 **Expected DDx cards that should fire:** `severe_ventriculomegaly` (right row), `mild_ventriculomegaly` (left row), **`asymmetric_ventricles`** (Δ = 4.5 mm).
-**Citation.** Barzilay 2017 [6].
+**Citation.** Barzilay 2017.
 
 ### Case S5 — Severe bilateral VM at 32 weeks with monoventricle and fused thalami, alobar HPE (COHORT-MEAN, Griffiths 2016)
 
@@ -486,7 +486,7 @@ The calculator's `severe_ventriculomegaly` card fires when atrial-R or atrial-L 
 **Expected DDx cards that should fire:** `severe_ventriculomegaly`, `csp_absent`, `cc_absent`, `microcephaly_pattern`, **`hpe_pattern`** (monoventricle + absent CSP + fused thalami + microcephaly). The HPE pattern outranks the standalone CSP/CC cards in the IMPRESSION.
 **Expected DDx cards that should not fire:** `acc_pattern`, `aqueductal_stenosis_pattern`.
 **Expected IMPRESSION:** "Alobar holoprosencephaly. Counselling per Malinger 2013: poor prognosis; chromosomal microarray and exome sequencing indicated."
-**Citation.** Griffiths PD, Jarvis D, Connolly DJ, et al. Holoprosencephaly: in utero MR imaging in 32 patients. *Br J Radiol.* 2016;89(1057):20150892. doi:10.1259/bjr.20150892 [11].
+**Citation.** Griffiths PD, Jarvis D, Connolly DJ, et al. Holoprosencephaly: in utero MR imaging in 32 patients. *Br J Radiol.* 2016;89(1057):20150892. doi:10.1259/bjr.20150892.
 
 ### Case S6 — Severe bilateral VM at 30 weeks with Chiari II and small posterior fossa (COHORT-MEAN, Aertsen 2019)
 
@@ -511,7 +511,7 @@ The calculator's `severe_ventriculomegaly` card fires when atrial-R or atrial-L 
 | **TDPF** | reduced for GA | <5th |
 
 **Expected DDx cards that should fire:** `severe_ventriculomegaly`, `small_tcd`, `vermian_hypoplasia`, **`chiari_ii_open_ntd`** (CSA z < –2 + TDPF z < –2, Mahalanobis posterior > 0.5).
-**Citation.** Aertsen M, Verduyckt J, De Keyzer F, et al. Reliability of MR Imaging-Based Posterior Fossa and Brain Stem Measurements in Open Spinal Dysraphism in the Era of Fetal Surgery. *AJNR Am J Neuroradiol.* 2019;40(1):191–198. doi:10.3174/ajnr.A5930 [12]. Cohort means: pre-op CSA 65.9° ± 12.5°; cerebellar herniation –9.9 ± 4.2 mm.
+**Citation.** Aertsen M, Verduyckt J, De Keyzer F, et al. Reliability of MR Imaging-Based Posterior Fossa and Brain Stem Measurements in Open Spinal Dysraphism in the Era of Fetal Surgery. *AJNR Am J Neuroradiol.* 2019;40(1):191–198. doi:10.3174/ajnr.A5930. Cohort means: pre-op CSA 65.9° ± 12.5°; cerebellar herniation –9.9 ± 4.2 mm.
 
 ---
 
@@ -529,7 +529,7 @@ The `asymmetric_ventricles` card fires when |atrium-R − atrium-L| > 2 mm. Asym
 | (others) | filler | normal |
 
 Δ = 3.0 mm > 2 mm → `asymmetric_ventricles` fires; no VM card.
-**Citation.** Meyer R, Yinon Y, Achiron R, Katorza E. Neurodevelopmental outcome of fetal isolated ventricular asymmetry without dilatation. *Ultrasound Obstet Gynecol.* 2018;52(5):634–639. doi:10.1002/uog.19065 [13].
+**Citation.** Meyer R, Yinon Y, Achiron R, Katorza E. Neurodevelopmental outcome of fetal isolated ventricular asymmetry without dilatation. *Ultrasound Obstet Gynecol.* 2018;52(5):634–639. doi:10.1002/uog.19065.
 
 ### Case AS2 — Asymmetry with sub-threshold mild VM at 26 weeks
 
@@ -541,7 +541,7 @@ The `asymmetric_ventricles` card fires when |atrium-R − atrium-L| > 2 mm. Asym
 | (others) | filler | normal |
 
 Δ = 3.3 mm → `asymmetric_ventricles` fires; `mild_ventriculomegaly` does *not* fire (right is 0.2 mm sub-threshold). This is a critical edge case for the threshold logic.
-**Citation.** Meyer 2018 [13].
+**Citation.** Meyer 2018.
 
 ### Case AS3 — Severe right VM with mild left VM (already shown as S4 above; cross-referenced here for completeness)
 
@@ -561,7 +561,7 @@ Cross-reference: see §3, Case M3. `mild_ventriculomegaly`, `asymmetric_ventricl
 | (others) | filler | normal |
 
 Δ = 1.5 mm < 2 mm → `asymmetric_ventricles` should *not* fire. Negative control for the asymmetry trigger.
-**Citation.** Achiron R, Yagel S, Rotstein Z, Inbar O, Mashiach S, Lipitz S. Cerebral lateral ventricular asymmetry: is this a normal ultrasonographic finding in the fetal brain? *Obstet Gynecol.* 1997;89(2):233–237 [14], which establishes side-to-side difference < 2 mm as a normal-variant range.
+**Citation.** Achiron R, Yagel S, Rotstein Z, Inbar O, Mashiach S, Lipitz S. Cerebral lateral ventricular asymmetry: is this a normal ultrasonographic finding in the fetal brain? *Obstet Gynecol.* 1997;89(2):233–237, which establishes side-to-side difference < 2 mm as a normal-variant range.
 
 ### Case AS6 — Marked asymmetry at 32 weeks (Δ = 7 mm), unilateral severe VM with normal contralateral
 
@@ -573,7 +573,7 @@ Cross-reference: see §3, Case M3. `mild_ventriculomegaly`, `asymmetric_ventricl
 | (others) | filler | normal |
 
 `severe_ventriculomegaly` (right), `asymmetric_ventricles` (Δ = 7.4 mm). The combined pattern is suspicious for unilateral haemorrhage or encephaloclastic insult.
-**Citation.** Barzilay 2017 [6].
+**Citation.** Barzilay 2017.
 
 ---
 
@@ -594,7 +594,7 @@ The `vermian_hypoplasia` card fires when vermis CC or vermis AP is < 5th percent
 | (other rows) | filler | normal |
 
 `vermian_hypoplasia` fires. `dandy_walker_spectrum` should *not* fire because TVA < 45° excludes DWM.
-**Citation.** Bromley B, Nadel AS, Pauker S, Estroff JA, Benacerraf BR. Closure of the cerebellar vermis: evaluation with second trimester US. *Radiology.* 1994;193(3):761–763. doi:10.1148/radiology.193.3.7972820 [15], reproduced in Robinson AJ, Goldstein RB. *Ultrasound* 2007;15(4):211–223.
+**Citation.** Bromley B, Nadel AS, Pauker S, Estroff JA, Benacerraf BR. Closure of the cerebellar vermis: evaluation with second trimester US. *Radiology.* 1994;193(3):761–763. doi:10.1148/radiology.193.3.7972820, reproduced in Robinson AJ, Goldstein RB. *Ultrasound* 2007;15(4):211–223.
 
 ### Case V2 — Nagaraj 2021 vermian-hypoplasia cohort fixture at 24.7 weeks (COHORT-MEAN)
 
@@ -609,7 +609,7 @@ The `vermian_hypoplasia` card fires when vermis CC or vermis AP is < 5th percent
 | (other rows) | filler | normal |
 
 `vermian_hypoplasia` fires. `dandy_walker_spectrum` should not fire (Nagaraj-VH cohort TVA mean 52° vs. DWM-cohort 109.5° — squarely separates the two).
-**Citation.** Nagaraj UD, Kline-Fath BM, Horn PS, Venkatesan C. Evaluation of Posterior Fossa Biometric Measurements on Fetal MRI in the Evaluation of Dandy-Walker Continuum. *AJNR Am J Neuroradiol.* 2021;42(9):1716–1721. doi:10.3174/ajnr.A7201 [16].
+**Citation.** Nagaraj UD, Kline-Fath BM, Horn PS, Venkatesan C. Evaluation of Posterior Fossa Biometric Measurements on Fetal MRI in the Evaluation of Dandy-Walker Continuum. *AJNR Am J Neuroradiol.* 2021;42(9):1716–1721. doi:10.3174/ajnr.A7201.
 
 ### Case V3 — Isolated inferior vermian hypoplasia at 26 weeks (THRESHOLD-DERIVED, Limperopoulos 2006 cohort GA)
 
@@ -623,7 +623,7 @@ The `vermian_hypoplasia` card fires when vermis CC or vermis AP is < 5th percent
 | (other rows) | filler | normal |
 
 `vermian_hypoplasia` fires. The IMPRESSION should reference Limperopoulos 2006's caveat that fetal MRI before 24 weeks substantially over-calls inferior vermian hypoplasia.
-**Citation.** Limperopoulos C, Robertson RL, Estroff JA, et al. Diagnosis of inferior vermian hypoplasia by fetal MRI: potential pitfalls and neurodevelopmental outcome. *Am J Obstet Gynecol.* 2006;194(4):1070–1076. doi:10.1016/j.ajog.2005.10.191 [17]. Limperopoulos's cohort had a median diagnostic GA of 22 w with a 32% false-positive rate; the case is set at 26 w to be outside that pitfall window.
+**Citation.** Limperopoulos C, Robertson RL, Estroff JA, et al. Diagnosis of inferior vermian hypoplasia by fetal MRI: potential pitfalls and neurodevelopmental outcome. *Am J Obstet Gynecol.* 2006;194(4):1070–1076. doi:10.1016/j.ajog.2005.10.191. Limperopoulos's cohort had a median diagnostic GA of 22 w with a 32% false-positive rate; the case is set at 26 w to be outside that pitfall window.
 
 ### Case V4 — Vermian hypoplasia with mild VM at 28 weeks (combined finding)
 
@@ -639,7 +639,7 @@ The `vermian_hypoplasia` card fires when vermis CC or vermis AP is < 5th percent
 | (other rows) | filler | normal |
 
 `vermian_hypoplasia`, `mild_ventriculomegaly` fire.
-**Citation.** Tarui T, Khwaja OS, Estroff JA, et al. Long-term follow-up of fetuses with isolated cerebellar abnormalities: contribution of fetal MRI. *Prenat Diagn.* 2014;34(5):425–432. doi:10.1002/pd.4322 [18].
+**Citation.** Tarui T, Khwaja OS, Estroff JA, et al. Long-term follow-up of fetuses with isolated cerebellar abnormalities: contribution of fetal MRI. *Prenat Diagn.* 2014;34(5):425–432. doi:10.1002/pd.4322.
 
 ### Case V5 — Severe vermian hypoplasia at 32 weeks (vermis CC z ≈ –4)
 
@@ -654,7 +654,7 @@ The `vermian_hypoplasia` card fires when vermis CC or vermis AP is < 5th percent
 | (other rows) | filler | normal |
 
 `vermian_hypoplasia`, `small_tcd` fire. The combined small-TCD + small-vermis pattern raises concern for cerebellar agenesis or PCH; the report should flag the combined pattern even if no single combined-pattern card formally fires.
-**Citation.** Patel S, Barkovich AJ. Analysis and classification of cerebellar malformations. *AJNR Am J Neuroradiol.* 2002;23(7):1074–1087 [19].
+**Citation.** Patel S, Barkovich AJ. Analysis and classification of cerebellar malformations. *AJNR Am J Neuroradiol.* 2002;23(7):1074–1087.
 
 ### Case V6 — Borderline-low vermis at 22 weeks (negative control, GA pitfall)
 
@@ -668,7 +668,7 @@ The `vermian_hypoplasia` card fires when vermis CC or vermis AP is < 5th percent
 | (other rows) | filler | normal |
 
 `vermian_hypoplasia` should *not* fire (z is –1.6, above the –1.645 cut). This case verifies that the calculator does not over-call hypoplasia at borderline values, especially in the early-second-trimester window where Limperopoulos 2006 documents a high false-positive rate.
-**Citation.** Limperopoulos 2006 [17].
+**Citation.** Limperopoulos 2006.
 
 ---
 
@@ -689,7 +689,7 @@ The `dandy_walker_spectrum` card fires when a small/absent vermis is combined wi
 | (other rows) | filler | normal |
 
 `vermian_hypoplasia`, `small_tcd`, `small_pons` fire; **`dandy_walker_spectrum`** combined-pattern card fires.
-**Citation.** Nagaraj 2021 [16].
+**Citation.** Nagaraj 2021.
 
 ### Case D2 — DWM with cystic posterior fossa at 22 weeks (Whitehead 2022 representative case, VERBATIM TVA)
 
@@ -704,7 +704,7 @@ The `dandy_walker_spectrum` card fires when a small/absent vermis is combined wi
 | (other rows) | filler | normal |
 
 `vermian_hypoplasia`, `small_tcd`, `small_pons`, `dandy_walker_spectrum` fire.
-**Citation.** Whitehead MT, Barkovich MJ, Sidpra J, et al. Refining the Neuroimaging Definition of the Dandy-Walker Phenotype. *AJNR Am J Neuroradiol.* 2022;43(10):1488–1493. doi:10.3174/ajnr.A7659 [20].
+**Citation.** Whitehead MT, Barkovich MJ, Sidpra J, et al. Refining the Neuroimaging Definition of the Dandy-Walker Phenotype. *AJNR Am J Neuroradiol.* 2022;43(10):1488–1493. doi:10.3174/ajnr.A7659.
 
 ### Case D3 — DWM with associated CC anomaly and severe VM at 28 weeks (combined-pattern fixture)
 
@@ -723,7 +723,7 @@ The `dandy_walker_spectrum` card fires when a small/absent vermis is combined wi
 | (other rows) | filler | normal |
 
 `severe_ventriculomegaly`, `csp_absent`, `cc_absent`, **`acc_pattern`**, **`dandy_walker_spectrum`** fire. This case verifies that two combined-pattern cards can fire simultaneously and that the IMPRESSION enumerates both.
-**Citation.** Whitehead 2022 [20]; Tang 2009 [8].
+**Citation.** Whitehead 2022; Tang 2009.
 
 ### Case D4 — Inferior vermian hypoplasia with sub-threshold TVA — DWM negative control at 26 weeks
 
@@ -738,7 +738,7 @@ The `dandy_walker_spectrum` card fires when a small/absent vermis is combined wi
 | (other rows) | filler | normal |
 
 `vermian_hypoplasia` fires. `dandy_walker_spectrum` should *not* fire because TVA < 35° (Whitehead 2022 refined threshold). Negative-control verification for the DWM combined-pattern card.
-**Citation.** Whitehead 2022 [20].
+**Citation.** Whitehead 2022.
 
 ### Case D5 — DWM at 32 weeks with marked posterior fossa cyst, isolated (no other malformations)
 
@@ -753,7 +753,7 @@ The `dandy_walker_spectrum` card fires when a small/absent vermis is combined wi
 | (other rows) | filler | normal |
 
 `vermian_hypoplasia`, `small_tcd`, `dandy_walker_spectrum` fire. Pons is preserved (a discriminator from PCH).
-**Citation.** Klein O, Pierre-Kahn A, Boddaert N, Parisot D, Brunelle F. Dandy-Walker malformation: prenatal diagnosis and prognosis. *Childs Nerv Syst.* 2003;19(7–8):484–489. doi:10.1007/s00381-003-0782-5 [21].
+**Citation.** Klein O, Pierre-Kahn A, Boddaert N, Parisot D, Brunelle F. Dandy-Walker malformation: prenatal diagnosis and prognosis. *Childs Nerv Syst.* 2003;19(7–8):484–489. doi:10.1007/s00381-003-0782-5.
 
 ### Case D6 — Severe DWM with macrocrania and elevated tegmentovermian angle at 30 weeks
 
@@ -772,7 +772,7 @@ The `dandy_walker_spectrum` card fires when a small/absent vermis is combined wi
 | (other rows) | filler | normal |
 
 `severe_ventriculomegaly`, `vermian_hypoplasia`, `small_tcd`, `small_pons`, `third_ventricle_dilatation`, `macrocephaly_pattern`, **`dandy_walker_spectrum`**.
-**Citation.** Adamsbaum C, Moutard ML, André C, et al. MRI of the fetal posterior fossa. *Pediatr Radiol.* 2005;35(2):124–140. doi:10.1007/s00247-004-1316-3 [22].
+**Citation.** Adamsbaum C, Moutard ML, André C, et al. MRI of the fetal posterior fossa. *Pediatr Radiol.* 2005;35(2):124–140. doi:10.1007/s00247-004-1316-3.
 
 ---
 
@@ -793,7 +793,7 @@ Blake's pouch cyst (BPC) is a benign posterior-fossa cystic remnant with mildly 
 | (other rows) | filler | normal |
 
 `vermian_hypoplasia` should *not* fire (vermis is normal-size). `dandy_walker_spectrum` should *not* fire (TCD and pons preserved; TVA below the Whitehead threshold). Negative-control case for the DWM combined-pattern card.
-**Citation.** Nagaraj 2021 [16].
+**Citation.** Nagaraj 2021.
 
 ### Case BP2 — Persistent Blake's pouch with mildly reduced vermis height at 26 weeks
 
@@ -808,7 +808,7 @@ Blake's pouch cyst (BPC) is a benign posterior-fossa cystic remnant with mildly 
 | (other rows) | filler | normal |
 
 No DDx cards should fire. Boundary case verifying that `vermian_hypoplasia` correctly stays silent at z ≈ –1.5.
-**Citation.** Pinto J, Paladini D, Marrocco G, et al. Persistent Blake's pouch cyst: prenatal diagnosis, fetal MRI, and outcome. *Childs Nerv Syst.* 2016;32(2):311–318. doi:10.1007/s00381-015-2901-5 [23].
+**Citation.** Pinto J, Paladini D, Marrocco G, et al. Persistent Blake's pouch cyst: prenatal diagnosis, fetal MRI, and outcome. *Childs Nerv Syst.* 2016;32(2):311–318. doi:10.1007/s00381-015-2901-5.
 
 ### Case BP3 — Blake's pouch with mega cisterna magna at 28 weeks
 
@@ -824,7 +824,7 @@ No DDx cards should fire. Boundary case verifying that `vermian_hypoplasia` corr
 | (other rows) | filler | normal |
 
 No quantitative DDx cards should fire (the calculator does not currently fire a card for cisterna magna alone). The IMPRESSION should mention "isolated mega cisterna magna with persistent Blake's pouch — likely benign normal variant" if the radiologist toggles the qualitative MCM panel.
-**Citation.** Gafner M, Yagel I, Fried S, Ezra O, Bar-Yosef O, Katorza E. Fetal brain biometry in isolated mega cisterna magna: MRI and US study. *J Matern Fetal Neonatal Med.* 2022;35(21):4199–4207. doi:10.1080/14767058.2020.1849094. PMID 33207970 [21].
+**Citation.** Gafner M, Yagel I, Fried S, Ezra O, Bar-Yosef O, Katorza E. Fetal brain biometry in isolated mega cisterna magna: MRI and US study. *J Matern Fetal Neonatal Med.* 2022;35(21):4199–4207. doi:10.1080/14767058.2020.1849094. PMID 33207970.
 
 ### Case BP4 — Blake's pouch with sub-threshold AP vermis at 30 weeks (negative control for vermian hypoplasia)
 
@@ -839,7 +839,7 @@ No quantitative DDx cards should fire (the calculator does not currently fire a 
 | (other rows) | filler | normal |
 
 No DDx cards fire. Boundary case; vermis AP is borderline-low but does not cross –1.645.
-**Citation.** Pinto 2016 [23].
+**Citation.** Pinto 2016.
 
 ### Case BP5 — Blake's pouch at 32 weeks with normal vermis (true negative control)
 
@@ -854,7 +854,7 @@ No DDx cards fire. Boundary case; vermis AP is borderline-low but does not cross
 | (other rows) | filler | normal |
 
 No DDx cards fire. This case is a clean negative control — the only abnormality is the qualitative TVA elevation, and the calculator does not currently fire a card from TVA alone.
-**Citation.** Pinto 2016 [23].
+**Citation.** Pinto 2016.
 
 ### Case BP6 — Vermian hypoplasia with raised TVA at 28 weeks (DWM-vs-BPC discriminator)
 
@@ -869,7 +869,7 @@ No DDx cards fire. This case is a clean negative control — the only abnormalit
 | (other rows) | filler | normal |
 
 `vermian_hypoplasia` fires; `dandy_walker_spectrum` may or may not fire depending on Whitehead 2022's strict 35° vs. 45° threshold. The case is included as an explicit discriminator test for the calculator's TVA threshold. The expected outcome under the Whitehead 35° threshold is: `dandy_walker_spectrum` fires.
-**Citation.** Whitehead 2022 [20] vs. Klein 2003 [21]; Pinto 2016 [23].
+**Citation.** Whitehead 2022 vs. Klein 2003; Pinto 2016.
 
 ---
 
@@ -889,7 +889,7 @@ The `small_tcd` card fires when TCD z < –1.645. When the vermis is preserved, 
 | (other rows) | filler | normal |
 
 `small_tcd` fires. `vermian_hypoplasia` does *not* fire (vermis preserved).
-**Citation.** Patel S, Barkovich AJ. *AJNR* 2002 [19].
+**Citation.** Patel S, Barkovich AJ. *AJNR* 2002.
 
 ### Case CH2 — Severe cerebellar hypoplasia at 30 weeks (z ≈ –4)
 
@@ -903,7 +903,7 @@ The `small_tcd` card fires when TCD z < –1.645. When the vermis is preserved, 
 | (other rows) | filler | normal |
 
 `small_tcd` fires. `vermian_hypoplasia` may fire on AP vermis depending on the GA-specific 5th centile.
-**Citation.** Bolduc ME, Limperopoulos C. Neurodevelopmental outcomes in children with cerebellar malformations: a systematic review. *Dev Med Child Neurol.* 2009;51(4):256–267. doi:10.1111/j.1469-8749.2008.03224.x [25].
+**Citation.** Bolduc ME, Limperopoulos C. Neurodevelopmental outcomes in children with cerebellar malformations: a systematic review. *Dev Med Child Neurol.* 2009;51(4):256–267. doi:10.1111/j.1469-8749.2008.03224.x.
 
 ### Case CH3 — Unilateral cerebellar hypoplasia at 32 weeks (with vermis preserved)
 
@@ -917,7 +917,7 @@ The `small_tcd` card fires when TCD z < –1.645. When the vermis is preserved, 
 | (other rows) | filler | normal |
 
 `small_tcd` fires. The IMPRESSION should suggest unilateral cerebellar hypoplasia or cerebellar disruption injury, with postnatal MRI for laterality assessment.
-**Citation.** Massoud M, Cagneaux M, Garel C, et al. Prenatal unilateral cerebellar hypoplasia in a series of 26 cases: significance and implications for prenatal diagnosis. *Ultrasound Obstet Gynecol.* 2014;44(4):447–454. doi:10.1002/uog.13217 [26].
+**Citation.** Massoud M, Cagneaux M, Garel C, et al. Prenatal unilateral cerebellar hypoplasia in a series of 26 cases: significance and implications for prenatal diagnosis. *Ultrasound Obstet Gynecol.* 2014;44(4):447–454. doi:10.1002/uog.13217.
 
 ### Case CH4 — Cerebellar hypoplasia with associated VM at 28 weeks (combined finding)
 
@@ -933,7 +933,7 @@ The `small_tcd` card fires when TCD z < –1.645. When the vermis is preserved, 
 | (other rows) | filler | normal |
 
 `small_tcd`, `mild_ventriculomegaly` fire.
-**Citation.** Bolduc 2009 [25].
+**Citation.** Bolduc 2009.
 
 ### Case CH5 — Borderline-low TCD (negative control) at 30 weeks
 
@@ -944,7 +944,7 @@ The `small_tcd` card fires when TCD z < –1.645. When the vermis is preserved, 
 | (others) | filler | normal |
 
 `small_tcd` should *not* fire (z is just above –1.645). Boundary verification.
-**Citation.** Massoud 2014 [26].
+**Citation.** Massoud 2014.
 
 ### Case CH6 — Cerebellar hypoplasia with hemispheric asymmetry at 28 weeks
 
@@ -959,7 +959,7 @@ The `small_tcd` card fires when TCD z < –1.645. When the vermis is preserved, 
 | (other rows) | filler | normal |
 
 `small_tcd`, `hemispheric_asymmetry` fire.
-**Citation.** Massoud 2014 [26]; Garel 2004 [2].
+**Citation.** Massoud 2014; Garel 2004.
 
 ---
 
@@ -976,7 +976,7 @@ The `large_tcd` card fires when TCD z > +1.645. This is rare; the most common as
 | (others) | filler | normal |
 
 `large_tcd` fires.
-**Citation.** Bosemani T, Orman G, Boltshauser E, Tekes A, Huisman TA, Poretti A. Congenital abnormalities of the posterior fossa. *RadioGraphics.* 2015;35(1):200–220. doi:10.1148/rg.351140038 [27].
+**Citation.** Bosemani T, Orman G, Boltshauser E, Tekes A, Huisman TA, Poretti A. Congenital abnormalities of the posterior fossa. *RadioGraphics.* 2015;35(1):200–220. doi:10.1148/rg.351140038.
 
 ### Case LC2 — Macrocerebellum with macrocephaly at 30 weeks (overgrowth-syndrome pattern)
 
@@ -988,7 +988,7 @@ The `large_tcd` card fires when TCD z > +1.645. This is rare; the most common as
 | (others) | filler | normal |
 
 `large_tcd`, `macrocephaly_pattern` fire. The IMPRESSION should suggest overgrowth syndromes (Sotos, BWS).
-**Citation.** Bosemani 2015 [27].
+**Citation.** Bosemani 2015.
 
 ### Case LC3 — Macrocerebellum at 32 weeks, isolated
 
@@ -999,7 +999,7 @@ The `large_tcd` card fires when TCD z > +1.645. This is rare; the most common as
 | (others) | filler | normal |
 
 `large_tcd` fires.
-**Citation.** Bosemani 2015 [27].
+**Citation.** Bosemani 2015.
 
 ### Case LC4 — Borderline-large TCD (negative control) at 28 weeks
 
@@ -1010,7 +1010,7 @@ The `large_tcd` card fires when TCD z > +1.645. This is rare; the most common as
 | (others) | filler | normal |
 
 `large_tcd` should *not* fire. Boundary verification.
-**Citation.** Bosemani 2015 [27].
+**Citation.** Bosemani 2015.
 
 ### Case LC5 — Macrocerebellum with thick CC at 30 weeks (combined-finding fixture)
 
@@ -1022,7 +1022,7 @@ The `large_tcd` card fires when TCD z > +1.645. This is rare; the most common as
 | (others) | filler | normal |
 
 `large_tcd`, `cc_thick` fire. Combined finding raises concern for an overgrowth syndrome.
-**Citation.** Bosemani 2015 [27]; Garel 2011 (CC growth) [28].
+**Citation.** Bosemani 2015; Garel 2011 (CC growth).
 
 ### Case LC6 — Macrocerebellum at 26 weeks with mildly enlarged CSP
 
@@ -1034,7 +1034,7 @@ The `large_tcd` card fires when TCD z > +1.645. This is rare; the most common as
 | (others) | filler | normal |
 
 `large_tcd`, `csp_enlarged` fire.
-**Citation.** Bosemani 2015 [27].
+**Citation.** Bosemani 2015.
 
 ---
 
@@ -1054,7 +1054,7 @@ The `cc_absent` and `cc_short` cards fire on the special-case "absent" value or 
 | (others) | filler | normal |
 
 `csp_absent`, `cc_absent`, `mild_ventriculomegaly`, **`acc_pattern`** fire.
-**Citation.** Tang 2009 Patient 3 [8].
+**Citation.** Tang 2009 Patient 3.
 
 ### Case A2 — Tang 2009 Patient 29, complete ACC at 36+3 weeks with associated heterotopia (VERBATIM)
 
@@ -1068,7 +1068,7 @@ The `cc_absent` and `cc_short` cards fire on the special-case "absent" value or 
 | (others) | filler | normal |
 
 `csp_absent`, `cc_absent`, `mild_ventriculomegaly`, **`acc_pattern`** fire. Tang 2009 Patient 29 also had heterotopia, which the calculator's quantitative engine cannot detect; it should appear in the qualitative panel if the radiologist toggles it.
-**Citation.** Tang 2009 Patient 29 [8].
+**Citation.** Tang 2009 Patient 29.
 
 ### Case A3 — Isolated ACC at 26 weeks (no associated anomalies) (THRESHOLD-DERIVED, Santo 2012)
 
@@ -1082,7 +1082,7 @@ The `cc_absent` and `cc_short` cards fire on the special-case "absent" value or 
 | (others) | filler | normal |
 
 `csp_absent`, `cc_absent`, `mild_ventriculomegaly`, **`acc_pattern`** fire. IMPRESSION should quote Santo 2012's 65–75% normal-ND figure.
-**Citation.** Santo 2012 [9].
+**Citation.** Santo 2012.
 
 ### Case A4 — Hypogenesis of CC at 28 weeks (CC present but short) (THRESHOLD-DERIVED)
 
@@ -1096,7 +1096,7 @@ The `cc_absent` and `cc_short` cards fire on the special-case "absent" value or 
 | (others) | filler | normal |
 
 `cc_short` fires. `acc_pattern` should *not* fire (CSP is preserved). The IMPRESSION should suggest "partial / hypogenetic CC; postnatal MRI for confirmation."
-**Citation.** Garel C, Cont I, Alberti C, Josserand E, Moutard ML, Ducou le Pointe H. Biometry of the corpus callosum in children: MR imaging reference data. *AJNR Am J Neuroradiol.* 2011;32(8):1436–1443. doi:10.3174/ajnr.A2542 [28].
+**Citation.** Garel C, Cont I, Alberti C, Josserand E, Moutard ML, Ducou le Pointe H. Biometry of the corpus callosum in children: MR imaging reference data. *AJNR Am J Neuroradiol.* 2011;32(8):1436–1443. doi:10.3174/ajnr.A2542.
 
 ### Case A5 — ACC with interhemispheric cyst and severe VM at 24 weeks (combined-pattern fixture)
 
@@ -1112,7 +1112,7 @@ The `cc_absent` and `cc_short` cards fire on the special-case "absent" value or 
 | (others) | filler | normal |
 
 `csp_absent`, `cc_absent`, `severe_ventriculomegaly`, **`acc_pattern`** fire. The interhemispheric cyst is a qualitative finding entered separately.
-**Citation.** Tang 2009 [8].
+**Citation.** Tang 2009.
 
 ### Case A6 — ACC with associated DWM at 28 weeks (combined-pattern fixture)
 
@@ -1128,7 +1128,7 @@ The `cc_absent` and `cc_short` cards fire on the special-case "absent" value or 
 | (others) | filler | normal |
 
 `csp_absent`, `cc_absent`, **`acc_pattern`**, **`dandy_walker_spectrum`**. Two combined-pattern cards fire simultaneously.
-**Citation.** Tang 2009 [8]; Whitehead 2022 [20].
+**Citation.** Tang 2009; Whitehead 2022.
 
 ---
 
@@ -1146,7 +1146,7 @@ Cases where CC is present but z < –1.645, distinguishable from full ACC by pre
 | (others) | filler | normal |
 
 `cc_short` fires. `acc_pattern` does *not* fire (CSP is preserved).
-**Citation.** Garel 2011 [28].
+**Citation.** Garel 2011.
 
 ### Case CC2 — Dysgenetic CC with mild VM at 28 weeks
 
@@ -1160,7 +1160,7 @@ Cases where CC is present but z < –1.645, distinguishable from full ACC by pre
 | (others) | filler | normal |
 
 `cc_short`, `mild_ventriculomegaly` fire.
-**Citation.** Garel 2011 [28].
+**Citation.** Garel 2011.
 
 ### Case CC3 — Dysgenetic CC at 32 weeks (severe shortening)
 
@@ -1172,7 +1172,7 @@ Cases where CC is present but z < –1.645, distinguishable from full ACC by pre
 | (others) | filler | normal |
 
 `cc_short` fires.
-**Citation.** Garel 2011 [28].
+**Citation.** Garel 2011.
 
 ### Case CC4 — CC at sub-threshold low (negative control) at 28 weeks
 
@@ -1184,7 +1184,7 @@ Cases where CC is present but z < –1.645, distinguishable from full ACC by pre
 | (others) | filler | normal |
 
 `cc_short` should *not* fire. Boundary verification.
-**Citation.** Garel 2011 [28].
+**Citation.** Garel 2011.
 
 ### Case CC5 — Dysgenetic CC with absent CSP at 26 weeks (rare combined fixture)
 
@@ -1196,7 +1196,7 @@ Cases where CC is present but z < –1.645, distinguishable from full ACC by pre
 | (others) | filler | normal |
 
 `cc_short`, `csp_absent` fire. The combined absent-CSP + short-CC pattern should additionally fire **`acc_pattern`** (per the spec, the pattern fires when CC is absent OR markedly shortened with concurrent absent CSP).
-**Citation.** Tang 2009 [8].
+**Citation.** Tang 2009.
 
 ### Case CC6 — Dysgenetic CC with septo-optic dysplasia (CSP absent + small optic apparatus) at 28 weeks
 
@@ -1208,7 +1208,7 @@ Cases where CC is present but z < –1.645, distinguishable from full ACC by pre
 | (others) | filler | normal |
 
 `cc_short`, `csp_absent` fire. The septo-optic dysplasia diagnosis is a qualitative add-on and is not currently covered by a dedicated combined-pattern card; it is captured by the absent-CSP card's IMPRESSION text.
-**Citation.** Malinger G, Lev D, Lerman-Sagie T. The fetal cerebellum: pitfalls in diagnosis and management. *Prenat Diagn.* 2009;29(4):372–380. doi:10.1002/pd.2196 [29].
+**Citation.** Malinger G, Lev D, Lerman-Sagie T. The fetal cerebellum: pitfalls in diagnosis and management. *Prenat Diagn.* 2009;29(4):372–380. doi:10.1002/pd.2196.
 
 ---
 
@@ -1225,7 +1225,7 @@ The `cc_thick` card fires when CC z > +1.645. Associations include overgrowth sy
 | (others) | filler | normal |
 
 `cc_thick` fires.
-**Citation.** Garel 2011 [28].
+**Citation.** Garel 2011.
 
 ### Case TC2 — Thick CC with macrocrania at 32 weeks (overgrowth-syndrome pattern)
 
@@ -1237,7 +1237,7 @@ The `cc_thick` card fires when CC z > +1.645. Associations include overgrowth sy
 | (others) | filler | normal |
 
 `cc_thick`, `macrocephaly_pattern` fire.
-**Citation.** Garel 2011 [28]; Bosemani 2015 [27].
+**Citation.** Garel 2011; Bosemani 2015.
 
 ### Case TC3 — Borderline-thick CC (negative control) at 28 weeks
 
@@ -1259,7 +1259,7 @@ The `cc_thick` card fires when CC z > +1.645. Associations include overgrowth sy
 | (others) | filler | normal |
 
 `cc_thick`, `pons_large` fire.
-**Citation.** Garel 2011 [28].
+**Citation.** Garel 2011.
 
 ### Case TC5 — Thick CC at 36 weeks, isolated
 
@@ -1270,7 +1270,7 @@ The `cc_thick` card fires when CC z > +1.645. Associations include overgrowth sy
 | (others) | filler | normal |
 
 `cc_thick` fires.
-**Citation.** Garel 2011 [28].
+**Citation.** Garel 2011.
 
 ### Case TC6 — Thick CC + macrocerebellum at 30 weeks (overgrowth pattern)
 
@@ -1299,7 +1299,7 @@ The `csp_absent` card fires for CSP absence with CC preserved. Isolated absent C
 | (others) | filler | normal |
 
 `csp_absent` fires. `acc_pattern` does *not* fire (CC preserved). `hpe_pattern` does *not* fire (no monoventricle, no fused thalami).
-**Citation.** Malinger G, Lev D, Kidron D, Heredia F, Hershkowitz R, Lerman-Sagie T. Differential diagnosis in fetuses with absent septum pellucidum. *Ultrasound Obstet Gynecol.* 2005;25(1):42–49. doi:10.1002/uog.1787 [30].
+**Citation.** Malinger G, Lev D, Kidron D, Heredia F, Hershkowitz R, Lerman-Sagie T. Differential diagnosis in fetuses with absent septum pellucidum. *Ultrasound Obstet Gynecol.* 2005;25(1):42–49. doi:10.1002/uog.1787.
 
 ### Case CSP-A2 — Absent CSP with bilateral mild VM at 30 weeks
 
@@ -1313,7 +1313,7 @@ The `csp_absent` card fires for CSP absence with CC preserved. Isolated absent C
 | (others) | filler | normal |
 
 `csp_absent`, `mild_ventriculomegaly` fire.
-**Citation.** Malinger 2005 [30].
+**Citation.** Malinger 2005.
 
 ### Case CSP-A3 — Absent CSP with septo-optic dysplasia features at 28 weeks
 
@@ -1325,7 +1325,7 @@ The `csp_absent` card fires for CSP absence with CC preserved. Isolated absent C
 | (others) | filler | normal |
 
 `csp_absent` fires. The qualitative SOD finding (small optic chiasm) is a manual entry.
-**Citation.** Malinger 2005 [30].
+**Citation.** Malinger 2005.
 
 ### Case CSP-A4 — Absent CSP with mid-late-trimester normal exam — true negative for HPE/ACC at 32 weeks
 
@@ -1337,7 +1337,7 @@ The `csp_absent` card fires for CSP absence with CC preserved. Isolated absent C
 | (others) | filler | normal |
 
 `csp_absent` fires; no other DDx cards. Negative control for `acc_pattern` and `hpe_pattern`.
-**Citation.** Malinger 2005 [30].
+**Citation.** Malinger 2005.
 
 ### Case CSP-A5 — Absent CSP with severe VM and absent CC (cross-reference to ACC)
 
@@ -1353,7 +1353,7 @@ Cross-reference: see §11, Case A1. `csp_absent`, `cc_absent`, `mild_ventriculom
 | (others) | filler | normal |
 
 `csp_absent` fires.
-**Citation.** Malinger 2005 [30].
+**Citation.** Malinger 2005.
 
 ---
 
@@ -1371,7 +1371,7 @@ The `csp_enlarged` card fires when CSP width > 10 mm. Often a benign finding; oc
 | (others) | filler | normal |
 
 `csp_enlarged` fires.
-**Citation.** Falco P, Gabrielli S, Visentin A, et al. Transvaginal sonography of the cavum septum pellucidum in fetuses with absence of the corpus callosum and other midline anomalies. *Ultrasound Obstet Gynecol.* 2000;16(2):145–149. doi:10.1046/j.1469-0705.2000.00170.x [31].
+**Citation.** Falco P, Gabrielli S, Visentin A, et al. Transvaginal sonography of the cavum septum pellucidum in fetuses with absence of the corpus callosum and other midline anomalies. *Ultrasound Obstet Gynecol.* 2000;16(2):145–149. doi:10.1046/j.1469-0705.2000.00170.x.
 
 ### Case CSP-E2 — Enlarged CSP with mild VM at 30 weeks
 
@@ -1384,7 +1384,7 @@ The `csp_enlarged` card fires when CSP width > 10 mm. Often a benign finding; oc
 | (others) | filler | normal |
 
 `csp_enlarged`, `mild_ventriculomegaly` fire.
-**Citation.** Falco 2000 [31].
+**Citation.** Falco 2000.
 
 ### Case CSP-E3 — Cavum vergae (enlarged CSP extending posteriorly) at 28 weeks
 
@@ -1395,7 +1395,7 @@ The `csp_enlarged` card fires when CSP width > 10 mm. Often a benign finding; oc
 | (others) | filler | normal |
 
 `csp_enlarged` fires; the qualitative panel can be toggled to label the finding as cavum vergae.
-**Citation.** Bronshtein M, Weiner Z. Prenatal diagnosis of dilated cava septi pellucidi et vergae: associated anomalies, differential diagnosis, and pregnancy outcome. *Obstet Gynecol.* 1992;80(5):838–842 [32].
+**Citation.** Bronshtein M, Weiner Z. Prenatal diagnosis of dilated cava septi pellucidi et vergae: associated anomalies, differential diagnosis, and pregnancy outcome. *Obstet Gynecol.* 1992;80(5):838–842.
 
 ### Case CSP-E4 — Borderline-large CSP (negative control) at 32 weeks
 
@@ -1406,7 +1406,7 @@ The `csp_enlarged` card fires when CSP width > 10 mm. Often a benign finding; oc
 | (others) | filler | normal |
 
 `csp_enlarged` should *not* fire (CSP < 10 mm). Boundary verification.
-**Citation.** Falco 2000 [31].
+**Citation.** Falco 2000.
 
 ### Case CSP-E5 — Enlarged CSP at 26 weeks, isolated
 
@@ -1417,7 +1417,7 @@ The `csp_enlarged` card fires when CSP width > 10 mm. Often a benign finding; oc
 | (others) | filler | normal |
 
 `csp_enlarged` fires.
-**Citation.** Falco 2000 [31].
+**Citation.** Falco 2000.
 
 ### Case CSP-E6 — Enlarged CSP at 36 weeks, isolated
 
@@ -1428,7 +1428,7 @@ The `csp_enlarged` card fires when CSP width > 10 mm. Often a benign finding; oc
 | (others) | filler | normal |
 
 `csp_enlarged` fires.
-**Citation.** Falco 2000 [31].
+**Citation.** Falco 2000.
 
 ---
 
@@ -1457,7 +1457,7 @@ The combined `hpe_pattern` card fires when monoventricle, absent CSP, fused thal
 | Third ventricle | not measurable (fused thalami) | special-cased |
 
 `severe_ventriculomegaly`, `csp_absent`, `cc_absent`, `microcephaly_pattern`, **`hpe_pattern`** fire. The HPE pattern subsumes the standalone CSP and CC cards in the IMPRESSION.
-**Citation.** Griffiths PD, Jarvis D, Connolly DJ, et al. Holoprosencephaly: in utero MR imaging in 32 patients. *Br J Radiol.* 2016;89(1057):20150892. doi:10.1259/bjr.20150892 [11].
+**Citation.** Griffiths PD, Jarvis D, Connolly DJ, et al. Holoprosencephaly: in utero MR imaging in 32 patients. *Br J Radiol.* 2016;89(1057):20150892. doi:10.1259/bjr.20150892.
 
 ### Case HPE2 — Semilobar HPE at 28 weeks (THRESHOLD-DERIVED)
 
@@ -1475,7 +1475,7 @@ The combined `hpe_pattern` card fires when monoventricle, absent CSP, fused thal
 | (others) | filler | normal |
 
 `severe_ventriculomegaly`, `csp_absent`, `cc_short`, `microcephaly_pattern`, **`hpe_pattern`** fire.
-**Citation.** Malinger G, Lev D, Kidron D, et al. Differential diagnosis in fetuses with absent septum pellucidum. *Ultrasound Obstet Gynecol.* 2005;25(1):42–49 [30]; Malinger G, Lerman-Sagie T, Bermann D, Lev D. Prenatal diagnosis of holoprosencephaly. *Prenat Diagn.* 2013;33(13):1222–1228. doi:10.1002/pd.4244 [33].
+**Citation.** Malinger G, Lev D, Kidron D, et al. Differential diagnosis in fetuses with absent septum pellucidum. *Ultrasound Obstet Gynecol.* 2005;25(1):42–49; Malinger G, Lerman-Sagie T, Bermann D, Lev D. Prenatal diagnosis of holoprosencephaly. *Prenat Diagn.* 2013;33(13):1222–1228. doi:10.1002/pd.4244.
 
 ### Case HPE3 — Lobar HPE at 30 weeks (THRESHOLD-DERIVED)
 
@@ -1492,7 +1492,7 @@ The combined `hpe_pattern` card fires when monoventricle, absent CSP, fused thal
 | (others) | filler | normal |
 
 `mild_ventriculomegaly`, `csp_absent` fire. **`hpe_pattern`** may fire only if the qualitative monoventricle / fused-thalami findings are also entered. Without those, this case looks like isolated absent CSP with mild VM.
-**Citation.** Malinger 2013 [33].
+**Citation.** Malinger 2013.
 
 ### Case HPE4 — Cureus 2024 alobar HPE source-anchored severe pattern (THRESHOLD-DERIVED)
 
@@ -1507,7 +1507,7 @@ The combined `hpe_pattern` card fires when monoventricle, absent CSP, fused thal
 | (others) | filler | normal |
 
 `severe_ventriculomegaly`, `csp_absent`, `cc_absent`, `microcephaly_pattern`, **`hpe_pattern`** fire. The measurement table is threshold-derived to exercise the alobar-HPE pattern; the Cureus case anchors the same prenatal alobar-HPE constellation but does not publish this exact measurement table.
-**Citation.** Chafiq K, Toumi K, Khayi FE, Daoudi A. Alobar holoprosencephaly in a newborn: a case report of prenatal diagnosis and a review of the literature. *Cureus.* 2024;16(11):e74462. doi:10.7759/cureus.74462. PMID 39726469; PMCID PMC11669822; Malinger 2013 [33].
+**Citation.** Chafiq K, Toumi K, Khayi FE, Daoudi A. Alobar holoprosencephaly in a newborn: a case report of prenatal diagnosis and a review of the literature. *Cureus.* 2024;16(11):e74462. doi:10.7759/cureus.74462. PMID 39726469; PMCID PMC11669822; Malinger 2013.
 
 ### Case HPE5 — HPE pattern with associated DWM at 26 weeks (rare combined fixture)
 
@@ -1527,7 +1527,7 @@ The combined `hpe_pattern` card fires when monoventricle, absent CSP, fused thal
 | (others) | filler | normal |
 
 `severe_ventriculomegaly`, `csp_absent`, `cc_absent`, `vermian_hypoplasia`, `small_tcd`, `small_pons`, `microcephaly_pattern`, **`hpe_pattern`**, **`dandy_walker_spectrum`** fire — three combined-pattern cards simultaneously.
-**Citation.** Griffiths 2016 [11]; Whitehead 2022 [20].
+**Citation.** Griffiths 2016; Whitehead 2022.
 
 ### Case HPE6 — Mild HPE-spectrum at 32 weeks (septo-preoptic) — partial pattern, no full HPE card
 
@@ -1542,7 +1542,7 @@ The combined `hpe_pattern` card fires when monoventricle, absent CSP, fused thal
 | (others) | filler | normal |
 
 `csp_absent` fires only. `hpe_pattern` does *not* fire (no monoventricle, no microcephaly, no fused thalami). Negative-control case for the HPE combined-pattern card.
-**Citation.** Malinger 2013 [33].
+**Citation.** Malinger 2013.
 
 ---
 
@@ -1562,7 +1562,7 @@ The `small_pons` card fires when pons AP z < –1.645. Combined with vermis or T
 | (others) | filler | normal |
 
 `small_pons`, `small_tcd`, `vermian_hypoplasia` fire; **`pch_pattern`** combined card fires (qualitative).
-**Citation.** Patel S, Barkovich AJ. *AJNR* 2002 [19]; van Dijk T, Baas F, Barth PG, Poll-The BT. What's new in pontocerebellar hypoplasia? An update on genes and subtypes. *Orphanet J Rare Dis.* 2018;13(1):92. doi:10.1186/s13023-018-0826-2 [34].
+**Citation.** Patel S, Barkovich AJ. *AJNR* 2002; van Dijk T, Baas F, Barth PG, Poll-The BT. What's new in pontocerebellar hypoplasia? An update on genes and subtypes. *Orphanet J Rare Dis.* 2018;13(1):92. doi:10.1186/s13023-018-0826-2.
 
 ### Case PCH2 — Isolated small pons at 30 weeks (THRESHOLD-DERIVED)
 
@@ -1575,7 +1575,7 @@ The `small_pons` card fires when pons AP z < –1.645. Combined with vermis or T
 | (others) | filler | normal |
 
 `small_pons` fires alone. `pch_pattern` does *not* fire because TCD and vermis are preserved (a strong negative discriminator from PCH).
-**Citation.** Dovjak GO et al. 2021 [35] (cited as the calculator's normative source); van Dijk 2018 [34] for clinical interpretation.
+**Citation.** Dovjak GO et al. 2021 (cited as the calculator's normative source); van Dijk 2018 for clinical interpretation.
 
 ### Case PCH3 — Severe pontocerebellar hypoplasia at 24 weeks (early-onset PCH1 phenotype)
 
@@ -1589,7 +1589,7 @@ The `small_pons` card fires when pons AP z < –1.645. Combined with vermis or T
 | (others) | filler | normal |
 
 `small_pons`, `small_tcd`, `vermian_hypoplasia` fire; **`pch_pattern`** fires.
-**Citation.** Namavar Y, Barth PG, Kasher PR, et al. Clinical, neuroradiological and genetic findings in pontocerebellar hypoplasia. *Brain.* 2011;134(Pt 1):143–156. doi:10.1093/brain/awq287 [36].
+**Citation.** Namavar Y, Barth PG, Kasher PR, et al. Clinical, neuroradiological and genetic findings in pontocerebellar hypoplasia. *Brain.* 2011;134(Pt 1):143–156. doi:10.1093/brain/awq287.
 
 ### Case PCH4 — Borderline-small pons at 28 weeks (negative control)
 
@@ -1600,7 +1600,7 @@ The `small_pons` card fires when pons AP z < –1.645. Combined with vermis or T
 | (others) | filler | normal |
 
 `small_pons` should *not* fire (z above –1.645). Boundary verification.
-**Citation.** Dovjak 2021 [35].
+**Citation.** Dovjak 2021.
 
 ### Case PCH5 — PCH with associated mild VM at 28 weeks
 
@@ -1615,7 +1615,7 @@ The `small_pons` card fires when pons AP z < –1.645. Combined with vermis or T
 | (others) | filler | normal |
 
 `mild_ventriculomegaly`, `small_pons`, `small_tcd`, `vermian_hypoplasia`, **`pch_pattern`** fire.
-**Citation.** van Dijk 2018 [34].
+**Citation.** van Dijk 2018.
 
 ### Case PCH6 — Isolated small pons at 32 weeks with normal TCD/vermis — discriminator from PCH
 
@@ -1628,7 +1628,7 @@ The `small_pons` card fires when pons AP z < –1.645. Combined with vermis or T
 | (others) | filler | normal |
 
 `small_pons` fires alone. `pch_pattern` does *not* fire (preserved TCD and vermis are inconsistent with classical PCH). The IMPRESSION should suggest "isolated brainstem (pontine) hypoplasia — non-PCH; consider PMM2-CDG and other isolated brainstem disorders."
-**Citation.** Poretti A, Boltshauser E, Doherty D. Cerebellar hypoplasia: differential diagnosis and diagnostic approach. *Am J Med Genet C Semin Med Genet.* 2014;166C(2):211–226. doi:10.1002/ajmg.c.31398 [37].
+**Citation.** Poretti A, Boltshauser E, Doherty D. Cerebellar hypoplasia: differential diagnosis and diagnostic approach. *Am J Med Genet C Semin Med Genet.* 2014;166C(2):211–226. doi:10.1002/ajmg.c.31398.
 
 ---
 
@@ -1645,7 +1645,7 @@ The `pons_large` card fires when pons AP z > +1.645. Rare; associations include 
 | (others) | filler | normal |
 
 `pons_large` fires.
-**Citation.** Dovjak 2021 [35].
+**Citation.** Dovjak 2021.
 
 ### Case LP2 — Large pons + macrocephaly at 32 weeks (overgrowth pattern)
 
@@ -1657,7 +1657,7 @@ The `pons_large` card fires when pons AP z > +1.645. Rare; associations include 
 | (others) | filler | normal |
 
 `pons_large`, `macrocephaly_pattern` fire.
-**Citation.** Bosemani 2015 [27].
+**Citation.** Bosemani 2015.
 
 ### Case LP3 — Borderline-large pons at 30 weeks (negative control)
 
@@ -1679,7 +1679,7 @@ The `pons_large` card fires when pons AP z > +1.645. Rare; associations include 
 | (others) | filler | normal |
 
 `pons_large`, `large_tcd` fire.
-**Citation.** Bosemani 2015 [27].
+**Citation.** Bosemani 2015.
 
 ### Case LP5 — Large pons at 36 weeks, isolated
 
@@ -1721,7 +1721,7 @@ The `microcephaly_pattern` card fires when skull BPD and HC are both < 3rd perce
 | (others) | filler | normal |
 
 `microcephaly_pattern` fires.
-**Citation.** Pei R, Wang G, Wang Y, et al. Diagnostic and prognostic value of fetal magnetic resonance imaging in the assessment of microcephaly. *J Matern Fetal Neonatal Med.* 2024;37(1):2299109. doi:10.1080/14767058.2023.2299109 [38].
+**Citation.** Pei R, Wang G, Wang Y, et al. Diagnostic and prognostic value of fetal magnetic resonance imaging in the assessment of microcephaly. *J Matern Fetal Neonatal Med.* 2024;37(1):2299109. doi:10.1080/14767058.2023.2299109.
 
 ### Case MC2 — Microcephaly with associated cerebellar hypoplasia at 30 weeks (PCH/MCPH-spectrum)
 
@@ -1736,7 +1736,7 @@ The `microcephaly_pattern` card fires when skull BPD and HC are both < 3rd perce
 | (others) | filler | normal |
 
 `microcephaly_pattern`, `small_tcd`, `vermian_hypoplasia`, `small_pons`, **`pch_pattern`** fire.
-**Citation.** Pei 2024 [38]; van Dijk 2018 [34].
+**Citation.** Pei 2024; van Dijk 2018.
 
 ### Case MC3 — Severe microcephaly with monoventricle, fused thalami, absent CSP/CC (alobar HPE)
 
@@ -1765,7 +1765,7 @@ Cross-reference: see §16, Case HPE1. `microcephaly_pattern`, `severe_ventriculo
 | (others) | filler | normal |
 
 `microcephaly_pattern`, `mild_ventriculomegaly` fire. The qualitative findings of periventricular cysts, calcifications, and germinolytic cysts are radiologist-toggled add-ons; the IMPRESSION should suggest CMV.
-**Citation.** Cannie MM, Devlieger R, Leyder M, et al. Congenital cytomegalovirus infection: contribution and best timing of prenatal MR imaging. *Eur Radiol.* 2016;26(10):3760–3769. doi:10.1007/s00330-015-4187-0 [39].
+**Citation.** Cannie MM, Devlieger R, Leyder M, et al. Congenital cytomegalovirus infection: contribution and best timing of prenatal MR imaging. *Eur Radiol.* 2016;26(10):3760–3769. doi:10.1007/s00330-015-4187-0.
 
 ### Case MC6 — Severe IUGR-associated symmetric microcephaly at 30 weeks
 
@@ -1778,7 +1778,7 @@ Cross-reference: see §16, Case HPE1. `microcephaly_pattern`, `severe_ventriculo
 | (others) | filler | normal |
 
 `microcephaly_pattern` fires. The IMPRESSION should distinguish from primary microcephaly by referencing growth-restriction context entered by the user.
-**Citation.** Pei 2024 [38].
+**Citation.** Pei 2024.
 
 ---
 
@@ -1797,7 +1797,7 @@ The `macrocephaly_pattern` card fires when skull BPD and HC are both > 97th perc
 | (others) | filler | normal |
 
 `macrocephaly_pattern` fires.
-**Citation.** Bosemani 2015 [27].
+**Citation.** Bosemani 2015.
 
 ### Case MA2 — Macrocephaly secondary to severe hydrocephalus (cross-reference)
 
@@ -1814,7 +1814,7 @@ Cross-reference: see §4, Case S1 (severe VM + macrocephaly + 3rd-V dilatation, 
 | (others) | filler | normal |
 
 `macrocephaly_pattern`, `cc_thick` fire — overgrowth-syndrome combined pattern.
-**Citation.** Garel 2011 [28]; Bosemani 2015 [27].
+**Citation.** Garel 2011; Bosemani 2015.
 
 ### Case MA4 — Borderline macrocephaly (z = +1.7) at 30 weeks (negative control)
 
@@ -1839,7 +1839,7 @@ Cross-reference: see §4, Case S1 (severe VM + macrocephaly + 3rd-V dilatation, 
 | (others) | filler | normal |
 
 `macrocephaly_pattern`, `cc_thick`, `large_tcd`, `pons_large` fire — strongly suggests an overgrowth syndrome (Sotos / BWS / PIK3CA-related overgrowth).
-**Citation.** Bosemani 2015 [27].
+**Citation.** Bosemani 2015.
 
 ### Case MA6 — Macrocephaly with severe VM and dilated 3rd-V (aqueductal stenosis / triventricular hydrocephalus, cross-reference)
 
@@ -1864,7 +1864,7 @@ The `third_ventricle_dilatation` card fires when 3rd-V width > 3.5 mm. The Hertz
 | (others) | filler | normal |
 
 `severe_ventriculomegaly`, `third_ventricle_dilatation`, **`aqueductal_stenosis_pattern`** fire.
-**Citation.** Hertzberg BS, Kliewer MA, Freed KS, et al. Third ventricle: size and appearance in normal fetuses through gestation. *Radiology.* 1997;203(3):641–644. doi:10.1148/radiology.203.3.9169681 [40].
+**Citation.** Hertzberg BS, Kliewer MA, Freed KS, et al. Third ventricle: size and appearance in normal fetuses through gestation. *Radiology.* 1997;203(3):641–644. doi:10.1148/radiology.203.3.9169681.
 
 ### Case TV2 — Isolated third ventricle dilatation at 30 weeks (rare)
 
@@ -1877,7 +1877,7 @@ The `third_ventricle_dilatation` card fires when 3rd-V width > 3.5 mm. The Hertz
 | (others) | filler | normal |
 
 `third_ventricle_dilatation` fires. The IMPRESSION should suggest "isolated third ventricle prominence — uncommon; consider early aqueductal stenosis or measurement-technique error; recommend short-interval follow-up."
-**Citation.** Hertzberg 1997 [40].
+**Citation.** Hertzberg 1997.
 
 ### Case TV3 — Third ventricle prominence at boundary (3.6 mm) at 32 weeks
 
@@ -1915,7 +1915,7 @@ Cross-reference: see §16, HPE alobar cases. In alobar HPE, the third ventricle 
 | (others) | filler | normal |
 
 `severe_ventriculomegaly`, `third_ventricle_dilatation`, `macrocephaly_pattern`, **`aqueductal_stenosis_pattern`** fire.
-**Citation.** Heaphy-Henault 2018 [7].
+**Citation.** Heaphy-Henault 2018.
 
 ---
 
@@ -1941,7 +1941,7 @@ Cross-reference: see §4, Case S1. All four pattern-defining features are presen
 | (others) | filler | normal |
 
 `mild_ventriculomegaly`, `third_ventricle_dilatation` fire. **`aqueductal_stenosis_pattern`** may *or may not* fire depending on whether the calculator requires *severe* VM — per SPEC.md §4.6, the pattern requires "atrial > 95th + third ventricle > 3.5 mm + preserved CSP" without requiring severe VM specifically. Expected behaviour: `aqueductal_stenosis_pattern` fires.
-**Citation.** Heaphy-Henault 2018 [7].
+**Citation.** Heaphy-Henault 2018.
 
 ### Case AS-P3 — Severe VM with absent CSP — negative control for aqueductal stenosis (the absent CSP rules out aqueductal stenosis and points instead to ACC/HPE)
 
@@ -1955,7 +1955,7 @@ Cross-reference: see §4, Case S1. All four pattern-defining features are presen
 | (others) | filler | normal |
 
 `severe_ventriculomegaly`, `csp_absent`, `third_ventricle_dilatation` fire. **`aqueductal_stenosis_pattern`** should *not* fire (CSP absent breaks the pattern). Negative-control verification.
-**Citation.** Heaphy-Henault 2018 [7].
+**Citation.** Heaphy-Henault 2018.
 
 ### Case AS-P4 — Severe VM with normal 3rd-V — negative control for aqueductal stenosis
 
@@ -1983,7 +1983,7 @@ Cross-reference: see §4, Case S1. All four pattern-defining features are presen
 | (others) | filler | normal |
 
 `severe_ventriculomegaly`, `third_ventricle_dilatation`, `macrocephaly_pattern`, **`aqueductal_stenosis_pattern`** fire.
-**Citation.** Heaphy-Henault 2018 [7].
+**Citation.** Heaphy-Henault 2018.
 
 ### Case AS-P6 — Aqueductal stenosis at 36 weeks with very severe progression
 
@@ -1998,7 +1998,7 @@ Cross-reference: see §4, Case S1. All four pattern-defining features are presen
 | (others) | filler | normal |
 
 `severe_ventriculomegaly`, `third_ventricle_dilatation`, `macrocephaly_pattern`, **`aqueductal_stenosis_pattern`** fire. Late-gestation severe progression.
-**Citation.** Heaphy-Henault 2018 [7].
+**Citation.** Heaphy-Henault 2018.
 
 ---
 
@@ -2021,7 +2021,7 @@ The `chiari_ii_open_ntd` card fires when CSA z < –2 AND TDPF z < –2 AND the 
 | (others) | filler | normal |
 
 `small_tcd`, `vermian_hypoplasia` (CC component), **`chiari_ii_open_ntd`** fire.
-**Citation.** Aertsen 2019 [12].
+**Citation.** Aertsen 2019.
 
 ### Case CII2 — Aertsen 2019 post-op (post-fetal-surgery) at 30 weeks (COHORT-MEAN)
 
@@ -2034,7 +2034,7 @@ The `chiari_ii_open_ntd` card fires when CSA z < –2 AND TDPF z < –2 AND the 
 | (others) | filler | normal |
 
 `chiari_ii_open_ntd` may *or may not* fire depending on whether CSA crosses back above the threshold; if Mahalanobis posterior < 0.5, the card does not fire — verifying the post-surgical normalisation.
-**Citation.** Aertsen 2019 [12].
+**Citation.** Aertsen 2019.
 
 ### Case CII3 — Severe Chiari II at 24 weeks (COHORT-MEAN)
 
@@ -2054,7 +2054,7 @@ The `chiari_ii_open_ntd` card fires when CSA z < –2 AND TDPF z < –2 AND the 
 | (others) | filler | normal |
 
 `mild_ventriculomegaly`, `small_tcd`, `vermian_hypoplasia`, `small_pons`, **`chiari_ii_open_ntd`** fire.
-**Citation.** Aertsen 2019 [12]; D'Addario V, Pinto V, Del Bianco A, et al. The clivus-supraocciput angle: a useful measurement to evaluate the shape and size of the fetal posterior fossa and to diagnose Chiari II malformation. *Ultrasound Obstet Gynecol.* 2001;18(2):146–149. doi:10.1046/j.1469-0705.2001.00472.x [41].
+**Citation.** Aertsen 2019; D'Addario V, Pinto V, Del Bianco A, et al. The clivus-supraocciput angle: a useful measurement to evaluate the shape and size of the fetal posterior fossa and to diagnose Chiari II malformation. *Ultrasound Obstet Gynecol.* 2001;18(2):146–149. doi:10.1046/j.1469-0705.2001.00472.x.
 
 ### Case CII4 — Chiari II at 32 weeks with severe hydrocephalus (combined pattern)
 
@@ -2073,7 +2073,7 @@ The `chiari_ii_open_ntd` card fires when CSA z < –2 AND TDPF z < –2 AND the 
 | (others) | filler | normal |
 
 `severe_ventriculomegaly`, `third_ventricle_dilatation`, `macrocephaly_pattern`, `aqueductal_stenosis_pattern`, `small_tcd`, `vermian_hypoplasia`, **`chiari_ii_open_ntd`** fire — multi-pattern fixture verifying the engine handles overlapping triggers.
-**Citation.** Aertsen 2019 [12]; Heaphy-Henault 2018 [7].
+**Citation.** Aertsen 2019; Heaphy-Henault 2018.
 
 ### Case CII5 — Chiari II with normal CSA — negative control
 
@@ -2087,7 +2087,7 @@ The `chiari_ii_open_ntd` card fires when CSA z < –2 AND TDPF z < –2 AND the 
 | (others) | filler | normal |
 
 `small_tcd` fires; `chiari_ii_open_ntd` does *not* fire (CSA is normal, breaking the pattern). Negative-control verification.
-**Citation.** D'Addario 2001 [41].
+**Citation.** D'Addario 2001.
 
 ### Case CII6 — Subtle Chiari II at 22 weeks (early presentation, before crowding fully develops)
 
@@ -2101,7 +2101,7 @@ The `chiari_ii_open_ntd` card fires when CSA z < –2 AND TDPF z < –2 AND the 
 | (others) | filler | normal |
 
 `chiari_ii_open_ntd` may fire only if Mahalanobis posterior ≥ 0.5 — depends on the specific calibration; the case is included to test the boundary behaviour of the Mahalanobis classifier.
-**Citation.** Aertsen 2019 [12].
+**Citation.** Aertsen 2019.
 
 ---
 
@@ -2121,7 +2121,7 @@ The `hemispheric_asymmetry` card fires when the difference between the two cereb
 | (others) | filler | normal |
 
 `hemispheric_asymmetry`, `mild_ventriculomegaly` (right), `asymmetric_ventricles` fire. Combined pattern strongly suggests right-hemisphere encephaloclastic insult.
-**Citation.** Barzilay 2017 [6]; Garel 2004 [2].
+**Citation.** Barzilay 2017; Garel 2004.
 
 ### Case HA2 — Left-hemisphere schizencephaly at 26 weeks
 
@@ -2135,7 +2135,7 @@ The `hemispheric_asymmetry` card fires when the difference between the two cereb
 | (others) | filler | normal |
 
 `hemispheric_asymmetry`, `mild_ventriculomegaly` (left), `asymmetric_ventricles` fire.
-**Citation.** Barzilay 2017 [6].
+**Citation.** Barzilay 2017.
 
 ### Case HA3 — Bilateral but asymmetric atrophy at 30 weeks
 
@@ -2149,7 +2149,7 @@ The `hemispheric_asymmetry` card fires when the difference between the two cereb
 | (others) | filler | normal |
 
 Brain-volume-loss + `mild_ventriculomegaly` + `asymmetric_ventricles` fire; `hemispheric_asymmetry` may or may not fire depending on whether the Δ exceeds the threshold (5 mm at 30 w is ~ 2 SD).
-**Citation.** Garel 2004 [2].
+**Citation.** Garel 2004.
 
 ### Case HA4 — Symmetric brain (negative control) at 28 weeks
 
@@ -2185,7 +2185,7 @@ Brain-volume-loss + `mild_ventriculomegaly` + `asymmetric_ventricles` fire; `hem
 | (others) | filler | normal |
 
 `hemispheric_asymmetry`, `severe_ventriculomegaly` (right), `asymmetric_ventricles` fire.
-**Citation.** Barzilay 2017 [6].
+**Citation.** Barzilay 2017.
 
 ---
 
@@ -2204,7 +2204,7 @@ The `extra_axial_widened` card fires when the extra-axial CSF space exceeds the 
 | (others) | filler | normal |
 
 `extra_axial_widened` fires. The IMPRESSION should suggest "external hydrocephalus / benign macrocrania of infancy — typically self-resolving."
-**Citation.** Kyriakopoulou V, Vatansever D, Davidson A, et al. Normative biometry of the fetal brain using magnetic resonance imaging. *Brain Struct Funct.* 2017;222(5):2295–2307. doi:10.1007/s00429-016-1342-6 [42].
+**Citation.** Kyriakopoulou V, Vatansever D, Davidson A, et al. Normative biometry of the fetal brain using magnetic resonance imaging. *Brain Struct Funct.* 2017;222(5):2295–2307. doi:10.1007/s00429-016-1342-6.
 
 ### Case EA2 — Brain-volume-loss pattern at 30 weeks (post-CMV)
 
@@ -2219,7 +2219,7 @@ The `extra_axial_widened` card fires when the extra-axial CSF space exceeds the 
 | (others) | filler | normal |
 
 `microcephaly_pattern`, `mild_ventriculomegaly`, `extra_axial_widened` fire — combined "brain volume loss" pattern. The IMPRESSION should suggest CMV or other intrauterine destructive insult.
-**Citation.** Cannie 2016 [39]; Kyriakopoulou 2017 [42].
+**Citation.** Cannie 2016; Kyriakopoulou 2017.
 
 ### Case EA3 — Borderline extra-axial space (negative control) at 30 weeks
 
@@ -2257,7 +2257,7 @@ Cross-reference: see §8 Blake's pouch cases. Mega cisterna magna may co-present
 | (others) | filler | normal |
 
 `extra_axial_widened`, `macrocephaly_pattern` fire. Likely benign external hydrocephalus.
-**Citation.** Kyriakopoulou 2017 [42].
+**Citation.** Kyriakopoulou 2017.
 
 ---
 
@@ -2347,7 +2347,7 @@ These cases stress-test specific aspects of the engine's arithmetic and the repo
 | Third ventricle | 1.7 mm filler | normal raw threshold |
 
 No DDx card fires. Every z-scored measurement should report z = 0.0 ± 0.05; the third ventricle should remain a raw-threshold auxiliary value with no z-score output. Tests the engine's arithmetic with no rounding noise.
-**Citation.** Source registry §7.3 of SPEC.md (Luis 2025 [4], Dovjak 2021 [35], Woitek 2014 [43]) and Hertzberg 1997 [40] for the raw third-ventricle threshold.
+**Citation.** Source registry §7.3 of SPEC.md (Luis 2025, Dovjak 2021, Woitek 2014) and Hertzberg 1997 for the raw third-ventricle threshold.
 
 ### Case STRESS2 — Lowest-supported GA (18 w) — confirms GA-bounds extrapolation flagging
 
@@ -2359,7 +2359,7 @@ No DDx card fires. Every z-scored measurement should report z = 0.0 ± 0.05; the
 | All others | filler | mostly extrapolated |
 
 The engine should fire no DDx cards because all values are within μ ± 1.645σ, but every parameter row should display the **extrapolated-band** flag (per SPEC.md §4.2.4).
-**Citation.** Luis 2025 [4] valid 20–40 w; Dovjak 2021 [35] valid 18–35 w; the third ventricle remains a raw-threshold auxiliary input.
+**Citation.** Luis 2025 valid 20–40 w; Dovjak 2021 valid 18–35 w; the third ventricle remains a raw-threshold auxiliary input.
 
 ### Case STRESS3 — Highest-supported GA (40 w) — confirms upper-bound behaviour
 

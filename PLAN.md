@@ -1009,3 +1009,10 @@
 - Update the SPEC §7.4 manifest introduction to state the implemented qualitative policy for estimate-only likelihood rows.
 - Replace stale Dandy-Walker citation-correction language with source-definition guidance and keep numeric estimates out of report-output claims.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## TEST.md Citation-Line Index Cleanup Increment
+
+- Add source-document coverage that `**Citation.**` lines do not carry stale numeric reference brackets.
+- Remove bracketed reference indices from citation lines while preserving author/year/DOI/PMID text.
+- Leave the end-of-file source inventory untouched to avoid a large bibliography rewrite.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.
