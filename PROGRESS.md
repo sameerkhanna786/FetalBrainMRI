@@ -1153,3 +1153,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check package.json PLAN.md client/src/lib/client-shell.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.9 Stateless Toaster Theme Increment
+
+- Added client-shell coverage proving the package does not declare `next-themes` or import it from client source.
+- Switched the toast component to the app's stateless local `ThemeContext`.
+- Removed the `next-themes` dependency so theme state cannot reintroduce browser persistence through an unused provider package.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 94 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check package.json PLAN.md client/src/lib/client-shell.test.ts client/src/components/ui/sonner.tsx` passes after formatting `client/src/lib/client-shell.test.ts`.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

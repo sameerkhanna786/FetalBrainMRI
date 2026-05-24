@@ -526,3 +526,9 @@
 - Add client-shell coverage proving the package does not declare Google Maps integration or type packages.
 - Remove the unused `@types/google.maps` dependency left after deleting the Google Maps component.
 - Preserve citation links while keeping executable and typed Maps integration surfaces out of the project.
+
+## SPEC 4.9 Stateless Toaster Theme Increment
+
+- Add client-shell coverage proving the package does not declare `next-themes` or import it from client source.
+- Switch the toast component to the app's stateless local `ThemeContext`.
+- Remove the `next-themes` dependency so theme state cannot reintroduce browser persistence through an unused provider package.
