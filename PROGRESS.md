@@ -1,3 +1,19 @@
+## 2026-05-23, Reader-Study Protocol Handoff Increment
+
+- Added `reader_study_protocol.md` as the implementation-side handoff packet for the radiologist reader study.
+- Covered IRB / QI determination, waiver of consent, no-PHI calculator use, de-identification workflow, secure re-identification crosswalk, two-week washout, counter-balanced reading order, pilot-case exclusion, reader-study timing, report-completeness endpoint, recommendation congruence, NASA Task Load Index, System Usability Scale, and analysis-table schema.
+- Linked the protocol from `publication_handoff_checklist.md`.
+- Updated `source_verification_dossier.md` to mark the implementation side of the IRB / radiologist handoff protocol as prepared while preserving local PI submission as clinician-owned.
+
+Verification:
+
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 175 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md reader_study_protocol.md publication_handoff_checklist.md source_verification_dossier.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, Validation Metrics Utility Increment
 
 - Added `client/src/lib/validation-metrics.ts` for analyst handoff of manuscript-grade validation endpoints: Brier score, ROC-AUC, PR-AUC, locked-threshold sensitivity / specificity, calibration-in-the-large, calibration slope, and decision-curve net benefit.

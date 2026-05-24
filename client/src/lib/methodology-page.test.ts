@@ -117,6 +117,37 @@ describe("publication handoff checklist", () => {
   });
 });
 
+describe("reader-study protocol handoff", () => {
+  it("captures the IRB, de-identification, timing, usability, and report-quality fields radiologists need", () => {
+    const protocol = readFileSync(
+      resolve(process.cwd(), "reader_study_protocol.md"),
+      "utf8"
+    );
+    const checklist = readFileSync(
+      resolve(process.cwd(), "publication_handoff_checklist.md"),
+      "utf8"
+    );
+    const dossier = readFileSync(
+      resolve(process.cwd(), "source_verification_dossier.md"),
+      "utf8"
+    );
+
+    expect(protocol).toContain("IRB / QI determination");
+    expect(protocol).toContain("waiver of consent");
+    expect(protocol).toContain("de-identification workflow");
+    expect(protocol).toContain("secure re-identification crosswalk");
+    expect(protocol).toContain("two-week washout");
+    expect(protocol).toContain("counter-balanced");
+    expect(protocol).toContain("reader-study timing");
+    expect(protocol).toContain("NASA Task Load Index");
+    expect(protocol).toContain("System Usability Scale");
+    expect(protocol).toContain("report-completeness endpoint");
+    expect(checklist).toContain("reader_study_protocol.md");
+    expect(dossier).toContain("reader_study_protocol.md");
+    expect(dossier).toContain("Prepared");
+  });
+});
+
 describe("SPEC §4.8 clinical integration workflow", () => {
   it("surfaces the Epic Radiant launch path, SMART deferral, and PowerScribe paste workflow", () => {
     const source = readFileSync(

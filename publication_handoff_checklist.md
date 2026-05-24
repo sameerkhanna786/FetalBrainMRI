@@ -34,6 +34,7 @@ reviewer expectation to a manuscript section, Required evidence, and Owner.
 | source_verification_dossier.md       | Open source checks, publication blockers, and clinical-reliance caveats.                                                                                   | Implementation + radiologists |
 | PROGRESS.md                          | Change history and command-level verification evidence.                                                                                                    | Implementation                |
 | client/src/lib/validation-metrics.ts | Reusable helpers for ROC-AUC, PR-AUC, locked-threshold sensitivity / specificity, Brier score, calibration summary, and decision-curve net benefit tables. | Implementation + analyst      |
+| reader_study_protocol.md             | IRB / QI, de-identification, reader-study timing, report-completeness, NASA Task Load Index, System Usability Scale, and handoff schema.                   | Implementation + radiologists |
 | Exported validation results          | FeTA, institutional, calibration, decision-curve, and reader-study tables once data are available.                                                         | Analyst                       |
 
 ## Go / No-Go Summary

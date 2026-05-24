@@ -210,6 +210,12 @@
 - Implement a deterministic validation metrics helper for analyst handoff, with explicit rejection of one-class or out-of-range prediction inputs.
 - Link the helper from the publication handoff checklist and rerun full tests, typecheck, formatting, and production build before committing.
 
+## Reader-study protocol handoff increment
+
+- Add coverage that a reader-study protocol artifact exists with IRB / QI determination, waiver-of-consent, de-identification, two-week washout, NASA-TLX, SUS, and report-completeness fields.
+- Create the protocol as a radiologist handoff packet and link it from the publication checklist.
+- Update the verification dossier to show the implementation side is prepared while local IRB / QI approval remains clinician-owned.
+
 ## Isolated third-ventricle report increment
 
 - Add Vitest coverage for TEST.md §21 Case TV2: isolated third-ventricle dilatation at 30w0d should fire `third-v-wide` without ventriculomegaly or aqueductal-stenosis cards.
