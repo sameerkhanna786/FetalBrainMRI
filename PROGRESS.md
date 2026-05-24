@@ -1387,3 +1387,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/validation-page.test.ts client/src/pages/Validation.tsx` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 6.2 FeTA Cohort Composition Increment
+
+- Added Validation-page coverage for the SPEC §6.2 FeTA 2024 external cohort composition.
+- Surfaced the 300 super-resolution T2 volumes across five named sites, three field strengths, and four vendor classes.
+- Documented the neurotypical/pathological split and named pathology categories used for external validation.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 111 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/validation-page.test.ts client/src/pages/Validation.tsx` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

@@ -193,6 +193,26 @@ export default function Validation() {
         <section className="mt-14">
           <div className="smallcaps text-[color:var(--ink-soft)]">§ 0.1</div>
           <h2 className="font-display text-[28px] mt-1">
+            FeTA 2024 external cohort
+          </h2>
+          <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
+            FeTA 2024 provides {"300 super-resolution-reconstructed T2 volumes"}{" "}
+            across five sites: Kispi, Medical University of Vienna, CHUV,{" "}
+            {"UCSF Benioff"}, and {"King's College London"}. The acquisition
+            spread includes {"0.55 T, 1.5 T, and 3 T"} scanners and{" "}
+            {"Siemens, GE, Philips, and Siemens Free.Max"} vendor classes.
+          </p>
+          <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
+            The external cohort includes approximately {"130 pathological"} and{" "}
+            {"170 neurotypical"} cases, with recruited categories including
+            ventriculomegaly, corpus callosum malformations,{" "}
+            {"posterior-fossa malformations"}, and open spina bifida.
+          </p>
+        </section>
+
+        <section className="mt-14">
+          <div className="smallcaps text-[color:var(--ink-soft)]">§ 0.2</div>
+          <h2 className="font-display text-[28px] mt-1">
             FeTA 2024 validation endpoints
           </h2>
           <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
@@ -205,7 +225,7 @@ export default function Validation() {
         </section>
 
         <section className="mt-14">
-          <div className="smallcaps text-[color:var(--ink-soft)]">§ 0.2</div>
+          <div className="smallcaps text-[color:var(--ink-soft)]">§ 0.3</div>
           <h2 className="font-display text-[28px] mt-1">
             Institutional validation cohort
           </h2>
@@ -224,7 +244,7 @@ export default function Validation() {
         </section>
 
         <section className="mt-14">
-          <div className="smallcaps text-[color:var(--ink-soft)]">§ 0.3</div>
+          <div className="smallcaps text-[color:var(--ink-soft)]">§ 0.4</div>
           <h2 className="font-display text-[28px] mt-1">
             Dataset cross-reference
           </h2>
@@ -244,7 +264,7 @@ export default function Validation() {
         </section>
 
         <section className="mt-14">
-          <div className="smallcaps text-[color:var(--ink-soft)]">§ 0.4</div>
+          <div className="smallcaps text-[color:var(--ink-soft)]">§ 0.5</div>
           <h2 className="font-display text-[28px] mt-1">Validation timeline</h2>
           <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
             External validation starts with the Synapse Data Access Request and

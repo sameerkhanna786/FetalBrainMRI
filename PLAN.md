@@ -634,3 +634,9 @@
 - Add Validation-page coverage for the SPEC §6.1 validation philosophy.
 - Surface the measurement-layer versus interpretation-layer distinction and the Phase 1 interpretation-only scope.
 - Document that validation requires both internal and external cohorts, with expert ground-truth measurements anchoring interpretation-layer agreement.
+
+## SPEC 6.2 FeTA Cohort Composition Increment
+
+- Add Validation-page coverage for the SPEC §6.2 FeTA 2024 external cohort composition.
+- Surface the 300 super-resolution T2 volumes across five named sites, three field strengths, and four vendor classes.
+- Document the neurotypical/pathological split and named pathology categories used for external validation.
