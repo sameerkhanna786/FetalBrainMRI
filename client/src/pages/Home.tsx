@@ -401,14 +401,14 @@ export default function Home() {
               onClick={handleClear}
               className="text-xs smallcaps text-[color:var(--ink-soft)] hover:text-[color:var(--ink)] transition-colors flex items-center gap-1.5 px-2 py-1 border border-[color:var(--rule)] rounded-sm"
             >
-              <RotateCcw className="h-3 w-3" /> Clear
+              <RotateCcw className="h-3 w-3" /> Clear All
             </button>
             <button
               onClick={handleCopy}
               className="text-xs smallcaps text-[color:var(--paper)] bg-[color:var(--teal)] hover:bg-[color:var(--ink)] transition-colors flex items-center gap-1.5 px-3 py-1.5 rounded-sm"
             >
               <Copy className="h-3 w-3" />
-              <span className="hidden sm:inline">Copy report</span>
+              <span className="hidden sm:inline">Copy to Clipboard</span>
               <span className="sm:hidden">Copy</span>
             </button>
             <Link

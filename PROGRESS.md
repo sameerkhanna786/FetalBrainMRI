@@ -1192,3 +1192,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/clipboard.ts client/src/lib/clipboard.test.ts client/src/pages/Home.tsx` passes after formatting `client/src/lib/clipboard.test.ts`.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.4 Workflow Button Label Increment
+
+- Added source-level UI coverage for the SPEC-required `Copy to Clipboard` and `Clear All` workflow labels.
+- Updated the top-bar copy button label from `Copy report` to `Copy to Clipboard`.
+- Updated the worksheet reset button label from `Clear` to `Clear All` without changing behavior.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 97 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/workflow-ui.test.ts client/src/pages/Home.tsx` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

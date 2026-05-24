@@ -544,3 +544,9 @@
 - Add focused coverage for the PowerScribe copy path using a clipboard abstraction that only accepts plain text.
 - Preserve report line breaks exactly when writing to the clipboard.
 - Wire the existing Copy to Clipboard button through the tested helper without changing report generation.
+
+## SPEC 4.4 Workflow Button Label Increment
+
+- Add source-level UI coverage for the SPEC-required `Copy to Clipboard` and `Clear All` workflow labels.
+- Update the top-bar copy button label from `Copy report` to `Copy to Clipboard`.
+- Update the worksheet reset button label from `Clear` to `Clear All` without changing behavior.
