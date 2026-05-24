@@ -12,6 +12,8 @@ import {
   computeFleissKappa,
   computeIntraclassCorrelation,
   computeReaderStudyCrossoverSummary,
+  computeRawNasaTaskLoadIndex,
+  computeSystemUsabilityScale,
 } from "./validation-metrics";
 
 describe("publication validation metrics", () => {
@@ -151,6 +153,21 @@ describe("publication validation metrics", () => {
         },
       ])
     ).toThrow("duplicate without_tool row");
+
+    expect(() =>
+      computeRawNasaTaskLoadIndex({
+        mentalDemand: 80,
+        physicalDemand: 10,
+        temporalDemand: 70,
+        performance: 20,
+        effort: 60,
+        frustration: 101,
+      })
+    ).toThrow("between 0 and 100");
+
+    expect(() =>
+      computeSystemUsabilityScale([5, 4, 5, 4, 5, 4, 5, 4, 5])
+    ).toThrow("10 Likert items");
   });
 
   it("computes per-parameter agreement and Bland-Altman summaries", () => {
@@ -366,5 +383,22 @@ describe("publication validation metrics", () => {
     expect(metrics.icc).toBeCloseTo(190 / 192, 6);
     expect(metrics.meanSquares.rows).toBeCloseTo(191.1666667, 6);
     expect(metrics.meanSquares.error).toBeCloseTo(1.1666667, 6);
+  });
+
+  it("computes reader-study usability scores for NASA TLX and SUS", () => {
+    const nasaTlx = computeRawNasaTaskLoadIndex({
+      mentalDemand: 80,
+      physicalDemand: 10,
+      temporalDemand: 70,
+      performance: 20,
+      effort: 60,
+      frustration: 40,
+    });
+    const sus = computeSystemUsabilityScale([5, 1, 5, 1, 4, 2, 5, 1, 4, 2]);
+
+    expect(nasaTlx.rawScore).toBeCloseTo(46.666667, 6);
+    expect(nasaTlx.subscales.mentalDemand).toBe(80);
+    expect(sus.score).toBe(90);
+    expect(sus.itemContributions).toEqual([4, 4, 4, 4, 3, 3, 4, 4, 3, 3]);
   });
 });

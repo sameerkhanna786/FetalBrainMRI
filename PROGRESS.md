@@ -1,3 +1,22 @@
+## 2026-05-24, Reader-Study Usability Scoring Increment
+
+- Added failing-first validation-metrics coverage for raw NASA Task Load Index and System Usability Scale scoring.
+- Implemented `computeRawNasaTaskLoadIndex` as the mean of the six raw TLX subscales with 0-100 validation.
+- Implemented `computeSystemUsabilityScale` using the standard ten-item odd/even contribution formula with 1-5 Likert validation.
+- Updated the publication handoff checklist and source verification dossier so the reader-study packet points analysts at reusable TLX/SUS scoring helpers.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/validation-metrics.test.ts` failed before implementation because `computeRawNasaTaskLoadIndex` and `computeSystemUsabilityScale` were missing.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/validation-metrics.test.ts` passes with 212 tests.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/validation-metrics.test.ts client/src/lib/methodology-page.test.ts` passes with 212 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 212 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md publication_handoff_checklist.md source_verification_dossier.md client/src/lib/validation-metrics.ts client/src/lib/validation-metrics.test.ts client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Reader-Study Delta Confidence Interval Increment
 
 - Added failing-first validation-metrics coverage that paired reader-study crossover summaries include confidence intervals for timing, completeness, and z-score-documentation deltas.

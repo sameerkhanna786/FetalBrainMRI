@@ -137,6 +137,25 @@ export interface ReaderStudyCrossoverSummary {
   pairedDeltas: ReaderStudyPairedDelta[];
 }
 
+export interface NasaTaskLoadIndexSubscales {
+  mentalDemand: number;
+  physicalDemand: number;
+  temporalDemand: number;
+  performance: number;
+  effort: number;
+  frustration: number;
+}
+
+export interface NasaTaskLoadIndexScore {
+  rawScore: number;
+  subscales: NasaTaskLoadIndexSubscales;
+}
+
+export interface SystemUsabilityScaleScore {
+  score: number;
+  itemContributions: number[];
+}
+
 export type ReaderLabel = string | number | boolean;
 
 export interface CohenKappaPair {
@@ -826,6 +845,63 @@ const computeMeanConfidenceInterval = (
     lower: estimate - margin,
     upper: estimate + margin,
     confidenceLevel,
+  };
+};
+
+const assertBoundedScore = (
+  name: string,
+  value: number,
+  minimum: number,
+  maximum: number
+) => {
+  if (!Number.isFinite(value) || value < minimum || value > maximum) {
+    throw new Error(
+      `${name} must be a finite value between ${minimum} and ${maximum}`
+    );
+  }
+};
+
+export const computeRawNasaTaskLoadIndex = (
+  subscales: NasaTaskLoadIndexSubscales
+): NasaTaskLoadIndexScore => {
+  const values = [
+    subscales.mentalDemand,
+    subscales.physicalDemand,
+    subscales.temporalDemand,
+    subscales.performance,
+    subscales.effort,
+    subscales.frustration,
+  ];
+  values.forEach((value, index) =>
+    assertBoundedScore(`NASA TLX subscale ${index + 1}`, value, 0, 100)
+  );
+
+  return {
+    rawScore: mean(values),
+    subscales,
+  };
+};
+
+export const computeSystemUsabilityScale = (
+  responses: number[]
+): SystemUsabilityScaleScore => {
+  if (responses.length !== 10) {
+    throw new Error("System Usability Scale requires 10 Likert items");
+  }
+
+  const itemContributions = responses.map((response, index) => {
+    if (!Number.isInteger(response) || response < 1 || response > 5) {
+      throw new Error(
+        "System Usability Scale items must be integers from 1 to 5"
+      );
+    }
+
+    return index % 2 === 0 ? response - 1 : 5 - response;
+  });
+
+  return {
+    score: itemContributions.reduce((sum, value) => sum + value, 0) * 2.5,
+    itemContributions,
   };
 };
 

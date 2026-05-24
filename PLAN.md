@@ -1236,3 +1236,10 @@
 - Implement t-based mean-difference confidence intervals for paired numeric reader-study endpoints.
 - Update handoff docs so exported reader-study tables include paired delta estimates with confidence intervals.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Reader-Study Usability Scoring Increment
+
+- Add failing-first validation-metrics coverage for raw NASA Task Load Index and System Usability Scale scoring.
+- Implement deterministic scoring helpers with input validation for six NASA TLX subscales and ten SUS Likert items.
+- Update handoff docs so the reader-study packet points analysts at reusable usability-score helpers rather than spreadsheet-only formulas.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.
