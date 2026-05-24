@@ -46,7 +46,7 @@ checked against the runtime schema.
 | cohort                       | yes         | `feta_2024`, `institutional`, `reader_study`, or `report_audit`.                                                                             |
 | site_id                      | yes         | De-identified site key; use `single_site` if only one institution.                                                                           |
 | scanner_vendor               | yes         | Vendor label or `unknown`.                                                                                                                   |
-| field_strength_t             | yes         | Numeric Tesla value such as `0.55`, `1.5`, or `3`.                                                                                           |
+| field_strength_t             | yes         | Positive numeric Tesla value such as `0.55`, `1.5`, or `3`.                                                                                  |
 | svr_method                   | yes         | `none`, `clinical_svr`, `research_svr`, or `unknown`.                                                                                        |
 | image_quality_tier           | yes         | `diagnostic`, `motion_limited`, `nondiagnostic`, or local locked categories.                                                                 |
 | ga_weeks                     | yes         | Integer gestational age weeks at MRI.                                                                                                        |

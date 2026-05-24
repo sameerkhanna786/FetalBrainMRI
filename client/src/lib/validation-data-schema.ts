@@ -95,7 +95,12 @@ export const VALIDATION_DATA_SCHEMAS: Record<
       { name: "cohort", required: "yes", allowedValues: COHORT_VALUES },
       { name: "site_id", required: "yes" },
       { name: "scanner_vendor", required: "yes" },
-      { name: "field_strength_t", required: "yes", numeric: true, min: 0 },
+      {
+        name: "field_strength_t",
+        required: "yes",
+        numeric: true,
+        exclusiveMin: 0,
+      },
       { name: "svr_method", required: "yes", allowedValues: SVR_METHOD_VALUES },
       { name: "image_quality_tier", required: "yes" },
       {

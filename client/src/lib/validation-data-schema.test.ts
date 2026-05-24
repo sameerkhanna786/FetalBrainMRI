@@ -329,6 +329,30 @@ describe("validation data export schema guard", () => {
     );
   });
 
+  it("rejects nonpositive case-log scanner field strengths", () => {
+    expect(
+      validateValidationDataRows("case_log.csv", [
+        {
+          study_id: "S1",
+          cohort: "institutional",
+          site_id: "single_site",
+          scanner_vendor: "unknown",
+          field_strength_t: 0,
+          svr_method: "none",
+          image_quality_tier: "diagnostic",
+          ga_weeks: 28,
+          ga_days: 0,
+          included: true,
+          reference_standard_available: true,
+          prediction_available: true,
+          pathology_label_available: true,
+        },
+      ])
+    ).toContain(
+      "case_log.csv row 1 field field_strength_t must be greater than 0"
+    );
+  });
+
   it("rejects reader-study washouts shorter than the locked two-week interval", () => {
     expect(
       validateValidationDataRows("reader_study_rows.csv", [

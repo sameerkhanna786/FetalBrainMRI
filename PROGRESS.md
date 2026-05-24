@@ -1,3 +1,21 @@
+## 2026-05-24, Case-Log Field Strength Positivity Guard Increment
+
+- Added failing-first coverage for `case_log.csv` rows with zero Tesla scanner field strength.
+- Applied exclusive lower-bound validation to `field_strength_t` so scanner metadata used for subgroup analysis must be positive.
+- Updated `validation_data_dictionary.md` to document field strength as a positive numeric Tesla value.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "field strengths"` failed before implementation because `field_strength_t=0` produced no schema errors.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "field strengths"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 23 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 268 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Reader-Study SUS Integer Guard Increment
 
 - Added failing-first coverage for fractional System Usability Scale item responses in `reader_study_rows.csv`.

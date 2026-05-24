@@ -1601,3 +1601,10 @@
 - Mark `sus_item_1` through `sus_item_10` as integer validation fields so Likert responses stay scoreable.
 - Update the data dictionary to document SUS responses as integer 1-5 items.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Case-Log Field Strength Positivity Guard Increment
+
+- Add failing-first coverage for `case_log.csv` rows with zero Tesla field strength.
+- Apply the existing exclusive lower-bound validation metadata to `field_strength_t`.
+- Update the data dictionary so scanner field strength is documented as a positive Tesla value.
+- Update the audit/progress trail, then run targeted/full gates before committing.
