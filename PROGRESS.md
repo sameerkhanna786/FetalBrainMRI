@@ -1,3 +1,20 @@
+## 2026-05-24, TEST Mild-VM Fixture Filler Consistency Increment
+
+- Added failing-first source-document coverage that parses TEST.md cases M1-M6, evaluates them with the runtime engine, and verifies near-zero normal filler rows plus intended mild/moderate VM and asymmetry card behavior.
+- Recalibrated the non-VM filler rows in M1-M6 to active registry-mean values while preserving the clinically abnormal atrial measurements.
+- Corrected M2 and M4 expectations from mild VM to moderate VM to match the runtime 12.1-14.9 mm trigger.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before implementation because the M1-M6 normal filler rows still carried stale nonzero values.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 227 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 227 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, TEST Normal-Control Runtime Consistency Increment
 
 - Added failing-first source-document coverage that parses TEST.md normal controls N1-N6, evaluates their numeric rows with the runtime engine, and verifies no DDx cards plus near-zero rounded z-scores.

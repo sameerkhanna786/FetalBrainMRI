@@ -366,6 +366,80 @@ describe("publication-readiness source-document consistency", () => {
     }
   });
 
+  it("keeps TEST.md mild-VM fixtures free of stale normal filler values", () => {
+    const testCorpus = readFileSync(resolve(process.cwd(), "TEST.md"), "utf8");
+    const parameterLabels = new Map([
+      ["Skull BPD", "skull_bpd"],
+      ["Skull OFD", "skull_ofd"],
+      ["Brain BPD", "brain_bpd"],
+      ["Brain OFD-L", "brain_ofd_left"],
+      ["Brain OFD-R", "brain_ofd_right"],
+      ["Atrium-R", "atrial_right"],
+      ["Atrium-L", "atrial_left"],
+      ["CSP", "csp_width"],
+      ["CC", "cc_length"],
+      ["TCD", "tcd"],
+      ["Vermis CC", "vermis_cc"],
+      ["Vermis AP", "vermis_ap"],
+      ["Pons AP", "pons_ap"],
+    ]);
+    const expectations = [
+      ["M1", ["mild-vm"], ["severe-vm", "asym-vent"]],
+      ["M2", ["mod-vm"], ["severe-vm", "mild-vm"]],
+      ["M3", ["mild-vm", "asym-vent"], ["severe-vm"]],
+      ["M4", ["mod-vm"], ["severe-vm", "mild-vm", "asym-vent"]],
+      ["M5", ["mild-vm", "asym-vent"], ["severe-vm"]],
+      ["M6", ["mild-vm"], ["severe-vm", "asym-vent"]],
+    ] as const;
+
+    for (const [caseId, expectedDxIds, forbiddenDxIds] of expectations) {
+      const start = testCorpus.indexOf(`### Case ${caseId} `);
+      expect(start).toBeGreaterThanOrEqual(0);
+      const nextCase = testCorpus.indexOf("\n### Case ", start + 1);
+      const caseText = testCorpus.slice(start, nextCase);
+      const values: Record<string, number> = {};
+      const normalParameterIds: string[] = [];
+      let ga: { weeks: number; days: number } | null = null;
+
+      for (const rawLine of caseText.split("\n")) {
+        if (!rawLine.startsWith("|")) continue;
+        const [label, rawValue, expectedBand] = rawLine
+          .split("|")
+          .slice(1, -1)
+          .map(cell => cell.replaceAll("**", "").trim());
+
+        if (label === "GA") {
+          const match = rawValue.match(/(\d+) w (\d+) d/);
+          expect(match).not.toBeNull();
+          ga = { weeks: Number(match![1]), days: Number(match![2]) };
+          continue;
+        }
+
+        const parameterId = parameterLabels.get(label);
+        if (!parameterId) continue;
+        const valueMatch = rawValue.match(/(-?\d+(?:\.\d+)?)\s*mm/);
+        if (!valueMatch) continue;
+        values[parameterId] = Number(valueMatch[1]);
+        if (expectedBand.toLowerCase().includes("normal")) {
+          normalParameterIds.push(parameterId);
+        }
+      }
+
+      expect(ga).not.toBeNull();
+      const { zs, dxs } = evaluateAll(values, ga!);
+      const dxIds = dxs.map(dx => dx.id);
+      for (const expectedDxId of expectedDxIds) {
+        expect(dxIds).toContain(expectedDxId);
+      }
+      for (const forbiddenDxId of forbiddenDxIds) {
+        expect(dxIds).not.toContain(forbiddenDxId);
+      }
+      for (const parameterId of normalParameterIds) {
+        expect(Math.abs(zs[parameterId]!.z)).toBeLessThan(0.12);
+      }
+    }
+  });
+
   it("locks Aertsen 2019 citation metadata to the PMC AJNR article", () => {
     const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
     const testCorpus = readFileSync(resolve(process.cwd(), "TEST.md"), "utf8");

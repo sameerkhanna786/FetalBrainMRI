@@ -1316,3 +1316,9 @@
 - Recalibrate the normal-control tables to active registry-mean values so they truly emit no DDx cards and all z-scored rows remain near z = 0 after rounding.
 - Update the normal-control source note so arithmetic controls are not presented as independent external-validation cases.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## TEST Mild-VM Fixture Filler Consistency Increment
+
+- Add failing-first source-document coverage that parses TEST.md cases M1-M6 and verifies normal filler rows are near runtime z = 0 while the intended mild-VM/asymmetry cards fire.
+- Recalibrate the non-VM filler rows in M1-M6 to active registry-mean values without changing the clinically abnormal atrial measurements.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

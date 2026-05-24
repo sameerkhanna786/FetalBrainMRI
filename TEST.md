@@ -220,19 +220,19 @@ The calculator's `mild_ventriculomegaly` card fires when either atrial-R or atri
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 24 w 0 d | — |
-| Skull BPD | 60.6 mm | normal |
-| Skull OFD | 84.5 mm | normal |
-| Brain BPD | 58.4 mm | normal |
-| Brain OFD-L | 79.5 mm | normal |
-| Brain OFD-R | 79.6 mm | normal |
+| Skull BPD | 61.5 mm | normal |
+| Skull OFD | 74.2 mm | normal |
+| Brain BPD | 50.6 mm | normal |
+| Brain OFD-L | 65.1 mm | normal |
+| Brain OFD-R | 65.1 mm | normal |
 | **Atrium-R** | **11.0 mm** | **>95th** |
 | **Atrium-L** | **11.0 mm** | **>95th** |
-| CSP | 3.4 mm (present) | normal |
-| CC | 24.0 mm (present) | normal |
-| TCD | 27.6 mm | normal |
-| Vermis CC | 12.4 mm | normal |
-| Vermis AP | 5.8 mm | normal |
-| Pons AP | 7.5 mm | normal |
+| CSP | 7.1 mm (present) | normal |
+| CC | 26.2 mm (present) | normal |
+| TCD | 25.6 mm | normal |
+| Vermis CC | 11.3 mm | normal |
+| Vermis AP | 7.7 mm | normal |
+| Pons AP | 7.9 mm | normal |
 | Third ventricle | 1.5 mm | normal |
 
 **Expected DDx cards that should fire:** `mild_ventriculomegaly` (both atrium-R and atrium-L row references).
@@ -245,22 +245,22 @@ The calculator's `mild_ventriculomegaly` card fires when either atrial-R or atri
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 32 w 0 d | — |
-| Skull BPD | 89.3 mm | normal |
-| Skull OFD | 117.8 mm | normal |
-| Brain BPD | 87.4 mm | normal |
-| Brain OFD-L | 110.6 mm | normal |
-| Brain OFD-R | 110.7 mm | normal |
+| Skull BPD | 83.9 mm | normal |
+| Skull OFD | 100.9 mm | normal |
+| Brain BPD | 71.8 mm | normal |
+| Brain OFD-L | 91.9 mm | normal |
+| Brain OFD-R | 91.9 mm | normal |
 | **Atrium-R** | **14.5 mm** | **>95th** |
 | **Atrium-L** | **14.5 mm** | **>95th** |
-| CSP | 5.0 mm | normal |
-| CC | 39.2 mm | normal |
-| TCD | 41.4 mm | normal |
-| Vermis CC | 19.4 mm | normal |
-| Vermis AP | 8.7 mm | normal |
-| Pons AP | 11.5 mm | normal |
+| CSP | 7.6 mm | normal |
+| CC | 36.6 mm | normal |
+| TCD | 39.5 mm | normal |
+| Vermis CC | 18.0 mm | normal |
+| Vermis AP | 12.6 mm | normal |
+| Pons AP | 11.2 mm | normal |
 | Third ventricle | 1.8 mm | normal |
 
-**Expected DDx cards that should fire:** `mild_ventriculomegaly`. Card prose should note that atrial dimensions are "approaching the severe threshold (15 mm)" and that follow-up imaging is warranted to detect progression.
+**Expected DDx cards that should fire:** `moderate_ventriculomegaly`. Card prose should note that atrial dimensions are "approaching the severe threshold (15 mm)" and that follow-up imaging is warranted to detect progression.
 **Expected DDx cards that should not fire:** `severe_ventriculomegaly` (atrial < 15.0 mm).
 **Boundary behaviour to test.** This case sits 0.5 mm below the severe-VM threshold; a +0.5 mm perturbation should push both rows into `severe_ventriculomegaly`. This boundary is the highest-risk classification edge in the entire DDx table.
 **Citation.** Norton ME, Fox NS, Monteagudo A, Kuller JA, Craigo S; Society for Maternal-Fetal Medicine (SMFM). Fetal Ventriculomegaly. *Am J Obstet Gynecol.* 2020;223(6):B30–B33. doi:10.1016/j.ajog.2020.08.182. SMFM 2020 establishes the 10 / 15 mm dichotomy as the prenatal-care standard.
@@ -270,18 +270,18 @@ The calculator's `mild_ventriculomegaly` card fires when either atrial-R or atri
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 28 w 0 d | — |
-| Skull BPD | 75.5 mm | normal |
-| Skull OFD | 102.6 mm | normal |
-| Brain BPD | 73.2 mm | normal |
-| Brain OFD-L | 97.1 mm | normal |
-| Brain OFD-R | 97.2 mm | normal |
+| Skull BPD | 73.5 mm | normal |
+| Skull OFD | 89.1 mm | normal |
+| Brain BPD | 60.9 mm | normal |
+| Brain OFD-L | 79.7 mm | normal |
+| Brain OFD-R | 79.7 mm | normal |
 | **Atrium-R** | **12.0 mm** | **>95th** |
-| Atrium-L | 7.4 mm | normal |
-| CSP | 4.4 mm | normal |
+| Atrium-L | 6.9 mm | normal |
+| CSP | 7.6 mm | normal |
 | CC | 32.5 mm | normal |
-| TCD | 34.5 mm | normal |
-| Vermis CC | 16.0 mm | normal |
-| Vermis AP | 7.3 mm | normal |
+| TCD | 32.5 mm | normal |
+| Vermis CC | 14.8 mm | normal |
+| Vermis AP | 10.2 mm | normal |
 | Pons AP | 9.5 mm | normal |
 | Third ventricle | 1.7 mm | normal |
 
@@ -296,21 +296,21 @@ The calculator's `mild_ventriculomegaly` card fires when either atrial-R or atri
 |---|---|---|
 | GA | 26 w 0 d | — |
 | Skull BPD | 67.7 mm | normal |
-| Skull OFD | 93.3 mm | normal |
-| Brain BPD | 65.5 mm | normal |
-| Brain OFD-L | 88.0 mm | normal |
-| Brain OFD-R | 88.1 mm | normal |
+| Skull OFD | 82.0 mm | normal |
+| Brain BPD | 55.7 mm | normal |
+| Brain OFD-L | 72.7 mm | normal |
+| Brain OFD-R | 72.7 mm | normal |
 | **Atrium-R** | **13.5 mm** | **>95th** |
 | **Atrium-L** | **13.5 mm** | **>95th** |
-| CSP | 3.9 mm | normal |
-| CC | 28.0 mm | normal |
-| TCD | 31.0 mm | normal |
-| Vermis CC | 14.2 mm | normal |
-| Vermis AP | 6.5 mm | normal |
-| Pons AP | 8.5 mm | normal |
+| CSP | 7.4 mm | normal |
+| CC | 29.6 mm | normal |
+| TCD | 29.0 mm | normal |
+| Vermis CC | 13.0 mm | normal |
+| Vermis AP | 9.0 mm | normal |
+| Pons AP | 8.7 mm | normal |
 | Third ventricle | 1.6 mm | normal |
 
-**Expected DDx cards that should fire:** `mild_ventriculomegaly` (10–14.9 mm range; prose should note "moderate" qualification at ≥ 12 mm).
+**Expected DDx cards that should fire:** `moderate_ventriculomegaly` (12.1–14.9 mm range).
 **Expected DDx cards that should not fire:** `severe_ventriculomegaly`, `asymmetric_ventricles` (Δ = 0 mm).
 **Citation.** Barzilay 2017. The paper's mild-vs-moderate-vs-severe ventriculomegaly subgrouping uses 10–11.9 / 12–14.9 / ≥ 15 mm; the 13.5 mm value is the midpoint of the moderate sub-band.
 
@@ -319,19 +319,19 @@ The calculator's `mild_ventriculomegaly` card fires when either atrial-R or atri
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 22 w 0 d | — |
-| Skull BPD | 53.0 mm | normal |
-| Skull OFD | 75.0 mm | normal |
-| Brain BPD | 51.0 mm | normal |
-| Brain OFD-L | 70.0 mm | normal |
-| Brain OFD-R | 70.0 mm | normal |
+| Skull BPD | 54.8 mm | normal |
+| Skull OFD | 65.5 mm | normal |
+| Brain BPD | 45.6 mm | normal |
+| Brain OFD-L | 56.8 mm | normal |
+| Brain OFD-R | 56.8 mm | normal |
 | **Atrium-R** | **10.5 mm** | **>95th** |
-| Atrium-L | 6.7 mm | normal |
-| CSP | 3.0 mm | normal |
-| CC | 19.5 mm | normal |
-| TCD | 24.5 mm | normal |
-| Vermis CC | 10.5 mm | normal |
-| Vermis AP | 5.0 mm | normal |
-| Pons AP | 6.5 mm | normal |
+| Atrium-L | 7.7 mm | normal |
+| CSP | 6.6 mm | normal |
+| CC | 22.2 mm | normal |
+| TCD | 22.2 mm | normal |
+| Vermis CC | 9.4 mm | normal |
+| Vermis AP | 6.3 mm | normal |
+| Pons AP | 7.2 mm | normal |
 | Third ventricle | 1.4 mm | normal |
 
 **Expected DDx cards that should fire:** `mild_ventriculomegaly` (right), `asymmetric_ventricles` (Δ = 3.8 mm).
@@ -342,19 +342,19 @@ The calculator's `mild_ventriculomegaly` card fires when either atrial-R or atri
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 30 w 0 d | — |
-| Skull BPD | 82.5 mm | normal |
-| Skull OFD | 110.0 mm | normal |
-| Brain BPD | 80.0 mm | normal |
-| Brain OFD-L | 104.0 mm | normal |
-| Brain OFD-R | 104.0 mm | normal |
+| Skull BPD | 78.9 mm | normal |
+| Skull OFD | 95.4 mm | normal |
+| Brain BPD | 66.3 mm | normal |
+| Brain OFD-L | 86.1 mm | normal |
+| Brain OFD-R | 86.1 mm | normal |
 | **Atrium-R** | **11.5 mm** | **>95th** |
 | **Atrium-L** | **10.0 mm** | **>95th** |
-| CSP | 4.7 mm | normal |
-| CC | 36.0 mm | normal |
-| TCD | 38.5 mm | normal |
-| Vermis CC | 18.0 mm | normal |
-| Vermis AP | 8.0 mm | normal |
-| Pons AP | 10.5 mm | normal |
+| CSP | 7.7 mm | normal |
+| CC | 34.9 mm | normal |
+| TCD | 36.0 mm | normal |
+| Vermis CC | 16.4 mm | normal |
+| Vermis AP | 11.4 mm | normal |
+| Pons AP | 10.4 mm | normal |
 | Third ventricle | 1.7 mm | normal |
 
 **Expected DDx cards that should fire:** `mild_ventriculomegaly` on both rows. `asymmetric_ventricles` should *not* fire because Δ = 1.5 mm < 2 mm.
