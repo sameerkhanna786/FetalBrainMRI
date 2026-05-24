@@ -70,6 +70,14 @@ describe("SPEC §4.3 Python/FastAPI architecture scaffold", () => {
     expect(core).toContain("def zscore");
   });
 
+  it("scaffolds scipy curve fitting for offline centile-table registry builds", () => {
+    const core = read("python_app/biometry.py");
+
+    expect(core).toContain("from scipy.optimize import curve_fit");
+    expect(core).toContain("fit_per_percentile_linear_table");
+    expect(core).toContain("fit_linear_mean_constant_sd_table");
+  });
+
   it("provides a lightweight Docker deployment artifact for the FastAPI scaffold", () => {
     const dockerfilePath = resolve(process.cwd(), "Dockerfile");
 

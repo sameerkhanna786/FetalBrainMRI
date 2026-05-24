@@ -832,3 +832,9 @@
 - Add packaging coverage that the Docker `pip install .` path has PEP 517 build-system metadata.
 - Declare the setuptools build backend in `pyproject.toml`.
 - Keep the deployment artifact aligned with the FastAPI scaffold.
+
+## SPEC 4.3 Python Centile-Table Fit Scaffold Increment
+
+- Add architecture coverage for the offline `scipy.optimize.curve_fit` registry-build path.
+- Provide Python helpers that fit per-week 5th/95th centile tables into the supported per-percentile linear family.
+- Provide a companion helper for per-week mean/SD tables using the linear-mean constant-SD family.

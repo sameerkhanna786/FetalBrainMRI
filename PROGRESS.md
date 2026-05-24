@@ -1820,3 +1820,17 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/architecture.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.3 Python Centile-Table Fit Scaffold Increment
+
+- Added architecture coverage for the offline `scipy.optimize.curve_fit` registry-build path.
+- Provided Python helpers that fit per-week 5th/95th centile tables into the supported per-percentile linear family.
+- Provided a companion helper for per-week mean/SD tables using the linear-mean constant-SD family.
+
+Verification:
+
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 149 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/architecture.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
