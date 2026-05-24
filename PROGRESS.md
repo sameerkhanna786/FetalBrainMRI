@@ -1569,3 +1569,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/biometry.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 7.4 Hydrocephalus-Pattern Likelihood Qualitative Increment
+
+- Added DDx coverage for the SPEC §7.4 hydrocephalus combined-pattern likelihood manifest.
+- Confirmed the hydrocephalus-pattern card no longer surfaces estimate-only numeric percentages.
+- Replaced the aqueductal-stenosis, L1CAM, and posterior-fossa/Chiari II likelihood labels with qualitative wording.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 125 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/biometry.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

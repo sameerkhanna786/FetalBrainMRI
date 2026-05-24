@@ -718,3 +718,9 @@
 - Add DDx coverage for the SPEC §7.4 macrocephaly likelihood manifest.
 - Confirm the macrocephaly card no longer surfaces estimate-only numeric percentages.
 - Replace the hydrocephalus, benign familial macrocephaly, megalencephaly, and tumor/cyst likelihood labels with qualitative wording.
+
+## SPEC 7.4 Hydrocephalus-Pattern Likelihood Qualitative Increment
+
+- Add DDx coverage for the SPEC §7.4 hydrocephalus combined-pattern likelihood manifest.
+- Confirm the hydrocephalus-pattern card no longer surfaces estimate-only numeric percentages.
+- Replace the aqueductal-stenosis, L1CAM, and posterior-fossa/Chiari II likelihood labels with qualitative wording.

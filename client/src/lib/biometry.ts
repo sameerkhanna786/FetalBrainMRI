@@ -3004,17 +3004,17 @@ const CARDS: CardSpec[] = [
     rows: [
       {
         dx: "Aqueductal stenosis",
-        likelihood: "~70%",
+        likelihood: "Most common",
         rationale: "Classic pattern.",
       },
       {
         dx: "X-linked hydrocephalus (L1CAM)",
-        likelihood: "~5–10%",
+        likelihood: "Rare",
         rationale: "Especially in male fetuses with adducted thumbs.",
       },
       {
         dx: "Posterior fossa mass / Chiari II",
-        likelihood: "~10%",
+        likelihood: "Minority",
         rationale: "Re-examine posterior fossa.",
       },
     ],

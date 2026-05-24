@@ -873,6 +873,30 @@ describe("SPEC §7.4 macrocephaly likelihood manifest", () => {
   });
 });
 
+describe("SPEC §7.4 hydrocephalus-pattern likelihood manifest", () => {
+  it("qualitative-labels the estimate-only hydrocephalus combined-pattern rows", () => {
+    const ga = { weeks: 26, days: 0 };
+    const values = {
+      atrial_right: 18,
+      atrial_left: 18,
+      csp_width: 3.9,
+      cc_length: 28,
+      third_ventricle: 4.5,
+    };
+    const { dxs } = evaluateAll(values, ga);
+    const hydrocephalus = dxs.find(dx => dx.id === "hydrocephalus-pattern");
+
+    expect(hydrocephalus?.rows.map(row => row.likelihood)).toEqual([
+      "Most common",
+      "Rare",
+      "Minority",
+    ]);
+    expect(
+      hydrocephalus?.rows.map(row => row.likelihood).join(" ")
+    ).not.toMatch(/~70|~5|~10/);
+  });
+});
+
 describe("aqueductal-stenosis pattern report impression", () => {
   it("uses the TEST.md Case S1 triventricular hydrocephalus impression line", () => {
     const ga = { weeks: 26, days: 0 };
