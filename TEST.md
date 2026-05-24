@@ -1334,7 +1334,7 @@ The `csp_absent` card fires for CSP absence with CC preserved. Isolated absent C
 |---|---|---|
 | GA | 32 w 0 d | — |
 | CSP | absent | special-cased |
-| CC | 39.2 mm | normal |
+| CC | 36.6 mm | normal |
 | (others) | filler | normal |
 
 `csp_absent` fires; no other DDx cards. Negative control for `acc_pattern` and `hpe_pattern`.
@@ -1350,7 +1350,7 @@ Cross-reference: see §11, Case A1. `csp_absent`, `cc_absent`, `mild_ventriculom
 |---|---|---|
 | GA | 24 w 0 d | — |
 | CSP | absent | special-cased |
-| CC | 24.0 mm | normal |
+| CC | 26.2 mm | normal |
 | (others) | filler | normal |
 
 `csp_absent` fires.

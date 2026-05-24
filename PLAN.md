@@ -1391,3 +1391,10 @@
 - Recalibrate stale high-CC, macrocephaly, pons, and TCD rows so threshold-derived +2 SD comments and the TC3 negative control match active runtime thresholds.
 - Update the residual TEST corpus numeric audit blocker count after the thick-CC section is reconciled.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## TEST Absent-CSP Fixture Runtime Consistency Increment
+
+- Add failing-first source-document coverage that parses TEST.md cases CSP-A1-CSP-A4 and CSP-A6 and verifies isolated absent-CSP, VM, ACC, HPE, short-CC, and thick-CC behavior against the runtime engine.
+- Recalibrate stale normal-CC rows in absent-CSP fixtures so negative controls do not accidentally fire CC-thick, CC-short, or ACC-pattern cards.
+- Update the residual TEST corpus numeric audit blocker count after the absent-CSP section is reconciled.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.
