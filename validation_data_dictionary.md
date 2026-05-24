@@ -19,9 +19,10 @@ Before metrics are computed, export rows should be checked with
 contains the required fields documented below, catch blank required values,
 enforce high-risk conditional fields such as exclusion and missingness reasons,
 check locked enum values such as reader-study condition and report-audit phase,
-reject non-finite or out-of-range numeric values, ensure exported rows reference
-known `case_log.csv` study IDs, and require paired `without_tool` / `with_tool`
-reader-study rows before downstream analysis code runs.
+reject non-boolean tokens in `true` / `false` fields, reject non-finite or
+out-of-range numeric values, ensure exported rows reference known `case_log.csv`
+study IDs, and require paired `without_tool` / `with_tool` reader-study rows
+before downstream analysis code runs.
 
 Starter CSV header templates live in `validation_export_templates/` and are
 checked against the runtime schema.
@@ -106,7 +107,7 @@ and one `with_tool` row before paired deltas are computed.
 | duration_sec              | yes         | Reading or reporting duration in seconds.                |
 | completeness_score        | yes         | Locked rubric score, same scale in both conditions.      |
 | zscore_documentation_rate | yes         | Fraction 0-1 of required z-scores documented.            |
-| recommendation_congruent  | yes         | `true`, `false`, or blank if not applicable.             |
+| recommendation_congruent  | conditional | `true`, `false`, or blank if not applicable.             |
 | categorical_label         | optional    | Reader's final categorical diagnostic label for kappa.   |
 | continuous_measurement    | optional    | Repeated continuous measurement for ICC(2,1).            |
 | nasa_tlx_mental_demand    | conditional | NASA Task Load Index 0-100 subscale.                     |

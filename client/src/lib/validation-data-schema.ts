@@ -38,6 +38,8 @@ export const VALIDATION_DATA_FILE_ORDER: ValidationDataFileName[] = [
   "report_audit_rows.csv",
 ];
 
+const BOOLEAN_VALUES = ["true", "false"] as const;
+
 export const VALIDATION_DATA_SCHEMAS: Record<
   ValidationDataFileName,
   ValidationDataFileSchema
@@ -54,11 +56,23 @@ export const VALIDATION_DATA_SCHEMAS: Record<
       { name: "image_quality_tier", required: "yes" },
       { name: "ga_weeks", required: "yes", numeric: true, min: 0 },
       { name: "ga_days", required: "yes", numeric: true, min: 0, max: 6 },
-      { name: "included", required: "yes" },
+      { name: "included", required: "yes", allowedValues: BOOLEAN_VALUES },
       { name: "exclusion_reason", required: "conditional" },
-      { name: "reference_standard_available", required: "yes" },
-      { name: "prediction_available", required: "yes" },
-      { name: "pathology_label_available", required: "yes" },
+      {
+        name: "reference_standard_available",
+        required: "yes",
+        allowedValues: BOOLEAN_VALUES,
+      },
+      {
+        name: "prediction_available",
+        required: "yes",
+        allowedValues: BOOLEAN_VALUES,
+      },
+      {
+        name: "pathology_label_available",
+        required: "yes",
+        allowedValues: BOOLEAN_VALUES,
+      },
     ],
   },
   "measurement_rows.csv": {
@@ -70,7 +84,11 @@ export const VALIDATION_DATA_SCHEMAS: Record<
       { name: "reader_id", required: "conditional" },
       { name: "value_mm", required: "conditional", numeric: true },
       { name: "value_deg", required: "conditional", numeric: true },
-      { name: "measurement_available", required: "yes" },
+      {
+        name: "measurement_available",
+        required: "yes",
+        allowedValues: BOOLEAN_VALUES,
+      },
       { name: "missing_reason", required: "conditional" },
       { name: "image_quality_tier", required: "yes" },
       { name: "acquisition_site", required: "optional" },
@@ -81,8 +99,16 @@ export const VALIDATION_DATA_SCHEMAS: Record<
     columns: [
       { name: "study_id", required: "yes" },
       { name: "trigger_id", required: "yes" },
-      { name: "reference_label", required: "yes" },
-      { name: "predicted_label", required: "yes" },
+      {
+        name: "reference_label",
+        required: "yes",
+        allowedValues: BOOLEAN_VALUES,
+      },
+      {
+        name: "predicted_label",
+        required: "yes",
+        allowedValues: BOOLEAN_VALUES,
+      },
       {
         name: "predicted_probability",
         required: "conditional",
@@ -91,7 +117,7 @@ export const VALIDATION_DATA_SCHEMAS: Record<
         max: 1,
       },
       { name: "threshold", required: "yes", numeric: true, min: 0, max: 1 },
-      { name: "indeterminate", required: "yes" },
+      { name: "indeterminate", required: "yes", allowedValues: BOOLEAN_VALUES },
       { name: "indeterminate_reason", required: "conditional" },
     ],
   },
@@ -116,7 +142,11 @@ export const VALIDATION_DATA_SCHEMAS: Record<
         min: 0,
         max: 1,
       },
-      { name: "recommendation_congruent", required: "yes" },
+      {
+        name: "recommendation_congruent",
+        required: "conditional",
+        allowedValues: BOOLEAN_VALUES,
+      },
       { name: "categorical_label", required: "optional" },
       { name: "continuous_measurement", required: "optional", numeric: true },
       {
@@ -255,9 +285,21 @@ export const VALIDATION_DATA_SCHEMAS: Record<
         numeric: true,
         min: 0,
       },
-      { name: "explicit_zscore_documented", required: "yes" },
-      { name: "explicit_percentile_documented", required: "yes" },
-      { name: "recommendation_congruent", required: "conditional" },
+      {
+        name: "explicit_zscore_documented",
+        required: "yes",
+        allowedValues: BOOLEAN_VALUES,
+      },
+      {
+        name: "explicit_percentile_documented",
+        required: "yes",
+        allowedValues: BOOLEAN_VALUES,
+      },
+      {
+        name: "recommendation_congruent",
+        required: "conditional",
+        allowedValues: BOOLEAN_VALUES,
+      },
     ],
   },
 };

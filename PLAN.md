@@ -1496,3 +1496,10 @@
 - Extend validation-data column schemas with minimum and maximum bounds for high-risk numeric fields.
 - Implement generic range validation so malformed exports fail before metrics, calibration, or reader-study scoring runs.
 - Update the data dictionary and audit/progress trail, then run targeted/full gates before committing.
+
+## Validation Boolean Token Guard Increment
+
+- Add failing-first coverage so validation export fields documented as booleans reject tokens such as `yes`, `no`, or `unknown`.
+- Align reader-study `recommendation_congruent` with the documented blank-if-not-applicable contract.
+- Add boolean allowed-value metadata to case-log, measurement, diagnostic-label, reader-study, and report-audit schemas.
+- Update the data dictionary and audit/progress trail, then run targeted/full gates before committing.

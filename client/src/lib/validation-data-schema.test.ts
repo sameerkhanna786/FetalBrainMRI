@@ -302,6 +302,68 @@ describe("validation data export schema guard", () => {
     );
   });
 
+  it("rejects invalid boolean tokens and allows blank recommendation congruence when not applicable", () => {
+    expect(
+      validateValidationDataRows("case_log.csv", [
+        {
+          study_id: "S1",
+          cohort: "institutional",
+          site_id: "single_site",
+          scanner_vendor: "unknown",
+          field_strength_t: 1.5,
+          svr_method: "none",
+          image_quality_tier: "diagnostic",
+          ga_weeks: 28,
+          ga_days: 0,
+          included: "yes",
+          reference_standard_available: "unknown",
+          prediction_available: "no",
+          pathology_label_available: true,
+        },
+      ])
+    ).toEqual(
+      expect.arrayContaining([
+        "case_log.csv row 1 field included must be one of true, false",
+        "case_log.csv row 1 field reference_standard_available must be one of true, false",
+        "case_log.csv row 1 field prediction_available must be one of true, false",
+      ])
+    );
+
+    expect(
+      validateValidationDataRows("diagnostic_labels.csv", [
+        {
+          study_id: "S1",
+          trigger_id: "mild-vm",
+          reference_label: "positive",
+          predicted_label: "negative",
+          threshold: 0.5,
+          indeterminate: "no",
+        },
+      ])
+    ).toEqual(
+      expect.arrayContaining([
+        "diagnostic_labels.csv row 1 field reference_label must be one of true, false",
+        "diagnostic_labels.csv row 1 field predicted_label must be one of true, false",
+        "diagnostic_labels.csv row 1 field indeterminate must be one of true, false",
+      ])
+    );
+
+    expect(
+      validateValidationDataRows("reader_study_rows.csv", [
+        {
+          reader_id: "R1",
+          study_id: "S1",
+          condition: "without_tool",
+          read_order: 1,
+          washout_days: 14,
+          duration_sec: 300,
+          completeness_score: 0.8,
+          zscore_documentation_rate: 0.75,
+        },
+      ])
+    ).toEqual([]);
+  });
+
   it("validates cross-file study IDs and reader-study pair completeness", () => {
     expect(
       validateValidationDataExport({

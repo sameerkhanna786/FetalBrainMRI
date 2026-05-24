@@ -1,3 +1,21 @@
+## 2026-05-24, Validation Boolean Token Guard Increment
+
+- Added failing-first coverage requiring `true` / `false` fields in validation exports to reject tokens such as `yes`, `no`, `unknown`, `positive`, and `negative`.
+- Added boolean allowed-value metadata to case-log, measurement, diagnostic-label, reader-study, and report-audit schemas.
+- Aligned reader-study `recommendation_congruent` with the documented blank-if-not-applicable contract by making it conditional instead of unconditionally required.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "boolean tokens"` failed before implementation because invalid boolean strings produced no schema errors.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "boolean tokens"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 9 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 254 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Validation Numeric Range Guard Increment
 
 - Added failing-first coverage for impossible validation export values, including GA day 8, probability >1, negative diagnostic thresholds, NASA Task Load Index >100, and System Usability Scale items outside 1-5.
