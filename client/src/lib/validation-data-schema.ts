@@ -189,12 +189,12 @@ export const VALIDATION_DATA_SCHEMAS: Record<
       },
       {
         name: "reference_label",
-        required: "yes",
+        required: "conditional",
         allowedValues: BOOLEAN_VALUES,
       },
       {
         name: "predicted_label",
-        required: "yes",
+        required: "conditional",
         allowedValues: BOOLEAN_VALUES,
       },
       {
@@ -655,12 +655,38 @@ export const validateValidationDataRows = (
     }
     if (
       schema.fileName === "diagnostic_labels.csv" &&
+      isTrueLike(row.indeterminate)
+    ) {
+      for (const column of [
+        "reference_label",
+        "predicted_label",
+        "predicted_probability",
+      ]) {
+        if (!isMissing(row[column])) {
+          errors.push(
+            `${rowLabel} must not include ${column} when indeterminate is true`
+          );
+        }
+      }
+    }
+    if (
+      schema.fileName === "diagnostic_labels.csv" &&
       isFalseLike(row.indeterminate) &&
       !isMissing(row.indeterminate_reason)
     ) {
       errors.push(
         `${rowLabel} must not include indeterminate_reason when indeterminate is false`
       );
+    }
+    if (
+      schema.fileName === "diagnostic_labels.csv" &&
+      isFalseLike(row.indeterminate)
+    ) {
+      for (const column of ["reference_label", "predicted_label"]) {
+        if (isMissing(row[column])) {
+          errors.push(`${rowLabel} missing required field ${column}`);
+        }
+      }
     }
     if (schema.fileName === "diagnostic_labels.csv") {
       const predictedProbability = numericValue(row.predicted_probability);
@@ -670,12 +696,14 @@ export const validateValidationDataRows = (
         : isFalseLike(row.predicted_label)
           ? false
           : null;
+      const isDeterminate = isFalseLike(row.indeterminate);
       if (threshold != null && (threshold <= 0 || threshold >= 1)) {
         errors.push(
           `${rowLabel} field threshold must be greater than 0 and less than 1`
         );
       }
       if (
+        isDeterminate &&
         predictedProbability != null &&
         threshold != null &&
         predictedLabel != null &&

@@ -93,9 +93,9 @@ manuscript. Lock the threshold before analysis in
 | --------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | study_id              | yes         | Links to `case_log.csv`.                                                                                                                                                                                       |
 | trigger_id            | yes         | Must match a runtime differential card id such as `mild-vm`, `severe-vm`, `macrocephaly`, `microcephaly`, `acc-pattern`, `hpe-pattern`, `dwm-pattern`, `pch-pattern`, `extra-axial-wide`, or `chiari-ii-ontd`. |
-| reference_label       | yes         | `true` or `false` expert truth label.                                                                                                                                                                          |
-| predicted_label       | yes         | `true` or `false` calculator label at the locked threshold; when `predicted_probability` is present, this must equal `predicted_probability >= threshold`.                                                     |
-| predicted_probability | conditional | 0-1 probability; required when computing calibration, ROC-AUC, PR-AUC, Brier score, or decision-curve net benefit.                                                                                             |
+| reference_label       | conditional | `true` or `false` expert truth label; required when `indeterminate=false` and blank when `indeterminate=true`.                                                                                                 |
+| predicted_label       | conditional | `true` or `false` calculator label at the locked threshold; required when `indeterminate=false`, blank when `indeterminate=true`, and must equal `predicted_probability >= threshold` when probability exists. |
+| predicted_probability | conditional | 0-1 probability; required when computing calibration, ROC-AUC, PR-AUC, Brier score, or decision-curve net benefit; blank when `indeterminate=true`.                                                            |
 | threshold             | yes         | Locked threshold strictly greater than 0 and less than 1 used for `predicted_label`.                                                                                                                           |
 | indeterminate         | yes         | `true` if the case is excluded from the trigger analysis because truth is not adjudicable.                                                                                                                     |
 | indeterminate_reason  | conditional | Required when `indeterminate=true`; blank when `indeterminate=false`.                                                                                                                                          |
@@ -178,8 +178,10 @@ the other validation files.
    paired deltas are computed.
 7. Locked thresholds and endpoint definitions are copied into
    `validation_analysis_lock.md` before analysis.
-8. Indeterminate diagnostic-label rows include `indeterminate_reason`;
-   determinate rows leave `indeterminate_reason` blank.
+8. Indeterminate diagnostic-label rows include `indeterminate_reason` and leave
+   label / probability fields blank; determinate rows include
+   `reference_label` and `predicted_label` and leave `indeterminate_reason`
+   blank.
 9. Probability, rate, NASA Task Load Index, System Usability Scale, gestational
    age day, positive duration, and count fields stay inside the documented
    numeric ranges.

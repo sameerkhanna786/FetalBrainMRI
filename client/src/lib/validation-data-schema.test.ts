@@ -977,6 +977,41 @@ describe("validation data export schema guard", () => {
     );
   });
 
+  it("keeps indeterminate diagnostic rows out of label and probability analysis", () => {
+    expect(
+      validateValidationDataRows("diagnostic_labels.csv", [
+        {
+          study_id: "S1",
+          trigger_id: "mild-vm",
+          threshold: 0.5,
+          indeterminate: true,
+          indeterminate_reason: "truth label not adjudicable",
+        },
+      ])
+    ).toEqual([]);
+
+    expect(
+      validateValidationDataRows("diagnostic_labels.csv", [
+        {
+          study_id: "S2",
+          trigger_id: "severe-vm",
+          reference_label: false,
+          predicted_label: false,
+          predicted_probability: 0.2,
+          threshold: 0.5,
+          indeterminate: true,
+          indeterminate_reason: "truth label not adjudicable",
+        },
+      ])
+    ).toEqual(
+      expect.arrayContaining([
+        "diagnostic_labels.csv row 1 must not include reference_label when indeterminate is true",
+        "diagnostic_labels.csv row 1 must not include predicted_label when indeterminate is true",
+        "diagnostic_labels.csv row 1 must not include predicted_probability when indeterminate is true",
+      ])
+    );
+  });
+
   it("rejects duplicate case-log study IDs before cross-file analysis", () => {
     expect(
       validateValidationDataExport({

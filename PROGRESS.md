@@ -1,3 +1,27 @@
+## 2026-05-24, Indeterminate Diagnostic Label Blank Guard Increment
+
+- Added failing-first validation-data-schema coverage that indeterminate
+  `diagnostic_labels.csv` rows can omit truth/prediction labels and
+  probabilities.
+- Added validation coverage that `indeterminate=true` rows reject
+  `reference_label`, `predicted_label`, and `predicted_probability` so they
+  cannot accidentally enter diagnostic-accuracy, calibration, or decision-curve
+  analyses.
+- Updated `validation_data_dictionary.md` so diagnostic labels are required for
+  determinate rows and blank for indeterminate rows.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "indeterminate diagnostic rows"` failed before implementation because indeterminate rows still required `reference_label` and `predicted_label`.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "indeterminate diagnostic rows"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 35 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 285 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Diagnostic Indeterminate Reason Guard Increment
 
 - Added failing-first validation-data-schema coverage that determinate

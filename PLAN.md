@@ -1734,3 +1734,10 @@
 - Extend diagnostic-label row validation so indeterminate reasons are present only for cases excluded from trigger analysis.
 - Update the data dictionary export checks to document that `indeterminate_reason` is reserved for indeterminate rows.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Indeterminate Diagnostic Label Blank Guard Increment
+
+- Add failing-first validation-data-schema coverage that `diagnostic_labels.csv` indeterminate rows can omit truth/prediction labels and probabilities.
+- Add failing-first coverage that rows with `indeterminate=true` cannot carry label or probability fields that could be accidentally analyzed.
+- Change diagnostic label schema requirements so labels are required for determinate rows and blank for indeterminate rows.
+- Update the data dictionary, progress log, and audit trail, then run targeted/full gates before committing.
