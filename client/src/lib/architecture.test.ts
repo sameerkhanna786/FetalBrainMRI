@@ -18,6 +18,8 @@ describe("SPEC §4.3 Python/FastAPI architecture scaffold", () => {
     expect(pyproject).toContain("numpy");
     expect(pyproject).toContain("scipy");
     expect(pyproject).toContain("pyinstaller");
+    expect(pyproject).toContain("[build-system]");
+    expect(pyproject).toContain("setuptools.build_meta");
   });
 
   it("provides a FastAPI app serving Jinja templates and local static assets", () => {

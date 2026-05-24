@@ -826,3 +826,9 @@
 - Add architecture coverage for the SPEC §4.3 lightweight Docker deployment option.
 - Package the Python FastAPI scaffold from `pyproject.toml`.
 - Run the offline FastAPI app with uvicorn on a local workstation/container port.
+
+## SPEC 4.3 Python Build Metadata Increment
+
+- Add packaging coverage that the Docker `pip install .` path has PEP 517 build-system metadata.
+- Declare the setuptools build backend in `pyproject.toml`.
+- Keep the deployment artifact aligned with the FastAPI scaffold.
