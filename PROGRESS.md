@@ -1,3 +1,20 @@
+## 2026-05-23, SPEC 7.5 Approximation-Tier Correction Increment
+
+- Added source-document consistency coverage that the canonical SPEC no longer assigns the approximation verification tier to an active third-ventricle z-score model.
+- Corrected SPEC §7.5 so the approximation tier applies to the extra-axial CSF quadratic curve, with explicit Kyriakopoulou 2017 coefficient-lock caveats.
+- Preserved the publication-ready third-ventricle policy in SPEC §7.5: third ventricle remains raw-threshold-only in Phase 1, with no z-score reporting until a verified fetal-MRI or explicitly accepted cross-modality model is encoded.
+- Added the extra-axial CSF coefficient decision to the clinician-owned source-lock action items.
+
+Verification:
+
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 170 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 exec prettier --check SPEC.md` still reports the existing canonical-document formatting warning; SPEC.md was not mass-reflowed.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, Python Packaging Hardening Increment
 
 - Added architecture coverage that `pyproject.toml` explicitly scopes setuptools packaging to the FastAPI Python app instead of the full flat repository.

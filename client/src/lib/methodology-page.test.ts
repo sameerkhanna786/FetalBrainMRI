@@ -49,9 +49,14 @@ describe("publication-readiness source-document consistency", () => {
       "Third Ventricle Width (third_ventricle) -- raw-threshold auxiliary input"
     );
     expect(spec).toContain("z-score reporting is disabled");
+    expect(spec).toContain("extra-axial CSF");
     expect(spec).not.toContain(
       "The third-ventricle z-score should be treated as ordinal"
     );
+    expect(spec).not.toContain(
+      "applies to the third-ventricle linear-mean / constant-SD model"
+    );
+    expect(spec).not.toContain("encoded `(0.02, 1.2, 0.6)`");
     expect(testCorpus).toContain(
       "Third ventricle is a raw-threshold auxiliary input"
     );

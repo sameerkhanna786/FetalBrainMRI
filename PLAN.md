@@ -192,6 +192,12 @@
 - Include the FastAPI/Jinja templates and local static assets as Python package data so wheel builds preserve the offline worksheet shell.
 - Verify `uv build --wheel`, Python runtime import through the built project environment, Vitest, typecheck, formatting, and production build before committing.
 
+## SPEC 7.5 approximation-tier correction increment
+
+- Add source-document consistency coverage that SPEC §7.5 does not describe an active third-ventricle z-score approximation.
+- Update the verification-tier prose so the approximation tier names the extra-axial CSF curve and preserves the third-ventricle raw-threshold-only policy.
+- Re-run targeted methodology tests, full Vitest, typecheck, formatting for touched docs/tests, and production build before committing.
+
 ## Isolated third-ventricle report increment
 
 - Add Vitest coverage for TEST.md §21 Case TV2: isolated third-ventricle dilatation at 30w0d should fire `third-v-wide` without ventriculomegaly or aqueductal-stenosis cards.
