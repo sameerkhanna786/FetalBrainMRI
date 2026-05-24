@@ -1,3 +1,27 @@
+## 2026-05-24, Determinate Diagnostic Availability Guard Increment
+
+- Added failing-first package-level validation-data-schema coverage that
+  determinate `diagnostic_labels.csv` rows cannot reference cases whose
+  `case_log.csv` availability flags say the reference standard, prediction, or
+  pathology labels are unavailable.
+- Extended cross-file export validation so diagnostic-accuracy, calibration,
+  and decision-curve rows are determinate only when the case-level evidence is
+  available.
+- Updated `validation_data_dictionary.md` to document the case-log availability
+  precondition for determinate diagnostic labels.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "case-level evidence"` failed before implementation because unavailable case-level evidence produced no package-level diagnostic-label errors.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "case-level evidence"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 36 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 286 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Indeterminate Diagnostic Label Blank Guard Increment
 
 - Added failing-first validation-data-schema coverage that indeterminate

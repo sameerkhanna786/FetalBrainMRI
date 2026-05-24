@@ -1141,6 +1141,46 @@ describe("validation data export schema guard", () => {
     );
   });
 
+  it("rejects determinate diagnostic labels when case-level evidence is unavailable", () => {
+    expect(
+      validateValidationDataExport({
+        "case_log.csv": [
+          {
+            study_id: "S1",
+            cohort: "institutional",
+            site_id: "single_site",
+            scanner_vendor: "unknown",
+            field_strength_t: 1.5,
+            svr_method: "none",
+            image_quality_tier: "diagnostic",
+            ga_weeks: 28,
+            ga_days: 0,
+            included: true,
+            reference_standard_available: false,
+            prediction_available: false,
+            pathology_label_available: false,
+          },
+        ],
+        "diagnostic_labels.csv": [
+          {
+            study_id: "S1",
+            trigger_id: "mild-vm",
+            reference_label: false,
+            predicted_label: false,
+            threshold: 0.5,
+            indeterminate: false,
+          },
+        ],
+      })
+    ).toEqual(
+      expect.arrayContaining([
+        "diagnostic_labels.csv row 1 is determinate but case_log.csv study_id S1 has reference_standard_available=false",
+        "diagnostic_labels.csv row 1 is determinate but case_log.csv study_id S1 has prediction_available=false",
+        "diagnostic_labels.csv row 1 is determinate but case_log.csv study_id S1 has pathology_label_available=false",
+      ])
+    );
+  });
+
   it("rejects duplicate report-audit report IDs before QI analysis", () => {
     expect(
       validateValidationDataExport({

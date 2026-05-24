@@ -87,7 +87,9 @@ provide `missing_reason`.
 
 Use one unique row per case and diagnostic trigger that will be reported in the
 manuscript. Lock the threshold before analysis in
-`validation_analysis_lock.md`.
+`validation_analysis_lock.md`. Determinate rows require the linked
+`case_log.csv` row to have `reference_standard_available=true`,
+`prediction_available=true`, and `pathology_label_available=true`.
 
 | Column                | Required    | Values / notes                                                                                                                                                                                                 |
 | --------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -182,14 +184,17 @@ the other validation files.
    label / probability fields blank; determinate rows include
    `reference_label` and `predicted_label` and leave `indeterminate_reason`
    blank.
-9. Probability, rate, NASA Task Load Index, System Usability Scale, gestational
-   age day, positive duration, and count fields stay inside the documented
-   numeric ranges.
-10. Reader-study paired reads have at least 14 washout days.
-11. Partial NASA Task Load Index or System Usability Scale rows are fixed before
+9. Determinate diagnostic-label rows reference only case-log rows with
+   `reference_standard_available=true`, `prediction_available=true`, and
+   `pathology_label_available=true`.
+10. Probability, rate, NASA Task Load Index, System Usability Scale, gestational
+    age day, positive duration, and count fields stay inside the documented
+    numeric ranges.
+11. Reader-study paired reads have at least 14 washout days.
+12. Partial NASA Task Load Index or System Usability Scale rows are fixed before
     scoring; do not export only selected subscales or selected SUS items.
-12. Report-audit rows have a non-zero required-measurement denominator and never
+13. Report-audit rows have a non-zero required-measurement denominator and never
     document more measurements than the locked audit rubric requires.
-13. Integer fields such as `ga_weeks`, `ga_days`, `read_order`,
+14. Integer fields such as `ga_weeks`, `ga_days`, `read_order`,
     `required_measurement_count`, `documented_measurement_count`, and System
     Usability Scale item responses do not use fractional values.

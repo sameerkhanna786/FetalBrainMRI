@@ -1741,3 +1741,10 @@
 - Add failing-first coverage that rows with `indeterminate=true` cannot carry label or probability fields that could be accidentally analyzed.
 - Change diagnostic label schema requirements so labels are required for determinate rows and blank for indeterminate rows.
 - Update the data dictionary, progress log, and audit trail, then run targeted/full gates before committing.
+
+## Determinate Diagnostic Availability Guard Increment
+
+- Add failing-first package-level validation coverage that determinate `diagnostic_labels.csv` rows cannot reference cases whose `case_log.csv` availability flags say reference standard, prediction, or pathology labels are unavailable.
+- Extend cross-file export validation so diagnostic-accuracy, calibration, and decision-curve rows are only determinate when the case-level evidence is available.
+- Update the data dictionary export checks to document the case-log availability precondition for determinate diagnostic labels.
+- Update the audit/progress trail, then run targeted/full gates before committing.

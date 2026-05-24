@@ -802,6 +802,32 @@ const pushExcludedCaseReferences = (
   });
 };
 
+const pushDeterminateDiagnosticAvailabilityErrors = (
+  errors: string[],
+  rows: readonly ValidationDataRow[],
+  caseRowsById: Map<string, ValidationDataRow>
+): void => {
+  rows.forEach((row, rowIndex) => {
+    if (!isFalseLike(row.indeterminate)) return;
+    const studyId = stringValue(row.study_id);
+    if (studyId == null) return;
+    const caseRow = caseRowsById.get(studyId);
+    if (caseRow == null) return;
+
+    for (const field of [
+      "reference_standard_available",
+      "prediction_available",
+      "pathology_label_available",
+    ]) {
+      if (isFalseLike(caseRow[field])) {
+        errors.push(
+          `diagnostic_labels.csv row ${rowIndex + 1} is determinate but case_log.csv study_id ${studyId} has ${field}=false`
+        );
+      }
+    }
+  });
+};
+
 export const validateValidationDataExport = (
   data: ValidationDataExport
 ): string[] => {
@@ -811,10 +837,12 @@ export const validateValidationDataExport = (
   }
 
   const caseIdCounts = new Map<string, number>();
+  const caseRowsById = new Map<string, ValidationDataRow>();
   for (const row of data["case_log.csv"] ?? []) {
     const studyId = stringValue(row.study_id);
     if (studyId == null) continue;
     caseIdCounts.set(studyId, (caseIdCounts.get(studyId) ?? 0) + 1);
+    caseRowsById.set(studyId, row);
   }
 
   caseIdCounts.forEach((count, studyId) => {
@@ -875,6 +903,11 @@ export const validateValidationDataExport = (
     "diagnostic_labels.csv",
     data["diagnostic_labels.csv"] ?? [],
     excludedCaseIds
+  );
+  pushDeterminateDiagnosticAvailabilityErrors(
+    errors,
+    data["diagnostic_labels.csv"] ?? [],
+    caseRowsById
   );
   const diagnosticLabelCounts = new Map<string, number>();
   for (const row of data["diagnostic_labels.csv"] ?? []) {
