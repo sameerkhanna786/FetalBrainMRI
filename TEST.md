@@ -371,19 +371,19 @@ The calculator's `severe_ventriculomegaly` card fires when atrial-R or atrial-L 
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 26 w 0 d | — |
-| Skull BPD | 72.0 mm (+2 SD, macrocephaly) | >97th |
-| Skull OFD | 100.0 mm (+2 SD) | >97th |
-| Brain BPD | 65.5 mm | normal (compressed cortex over enlarged ventricles) |
-| Brain OFD-L | 88.0 mm | normal |
-| Brain OFD-R | 88.1 mm | normal |
+| Skull BPD | 73.5 mm (+2 SD, macrocephaly) | >97th |
+| Skull OFD | 88.0 mm (+2 SD) | >97th |
+| Brain BPD | 55.7 mm | normal (compressed cortex over enlarged ventricles) |
+| Brain OFD-L | 72.7 mm | normal |
+| Brain OFD-R | 72.7 mm | normal |
 | **Atrium-R** | **18.0 mm** | **>95th** |
 | **Atrium-L** | **18.0 mm** | **>95th** |
-| CSP | 3.9 mm | normal (preserved) |
-| CC | 28.0 mm | normal |
-| TCD | 31.0 mm | normal |
-| Vermis CC | 14.2 mm | normal |
-| Vermis AP | 6.5 mm | normal |
-| Pons AP | 8.5 mm | normal |
+| CSP | 7.4 mm | normal (preserved) |
+| CC | 29.6 mm | normal |
+| TCD | 29.0 mm | normal |
+| Vermis CC | 13.0 mm | normal |
+| Vermis AP | 9.0 mm | normal |
+| Pons AP | 8.7 mm | normal |
 | **Third ventricle** | **4.5 mm** | **>95th** |
 
 **Expected DDx cards that should fire:** `severe_ventriculomegaly`, `third_ventricle_dilatation`, `macrocephaly_pattern`, `aqueductal_stenosis_pattern` (combined: severe VM + 3rd-V > 3.5 mm + preserved CSP + macrocephaly).
@@ -396,19 +396,19 @@ The calculator's `severe_ventriculomegaly` card fires when atrial-R or atrial-L 
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 24 w 0 d | — |
-| Skull BPD | 60.6 mm | normal |
-| Skull OFD | 84.5 mm | normal |
-| Brain BPD | 58.4 mm | normal |
-| Brain OFD-L | 79.5 mm | normal |
-| Brain OFD-R | 79.6 mm | normal |
+| Skull BPD | 61.5 mm | normal |
+| Skull OFD | 74.2 mm | normal |
+| Brain BPD | 50.6 mm | normal |
+| Brain OFD-L | 65.1 mm | normal |
+| Brain OFD-R | 65.1 mm | normal |
 | **Atrium-R** | **16.0 mm** | **>95th** (colpocephaly) |
 | **Atrium-L** | **16.0 mm** | **>95th** |
 | **CSP** | **absent** | special-cased |
 | **CC** | **absent** | special-cased |
-| TCD | 27.6 mm | normal |
-| Vermis CC | 12.4 mm | normal |
-| Vermis AP | 5.8 mm | normal |
-| Pons AP | 7.5 mm | normal |
+| TCD | 25.6 mm | normal |
+| Vermis CC | 11.3 mm | normal |
+| Vermis AP | 7.7 mm | normal |
+| Pons AP | 7.9 mm | normal |
 | Third ventricle | 1.5 mm | normal |
 
 **Expected DDx cards that should fire:** `severe_ventriculomegaly`, `csp_absent`, `cc_absent`, **`acc_pattern`** (combined; subsumes the standalone VM and CSP-absent cards in the IMPRESSION).
@@ -421,18 +421,18 @@ The calculator's `severe_ventriculomegaly` card fires when atrial-R or atrial-L 
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 28 w 0 d | — |
-| Skull BPD | 75.5 mm | normal |
-| Skull OFD | 102.6 mm | normal |
-| Brain BPD | 73.2 mm | normal |
-| Brain OFD-L | 97.1 mm | normal |
-| Brain OFD-R | 97.2 mm | normal |
+| Skull BPD | 73.5 mm | normal |
+| Skull OFD | 89.1 mm | normal |
+| Brain BPD | 60.9 mm | normal |
+| Brain OFD-L | 79.7 mm | normal |
+| Brain OFD-R | 79.7 mm | normal |
 | **Atrium-R** | **17.5 mm** | **>95th** |
 | **Atrium-L** | **17.5 mm** | **>95th** |
-| CSP | 4.4 mm | normal |
+| CSP | 7.6 mm | normal |
 | CC | 32.5 mm | normal |
-| TCD | 34.5 mm | normal |
-| Vermis CC | 16.0 mm | normal |
-| Vermis AP | 7.3 mm | normal |
+| TCD | 32.5 mm | normal |
+| Vermis CC | 14.8 mm | normal |
+| Vermis AP | 10.2 mm | normal |
 | Pons AP | 9.5 mm | normal |
 | Third ventricle | 2.0 mm | normal |
 
@@ -446,19 +446,19 @@ The calculator's `severe_ventriculomegaly` card fires when atrial-R or atrial-L 
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 30 w 0 d | — |
-| Skull BPD | 82.5 mm | normal |
-| Skull OFD | 110.0 mm | normal |
-| Brain BPD | 80.0 mm | normal |
-| Brain OFD-L | 104.0 mm | normal |
-| Brain OFD-R | 104.0 mm | normal |
+| Skull BPD | 78.9 mm | normal |
+| Skull OFD | 95.4 mm | normal |
+| Brain BPD | 66.3 mm | normal |
+| Brain OFD-L | 86.1 mm | normal |
+| Brain OFD-R | 86.1 mm | normal |
 | **Atrium-R** | **15.5 mm** | **>95th** |
 | **Atrium-L** | **11.0 mm** | **>95th** |
-| CSP | 4.7 mm | normal |
-| CC | 36.0 mm | normal |
-| TCD | 38.5 mm | normal |
-| Vermis CC | 18.0 mm | normal |
-| Vermis AP | 8.0 mm | normal |
-| Pons AP | 10.5 mm | normal |
+| CSP | 7.7 mm | normal |
+| CC | 34.9 mm | normal |
+| TCD | 36.0 mm | normal |
+| Vermis CC | 16.4 mm | normal |
+| Vermis AP | 11.4 mm | normal |
+| Pons AP | 10.4 mm | normal |
 | Third ventricle | 1.7 mm | normal |
 
 **Expected DDx cards that should fire:** `severe_ventriculomegaly` (right row), `mild_ventriculomegaly` (left row), **`asymmetric_ventricles`** (Δ = 4.5 mm).
@@ -469,19 +469,19 @@ The calculator's `severe_ventriculomegaly` card fires when atrial-R or atrial-L 
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 32 w 0 d | — |
-| Skull BPD | 75.0 mm (microcephaly, –2 SD) | <3rd |
-| Skull OFD | 95.0 mm | <3rd |
-| Brain BPD | 73.0 mm | <3rd |
-| Brain OFD-L | 92.0 mm | <3rd |
-| Brain OFD-R | 92.0 mm | <3rd |
+| Skull BPD | 77.3 mm (microcephaly, –2 SD) | <3rd |
+| Skull OFD | 93.2 mm | <3rd |
+| Brain BPD | 65.5 mm | <3rd |
+| Brain OFD-L | 84.9 mm | <3rd |
+| Brain OFD-R | 84.9 mm | <3rd |
 | **Atrium-R** | **20.0 mm** (monoventricle) | **>95th** |
 | **Atrium-L** | **20.0 mm** | **>95th** |
 | **CSP** | **absent** | special-cased |
 | **CC** | **absent** | special-cased |
-| TCD | 41.4 mm | normal |
-| Vermis CC | 19.4 mm | normal |
-| Vermis AP | 8.7 mm | normal |
-| Pons AP | 11.5 mm | normal |
+| TCD | 39.5 mm | normal |
+| Vermis CC | 18.0 mm | normal |
+| Vermis AP | 12.6 mm | normal |
+| Pons AP | 11.2 mm | normal |
 | Third ventricle | not measurable (fused) | special-cased |
 
 **Expected DDx cards that should fire:** `severe_ventriculomegaly`, `csp_absent`, `cc_absent`, `microcephaly_pattern`, **`hpe_pattern`** (monoventricle + absent CSP + fused thalami + microcephaly). The HPE pattern outranks the standalone CSP/CC cards in the IMPRESSION.
@@ -494,24 +494,24 @@ The calculator's `severe_ventriculomegaly` card fires when atrial-R or atrial-L 
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 30 w 0 d | — |
-| Skull BPD | 78.0 mm | <5th (lemon-sign era residual) |
-| Skull OFD | 104.0 mm | normal |
-| Brain BPD | 76.0 mm | <5th |
-| Brain OFD-L | 100.0 mm | normal |
-| Brain OFD-R | 100.0 mm | normal |
+| Skull BPD | 72.7 mm | <5th (lemon-sign era residual) |
+| Skull OFD | 95.4 mm | normal |
+| Brain BPD | 60.6 mm | <5th |
+| Brain OFD-L | 86.1 mm | normal |
+| Brain OFD-R | 86.1 mm | normal |
 | **Atrium-R** | **15.5 mm** | **>95th** |
 | **Atrium-L** | **15.5 mm** | **>95th** |
-| CSP | 4.5 mm | normal |
-| CC | 35.0 mm | normal |
-| **TCD** | **34.0 mm** | **<5th** (Chiari-II crowding) |
-| Vermis CC | 16.0 mm | <5th (mild reduction) |
-| Vermis AP | 7.0 mm | <5th |
-| Pons AP | 9.5 mm | normal |
+| CSP | 7.7 mm | normal |
+| CC | 34.9 mm | normal |
+| **TCD** | **32.2 mm** | **<5th** (Chiari-II crowding) |
+| Vermis CC | 14.0 mm | <5th (mild reduction) |
+| Vermis AP | 9.4 mm | <5th |
+| Pons AP | 10.4 mm | normal |
 | Third ventricle | 1.7 mm | normal |
 | **CSA** | **65.9°** (Aertsen 2019 pre-op cohort mean) | abnormal |
-| **TDPF** | reduced for GA | <5th |
+| **TDPF** | **36.0 mm** | <5th |
 
-**Expected DDx cards that should fire:** `severe_ventriculomegaly`, `small_tcd`, `vermian_hypoplasia`, **`chiari_ii_open_ntd`** (CSA z < –2 + TDPF z < –2, Mahalanobis posterior > 0.5).
+**Expected DDx cards that should fire:** `severe_ventriculomegaly`, `microcephaly_pattern`, `small_tcd`, `vermian_hypoplasia`, **`chiari_ii_open_ntd`** (CSA z < –2 + TDPF z < –2, Mahalanobis posterior > 0.5).
 **Citation.** Aertsen M, Verduyckt J, De Keyzer F, et al. Reliability of MR Imaging-Based Posterior Fossa and Brain Stem Measurements in Open Spinal Dysraphism in the Era of Fetal Surgery. *AJNR Am J Neuroradiol.* 2019;40(1):191–198. doi:10.3174/ajnr.A5930. Cohort means: pre-op CSA 65.9° ± 12.5°; cerebellar herniation –9.9 ± 4.2 mm.
 
 ---

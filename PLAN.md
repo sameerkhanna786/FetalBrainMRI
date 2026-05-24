@@ -1328,3 +1328,10 @@
 - Add failing-first source-document coverage that the source verification dossier surfaces the residual TEST.md normal-label numeric audit count.
 - Document the remaining section-by-section TEST corpus recalibration blocker after fixing the canonical filler, normal-control, hemispheric, and mild-VM fixtures.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## TEST Severe-VM Fixture Runtime Consistency Increment
+
+- Add failing-first source-document coverage that parses TEST.md cases S1-S6 and verifies normal, low, and high z-scored rows against runtime thresholds.
+- Recalibrate the severe-VM, ACC, HPE, and Chiari-II fixture rows so documented abnormal bands and expected DDx cards are executable.
+- Update the residual TEST corpus numeric audit blocker count after the severe-VM section is reconciled.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

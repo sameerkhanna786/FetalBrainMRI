@@ -1,3 +1,20 @@
+## 2026-05-24, TEST Severe-VM Fixture Runtime Consistency Increment
+
+- Added failing-first source-document coverage that parses TEST.md cases S1-S6, evaluates their numeric rows with the runtime engine, and verifies documented normal, low, high, and composite-card expectations.
+- Recalibrated severe-VM, ACC, HPE, and Chiari-II fixture rows so normal fillers sit near z = 0 and documented abnormal measurements cross their runtime thresholds.
+- Updated the TEST corpus numeric audit blocker from 72 to 45 residual normal-label rows after the severe-VM section repair.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before implementation because the S1-S6 rows did not satisfy documented runtime thresholds and card expectations.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 228 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 228 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md source_verification_dossier.md client/src/lib/methodology-page.test.ts` passes after formatting the dossier and test file.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, TEST Corpus Residual Numeric Audit Blocker Increment
 
 - Added failing-first source-document coverage that the source verification dossier surfaces the residual TEST.md normal-label numeric audit count.
