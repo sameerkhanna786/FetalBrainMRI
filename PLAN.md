@@ -694,3 +694,9 @@
 - Add DDx coverage for the SPEC §7.4 small-pons likelihood manifest.
 - Preserve the van Dijk 2018 PCH Type 2 rationale while avoiding a precise estimate label.
 - Replace the PCH subtype, CASK, and tubulinopathy likelihood labels with qualitative wording.
+
+## SPEC 7.4 Small-Vermis Likelihood Qualitative Increment
+
+- Add DDx coverage for the SPEC §7.4 small-vermis likelihood manifest.
+- Confirm the small-vermis card no longer surfaces estimate-only numeric percentages.
+- Replace the Dandy-Walker, isolated hypoplasia, Joubert, and chromosomal/syndromic likelihood labels with qualitative wording.

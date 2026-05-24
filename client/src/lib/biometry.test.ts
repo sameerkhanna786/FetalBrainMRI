@@ -783,6 +783,28 @@ describe("SPEC §7.4 small-pons likelihood manifest", () => {
   });
 });
 
+describe("SPEC §7.4 small-vermis likelihood manifest", () => {
+  it("qualitative-labels the estimate-only small-vermis likelihood rows", () => {
+    const ga = { weeks: 26, days: 0 };
+    const values = {
+      vermis_cc: 11.5,
+      vermis_ap: 5.3,
+    };
+    const { dxs } = evaluateAll(values, ga);
+    const smallVermis = dxs.find(dx => dx.id === "vermis-small");
+
+    expect(smallVermis?.rows.map(row => row.likelihood)).toEqual([
+      "Common",
+      "Minority",
+      "Minority",
+      "Minority",
+    ]);
+    expect(smallVermis?.rows.map(row => row.likelihood).join(" ")).not.toMatch(
+      /~30|~20|~10|~15/
+    );
+  });
+});
+
 describe("aqueductal-stenosis pattern report impression", () => {
   it("uses the TEST.md Case S1 triventricular hydrocephalus impression line", () => {
     const ga = { weeks: 26, days: 0 };

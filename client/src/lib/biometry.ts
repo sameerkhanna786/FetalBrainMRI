@@ -2567,22 +2567,22 @@ const CARDS: CardSpec[] = [
     rows: [
       {
         dx: "Dandy-Walker malformation / variant",
-        likelihood: "~30–40%",
+        likelihood: "Common",
         rationale: "Classic posterior-fossa anomaly.",
       },
       {
         dx: "Isolated vermian hypoplasia",
-        likelihood: "~20%",
+        likelihood: "Minority",
         rationale: "Better prognosis if isolated.",
       },
       {
         dx: "Joubert syndrome (molar tooth sign)",
-        likelihood: "~10%",
+        likelihood: "Minority",
         rationale: "Confirm with mid-brain morphology.",
       },
       {
         dx: "Chromosomal / syndromic disorder",
-        likelihood: "~15%",
+        likelihood: "Minority",
         rationale: "Microarray indicated.",
       },
     ],
