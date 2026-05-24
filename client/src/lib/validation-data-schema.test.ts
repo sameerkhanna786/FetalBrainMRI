@@ -403,4 +403,24 @@ describe("validation data export schema guard", () => {
       );
     }
   });
+
+  it("keeps the reader-study protocol aligned with the runtime export schema", () => {
+    const protocol = readFileSync(
+      resolve(process.cwd(), "reader_study_protocol.md"),
+      "utf8"
+    );
+    const readerStudyColumns = VALIDATION_DATA_SCHEMAS[
+      "reader_study_rows.csv"
+    ].columns.map(column => column.name);
+
+    expect(protocol).toContain("validation_data_dictionary.md");
+    expect(protocol).toContain("reader_study_rows.csv");
+    for (const columnName of readerStudyColumns) {
+      expect(protocol).toContain(`| ${columnName}`);
+    }
+
+    expect(protocol).not.toContain("| case_order");
+    expect(protocol).not.toContain("| nasa_tlx_raw");
+    expect(protocol).not.toContain("| sus_score");
+  });
 });

@@ -3,7 +3,10 @@
 This protocol is the implementation-side packet for the radiologist
 collaborators. It does not replace the local IRB / QI determination; it lists
 the de-identification workflow, fields, and reading schedule needed for that
-submission and for the with-tool versus without-tool reader study.
+submission and for the with-tool versus without-tool reader study. The export
+schema below intentionally mirrors `validation_data_dictionary.md` and
+`validation_export_templates/reader_study_rows.csv` so the reader-study data
+collected by radiologists can pass the runtime validation guard before analysis.
 
 ## IRB / QI Determination
 
@@ -47,26 +50,45 @@ submission and for the with-tool versus without-tool reader study.
 | recommendation congruence    | Compare follow-up or counselling recommendation against expert adjudication.                                                                                         |
 | z-score documentation rate   | Proportion of measured parameters with z-score and percentile documented.                                                                                            |
 | inter-rater reliability      | Compute Cohen's kappa for two-reader categorical labels, Fleiss's kappa for three-plus-reader categorical labels, and ICC(2,1) for repeated continuous measurements. |
-| NASA Task Load Index         | Collect raw NASA Task Load Index after each reader completes each condition block.                                                                                   |
-| System Usability Scale       | Collect System Usability Scale after the with-tool block.                                                                                                            |
+| NASA Task Load Index         | Collect the six raw NASA Task Load Index subscales after each reader completes each condition block.                                                                 |
+| System Usability Scale       | Collect item-level System Usability Scale responses after the with-tool block so the score can be recomputed.                                                        |
 | qualitative feedback         | Record short free-text comments about confusing outputs, missing controls, and workflow friction.                                                                    |
 
 ## Analysis Table Schema
 
-| Column                    | Description                                           |
-| ------------------------- | ----------------------------------------------------- |
-| study_id                  | De-identified case identifier.                        |
-| reader_id                 | De-identified reader identifier.                      |
-| condition                 | `without_tool` or `with_tool`.                        |
-| case_order                | Integer order within the reader's assigned sequence.  |
-| pathology_group           | `neurotypical`, `mild_moderate`, or `severe`.         |
-| started_at_offset_min     | Relative timer offset, not wall-clock timestamp.      |
-| duration_sec              | Interpretation time in seconds.                       |
-| completeness_score        | Predefined report-completeness score.                 |
-| recommendation_congruent  | Boolean adjudicated recommendation match.             |
-| zscore_documentation_rate | Per-case proportion from 0 to 1.                      |
-| nasa_tlx_raw              | Raw NASA Task Load Index score.                       |
-| sus_score                 | System Usability Scale score for the with-tool block. |
+Use `reader_study_rows.csv` for one row per reader, case, and condition.
+Pathology grouping is derived from `case_log.csv` / `diagnostic_labels.csv`,
+not duplicated in the reader-study export.
+
+| Column                    | Description                                              |
+| ------------------------- | -------------------------------------------------------- |
+| reader_id                 | De-identified reader identifier.                         |
+| study_id                  | De-identified case identifier linked to `case_log.csv`.  |
+| condition                 | `without_tool` or `with_tool`.                           |
+| read_order                | Integer order within the reader's assigned sequence.     |
+| washout_days              | Days between paired reads; target is at least 14.        |
+| duration_sec              | Interpretation time in seconds.                          |
+| completeness_score        | Predefined report-completeness score.                    |
+| zscore_documentation_rate | Per-case proportion from 0 to 1.                         |
+| recommendation_congruent  | Boolean adjudicated recommendation match.                |
+| categorical_label         | Reader's final categorical diagnostic label for kappa.   |
+| continuous_measurement    | Repeated continuous measurement for ICC(2,1).            |
+| nasa_tlx_mental_demand    | NASA Task Load Index 0-100 mental-demand subscale.       |
+| nasa_tlx_physical_demand  | NASA Task Load Index 0-100 physical-demand subscale.     |
+| nasa_tlx_temporal_demand  | NASA Task Load Index 0-100 temporal-demand subscale.     |
+| nasa_tlx_performance      | NASA Task Load Index 0-100 performance subscale.         |
+| nasa_tlx_effort           | NASA Task Load Index 0-100 effort subscale.              |
+| nasa_tlx_frustration      | NASA Task Load Index 0-100 frustration subscale.         |
+| sus_item_1                | System Usability Scale response 1-5 after with-tool use. |
+| sus_item_2                | System Usability Scale response 1-5 after with-tool use. |
+| sus_item_3                | System Usability Scale response 1-5 after with-tool use. |
+| sus_item_4                | System Usability Scale response 1-5 after with-tool use. |
+| sus_item_5                | System Usability Scale response 1-5 after with-tool use. |
+| sus_item_6                | System Usability Scale response 1-5 after with-tool use. |
+| sus_item_7                | System Usability Scale response 1-5 after with-tool use. |
+| sus_item_8                | System Usability Scale response 1-5 after with-tool use. |
+| sus_item_9                | System Usability Scale response 1-5 after with-tool use. |
+| sus_item_10               | System Usability Scale response 1-5 after with-tool use. |
 
 ## Go / No-Go
 

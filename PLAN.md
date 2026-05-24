@@ -1475,3 +1475,10 @@
 - Expand the System Usability Scale schema shorthand into explicit `sus_item_1` through `sus_item_10` columns.
 - Add `validation_export_templates/*.csv` header templates generated from the runtime schema order and link them from the data dictionary.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Reader-Study Protocol Schema Alignment Increment
+
+- Add failing-first coverage that compares `reader_study_protocol.md` against the runtime `reader_study_rows.csv` schema.
+- Replace stale aggregate fields in the protocol with the checked export columns used by `validation_data_dictionary.md` and `validation_export_templates/reader_study_rows.csv`.
+- Record the alignment as a publication-readiness mitigation so radiologist handoff cannot collect incompatible reader-study CSVs.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.
