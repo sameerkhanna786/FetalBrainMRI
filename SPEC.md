@@ -519,7 +519,7 @@ The DDx triggers and likelihood-ranking model specified below shall consume the 
 
 **Recommended Next Steps:** Recommend detailed fetal neurosonography and fetal MRI to confirm the diagnosis and meticulously search for associated CNS and non-CNS anomalies. Offer invasive genetic testing with chromosomal microarray, and consider whole-exome sequencing. TORCH/CMV screening and genetic counseling are also recommended.
 **Limitations:** Likelihoods are estimates from cohort studies and systematic reviews; the actual prognosis for an individual fetus depends heavily on the presence or absence of associated anomalies, which requires comprehensive imaging and genetic evaluation.
-**Primary Source:** Sun H, et al. Fetal agenesis of the corpus callosum: Clinical and genetic analysis in a series of 40 patients. Eur J Obstet Gynecol Reprod Biol. 2024;298:146-152. https://www.sciencedirect.com/science/article/abs/pii/S0301211524002264
+**Primary Source:** Sun H, Li K, Wang L, Zhao L, Yan C, Kong X, Liu N. Fetal agenesis of the corpus callosum: Clinical and genetic analysis in a series of 40 patients. Eur J Obstet Gynecol Reprod Biol. 2024;298:146-152. doi:10.1016/j.ejogrb.2024.05.005. PMID 38756055. https://www.sciencedirect.com/science/article/abs/pii/S0301211524002264
 **Secondary Source:** Santo S, et al. Counseling in fetal medicine: agenesis of the corpus callosum. Ultrasound Obstet Gynecol. 2012;40(5):513-521. https://obgyn.onlinelibrary.wiley.com/doi/full/10.1002/uog.12315
 
 #### Trigger: Pons antero-posterior diameter below 5th percentile — pontocerebellar hypoplasia / brainstem maldevelopment
@@ -823,7 +823,7 @@ The table below names every paper, guideline, and open-source artifact whose dat
 | SMFM_2018 | Society for Maternal-Fetal Medicine. *Mild fetal ventriculomegaly: diagnosis, evaluation, and management.* Am J Obstet Gynecol 2018;219(1):B2-B9. | (DDx layer / threshold guidance) | 10.1016/j.ajog.2018.04.039 | 29705191 | (NA) | https://www.ajog.org/article/S0002-9378(18)30391-8/fulltext |
 | SMFM_2020_CSP | SMFM; Ward A, Monteagudo A. *Absent cavum septi pellucidi.* Am J Obstet Gynecol 2020;222(6):B2-B12. | (DDx layer) | 10.1016/j.ajog.2020.02.033 | 32114082 | (NA) | https://www.ajog.org/article/S0002-9378(20)30185-X/fulltext |
 | SANTO_2012 | Santo S, D'Antonio F, Homfray T, et al. *Counseling in fetal medicine: agenesis of the corpus callosum.* Ultrasound Obstet Gynecol 2012;40(5):513-521. | (DDx layer) | 10.1002/uog.12315 | 23024028 | (not in PMC) | https://obgyn.onlinelibrary.wiley.com/doi/10.1002/uog.12315 |
-| SUN_2024 | Sun H et al. *Fetal agenesis of the corpus callosum: clinical and genetic analysis in a series of 40 patients.* Eur J Obstet Gynecol Reprod Biol 2024. | (DDx layer) | 10.1016/j.ejogrb.2024.05.022 | (varies) | (NA) | https://www.sciencedirect.com/science/article/pii/S030121152400239X |
+| SUN_2024 | Sun H, Li K, Wang L, Zhao L, Yan C, Kong X, Liu N. *Fetal agenesis of the corpus callosum: clinical and genetic analysis in a series of 40 patients.* Eur J Obstet Gynecol Reprod Biol 2024;298:146-152. | (DDx layer) | 10.1016/j.ejogrb.2024.05.005 | 38756055 | (NA) | https://www.sciencedirect.com/science/article/pii/S0301211524002264 |
 | VAN_DIJK_2018 | van Dijk T, Baas F, Barth PG, Poll-The BT. *What's new in pontocerebellar hypoplasia? An update on genes and subtypes.* Orphanet J Rare Dis 2018;13:92. | (DDx layer) | 10.1186/s13023-018-0826-2 | 29903031 | PMC6003019 | https://pmc.ncbi.nlm.nih.gov/articles/PMC6003019/ |
 | HEAPHY_HENAULT_2018 | Heaphy-Henault KJ, Guimaraes CV, Mehollin-Ray AR, et al. *Congenital Aqueductal Stenosis: Findings at Fetal MRI that Accurately Predict a Postnatal Diagnosis.* AJNR 2018;39(5):942-948. | MRI | 10.3174/ajnr.A5590 | 29545253 | PMC7410663 | https://www.ajnr.org/content/39/5/942 |
 | MALINGER_2005 | Malinger G, Lev D, Lerman-Sagie T. *Fetal cerebellar pitfalls in diagnosis and management.* | (DDx layer) | (varies) | (varies) | (NA) | (publisher landing page) |
@@ -1078,12 +1078,12 @@ Normal variant ~85-90% is an Estimate without a single primary source.
 | Likelihood | Primary source | Transcription status |
 |---|---|---|
 | Isolated complete ACC ~65-75% with normal neurodevelopment | SANTO_2012 (UOG 2012;40:513-521) | **Transcribed** (the paper's central finding) |
-| Monogenic syndromic ~30% | SUN_2024 | Approximate; cohort is small (n = 40); precise yield requires eyes on Table 2 |
+| Monogenic syndromic ~30% | SUN_2024 | Estimate-only qualitative row; cohort is small (n = 40), and report output must not emit the approximate percentage as a precise probability |
 | Chromosomal / pathogenic CNV ~15-20% | (multiple cohort studies) | Estimate |
 
 #### 7.4.8 Partial / Hypogenesis CC (CC short, z < -2)
 
-Isolated partial ACC ~50-60%, monogenic ~25-30% (SUN_2024, same caveat as 7.4.7), chromosomal / CNV ~15% (Estimate).
+Isolated partial ACC ~50-60%, monogenic ~25-30% (SUN_2024, same estimate-only qualitative policy as 7.4.7), chromosomal / CNV ~15% (Estimate).
 
 #### 7.4.9 Thick CC (z > +2)
 
@@ -1190,7 +1190,7 @@ When this manifest is updated, the Methodology page of the calculator (Section 4
 [29] Society for Maternal-Fetal Medicine (SMFM); Ward A, Monteagudo A. Absent Cavum Septi Pellucidi. *Am J Obstet Gynecol*. 2020;223(6):B23-B26. https://pubmed.ncbi.nlm.nih.gov/33168214/
 [30] Ding H, Zhao D, Cai A, Wei Q. Dilated cavum septi pellucidi as sole prenatal ultrasound defect: Case-base analysis of fetal outcomes. *Eur J Obstet Gynecol Reprod Biol*. 2019;237:85-88. https://www.sciencedirect.com/science/article/pii/S0301211519301782
 [31] Nunes JS, et al. Enlarged Cavum Septum Pellucidum: Diagnosis, Implications, and Prognosis. *J Med Ultrasound*. 2024;33(3):289-290. https://journals.lww.com/jmut/fulltext/2025/07000/enlarged_cavum_septum_pellucidum__diagnosis,.21.aspx
-[32] Sun H, et al. Fetal agenesis of the corpus callosum: Clinical and genetic analysis in a series of 40 patients. *Eur J Obstet Gynecol Reprod Biol*. 2024;298:146-152. https://pubmed.ncbi.nlm.nih.gov/38756055/
+[32] Sun H, Li K, Wang L, Zhao L, Yan C, Kong X, Liu N. Fetal agenesis of the corpus callosum: Clinical and genetic analysis in a series of 40 patients. *Eur J Obstet Gynecol Reprod Biol*. 2024;298:146-152. doi:10.1016/j.ejogrb.2024.05.005. PMID 38756055. https://pubmed.ncbi.nlm.nih.gov/38756055/
 [33] Santo S, D'Antonio F, Homfray T, et al. Counseling in fetal medicine: agenesis of the corpus callosum. *Ultrasound Obstet Gynecol*. 2012;40(5):513-521. https://obgyn.onlinelibrary.wiley.com/doi/full/10.1002/uog.12315
 [34] van Dijk T, Baas F, Barth PG, Poll-The BT. What's new in pontocerebellar hypoplasia? An update on genes and subtypes. *Orphanet J Rare Dis*. 2018;13(1):92. https://pmc.ncbi.nlm.nih.gov/articles/PMC6003036/
 [35] Sánchez-Albisua I, Frölich S, Barth PG, Steinlin M, Krägeloh-Mann I. Natural course of pontocerebellar hypoplasia type 2A. *Orphanet J Rare Dis*. 2014;9:70. https://pmc.ncbi.nlm.nih.gov/articles/PMC4019562/

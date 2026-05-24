@@ -2480,7 +2480,7 @@ Verifies the consensus engine flags **disagreement** (|Δz| ≥ 1 SD between Lui
 [14] Marathu KK, et al. Fetal MRI of the corpus callosum: imaging spectrum of associated anomalies. *Children (Basel)* 2024;11(2):197. doi:10.3390/children11020197.
 [15] Conte G, et al. Reference biometry of the fetal brain at MRI: tegmento-vermian angle, cisterna magna, and tail sign. *Eur Radiol.* 2018;28:3949–3957. doi:10.1007/s00330-018-5325-7.
 [16] Santo S, et al. Counseling in fetal medicine: agenesis of the corpus callosum. *Ultrasound Obstet Gynecol.* 2012;40(5):513–521. doi:10.1002/uog.12315.
-[17] Sun L, et al. Fetal agenesis of the corpus callosum: clinical and genetic analysis in a series of 40 patients. *Eur J Obstet Gynecol Reprod Biol.* 2024;299:236–244. doi:10.1016/j.ejogrb.2024.05.022.
+[17] Sun H, Li K, Wang L, Zhao L, Yan C, Kong X, Liu N. Fetal agenesis of the corpus callosum: clinical and genetic analysis in a series of 40 patients. *Eur J Obstet Gynecol Reprod Biol.* 2024;298:146–152. doi:10.1016/j.ejogrb.2024.05.005. PMID 38756055.
 [18] Bromley B. Fetal MRI of vermian hypoplasia: 24-week case at CC vermis 10.9 mm vs expected 14.8 mm. (Sonographic exemplar.)
 [19] Patel S, Barkovich AJ. Analysis and classification of cerebellar malformations. *AJNR Am J Neuroradiol.* 2002;23(7):1074–1087.
 [20] Whitehead MT, et al. Refining the neuroimaging definition of the Dandy-Walker phenotype. *AJNR Am J Neuroradiol.* 2022;43(10):1488–1493. doi:10.3174/ajnr.A7659.

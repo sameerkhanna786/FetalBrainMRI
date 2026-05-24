@@ -2202,7 +2202,7 @@ const CARDS: CardSpec[] = [
     },
     secondary: {
       label: "Sun 2024",
-      full: "Sun H, et al. Eur J Obstet Gynecol Reprod Biol. 2024;298:146–152.",
+      full: "Sun H, Li K, Wang L, Zhao L, Yan C, Kong X, Liu N. Eur J Obstet Gynecol Reprod Biol. 2024;298:146–152. doi:10.1016/j.ejogrb.2024.05.005.",
       url: "https://www.sciencedirect.com/science/article/abs/pii/S0301211524002264",
     },
     match: ({ values, zs }) => {
@@ -2254,7 +2254,7 @@ const CARDS: CardSpec[] = [
     limitations: "Prognosis depends on co-findings.",
     primary: {
       label: "Sun 2024",
-      full: "Sun H, et al. Eur J Obstet Gynecol Reprod Biol. 2024;298:146–152.",
+      full: "Sun H, Li K, Wang L, Zhao L, Yan C, Kong X, Liu N. Eur J Obstet Gynecol Reprod Biol. 2024;298:146–152. doi:10.1016/j.ejogrb.2024.05.005.",
       url: "https://www.sciencedirect.com/science/article/abs/pii/S0301211524002264",
     },
     match: ({ zs, values }) => {

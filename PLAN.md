@@ -1082,3 +1082,10 @@
 - Implement a reusable Wilson score interval helper and attach 95% intervals to sensitivity, specificity, predictive values, and accuracy.
 - Update handoff documentation so analyst exports use confidence intervals rather than point estimates alone.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Sun 2024 ACC Citation Metadata Increment
+
+- Add source-document coverage that Sun 2024 ACC resolves to the PubMed / Crossref DOI `10.1016/j.ejogrb.2024.05.005`.
+- Correct SPEC, TEST, and app citation metadata away from the unrelated `10.1016/j.ejogrb.2024.05.022` article.
+- Keep the ACC monogenic likelihood qualitative and replace the stale Table 2 action wording with the current estimate-only policy.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

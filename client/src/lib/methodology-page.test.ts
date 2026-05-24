@@ -161,6 +161,27 @@ describe("publication-readiness source-document consistency", () => {
     expect(testCorpus).not.toContain("10.1046/j.1469-0705.2001.00472.x");
   });
 
+  it("locks Sun 2024 ACC citation metadata to the PubMed and Crossref article", () => {
+    const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
+    const testCorpus = readFileSync(resolve(process.cwd(), "TEST.md"), "utf8");
+    const biometry = readFileSync(
+      resolve(process.cwd(), "client/src/lib/biometry.ts"),
+      "utf8"
+    );
+
+    expect(spec).toContain("10.1016/j.ejogrb.2024.05.005");
+    expect(spec).toContain("38756055");
+    expect(spec).toContain("S0301211524002264");
+    expect(spec).not.toContain("10.1016/j.ejogrb.2024.05.022");
+    expect(spec).not.toContain("S030121152400239X");
+    expect(spec).not.toMatch(/precise yield requires eyes on Table 2/i);
+    expect(testCorpus).toContain("Sun H");
+    expect(testCorpus).toContain("10.1016/j.ejogrb.2024.05.005");
+    expect(testCorpus).not.toContain("Sun L");
+    expect(testCorpus).not.toContain("10.1016/j.ejogrb.2024.05.022");
+    expect(biometry).toContain("10.1016/j.ejogrb.2024.05.005");
+  });
+
   it("locks the Woitek 2014 Table 3 control rows to the PMC source audit", () => {
     const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
     const dossier = readFileSync(

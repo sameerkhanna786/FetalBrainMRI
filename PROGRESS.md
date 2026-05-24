@@ -1,3 +1,20 @@
+## 2026-05-23, Sun 2024 ACC Citation Metadata Increment
+
+- Added failing-first source-document coverage that locks Sun 2024 ACC metadata to PubMed PMID `38756055`, DOI `10.1016/j.ejogrb.2024.05.005`, and ScienceDirect PII `S0301211524002264`.
+- Verified via PubMed and Crossref that DOI `10.1016/j.ejogrb.2024.05.005` is the fetal ACC clinical/genetic analysis article in `Eur J Obstet Gynecol Reprod Biol` 2024;298:146-152, and that DOI `10.1016/j.ejogrb.2024.05.022` belongs to an unrelated maternal-mortality-surveillance position statement.
+- Corrected SPEC, TEST, and runtime citation metadata away from the unrelated DOI / PII / volume-page tuple.
+- Replaced the stale `precise yield requires eyes on Table 2` action wording with the active estimate-only qualitative policy for the Sun 2024 monogenic ACC likelihood row.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before the citation update because SPEC.md did not contain `10.1016/j.ejogrb.2024.05.005`.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 192 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 192 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/biometry.ts client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, Publication Confidence-Interval Metrics Increment
 
 - Added failing-first coverage that binary validation outputs include Wilson confidence intervals for locked-threshold proportions.
