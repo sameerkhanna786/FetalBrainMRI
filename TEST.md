@@ -973,7 +973,7 @@ The `large_tcd` card fires when TCD z > +1.645. This is rare; the most common as
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 28 w 0 d | — |
-| TCD | 39.0 mm (z ≈ +2.0) | >95th |
+| TCD | 35.8 mm (z ≈ +2.0) | >95th |
 | (others) | filler | normal |
 
 `large_tcd` fires.
@@ -984,8 +984,8 @@ The `large_tcd` card fires when TCD z > +1.645. This is rare; the most common as
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 30 w 0 d | — |
-| Skull BPD | 90 mm (+2 SD) | >97th |
-| TCD | 42.0 mm (z ≈ +2.0) | >95th |
+| Skull BPD | 84.6 mm (+2 SD) | >97th |
+| TCD | 39.5 mm (z ≈ +2.0) | >95th |
 | (others) | filler | normal |
 
 `large_tcd`, `macrocephaly_pattern` fire. The IMPRESSION should suggest overgrowth syndromes (Sotos, BWS).
@@ -996,7 +996,7 @@ The `large_tcd` card fires when TCD z > +1.645. This is rare; the most common as
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 32 w 0 d | — |
-| TCD | 46.0 mm (z ≈ +2.0) | >95th |
+| TCD | 43.2 mm (z ≈ +2.0) | >95th |
 | (others) | filler | normal |
 
 `large_tcd` fires.
@@ -1007,7 +1007,7 @@ The `large_tcd` card fires when TCD z > +1.645. This is rare; the most common as
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 28 w 0 d | — |
-| TCD | 38.0 mm (z ≈ +1.5) | normal |
+| TCD | 34.9 mm (z ≈ +1.5) | normal |
 | (others) | filler | normal |
 
 `large_tcd` should *not* fire. Boundary verification.
@@ -1018,8 +1018,8 @@ The `large_tcd` card fires when TCD z > +1.645. This is rare; the most common as
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 30 w 0 d | — |
-| TCD | 42.5 mm | >95th |
-| CC | 44 mm (z ≈ +2) | >95th |
+| TCD | 39.5 mm | >95th |
+| CC | 37.4 mm (z ≈ +2) | >95th |
 | (others) | filler | normal |
 
 `large_tcd`, `cc_thick` fire. Combined finding raises concern for an overgrowth syndrome.
@@ -1030,7 +1030,7 @@ The `large_tcd` card fires when TCD z > +1.645. This is rare; the most common as
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 26 w 0 d | — |
-| TCD | 35 mm (z ≈ +1.9) | >95th |
+| TCD | 32.0 mm (z ≈ +2.0) | >95th |
 | CSP | 11 mm | >95th |
 | (others) | filler | normal |
 

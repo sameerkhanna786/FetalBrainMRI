@@ -2035,8 +2035,8 @@ describe("macrocerebellum plus macrocephaly report impression", () => {
   it("uses the TEST.md Case LC2 overgrowth-syndrome impression", () => {
     const ga = { weeks: 30, days: 0 };
     const values = {
-      skull_bpd: 90,
-      tcd: 42,
+      skull_bpd: 84.6,
+      tcd: 39.5,
     };
     const { zs, dxs } = evaluateAll(values, ga);
     const report = generateReport({
@@ -2062,8 +2062,8 @@ describe("macrocerebellum plus thick corpus callosum report impression", () => {
   it("uses the TEST.md Case LC5 overgrowth-syndrome impression", () => {
     const ga = { weeks: 30, days: 0 };
     const values = {
-      tcd: 42.5,
-      cc_length: 44,
+      tcd: 39.5,
+      cc_length: 37.4,
     };
     const { zs, dxs } = evaluateAll(values, ga);
     const report = generateReport({

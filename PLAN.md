@@ -1363,3 +1363,10 @@
 - Recalibrate stale vermis AP and TCD rows so isolated cerebellar hypoplasia cases do not accidentally fire vermian-hypoplasia cards and intended small-TCD cases cross the active threshold.
 - Update the residual TEST corpus numeric audit blocker count after the cerebellar-hypoplasia section is reconciled.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## TEST Macrocerebellum Fixture Runtime Consistency Increment
+
+- Add failing-first source-document coverage that parses TEST.md cases LC1-LC6 and verifies large-TCD, macrocephaly, thick-CC, enlarged-CSP, and negative-control behavior against the runtime engine.
+- Recalibrate stale large-TCD, macrocephaly, and thick-CC rows so threshold-derived z-score comments and expected DDx cards match active runtime thresholds.
+- Update the residual TEST corpus numeric audit blocker count after the macrocerebellum section is reconciled.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.
