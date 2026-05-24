@@ -1524,3 +1524,10 @@
 - Tighten `measurement_rows.csv` validation so available measurements have exactly one value column.
 - Reject unavailable measurements that still carry value columns, preserving missingness semantics.
 - Update the data dictionary and audit/progress trail, then run targeted/full gates before committing.
+
+## Report-Audit Count Consistency Guard Increment
+
+- Add failing-first coverage for report-audit rows with zero required measurements or documented measurements exceeding required measurements.
+- Align `report_audit_rows.csv` preflight validation with the QI audit metric invariants.
+- Document count consistency in the validation data dictionary.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

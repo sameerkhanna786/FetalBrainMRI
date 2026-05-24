@@ -1,3 +1,21 @@
+## 2026-05-24, Report-Audit Count Consistency Guard Increment
+
+- Added failing-first coverage for `report_audit_rows.csv` rows with zero required measurements or documented measurements exceeding required measurements.
+- Aligned report-audit export preflight validation with `computeQiAuditSummary` invariants before QI metrics run.
+- Updated `validation_data_dictionary.md` so analysts preserve non-zero denominators and valid documented-count numerators.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "report-audit measurement counts"` failed before implementation because impossible report-audit counts produced no schema errors.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "report-audit measurement counts"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 13 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 258 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Measurement Value Exclusivity Guard Increment
 
 - Added failing-first coverage for ambiguous measurement rows that populate both `value_mm` and `value_deg`, or carry numeric values while `measurement_available=false`.

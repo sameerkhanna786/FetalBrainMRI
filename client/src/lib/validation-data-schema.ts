@@ -505,6 +505,30 @@ export const validateValidationDataRows = (
         "System Usability Scale"
       );
     }
+
+    if (schema.fileName === "report_audit_rows.csv") {
+      const requiredMeasurementCount = numericValue(
+        row.required_measurement_count
+      );
+      const documentedMeasurementCount = numericValue(
+        row.documented_measurement_count
+      );
+
+      if (requiredMeasurementCount != null && requiredMeasurementCount <= 0) {
+        errors.push(
+          `${rowLabel} field required_measurement_count must be greater than 0`
+        );
+      }
+      if (
+        requiredMeasurementCount != null &&
+        documentedMeasurementCount != null &&
+        documentedMeasurementCount > requiredMeasurementCount
+      ) {
+        errors.push(
+          `${rowLabel} field documented_measurement_count cannot exceed required_measurement_count`
+        );
+      }
+    }
   });
 
   return errors;

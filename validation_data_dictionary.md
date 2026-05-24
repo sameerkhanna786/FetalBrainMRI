@@ -137,7 +137,8 @@ SUS item is present, all ten item responses must be present.
 ## report_audit_rows.csv
 
 Use this file for the QI pre/post report audit modeled after the TI-RADS
-calculator study.
+calculator study. `required_measurement_count` must be greater than zero, and
+`documented_measurement_count` cannot exceed `required_measurement_count`.
 
 | Column                         | Required    | Values / notes                                              |
 | ------------------------------ | ----------- | ----------------------------------------------------------- |
@@ -169,3 +170,5 @@ calculator study.
    ranges.
 9. Partial NASA Task Load Index or System Usability Scale rows are fixed before
    scoring; do not export only selected subscales or selected SUS items.
+10. Report-audit rows have a non-zero required-measurement denominator and never
+    document more measurements than the locked audit rubric requires.

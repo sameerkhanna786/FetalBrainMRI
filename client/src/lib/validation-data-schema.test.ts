@@ -421,6 +421,36 @@ describe("validation data export schema guard", () => {
     );
   });
 
+  it("rejects impossible report-audit measurement counts before QI analysis", () => {
+    expect(
+      validateValidationDataRows("report_audit_rows.csv", [
+        {
+          report_id: "P1",
+          phase: "baseline",
+          duration_sec: 600,
+          required_measurement_count: 0,
+          documented_measurement_count: 0,
+          explicit_zscore_documented: false,
+          explicit_percentile_documented: false,
+        },
+        {
+          report_id: "P2",
+          phase: "post_tool",
+          duration_sec: 480,
+          required_measurement_count: 8,
+          documented_measurement_count: 9,
+          explicit_zscore_documented: true,
+          explicit_percentile_documented: true,
+        },
+      ])
+    ).toEqual(
+      expect.arrayContaining([
+        "report_audit_rows.csv row 1 field required_measurement_count must be greater than 0",
+        "report_audit_rows.csv row 2 field documented_measurement_count cannot exceed required_measurement_count",
+      ])
+    );
+  });
+
   it("validates cross-file study IDs and reader-study pair completeness", () => {
     expect(
       validateValidationDataExport({
