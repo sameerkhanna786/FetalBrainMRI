@@ -52,6 +52,26 @@ export type AgenticSearchPlan = {
   transparencySource: "PMID hyperlink required for every agentic claim";
 };
 
+export type RagNumericInput = {
+  label: string;
+  value: number;
+  unit: "mm" | "degrees";
+  z: number;
+  percentile: number;
+};
+
+export type RagEvidenceChunk = {
+  id: string;
+  source: string;
+  text: string;
+};
+
+export type RagPromptPayload = {
+  systemPrompt: typeof RAG_SYSTEM_PROMPT;
+  numericalContext: string[];
+  retrievedLiterature: string[];
+};
+
 export type NumericReportInput = {
   label: string;
   value: number;
@@ -74,6 +94,32 @@ const normalizeFinding = (finding: string): string =>
 
 const numericAnchorFor = (input: NumericReportInput): string =>
   `${input.label}: ${input.value.toFixed(1)} ${input.unit}`;
+
+const formatPromptZ = (z: number): string =>
+  `${z >= 0 ? "+" : "-"}${Math.abs(z).toFixed(2)}`;
+
+export function buildRagPromptPayload({
+  numericalInputs,
+  retrievedChunks,
+}: {
+  numericalInputs: RagNumericInput[];
+  retrievedChunks: RagEvidenceChunk[];
+}): RagPromptPayload {
+  return {
+    systemPrompt: RAG_SYSTEM_PROMPT,
+    numericalContext: numericalInputs.map(
+      input =>
+        `${input.label}: ${input.value.toFixed(1)} ${
+          input.unit
+        }; z ${formatPromptZ(input.z)}; percentile ${input.percentile.toFixed(
+          1
+        )}`
+    ),
+    retrievedLiterature: retrievedChunks.map(
+      chunk => `[${chunk.id}] ${chunk.source}: ${chunk.text}`
+    ),
+  };
+}
 
 export function buildAgenticSearchPlan(findings: string[]): AgenticSearchPlan {
   const normalizedFindings = findings

@@ -6,6 +6,7 @@ import {
   GENAI_KNOWLEDGE_BANK_SCOPE,
   RAG_SYSTEM_PROMPT,
   buildAgenticSearchPlan,
+  buildRagPromptPayload,
   verifyGeneratedReportAgainstNumericInputs,
 } from "./genai";
 
@@ -22,6 +23,35 @@ describe("SPEC §4.11.2 RAG knowledge bank and prompt guardrail", () => {
     expect(RAG_SYSTEM_PROMPT).toContain(
       "You must only use the provided numerical data and retrieved literature to generate the report. Do not introduce external medical claims."
     );
+  });
+
+  it("injects exact numerical inputs, z-scores, and retrieved chunks into the prompt payload", () => {
+    const payload = buildRagPromptPayload({
+      numericalInputs: [
+        {
+          label: "Left atrium",
+          value: 12,
+          unit: "mm",
+          z: 2.1,
+          percentile: 98.2,
+        },
+      ],
+      retrievedChunks: [
+        {
+          id: "pagani-2014-nd-delay",
+          source: "Pagani 2014",
+          text: "Isolated mild ventriculomegaly pooled neurodevelopmental delay rate 7.9%.",
+        },
+      ],
+    });
+
+    expect(payload.systemPrompt).toBe(RAG_SYSTEM_PROMPT);
+    expect(payload.numericalContext).toEqual([
+      "Left atrium: 12.0 mm; z +2.10; percentile 98.2",
+    ]);
+    expect(payload.retrievedLiterature).toEqual([
+      "[pagani-2014-nd-delay] Pagani 2014: Isolated mild ventriculomegaly pooled neurodevelopmental delay rate 7.9%.",
+    ]);
   });
 });
 

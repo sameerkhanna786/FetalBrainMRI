@@ -802,3 +802,9 @@
 - Add report coverage for a disagreeing measurement rendered alongside auxiliary inputs.
 - Confirm SOURCE-AGREEMENT NOTES appears immediately after FINDINGS, before auxiliary or qualitative sections.
 - Keep auxiliary and qualitative sections intact after source-agreement notes.
+
+## SPEC 4.11.2 RAG Prompt Payload Increment
+
+- Add GenAI coverage that prompt payloads include the strict RAG system prompt.
+- Inject exact numerical inputs, z-scores, and percentiles into the prompt payload.
+- Inject retrieved evidence chunks with source labels so generated impressions stay literature-grounded.

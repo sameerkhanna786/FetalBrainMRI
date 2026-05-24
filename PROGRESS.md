@@ -1751,3 +1751,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/report.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.11.2 RAG Prompt Payload Increment
+
+- Added GenAI coverage that prompt payloads include the strict RAG system prompt.
+- Injected exact numerical inputs, z-scores, and percentiles into the prompt payload.
+- Injected retrieved evidence chunks with source labels so generated impressions stay literature-grounded.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 143 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/genai.ts client/src/lib/genai.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
