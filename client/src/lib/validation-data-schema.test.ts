@@ -364,6 +364,33 @@ describe("validation data export schema guard", () => {
     ).toEqual([]);
   });
 
+  it("rejects partial reader-study usability instruments before scoring", () => {
+    expect(
+      validateValidationDataRows("reader_study_rows.csv", [
+        {
+          reader_id: "R1",
+          study_id: "S1",
+          condition: "with_tool",
+          read_order: 1,
+          washout_days: 14,
+          duration_sec: 300,
+          completeness_score: 0.8,
+          zscore_documentation_rate: 0.75,
+          nasa_tlx_mental_demand: 80,
+          sus_item_1: 5,
+          sus_item_10: 4,
+        },
+      ])
+    ).toEqual(
+      expect.arrayContaining([
+        "reader_study_rows.csv row 1 requires nasa_tlx_physical_demand when any NASA Task Load Index field is present",
+        "reader_study_rows.csv row 1 requires nasa_tlx_frustration when any NASA Task Load Index field is present",
+        "reader_study_rows.csv row 1 requires sus_item_2 when any System Usability Scale field is present",
+        "reader_study_rows.csv row 1 requires sus_item_9 when any System Usability Scale field is present",
+      ])
+    );
+  });
+
   it("validates cross-file study IDs and reader-study pair completeness", () => {
     expect(
       validateValidationDataExport({

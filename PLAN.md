@@ -1503,3 +1503,10 @@
 - Align reader-study `recommendation_congruent` with the documented blank-if-not-applicable contract.
 - Add boolean allowed-value metadata to case-log, measurement, diagnostic-label, reader-study, and report-audit schemas.
 - Update the data dictionary and audit/progress trail, then run targeted/full gates before committing.
+
+## Reader-Study Usability Completeness Guard Increment
+
+- Add failing-first coverage for partial NASA Task Load Index and System Usability Scale exports.
+- Require all six NASA TLX subscales whenever any NASA TLX field is present in a reader-study row.
+- Require all ten SUS item responses whenever any SUS item field is present in a reader-study row.
+- Update the data dictionary and audit/progress trail, then run targeted/full gates before committing.

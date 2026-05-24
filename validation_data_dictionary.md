@@ -97,6 +97,10 @@ The reader-study protocol uses counter-balanced with-tool / without-tool reads
 with a two-week washout. Each reader-case pair needs exactly one `without_tool`
 and one `with_tool` row before paired deltas are computed.
 
+NASA Task Load Index and System Usability Scale fields are all-or-none groups:
+if any NASA TLX subscale is present, all six subscales must be present; if any
+SUS item is present, all ten item responses must be present.
+
 | Column                    | Required    | Values / notes                                           |
 | ------------------------- | ----------- | -------------------------------------------------------- |
 | reader_id                 | yes         | De-identified reader key.                                |
@@ -158,3 +162,5 @@ calculator study.
 8. Probability, rate, NASA Task Load Index, System Usability Scale, gestational
    age day, duration, and count fields stay inside the documented numeric
    ranges.
+9. Partial NASA Task Load Index or System Usability Scale rows are fixed before
+   scoring; do not export only selected subscales or selected SUS items.

@@ -39,6 +39,26 @@ export const VALIDATION_DATA_FILE_ORDER: ValidationDataFileName[] = [
 ];
 
 const BOOLEAN_VALUES = ["true", "false"] as const;
+const NASA_TLX_COLUMNS = [
+  "nasa_tlx_mental_demand",
+  "nasa_tlx_physical_demand",
+  "nasa_tlx_temporal_demand",
+  "nasa_tlx_performance",
+  "nasa_tlx_effort",
+  "nasa_tlx_frustration",
+] as const;
+const SUS_COLUMNS = [
+  "sus_item_1",
+  "sus_item_2",
+  "sus_item_3",
+  "sus_item_4",
+  "sus_item_5",
+  "sus_item_6",
+  "sus_item_7",
+  "sus_item_8",
+  "sus_item_9",
+  "sus_item_10",
+] as const;
 
 export const VALIDATION_DATA_SCHEMAS: Record<
   ValidationDataFileName,
@@ -347,6 +367,24 @@ const rangeMessage = (
   return `${rowLabel} field ${column.name} must be less than or equal to ${column.max}`;
 };
 
+const pushMissingGroupFields = (
+  errors: string[],
+  rowLabel: string,
+  row: ValidationDataRow,
+  columns: readonly string[],
+  groupLabel: string
+): void => {
+  if (!columns.some(column => !isMissing(row[column]))) return;
+
+  for (const column of columns) {
+    if (isMissing(row[column])) {
+      errors.push(
+        `${rowLabel} requires ${column} when any ${groupLabel} field is present`
+      );
+    }
+  }
+};
+
 export const validateValidationDataRows = (
   fileName: string,
   rows: readonly ValidationDataRow[]
@@ -435,6 +473,23 @@ export const validateValidationDataRows = (
     ) {
       errors.push(
         `${rowLabel} requires indeterminate_reason when indeterminate is true`
+      );
+    }
+
+    if (schema.fileName === "reader_study_rows.csv") {
+      pushMissingGroupFields(
+        errors,
+        rowLabel,
+        row,
+        NASA_TLX_COLUMNS,
+        "NASA Task Load Index"
+      );
+      pushMissingGroupFields(
+        errors,
+        rowLabel,
+        row,
+        SUS_COLUMNS,
+        "System Usability Scale"
       );
     }
   });

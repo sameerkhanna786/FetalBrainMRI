@@ -1,3 +1,21 @@
+## 2026-05-24, Reader-Study Usability Completeness Guard Increment
+
+- Added failing-first coverage for partial NASA Task Load Index and System Usability Scale fields in `reader_study_rows.csv`.
+- Implemented all-or-none validation for NASA TLX subscales and SUS item responses before reader-study scoring can run.
+- Updated `validation_data_dictionary.md` so analysts know partial usability instruments must be fixed before export analysis.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "partial reader-study usability"` failed before implementation because partial NASA TLX / SUS rows produced no schema errors.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "partial reader-study usability"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 10 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 255 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Validation Boolean Token Guard Increment
 
 - Added failing-first coverage requiring `true` / `false` fields in validation exports to reject tokens such as `yes`, `no`, `unknown`, `positive`, and `negative`.
