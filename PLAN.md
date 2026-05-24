@@ -1426,3 +1426,10 @@
 - Recalibrate stale skull-BPD, CSP, CC, TCD, vermis, brain-BPD, and CC rows so the documented standalone cards fire without accidentally triggering excluded combined patterns.
 - Update the residual TEST corpus numeric audit blocker count after the negative-control rows are reconciled.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## TEST Endcap Fixture Runtime Consistency Increment
+
+- Add failing-first source-document coverage that parses TEST.md cases CII4, EA1, STRESS3, and STRESS6 and verifies the final residual normal-label rows plus expected card/source-agreement behavior.
+- Recalibrate the remaining Chiari-II, extra-axial, high-GA stress, and TCD-disagreement values so documented bands and no-card controls match the active runtime engine.
+- Update the TEST corpus numeric audit blocker when the residual normal-label audit reaches zero.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

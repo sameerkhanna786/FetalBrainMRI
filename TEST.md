@@ -2064,13 +2064,13 @@ The `chiari_ii_open_ntd` card fires when CSA z < –2 AND TDPF z < –2 AND the 
 | GA | 32 w 0 d | — |
 | Atrium-R | 18 mm | >95th |
 | Atrium-L | 18 mm | >95th |
-| CSP | 5.0 mm | normal |
+| CSP | 7.6 mm | normal |
 | Third ventricle | 4.0 mm | >95th |
 | Skull BPD | 95 mm | >97th |
-| TCD | 36 mm (z ≈ –2.5) | <5th |
-| Vermis CC | 17 mm (z ≈ –1.9) | <5th |
+| TCD | 36 mm (z ≈ –1.9) | <5th |
+| Vermis CC | 15.5 mm (z ≈ –2.1) | <5th |
 | CSA | 68° | abnormal |
-| TDPF | reduced | <5th |
+| TDPF | 36 mm (z ≈ –4.0) | <5th |
 | (others) | filler | normal |
 
 `severe_ventriculomegaly`, `third_ventricle_dilatation`, `macrocephaly_pattern`, `aqueductal_stenosis_pattern`, `small_tcd`, `vermian_hypoplasia`, **`chiari_ii_open_ntd`** fire — multi-pattern fixture verifying the engine handles overlapping triggers.
@@ -2199,8 +2199,8 @@ The `extra_axial_widened` card fires when the extra-axial CSF space exceeds the 
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 32 w 0 d | — |
-| Skull BPD | 92 mm | >95th |
-| Brain BPD | 86 mm | normal |
+| Skull BPD | 89.2 mm | >95th |
+| Brain BPD | 72 mm | normal |
 | Extra-axial CSF | 14 mm (above Kyriakopoulou 2017 95th centile at 32 w) | >95th |
 | (others) | filler | normal |
 
@@ -2371,9 +2371,9 @@ The engine should fire no DDx cards because all values are within μ ± 1.645σ.
 | Brain BPD | 96 mm | normal |
 | Atrium-R | 7 mm | normal |
 | Atrium-L | 7 mm | normal |
-| TCD | 50 mm | normal |
-| Vermis CC | 24.5 mm | normal |
-| Pons AP | 16 mm | normal |
+| TCD | 54.2 mm | normal |
+| Vermis CC | 22.4 mm | normal |
+| Pons AP | 14.6 mm | normal |
 | (others) | filler | normal |
 
 No DDx card fires. Confirms the engine handles the upper GA bound without collapse.
@@ -2415,12 +2415,12 @@ A worst-case fixture combining HPE, severe VM, cerebellar hypoplasia, vermian hy
 
 Expected fires (10+ cards): `severe_ventriculomegaly`, `csp_absent`, `cc_absent`, `small_tcd`, `vermian_hypoplasia`, `small_pons`, `microcephaly_pattern`, `third_ventricle_dilatation`, `hemispheric_asymmetry`, `extra_axial_widened`, **`hpe_pattern`**, **`pch_pattern`**, **`dandy_walker_spectrum`**.
 
-### Case STRESS6 — Low-z with multi-source disagreement (TCD with z_Luis = +0.5, z_Dovjak = +1.7)
+### Case STRESS6 — Low-z with multi-source disagreement (TCD consensus z ≈ +0.45, Δz ≈ 1.0)
 
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 28 w 0 d | — |
-| TCD | 36.0 mm | normal |
+| TCD | 33.2 mm | normal |
 | (others) | filler | normal |
 
 Verifies the consensus engine flags **disagreement** (|Δz| ≥ 1 SD between Luis and Dovjak per SPEC.md §4.2.3); the report's SOURCE-AGREEMENT NOTES section must include this measurement.
