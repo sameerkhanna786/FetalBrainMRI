@@ -7,6 +7,8 @@ from fastapi.responses import HTMLResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
+from .registry import evaluate_parameter
+
 
 BASE_DIR = Path(__file__).resolve().parent
 WEEKS_OPTIONS = list(range(18, 41))
@@ -88,8 +90,8 @@ def _initial_report(weeks: int = 30, days: int = 0) -> str:
     )
 
 
-def _entered_measurements(form: dict[str, str]) -> list[tuple[str, str, str, str]]:
-    rows: list[tuple[str, str, str, str]] = []
+def _entered_measurements(form: dict[str, str]) -> list[tuple[str, str, str, str, str]]:
+    rows: list[tuple[str, str, str, str, str]] = []
     for group in PARAMETER_GROUPS:
         for parameter in group["parameters"]:
             raw_value = form.get(parameter["id"], "").strip()
@@ -97,6 +99,7 @@ def _entered_measurements(form: dict[str, str]) -> list[tuple[str, str, str, str
                 rows.append(
                     (
                         group["name"],
+                        parameter["id"],
                         parameter["label"],
                         raw_value,
                         parameter["unit"],
@@ -136,8 +139,10 @@ async def calculate(request: Request) -> PlainTextResponse:
     field_strength = form.get("field_strength", "1.5T")
     motion = form.get("motion", "None")
     measurements = _entered_measurements(form)
+    has_abnormal_z = False
 
     ga_label = f"{weeks}w {days}d ({weeks + days / 7:.1f} weeks)"
+    ga_weeks = weeks + days / 7
     lines = [
         "CLINICAL INDICATION",
         "",
@@ -154,13 +159,32 @@ async def calculate(request: Request) -> PlainTextResponse:
 
     if measurements:
         current_group = ""
-        for group_name, label, value, unit in measurements:
+        for group_name, parameter_id, label, value, unit in measurements:
             if group_name != current_group:
                 current_group = group_name
                 lines.append(f"-- {group_name.upper()} --")
-            lines.append(f"  * {label}: {value} {unit}.")
+            try:
+                numeric_value = float(value)
+                result = evaluate_parameter(parameter_id, ga_weeks, numeric_value)
+                z_value = float(result["z"])
+                has_abnormal_z = has_abnormal_z or abs(z_value) > 2
+                source_labels = ", ".join(result["source_labels"])
+                lines.append(
+                    f"  * {label}: {numeric_value:.1f} {unit} "
+                    f"(consensus z {z_value:+.2f}, "
+                    f"{float(result['percentile']):.0f} percentile; "
+                    f"agreement: {result['agreement_state']}). "
+                    f"Sources: {source_labels}."
+                )
+            except (KeyError, ValueError):
+                lines.append(f"  * {label}: {value} {unit}.")
     else:
         lines.append("No measurements entered.")
 
-    lines.extend(["", "IMPRESSION", "No abnormal biometric findings."])
+    impression = (
+        "One or more measurements fall outside the expected range; review source details."
+        if has_abnormal_z
+        else "No abnormal biometric findings."
+    )
+    lines.extend(["", "IMPRESSION", impression])
     return PlainTextResponse("\n".join(lines))

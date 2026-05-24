@@ -868,3 +868,9 @@
 - Add architecture coverage that the bundled Tailwind stylesheet is not a placeholder.
 - Provide local CSS for the FastAPI/Jinja worksheet shell layout, controls, and report preview.
 - Preserve the offline/no-CDN styling posture.
+
+## SPEC 4.2 Python Source Registry Increment
+
+- Add architecture coverage for a Python source registry covering every z-scored worksheet parameter.
+- Port the model coefficients and multi-source overrides needed for consensus evaluation.
+- Use the Python registry in the FastAPI report-preview endpoint to emit consensus z-score, percentile, agreement, and source labels.

@@ -112,6 +112,45 @@ describe("SPEC §4.3 Python/FastAPI architecture scaffold", () => {
     expect(core).toContain("def zscore");
   });
 
+  it("provides a Python source registry for consensus z-score evaluation", () => {
+    const app = read("python_app/main.py");
+    const registryPath = resolve(process.cwd(), "python_app/registry.py");
+
+    expect(existsSync(registryPath)).toBe(true);
+
+    const registry = read("python_app/registry.py");
+    const parameterIds = [
+      "skull_bpd",
+      "skull_ofd",
+      "brain_bpd",
+      "brain_ofd_left",
+      "brain_ofd_right",
+      "extra_axial_csf",
+      "atrial_left",
+      "atrial_right",
+      "third_ventricle",
+      "cc_length",
+      "csp_width",
+      "tcd",
+      "vermis_cc",
+      "vermis_ap",
+      "pons_ap",
+      "tdpf",
+      "csa",
+    ];
+
+    for (const id of parameterIds) {
+      expect(registry).toContain(`"${id}"`);
+    }
+    expect(registry).toContain("SourceRegistryEntry");
+    expect(registry).toContain("source_registry_for");
+    expect(registry).toContain("evaluate_parameter");
+    expect(registry).toContain("agreement_state");
+    expect(app).toContain("evaluate_parameter");
+    expect(app).toContain("consensus z");
+    expect(app).toContain("percentile");
+  });
+
   it("scaffolds scipy curve fitting for offline centile-table registry builds", () => {
     const core = read("python_app/biometry.py");
 
