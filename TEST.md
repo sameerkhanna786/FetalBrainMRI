@@ -685,11 +685,11 @@ The `dandy_walker_spectrum` card fires when a small/absent vermis is combined wi
 | Vermis CC | 7.67 mm | <5th |
 | Vermis AP | 2.83 mm | <5th |
 | TVA | 109.5° | qualitative DWM |
-| TCD | 24.71 mm | <5th |
+| TCD | 24.71 mm | source-specific <5th |
 | Pons AP | 5.4 mm | <5th |
 | (other rows) | filler | normal |
 
-`vermian_hypoplasia`, `small_tcd`, `small_pons` fire; **`dandy_walker_spectrum`** combined-pattern card fires.
+`vermian_hypoplasia`, `small_tcd`, `small_pons`, **`pch_pattern`** fire; **`dandy_walker_spectrum`** combined-pattern card fires.
 **Citation.** Nagaraj 2021.
 
 ### Case D2 — DWM with cystic posterior fossa at 22 weeks (Whitehead 2022 representative case, VERBATIM TVA)
@@ -700,11 +700,11 @@ The `dandy_walker_spectrum` card fires when a small/absent vermis is combined wi
 | Vermis CC | 6.5 mm | <5th |
 | Vermis AP | 2.5 mm | <5th |
 | TVA | 35° (Whitehead 2022 representative; refined-DWM threshold ≥ 35°) | qualitative DWM |
-| TCD | 22.0 mm | <5th |
+| TCD | 20.0 mm | <5th |
 | Pons AP | 5.0 mm | <5th |
 | (other rows) | filler | normal |
 
-`vermian_hypoplasia`, `small_tcd`, `small_pons`, `dandy_walker_spectrum` fire.
+`vermian_hypoplasia`, `small_tcd`, `small_pons`, **`pch_pattern`**, `dandy_walker_spectrum` fire.
 **Citation.** Whitehead MT, Barkovich MJ, Sidpra J, et al. Refining the Neuroimaging Definition of the Dandy-Walker Phenotype. *AJNR Am J Neuroradiol.* 2022;43(10):1488–1493. doi:10.3174/ajnr.A7659.
 
 ### Case D3 — DWM with associated CC anomaly and severe VM at 28 weeks (combined-pattern fixture)
@@ -723,7 +723,7 @@ The `dandy_walker_spectrum` card fires when a small/absent vermis is combined wi
 | Pons AP | 6.5 mm | <5th |
 | (other rows) | filler | normal |
 
-`severe_ventriculomegaly`, `csp_absent`, `cc_absent`, **`acc_pattern`**, **`dandy_walker_spectrum`** fire. This case verifies that two combined-pattern cards can fire simultaneously and that the IMPRESSION enumerates both.
+`severe_ventriculomegaly`, `csp_absent`, `cc_absent`, `small_tcd`, `small_pons`, `vermian_hypoplasia`, **`acc_pattern`**, **`pch_pattern`**, **`dandy_walker_spectrum`** fire. This case verifies that multiple combined-pattern cards can fire simultaneously and that the IMPRESSION enumerates the major patterns.
 **Citation.** Whitehead 2022; Tang 2009.
 
 ### Case D4 — Inferior vermian hypoplasia with sub-threshold TVA — DWM negative control at 26 weeks
@@ -750,7 +750,7 @@ The `dandy_walker_spectrum` card fires when a small/absent vermis is combined wi
 | Vermis AP | 3.5 mm | <5th |
 | TVA | 80° | qualitative DWM |
 | TCD | 36.0 mm | <5th |
-| Pons AP | 9.0 mm | normal |
+| Pons AP | 11.2 mm | normal |
 | (other rows) | filler | normal |
 
 `vermian_hypoplasia`, `small_tcd`, `dandy_walker_spectrum` fire. Pons is preserved (a discriminator from PCH).
@@ -772,7 +772,7 @@ The `dandy_walker_spectrum` card fires when a small/absent vermis is combined wi
 | Third ventricle | 4.0 mm | >95th |
 | (other rows) | filler | normal |
 
-`severe_ventriculomegaly`, `vermian_hypoplasia`, `small_tcd`, `small_pons`, `third_ventricle_dilatation`, `macrocephaly_pattern`, **`dandy_walker_spectrum`**.
+`severe_ventriculomegaly`, `hydrocephalus_pattern`, `vermian_hypoplasia`, `small_tcd`, `small_pons`, `third_ventricle_dilatation`, `macrocephaly_pattern`, **`pch_pattern`**, **`dandy_walker_spectrum`** fire.
 **Citation.** Adamsbaum C, Moutard ML, André C, et al. MRI of the fetal posterior fossa. *Pediatr Radiol.* 2005;35(2):124–140. doi:10.1007/s00247-004-1316-3.
 
 ---
@@ -787,7 +787,7 @@ Blake's pouch cyst (BPC) is a benign posterior-fossa cystic remnant with mildly 
 |---|---|---|
 | GA | 24 w 5 d | — |
 | Vermis CC | 12.4 mm (Nagaraj BPC cohort) | normal |
-| Vermis AP | 5.8 mm | normal |
+| Vermis AP | 8.1 mm (active-registry negative-control value) | normal |
 | TVA | 33° (Nagaraj BPC cohort) | qualitative borderline |
 | TCD | 27.6 mm | normal |
 | Pons AP | 7.5 mm | normal |
@@ -802,7 +802,7 @@ Blake's pouch cyst (BPC) is a benign posterior-fossa cystic remnant with mildly 
 |---|---|---|
 | GA | 26 w 0 d | — |
 | Vermis CC | 12.5 mm (z ≈ –1.5) | normal (just above 5th centile) |
-| Vermis AP | 5.5 mm | normal |
+| Vermis AP | 7.9 mm (active-registry z ≈ –1.5) | normal |
 | TVA | 28° | qualitative |
 | TCD | 30.0 mm | normal |
 | Pons AP | 8.5 mm | normal |
@@ -817,14 +817,14 @@ No DDx cards should fire. Boundary case verifying that `vermian_hypoplasia` corr
 |---|---|---|
 | GA | 28 w 0 d | — |
 | Vermis CC | 16.0 mm | normal |
-| Vermis AP | 7.3 mm | normal |
+| Vermis AP | 10.2 mm | normal |
 | TVA | 30° | qualitative |
 | Cisterna magna AP | 12 mm (>10 mm threshold for MCM) | qualitative |
 | TCD | 34.5 mm | normal |
 | Pons AP | 9.5 mm | normal |
 | (other rows) | filler | normal |
 
-No quantitative DDx cards should fire (the calculator does not currently fire a card for cisterna magna alone). The IMPRESSION should mention "isolated mega cisterna magna with persistent Blake's pouch — likely benign normal variant" if the radiologist toggles the qualitative MCM panel.
+`mega_cisterna_magna` fires from the cisterna-magna-depth threshold. No DWM, PCH, vermian-hypoplasia, small-TCD, or small-pons cards should fire. The IMPRESSION should mention "isolated mega cisterna magna with persistent Blake's pouch — likely benign normal variant" if the radiologist toggles the qualitative MCM panel.
 **Citation.** Gafner M, Yagel I, Fried S, Ezra O, Bar-Yosef O, Katorza E. Fetal brain biometry in isolated mega cisterna magna: MRI and US study. *J Matern Fetal Neonatal Med.* 2022;35(21):4199–4207. doi:10.1080/14767058.2020.1849094. PMID 33207970.
 
 ### Case BP4 — Blake's pouch with sub-threshold AP vermis at 30 weeks (negative control for vermian hypoplasia)
@@ -833,7 +833,7 @@ No quantitative DDx cards should fire (the calculator does not currently fire a 
 |---|---|---|
 | GA | 30 w 0 d | — |
 | Vermis CC | 17.0 mm | normal |
-| Vermis AP | 7.0 mm (z ≈ –1.6) | normal |
+| Vermis AP | 10.1 mm (z ≈ –1.5) | normal |
 | TVA | 25° | qualitative |
 | TCD | 38.5 mm | normal |
 | Pons AP | 10.5 mm | normal |
@@ -848,7 +848,7 @@ No DDx cards fire. Boundary case; vermis AP is borderline-low but does not cross
 |---|---|---|
 | GA | 32 w 0 d | — |
 | Vermis CC | 19.4 mm | normal |
-| Vermis AP | 8.7 mm | normal |
+| Vermis AP | 12.6 mm | normal |
 | TVA | 30° | qualitative |
 | TCD | 41.4 mm | normal |
 | Pons AP | 11.5 mm | normal |
@@ -865,11 +865,11 @@ No DDx cards fire. This case is a clean negative control — the only abnormalit
 | Vermis CC | 11.0 mm | <5th |
 | Vermis AP | 5.0 mm | <5th |
 | TVA | 60° | qualitative borderline |
-| TCD | 30.0 mm | normal |
+| TCD | 32.5 mm | normal |
 | Pons AP | 9.0 mm | normal |
 | (other rows) | filler | normal |
 
-`vermian_hypoplasia` and `dandy_walker_spectrum` fire under the calculator's locked Whitehead 35° TVA support rule. This case is an explicit discriminator test for the calculator's TVA threshold.
+`vermian_hypoplasia` and `dandy_walker_spectrum` fire under the calculator's locked Whitehead elevated-TVA support rule. `small_tcd`, `small_pons`, and `pch_pattern` should not fire. This case is an explicit discriminator test for the calculator's TVA threshold.
 **Citation.** Whitehead 2022 vs. Klein 2003; Pinto 2016.
 
 ---

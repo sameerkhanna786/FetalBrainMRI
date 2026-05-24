@@ -1,3 +1,20 @@
+## 2026-05-24, TEST Dandy-Walker / Blake's Pouch Fixture Runtime Consistency Increment
+
+- Added failing-first source-document coverage that parses TEST.md cases D1-D6 and BP1-BP6, evaluates their posterior-fossa and auxiliary rows with the runtime engine, and verifies expected DWM, PCH, mega-cisterna-magna, hydrocephalus, and negative-control card behavior.
+- Corrected stale Dandy-Walker and Blake's pouch rows so TVA support, TCD/pons/vermis thresholds, cisterna-magna depth, and negative controls match the active registry/runtime rules.
+- Updated the TEST corpus numeric audit blocker from 40 to 34 residual normal-label rows.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before implementation because D2 documented `small_tcd`/DWM behavior that the stale numeric row could not trigger.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 231 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 231 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md source_verification_dossier.md client/src/lib/methodology-page.test.ts` passes after formatting the dossier and test file.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, TEST Vermian-Hypoplasia Fixture Runtime Consistency Increment
 
 - Added failing-first source-document coverage that parses TEST.md cases V1-V6, evaluates their numeric rows with the runtime engine, and verifies vermis, TCD, pons, VM, and forbidden posterior-fossa card expectations.

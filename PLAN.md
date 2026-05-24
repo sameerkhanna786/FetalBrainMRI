@@ -1349,3 +1349,10 @@
 - Correct V1-V6 rows so source-specific notes, normal filler rows, and negative controls match active registry z-scores without accidental extra posterior-fossa cards.
 - Update the residual TEST corpus numeric audit blocker count.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## TEST Dandy-Walker / Blake's Pouch Fixture Runtime Consistency Increment
+
+- Add failing-first source-document coverage that parses TEST.md cases D1-D6 and BP1-BP6 and verifies posterior-fossa bands, auxiliary TVA/third-ventricle inputs, and expected DDx cards against the runtime engine.
+- Recalibrate stale normal posterior-fossa rows so Dandy-Walker positives and Blake's pouch negative controls match active registry thresholds without accidental small-pons/vermis/TCD cards.
+- Update the residual TEST corpus numeric audit blocker count after the Dandy-Walker / Blake's pouch section is reconciled.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.
