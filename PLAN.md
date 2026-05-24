@@ -1405,3 +1405,10 @@
 - Recalibrate stale HPE rows so normal posterior-fossa and CC fillers stay normal, microcephaly rows actually cross the runtime threshold, monoventricle rows are executable, and HPE+DWM/PCH overlap is deterministic.
 - Update the residual TEST corpus numeric audit blocker count after the HPE section is reconciled.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## TEST Large-Pons Fixture Runtime Consistency Increment
+
+- Add failing-first source-document coverage that parses TEST.md cases LP1-LP6 and verifies large-pons, macrocephaly, large-TCD, thick-CC, and negative-control behavior against the runtime engine.
+- Recalibrate stale large-pons, macrocephaly, TCD, and CC rows so threshold-derived +2 SD comments and the LP3 negative control match active runtime thresholds.
+- Update the residual TEST corpus numeric audit blocker count after the large-pons section is reconciled.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

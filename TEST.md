@@ -1642,7 +1642,7 @@ The `pons_large` card fires when pons AP z > +1.645. Rare; associations include 
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 30 w 0 d | — |
-| Pons AP | 13.0 mm (z ≈ +2) | >95th |
+| Pons AP | 11.9 mm (z ≈ +2) | >95th |
 | (others) | filler | normal |
 
 `pons_large` fires.
@@ -1653,8 +1653,8 @@ The `pons_large` card fires when pons AP z > +1.645. Rare; associations include 
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 32 w 0 d | — |
-| Skull BPD | 95 mm (+2 SD) | >97th |
-| Pons AP | 14.0 mm (z ≈ +2) | >95th |
+| Skull BPD | 89.9 mm (+2 SD) | >97th |
+| Pons AP | 12.8 mm (z ≈ +2) | >95th |
 | (others) | filler | normal |
 
 `pons_large`, `macrocephaly_pattern` fire.
@@ -1665,7 +1665,7 @@ The `pons_large` card fires when pons AP z > +1.645. Rare; associations include 
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 30 w 0 d | — |
-| Pons AP | 12.5 mm (z ≈ +1.5) | normal |
+| Pons AP | 11.5 mm (z ≈ +1.5) | normal |
 | (others) | filler | normal |
 
 `pons_large` should *not* fire. Boundary verification.
@@ -1675,8 +1675,8 @@ The `pons_large` card fires when pons AP z > +1.645. Rare; associations include 
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 28 w 0 d | — |
-| Pons AP | 11.5 mm (z ≈ +2) | >95th |
-| TCD | 39 mm (z ≈ +2) | >95th |
+| Pons AP | 11.0 mm (z ≈ +2) | >95th |
+| TCD | 35.8 mm (z ≈ +2) | >95th |
 | (others) | filler | normal |
 
 `pons_large`, `large_tcd` fire.
@@ -1687,7 +1687,7 @@ The `pons_large` card fires when pons AP z > +1.645. Rare; associations include 
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 36 w 0 d | — |
-| Pons AP | 16 mm (z ≈ +2) | >95th |
+| Pons AP | 14.6 mm (z ≈ +2) | >95th |
 | (others) | filler | normal |
 
 `pons_large` fires.
@@ -1697,8 +1697,8 @@ The `pons_large` card fires when pons AP z > +1.645. Rare; associations include 
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 26 w 0 d | — |
-| Pons AP | 10.5 mm (z ≈ +2) | >95th |
-| CC | 35 mm (z ≈ +2) | >95th |
+| Pons AP | 10.1 mm (z ≈ +2) | >95th |
+| CC | 32.0 mm (z ≈ +2) | >95th |
 | (others) | filler | normal |
 
 `pons_large`, `cc_thick` fire — strongly suggests an overgrowth-syndrome pattern.

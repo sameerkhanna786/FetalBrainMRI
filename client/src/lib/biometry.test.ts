@@ -2087,8 +2087,8 @@ describe("large pons plus thick corpus callosum report impression", () => {
   it("uses the TEST.md Case LP6 overgrowth-syndrome impression", () => {
     const ga = { weeks: 26, days: 0 };
     const values = {
-      pons_ap: 10.5,
-      cc_length: 35,
+      pons_ap: 10.1,
+      cc_length: 32,
     };
     const { zs, dxs } = evaluateAll(values, ga);
     const report = generateReport({
