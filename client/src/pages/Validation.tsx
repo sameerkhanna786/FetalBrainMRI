@@ -171,6 +171,28 @@ export default function Validation() {
         <section className="mt-14">
           <div className="smallcaps text-[color:var(--ink-soft)]">§ 0</div>
           <h2 className="font-display text-[28px] mt-1">
+            Validation philosophy
+          </h2>
+          <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
+            The measurement layer is the radiologist-entered millimetre or
+            degree value; the interpretation layer converts that value into a
+            z-score, percentile, and differential list.{" "}
+            {"Phase 1 validates the interpretation layer only"} by comparing
+            calculator z-scores against expert ground-truth measurements and
+            reader-assigned reference values.
+          </p>
+          <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
+            Future Phase 2 work validates AI-pre-filled measurements against
+            expert measurements within published inter-rater limits. The
+            validation plan therefore requires internal and external cohorts:
+            one to prove local performance and one to prove generalization
+            across sites, vendors, and field strengths.
+          </p>
+        </section>
+
+        <section className="mt-14">
+          <div className="smallcaps text-[color:var(--ink-soft)]">§ 0.1</div>
+          <h2 className="font-display text-[28px] mt-1">
             FeTA 2024 validation endpoints
           </h2>
           <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
@@ -183,7 +205,7 @@ export default function Validation() {
         </section>
 
         <section className="mt-14">
-          <div className="smallcaps text-[color:var(--ink-soft)]">§ 0.1</div>
+          <div className="smallcaps text-[color:var(--ink-soft)]">§ 0.2</div>
           <h2 className="font-display text-[28px] mt-1">
             Institutional validation cohort
           </h2>
@@ -202,7 +224,7 @@ export default function Validation() {
         </section>
 
         <section className="mt-14">
-          <div className="smallcaps text-[color:var(--ink-soft)]">§ 0.2</div>
+          <div className="smallcaps text-[color:var(--ink-soft)]">§ 0.3</div>
           <h2 className="font-display text-[28px] mt-1">
             Dataset cross-reference
           </h2>
@@ -222,7 +244,7 @@ export default function Validation() {
         </section>
 
         <section className="mt-14">
-          <div className="smallcaps text-[color:var(--ink-soft)]">§ 0.3</div>
+          <div className="smallcaps text-[color:var(--ink-soft)]">§ 0.4</div>
           <h2 className="font-display text-[28px] mt-1">Validation timeline</h2>
           <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
             External validation starts with the Synapse Data Access Request and

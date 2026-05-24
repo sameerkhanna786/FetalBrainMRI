@@ -3,6 +3,22 @@ import { resolve } from "node:path";
 
 import { describe, expect, it } from "vitest";
 
+describe("SPEC §6.1 validation philosophy", () => {
+  it("surfaces the interpretation-layer scope and cohort philosophy", () => {
+    const source = readFileSync(
+      resolve(process.cwd(), "client/src/pages/Validation.tsx"),
+      "utf8"
+    );
+
+    expect(source).toContain("measurement layer");
+    expect(source).toContain("interpretation layer");
+    expect(source).toContain("Phase 1 validates the interpretation layer only");
+    expect(source).toContain("AI-pre-filled measurements");
+    expect(source).toContain("internal and external cohorts");
+    expect(source).toContain("expert ground-truth measurements");
+  });
+});
+
 describe("SPEC §6.3 FeTA validation endpoints", () => {
   it("surfaces the four FeTA 2024 manuscript-grade validation endpoints", () => {
     const source = readFileSync(

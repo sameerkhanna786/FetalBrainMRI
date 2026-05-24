@@ -1374,3 +1374,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/validation-page.test.ts client/src/pages/Validation.tsx` passes after formatting `client/src/pages/Validation.tsx`.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 6.1 Validation Philosophy Increment
+
+- Added Validation-page coverage for the SPEC §6.1 validation philosophy.
+- Surfaced the measurement-layer versus interpretation-layer distinction and the Phase 1 interpretation-only scope.
+- Documented that validation requires both internal and external cohorts, with expert ground-truth measurements anchoring interpretation-layer agreement.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 110 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/validation-page.test.ts client/src/pages/Validation.tsx` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

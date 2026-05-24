@@ -628,3 +628,9 @@
 - Add Validation-page coverage for the SPEC §6.7 validation timeline.
 - Surface the FeTA access and analysis timing: Synapse Data Access Request, Data Transfer Agreement, two-to-four-week access, and three-to-four-week analysis.
 - Surface the institutional timeline: four-to-six-week IRB submission, six-to-twelve-week reader study, and six-to-nine-month manuscript path.
+
+## SPEC 6.1 Validation Philosophy Increment
+
+- Add Validation-page coverage for the SPEC §6.1 validation philosophy.
+- Surface the measurement-layer versus interpretation-layer distinction and the Phase 1 interpretation-only scope.
+- Document that validation requires both internal and external cohorts, with expert ground-truth measurements anchoring interpretation-layer agreement.
