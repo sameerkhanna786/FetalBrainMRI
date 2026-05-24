@@ -1778,3 +1778,17 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md python_app/templates/index.html python_app/static/tailwind.css python_app/static/htmx.min.js client/src/lib/architecture.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.3 Python Biometry Core Scaffold Increment
+
+- Added architecture coverage that the Python scaffold exposes the three SPEC §4.2.1 model families.
+- Required numpy-backed polynomial evaluation and scipy.stats.norm percentile conversion.
+- Added a minimal Python z-score helper that can be expanded toward the full TypeScript consensus engine.
+
+Verification:
+
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 147 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/architecture.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

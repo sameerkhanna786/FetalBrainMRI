@@ -53,4 +53,18 @@ describe("SPEC §4.3 Python/FastAPI architecture scaffold", () => {
     expect(template).toContain("/static/tailwind.css");
     expect(template).not.toMatch(/https?:\/\//);
   });
+
+  it("provides a numpy/scipy Python biometry core scaffold for all model families", () => {
+    const corePath = resolve(process.cwd(), "python_app/biometry.py");
+
+    expect(existsSync(corePath)).toBe(true);
+    const core = read("python_app/biometry.py");
+
+    expect(core).toContain("import numpy as np");
+    expect(core).toContain("from scipy.stats import norm");
+    expect(core).toContain("quadratic_mean_linear_sd");
+    expect(core).toContain("per_percentile_linear");
+    expect(core).toContain("linear_mean_constant_sd");
+    expect(core).toContain("def zscore");
+  });
 });

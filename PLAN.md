@@ -814,3 +814,9 @@
 - Add architecture coverage for the SPEC §4.3 Python/FastAPI/Jinja deployment surface.
 - Require local HTMX and Tailwind assets so the scaffold remains offline-capable.
 - Declare the required numpy/scipy math dependencies and standalone packaging dependency.
+
+## SPEC 4.3 Python Biometry Core Scaffold Increment
+
+- Add architecture coverage that the Python scaffold exposes the three SPEC §4.2.1 model families.
+- Require numpy-backed polynomial evaluation and scipy.stats.norm percentile conversion.
+- Add a minimal Python z-score helper that can be expanded toward the full TypeScript consensus engine.
