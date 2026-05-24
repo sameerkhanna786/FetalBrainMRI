@@ -1482,3 +1482,10 @@
 - Replace stale aggregate fields in the protocol with the checked export columns used by `validation_data_dictionary.md` and `validation_export_templates/reader_study_rows.csv`.
 - Record the alignment as a publication-readiness mitigation so radiologist handoff cannot collect incompatible reader-study CSVs.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## DECIDE-AI Citation Evidence Increment
+
+- Add failing-first source-document coverage requiring PubMed/DOI evidence for DECIDE-AI in the publication handoff packet.
+- Add the PubMed-verified DECIDE-AI reporting guideline citation to `publication_handoff_checklist.md` and `source_verification_dossier.md`.
+- Keep the current retrospective/QI scope clear while documenting when DECIDE-AI applies to early-stage clinical decision-support evaluation.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

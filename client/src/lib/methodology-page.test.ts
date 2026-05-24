@@ -2675,6 +2675,24 @@ describe("publication handoff checklist", () => {
     expect(dossier).toContain("10.1038/s41591-020-1034-x");
   });
 
+  it("records PubMed-verified DECIDE-AI handoff evidence", () => {
+    const checklist = readFileSync(
+      resolve(process.cwd(), "publication_handoff_checklist.md"),
+      "utf8"
+    );
+    const dossier = readFileSync(
+      resolve(process.cwd(), "source_verification_dossier.md"),
+      "utf8"
+    );
+
+    expect(checklist).toContain("DECIDE-AI");
+    expect(checklist).toContain("PMID 35585198");
+    expect(checklist).toContain("10.1038/s41591-022-01772-9");
+    expect(dossier).toContain("DECIDE-AI");
+    expect(dossier).toContain("PMID 35585198");
+    expect(dossier).toContain("10.1038/s41591-022-01772-9");
+  });
+
   it("keeps an active-goal completion audit linked to concrete evidence and blockers", () => {
     const audit = readFileSync(
       resolve(process.cwd(), "completion_audit.md"),
