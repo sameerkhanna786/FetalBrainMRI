@@ -1222,3 +1222,10 @@
 - Implement a deterministic Fleiss's kappa helper with per-subject agreement and category-prevalence outputs.
 - Update the reader-study and handoff docs so the two-reader path uses Cohen's kappa while the multi-reader path uses Fleiss's kappa.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Reader-Study Crossover Metrics Increment
+
+- Add failing-first validation-metrics coverage for paired within-reader / within-case with-tool versus without-tool deltas.
+- Implement a reader-study crossover summary helper that rejects duplicate or incomplete condition pairs.
+- Update the publication handoff docs so the reader-study analysis plan explicitly uses paired deltas rather than independent pre/post summaries.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

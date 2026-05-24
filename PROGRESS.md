@@ -1,3 +1,22 @@
+## 2026-05-24, Reader-Study Crossover Metrics Increment
+
+- Added failing-first validation-metrics coverage for paired within-reader / within-case with-tool versus without-tool deltas.
+- Implemented `computeReaderStudyCrossoverSummary` so reader-study tables produce paired timing, completeness, z-score-documentation, and recommendation-congruence deltas keyed by reader and case.
+- Added validation coverage that duplicate or incomplete condition pairs are rejected before analysis.
+- Updated the publication handoff checklist, source verification dossier, and reader-study protocol so the reader-study analysis plan uses paired deltas rather than independent pre/post summaries.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/validation-metrics.test.ts` failed before implementation because `computeReaderStudyCrossoverSummary` was missing.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/validation-metrics.test.ts` passes with 211 tests.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/validation-metrics.test.ts client/src/lib/methodology-page.test.ts` passes with 211 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 211 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md publication_handoff_checklist.md source_verification_dossier.md reader_study_protocol.md client/src/lib/validation-metrics.ts client/src/lib/validation-metrics.test.ts client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Fleiss Kappa Multi-Reader Metrics Increment
 
 - Added failing-first validation-metrics coverage for Fleiss's kappa on three-or-more-reader categorical label matrices, closing the reader-study gap left by two-reader Cohen's kappa alone.

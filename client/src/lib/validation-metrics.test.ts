@@ -11,6 +11,7 @@ import {
   computeCohenKappa,
   computeFleissKappa,
   computeIntraclassCorrelation,
+  computeReaderStudyCrossoverSummary,
 } from "./validation-metrics";
 
 describe("publication validation metrics", () => {
@@ -116,6 +117,40 @@ describe("publication validation metrics", () => {
     expect(() => computeIntraclassCorrelation([[10, 11], [12]])).toThrow(
       "rectangular matrix"
     );
+
+    expect(() =>
+      computeReaderStudyCrossoverSummary([
+        {
+          readerId: "R1",
+          studyId: "C1",
+          condition: "without_tool",
+          durationSec: 500,
+          completenessScore: 6,
+          zscoreDocumentationRate: 0.4,
+        },
+      ])
+    ).toThrow("incomplete condition pair");
+
+    expect(() =>
+      computeReaderStudyCrossoverSummary([
+        {
+          readerId: "R1",
+          studyId: "C1",
+          condition: "without_tool",
+          durationSec: 500,
+          completenessScore: 6,
+          zscoreDocumentationRate: 0.4,
+        },
+        {
+          readerId: "R1",
+          studyId: "C1",
+          condition: "without_tool",
+          durationSec: 480,
+          completenessScore: 7,
+          zscoreDocumentationRate: 0.6,
+        },
+      ])
+    ).toThrow("duplicate without_tool row");
   });
 
   it("computes per-parameter agreement and Bland-Altman summaries", () => {
@@ -210,6 +245,61 @@ describe("publication validation metrics", () => {
     expect(comparison.explicitZScoreDocumentationRateDelta).toBe(0.5);
     expect(comparison.explicitPercentileDocumentationRateDelta).toBe(1);
     expect(comparison.recommendationCongruenceRateDelta).toBe(0.5);
+  });
+
+  it("computes paired reader-study crossover deltas by reader and case", () => {
+    const summary = computeReaderStudyCrossoverSummary([
+      {
+        readerId: "R1",
+        studyId: "C1",
+        condition: "without_tool",
+        durationSec: 600,
+        completenessScore: 6,
+        zscoreDocumentationRate: 0.2,
+        recommendationCongruent: false,
+      },
+      {
+        readerId: "R1",
+        studyId: "C1",
+        condition: "with_tool",
+        durationSec: 420,
+        completenessScore: 9,
+        zscoreDocumentationRate: 1,
+        recommendationCongruent: true,
+      },
+      {
+        readerId: "R2",
+        studyId: "C1",
+        condition: "without_tool",
+        durationSec: 540,
+        completenessScore: 7,
+        zscoreDocumentationRate: 0.4,
+        recommendationCongruent: true,
+      },
+      {
+        readerId: "R2",
+        studyId: "C1",
+        condition: "with_tool",
+        durationSec: 390,
+        completenessScore: 8,
+        zscoreDocumentationRate: 0.8,
+        recommendationCongruent: true,
+      },
+    ]);
+
+    expect(summary.nPairs).toBe(2);
+    expect(summary.meanDurationDeltaSec).toBe(-165);
+    expect(summary.meanCompletenessScoreDelta).toBe(2);
+    expect(summary.meanZScoreDocumentationRateDelta).toBeCloseTo(0.6, 6);
+    expect(summary.recommendationCongruenceRateDelta).toBe(0.5);
+    expect(summary.pairedDeltas[0]).toMatchObject({
+      readerId: "R1",
+      studyId: "C1",
+      durationDeltaSec: -180,
+      completenessScoreDelta: 3,
+      zscoreDocumentationRateDelta: 0.8,
+      recommendationCongruenceDelta: 1,
+    });
   });
 
   it("computes categorical reader-label reliability with Cohen's kappa", () => {

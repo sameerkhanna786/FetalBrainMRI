@@ -103,6 +103,37 @@ export interface QiAuditComparison {
   recommendationCongruenceRateDelta: number | null;
 }
 
+export type ReaderStudyCondition = "without_tool" | "with_tool";
+
+export interface ReaderStudyCrossoverRecord {
+  readerId: string;
+  studyId: string;
+  condition: ReaderStudyCondition;
+  durationSec: number;
+  completenessScore: number;
+  zscoreDocumentationRate: number;
+  recommendationCongruent?: boolean | null;
+}
+
+export interface ReaderStudyPairedDelta {
+  readerId: string;
+  studyId: string;
+  durationDeltaSec: number;
+  completenessScoreDelta: number;
+  zscoreDocumentationRateDelta: number;
+  recommendationCongruenceDelta: number | null;
+}
+
+export interface ReaderStudyCrossoverSummary {
+  nPairs: number;
+  meanDurationDeltaSec: number;
+  meanCompletenessScoreDelta: number;
+  meanZScoreDocumentationRateDelta: number;
+  recommendationCongruenceRateDelta: number | null;
+  recommendationCongruenceDenominator: number;
+  pairedDeltas: ReaderStudyPairedDelta[];
+}
+
 export type ReaderLabel = string | number | boolean;
 
 export interface CohenKappaPair {
@@ -707,6 +738,129 @@ export const compareQiAuditPhases = (
     intervention.recommendationCongruenceRate
   ),
 });
+
+const assertNonEmptyId = (name: string, value: string) => {
+  if (typeof value !== "string" || value.trim() === "") {
+    throw new Error(`${name} must be a non-empty string`);
+  }
+};
+
+const assertUnitInterval = (name: string, value: number) => {
+  if (!Number.isFinite(value) || value < 0 || value > 1) {
+    throw new Error(`${name} must be a finite value between 0 and 1`);
+  }
+};
+
+const assertNonNegativeFinite = (name: string, value: number) => {
+  if (!Number.isFinite(value) || value < 0) {
+    throw new Error(`${name} must be a finite non-negative value`);
+  }
+};
+
+const mean = (values: number[]) =>
+  values.reduce((sum, value) => sum + value, 0) / values.length;
+
+export const computeReaderStudyCrossoverSummary = (
+  records: ReaderStudyCrossoverRecord[]
+): ReaderStudyCrossoverSummary => {
+  if (records.length === 0) {
+    throw new Error("reader-study crossover records must not be empty");
+  }
+
+  const groups = new Map<
+    string,
+    Partial<Record<ReaderStudyCondition, ReaderStudyCrossoverRecord>>
+  >();
+  records.forEach(record => {
+    assertNonEmptyId("readerId", record.readerId);
+    assertNonEmptyId("studyId", record.studyId);
+    if (
+      record.condition !== "without_tool" &&
+      record.condition !== "with_tool"
+    ) {
+      throw new Error("condition must be without_tool or with_tool");
+    }
+    assertNonNegativeFinite("durationSec", record.durationSec);
+    assertNonNegativeFinite("completenessScore", record.completenessScore);
+    assertUnitInterval(
+      "zscoreDocumentationRate",
+      record.zscoreDocumentationRate
+    );
+    if (
+      record.recommendationCongruent != null &&
+      typeof record.recommendationCongruent !== "boolean"
+    ) {
+      throw new Error("recommendationCongruent must be boolean when present");
+    }
+
+    const key = `${record.readerId}\u0000${record.studyId}`;
+    const group = groups.get(key) ?? {};
+    if (group[record.condition] != null) {
+      throw new Error(
+        `duplicate ${record.condition} row for reader ${record.readerId} and study ${record.studyId}`
+      );
+    }
+    group[record.condition] = record;
+    groups.set(key, group);
+  });
+
+  const pairedDeltas = Array.from(groups.values())
+    .map(group => {
+      const withoutTool = group.without_tool;
+      const withTool = group.with_tool;
+      if (withoutTool == null || withTool == null) {
+        const available = withoutTool ?? withTool;
+        throw new Error(
+          `incomplete condition pair for reader ${available?.readerId} and study ${available?.studyId}`
+        );
+      }
+
+      const recommendationCongruenceDelta =
+        withoutTool.recommendationCongruent == null ||
+        withTool.recommendationCongruent == null
+          ? null
+          : Number(withTool.recommendationCongruent) -
+            Number(withoutTool.recommendationCongruent);
+
+      return {
+        readerId: withTool.readerId,
+        studyId: withTool.studyId,
+        durationDeltaSec: withTool.durationSec - withoutTool.durationSec,
+        completenessScoreDelta:
+          withTool.completenessScore - withoutTool.completenessScore,
+        zscoreDocumentationRateDelta:
+          withTool.zscoreDocumentationRate -
+          withoutTool.zscoreDocumentationRate,
+        recommendationCongruenceDelta,
+      };
+    })
+    .sort((left, right) =>
+      `${left.readerId}\u0000${left.studyId}`.localeCompare(
+        `${right.readerId}\u0000${right.studyId}`
+      )
+    );
+
+  const recommendationDeltas = pairedDeltas
+    .map(delta => delta.recommendationCongruenceDelta)
+    .filter((delta): delta is number => delta != null);
+
+  return {
+    nPairs: pairedDeltas.length,
+    meanDurationDeltaSec: mean(
+      pairedDeltas.map(delta => delta.durationDeltaSec)
+    ),
+    meanCompletenessScoreDelta: mean(
+      pairedDeltas.map(delta => delta.completenessScoreDelta)
+    ),
+    meanZScoreDocumentationRateDelta: mean(
+      pairedDeltas.map(delta => delta.zscoreDocumentationRateDelta)
+    ),
+    recommendationCongruenceRateDelta:
+      recommendationDeltas.length === 0 ? null : mean(recommendationDeltas),
+    recommendationCongruenceDenominator: recommendationDeltas.length,
+    pairedDeltas,
+  };
+};
 
 const labelKey = (label: ReaderLabel) => {
   if (typeof label === "number" && !Number.isFinite(label)) {
