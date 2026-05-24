@@ -1164,10 +1164,10 @@ describe("aqueductal-stenosis pattern report impression", () => {
     const values = {
       atrial_right: 14,
       atrial_left: 14,
-      csp_width: 4.7,
+      csp_width: 7.7,
       cc_length: 36,
       third_ventricle: 5.5,
-      skull_bpd: mu(byId("skull_bpd"), gaWeeks),
+      skull_bpd: 79,
     };
     const { zs, dxs } = evaluateAll(values, ga);
     const report = generateReport({

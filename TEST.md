@@ -1859,7 +1859,7 @@ The `third_ventricle_dilatation` card fires when 3rd-V width > 3.5 mm. The Hertz
 | GA | 28 w 0 d | — |
 | Atrium-R | 18 mm | >95th |
 | Atrium-L | 18 mm | >95th |
-| CSP | 4.4 mm | normal |
+| CSP | 7.6 mm | normal |
 | CC | 32 mm | normal |
 | Third ventricle | 5.0 mm (>3.5 mm threshold) | >95th |
 | (others) | filler | normal |
@@ -1935,10 +1935,10 @@ Cross-reference: see §4, Case S1. All four pattern-defining features are presen
 | GA | 30 w 0 d | — |
 | Atrium-R | 14 mm | >95th |
 | Atrium-L | 14 mm | >95th |
-| CSP | 4.7 mm | normal |
+| CSP | 7.7 mm | normal |
 | CC | 36 mm | normal |
 | Third ventricle | 5.5 mm | >95th |
-| Skull BPD | 88 mm | normal |
+| Skull BPD | 79 mm | normal |
 | (others) | filler | normal |
 
 `mild_ventriculomegaly`, `third_ventricle_dilatation`, and **`aqueductal_stenosis_pattern`** fire. Per SPEC.md §4.6, the aqueductal-stenosis pattern requires atrial diameter >95th percentile + third ventricle >3.5 mm + preserved CSP, without a separate severe-VM requirement.
@@ -1965,7 +1965,7 @@ Cross-reference: see §4, Case S1. All four pattern-defining features are presen
 | GA | 28 w 0 d | — |
 | Atrium-R | 17 mm | >95th |
 | Atrium-L | 17 mm | >95th |
-| CSP | 4.4 mm | normal |
+| CSP | 7.6 mm | normal |
 | Third ventricle | 2.0 mm | normal |
 | (others) | filler | normal |
 
@@ -1978,9 +1978,9 @@ Cross-reference: see §4, Case S1. All four pattern-defining features are presen
 | GA | 24 w 0 d | — |
 | Atrium-R | 16 mm | >95th |
 | Atrium-L | 16 mm | >95th |
-| CSP | 3.4 mm | normal |
+| CSP | 7.1 mm | normal |
 | Third ventricle | 4.5 mm | >95th |
-| Skull BPD | 70 mm (+2 SD) | >97th |
+| Skull BPD | 70 mm | >97th |
 | (others) | filler | normal |
 
 `severe_ventriculomegaly`, `third_ventricle_dilatation`, `macrocephaly_pattern`, **`aqueductal_stenosis_pattern`** fire.

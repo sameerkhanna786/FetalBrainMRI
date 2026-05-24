@@ -1,3 +1,20 @@
+## 2026-05-24, TEST Third-Ventricle/Aqueductal-Stenosis Fixture Runtime Consistency Increment
+
+- Added failing-first source-document coverage that parses TEST.md cases TV1, AS-P2, AS-P4, and AS-P5, evaluates third-ventricle raw-threshold behavior, VM severity, macrocephaly, and hydrocephalus-pattern behavior with the runtime engine, and verifies the intended DDx cards.
+- Recalibrated preserved-CSP rows and the AS-P2 skull-BPD row so documented normal bands match active runtime values while the third-ventricle auxiliary threshold remains unchanged.
+- Updated the TEST corpus numeric audit blocker from 17 to 12 residual normal-label rows.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/methodology-page.test.ts -- --runInBand -t "third-ventricle/aqueductal-stenosis fixtures"` failed before implementation because TV1 documented preserved CSP as normal while the stale row was outside the runtime normal band.
+- `npx pnpm@10.4.1 test client/src/lib/methodology-page.test.ts -- --runInBand -t "third-ventricle/aqueductal-stenosis fixtures"` passes.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 240 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md source_verification_dossier.md client/src/lib/methodology-page.test.ts client/src/lib/biometry.test.ts` passes after formatting the dossier table.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, TEST Large-Pons Fixture Runtime Consistency Increment
 
 - Added failing-first source-document coverage that parses TEST.md cases LP1-LP6, evaluates large-pons, macrocephaly, large-TCD, thick-CC, and negative-control behavior with the runtime engine, and verifies the intended DDx cards.

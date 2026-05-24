@@ -110,7 +110,7 @@ describe("publication-readiness source-document consistency", () => {
     expect(dossier).toContain("DECIDE-AI");
     expect(dossier).toContain("FeTA 2024 biometry gap");
     expect(dossier).toContain("TEST corpus numeric audit");
-    expect(dossier).toContain("17 residual normal-label rows");
+    expect(dossier).toContain("12 residual normal-label rows");
     expect(dossier).toContain("decision-curve net benefit");
     expect(dossier).toContain("IRB");
     expect(dossier).toContain("radiologist handoff");
@@ -1724,6 +1724,118 @@ describe("publication-readiness source-document consistency", () => {
 
       for (const { parameterId, expectedBand } of bandChecks) {
         const band = expectedBand.toLowerCase();
+        const z = zs[parameterId]?.z;
+        if (z == null) continue;
+        if (band.includes("normal") && !band.includes("abnormal")) {
+          expect(Math.abs(z)).toBeLessThan(1.6448536269514722);
+        } else if (band.includes(">97th")) {
+          expect(z).toBeGreaterThan(1.8807936081512509);
+        } else if (band.includes(">95th")) {
+          expect(z).toBeGreaterThan(1.6448536269514722);
+        }
+      }
+    }
+  });
+
+  it("keeps TEST.md third-ventricle/aqueductal-stenosis fixtures calibrated to runtime bands and cards", () => {
+    const testCorpus = readFileSync(resolve(process.cwd(), "TEST.md"), "utf8");
+    const parameterLabels = new Map([
+      ["Atrium-R", "atrial_right"],
+      ["Atrium-L", "atrial_left"],
+      ["CSP", "csp_width"],
+      ["CC", "cc_length"],
+      ["Third ventricle", "third_ventricle"],
+      ["Skull BPD", "skull_bpd"],
+    ]);
+    const zScoredParameterIds = new Set([
+      "atrial_right",
+      "atrial_left",
+      "csp_width",
+      "cc_length",
+      "skull_bpd",
+    ]);
+    const expectations = [
+      [
+        "TV1",
+        ["severe-vm", "third-v-wide", "hydrocephalus-pattern"],
+        ["macrocephaly"],
+      ],
+      [
+        "AS-P2",
+        ["mod-vm", "third-v-wide", "hydrocephalus-pattern"],
+        ["severe-vm", "macrocephaly"],
+      ],
+      [
+        "AS-P4",
+        ["severe-vm"],
+        ["third-v-wide", "hydrocephalus-pattern", "macrocephaly"],
+      ],
+      [
+        "AS-P5",
+        ["severe-vm", "third-v-wide", "macrocephaly", "hydrocephalus-pattern"],
+        [],
+      ],
+    ] as const;
+
+    const extractCase = (caseId: string): string => {
+      const start = testCorpus.indexOf(`### Case ${caseId} `);
+      expect(start).toBeGreaterThanOrEqual(0);
+      const nextCase = testCorpus.indexOf("\n### Case ", start + 1);
+      const nextSection = testCorpus.indexOf("\n---", start + 1);
+      const endCandidates = [nextCase, nextSection].filter(index => index > 0);
+      return testCorpus.slice(start, Math.min(...endCandidates));
+    };
+
+    for (const [caseId, expectedDxIds, forbiddenDxIds] of expectations) {
+      const caseText = extractCase(caseId);
+      const values: Record<string, number> = {};
+      const bandChecks: { parameterId: string; expectedBand: string }[] = [];
+      let ga: { weeks: number; days: number } | null = null;
+
+      for (const rawLine of caseText.split("\n")) {
+        if (!rawLine.startsWith("|")) continue;
+        const [label, rawValue, expectedBand] = rawLine
+          .split("|")
+          .slice(1, -1)
+          .map(cell => cell.replaceAll("**", "").trim());
+
+        if (label === "GA") {
+          const match = rawValue.match(/(\d+) w (\d+) d/);
+          expect(match).not.toBeNull();
+          ga = { weeks: Number(match![1]), days: Number(match![2]) };
+          continue;
+        }
+
+        const parameterId = parameterLabels.get(label);
+        if (!parameterId) continue;
+        const valueMatch = rawValue.match(/(-?\d+(?:\.\d+)?)/);
+        if (!valueMatch) continue;
+        values[parameterId] = Number(valueMatch[1]);
+        bandChecks.push({ parameterId, expectedBand });
+      }
+
+      expect(ga).not.toBeNull();
+      const { zs, dxs } = evaluateAll(values, ga!);
+      const dxIds = dxs.map(dx => dx.id);
+      for (const expectedDxId of expectedDxIds) {
+        expect(dxIds).toContain(expectedDxId);
+      }
+      for (const forbiddenDxId of forbiddenDxIds) {
+        expect(dxIds).not.toContain(forbiddenDxId);
+      }
+
+      for (const { parameterId, expectedBand } of bandChecks) {
+        const band = expectedBand.toLowerCase();
+        if (parameterId === "third_ventricle") {
+          const value = values[parameterId];
+          if (band.includes("normal") && !band.includes("abnormal")) {
+            expect(value).toBeLessThanOrEqual(3.5);
+          } else if (band.includes(">95th")) {
+            expect(value).toBeGreaterThan(3.5);
+          }
+          continue;
+        }
+        if (!zScoredParameterIds.has(parameterId)) continue;
         const z = zs[parameterId]?.z;
         if (z == null) continue;
         if (band.includes("normal") && !band.includes("abnormal")) {

@@ -1412,3 +1412,10 @@
 - Recalibrate stale large-pons, macrocephaly, TCD, and CC rows so threshold-derived +2 SD comments and the LP3 negative control match active runtime thresholds.
 - Update the residual TEST corpus numeric audit blocker count after the large-pons section is reconciled.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## TEST Third-Ventricle/Aqueductal-Stenosis Fixture Runtime Consistency Increment
+
+- Add failing-first source-document coverage that parses TEST.md cases TV1, AS-P2, AS-P4, and AS-P5 and verifies third-ventricle, ventriculomegaly, macrocephaly, and hydrocephalus-pattern behavior against the runtime engine.
+- Recalibrate stale preserved-CSP and skull-BPD rows so documented normal bands match active runtime thresholds while raw third-ventricle threshold behavior remains auxiliary.
+- Update the residual TEST corpus numeric audit blocker count after the third-ventricle/aqueductal-stenosis rows are reconciled.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.
