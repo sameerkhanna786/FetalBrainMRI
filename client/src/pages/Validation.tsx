@@ -208,6 +208,29 @@ export default function Validation() {
             ventriculomegaly, corpus callosum malformations,{" "}
             {"posterior-fossa malformations"}, and open spina bifida.
           </p>
+          <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
+            Each case carries{" "}
+            {"five expert-measured biometric ground-truth values"}:{" "}
+            {"brain biparietal diameter"}, {"skull biparietal diameter"},{" "}
+            {"transverse cerebellar diameter"}, {"corpus callosum length"}, and{" "}
+            {"vermis cranio-caudal height"}.
+          </p>
+          <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
+            {"brain occipito-frontal diameter"},{" "}
+            {"vermis antero-posterior diameter"},{" "}
+            {"pons antero-posterior diameter"}, and{" "}
+            {"left and right atrial diameters"} are{" "}
+            {"derivable from the released segmentation masks"}. CSP width,
+            third-ventricle width, high-fidelity atrial diameters, and TDPF/CSA
+            are {"not directly recoverable from FeTA"} and remain assigned to
+            the institutional cohort.
+          </p>
+          <p className="text-[15px] mt-3 text-[color:var(--ink-soft)] max-w-[58ch]">
+            The access plan uses the {"120-case training set"} for immediate
+            labeled analysis and treats the {"180-case test set"} as a
+            challenge-held benchmark requiring an addendum for per-condition
+            labels.
+          </p>
         </section>
 
         <section className="mt-14">

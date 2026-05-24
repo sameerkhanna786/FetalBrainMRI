@@ -1400,3 +1400,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/validation-page.test.ts client/src/pages/Validation.tsx` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 6.2 FeTA Measurement Coverage Increment
+
+- Added Validation-page coverage for the SPEC §6.2 FeTA ground-truth, derivable, and unavailable measurement groups.
+- Surfaced the five direct expert-measured FeTA biometric values and the four additional values derivable from segmentation masks.
+- Documented the remaining parameters requiring the institutional cohort plus the 120-case training and 180-case test-set access split.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 112 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/validation-page.test.ts client/src/pages/Validation.tsx` passes after formatting `client/src/lib/validation-page.test.ts` and `client/src/pages/Validation.tsx`.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

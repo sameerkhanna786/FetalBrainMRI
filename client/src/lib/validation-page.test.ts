@@ -44,6 +44,32 @@ describe("SPEC §6.2 FeTA cohort composition", () => {
   });
 });
 
+describe("SPEC §6.2 FeTA measurement coverage", () => {
+  it("surfaces direct, derivable, unavailable, and access-split details", () => {
+    const source = readFileSync(
+      resolve(process.cwd(), "client/src/pages/Validation.tsx"),
+      "utf8"
+    );
+
+    expect(source).toContain(
+      "five expert-measured biometric ground-truth values"
+    );
+    expect(source).toContain("brain biparietal diameter");
+    expect(source).toContain("skull biparietal diameter");
+    expect(source).toContain("transverse cerebellar diameter");
+    expect(source).toContain("corpus callosum length");
+    expect(source).toContain("vermis cranio-caudal height");
+    expect(source).toContain("derivable from the released segmentation masks");
+    expect(source).toContain("brain occipito-frontal diameter");
+    expect(source).toContain("vermis antero-posterior diameter");
+    expect(source).toContain("pons antero-posterior diameter");
+    expect(source).toContain("left and right atrial diameters");
+    expect(source).toContain("not directly recoverable from FeTA");
+    expect(source).toContain("120-case training set");
+    expect(source).toContain("180-case test set");
+  });
+});
+
 describe("SPEC §6.3 FeTA validation endpoints", () => {
   it("surfaces the four FeTA 2024 manuscript-grade validation endpoints", () => {
     const source = readFileSync(

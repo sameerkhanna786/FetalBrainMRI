@@ -640,3 +640,9 @@
 - Add Validation-page coverage for the SPEC §6.2 FeTA 2024 external cohort composition.
 - Surface the 300 super-resolution T2 volumes across five named sites, three field strengths, and four vendor classes.
 - Document the neurotypical/pathological split and named pathology categories used for external validation.
+
+## SPEC 6.2 FeTA Measurement Coverage Increment
+
+- Add Validation-page coverage for the SPEC §6.2 FeTA ground-truth, derivable, and unavailable measurement groups.
+- Surface the five direct expert-measured FeTA biometric values and the four additional values derivable from segmentation masks.
+- Document the remaining parameters requiring the institutional cohort plus the 120-case training and 180-case test-set access split.
