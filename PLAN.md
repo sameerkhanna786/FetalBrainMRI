@@ -1335,3 +1335,10 @@
 - Recalibrate the severe-VM, ACC, HPE, and Chiari-II fixture rows so documented abnormal bands and expected DDx cards are executable.
 - Update the residual TEST corpus numeric audit blocker count after the severe-VM section is reconciled.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## TEST Asymmetric-Ventricle Threshold Wording Increment
+
+- Add failing-first source-document coverage that AS1-AS2 atrial edge cases are documented as below-threshold clinical controls rather than z-normal filler rows.
+- Update TEST.md wording for the sub-10 mm atrial rows so the residual numeric audit no longer misclassifies intentional clinical-threshold cases as stale normal fillers.
+- Update the residual TEST corpus numeric audit blocker count.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

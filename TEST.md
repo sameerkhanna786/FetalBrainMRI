@@ -525,7 +525,7 @@ The `asymmetric_ventricles` card fires when |atrium-R − atrium-L| > 2 mm. Asym
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 28 w 0 d | — |
-| Atrium-R | 9.5 mm | normal |
+| Atrium-R | 9.5 mm | below 10 mm VM threshold |
 | Atrium-L | 6.5 mm | normal |
 | (others) | filler | normal |
 
@@ -537,7 +537,7 @@ The `asymmetric_ventricles` card fires when |atrium-R − atrium-L| > 2 mm. Asym
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 26 w 0 d | — |
-| Atrium-R | 9.8 mm | normal (just below the 10 mm threshold) |
+| Atrium-R | 9.8 mm | below 10 mm VM threshold (just below cutoff) |
 | Atrium-L | 6.5 mm | normal |
 | (others) | filler | normal |
 

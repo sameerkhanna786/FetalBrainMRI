@@ -1,3 +1,19 @@
+## 2026-05-24, TEST Asymmetric-Ventricle Threshold Wording Increment
+
+- Added failing-first source-document coverage that AS1-AS2 right-atrial edge cases are documented as below-threshold clinical controls instead of z-normal filler rows.
+- Updated TEST.md wording for sub-10 mm atrial asymmetry rows and reduced the residual TEST corpus numeric audit blocker from 45 to 43 rows.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before implementation because AS1-AS2 still labelled sub-10 mm atrial threshold controls as `normal`.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 229 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 229 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md source_verification_dossier.md client/src/lib/methodology-page.test.ts` passes after formatting the dossier table.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, TEST Severe-VM Fixture Runtime Consistency Increment
 
 - Added failing-first source-document coverage that parses TEST.md cases S1-S6, evaluates their numeric rows with the runtime engine, and verifies documented normal, low, high, and composite-card expectations.

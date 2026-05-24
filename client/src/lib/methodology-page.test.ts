@@ -110,7 +110,7 @@ describe("publication-readiness source-document consistency", () => {
     expect(dossier).toContain("DECIDE-AI");
     expect(dossier).toContain("FeTA 2024 biometry gap");
     expect(dossier).toContain("TEST corpus numeric audit");
-    expect(dossier).toContain("45 residual normal-label rows");
+    expect(dossier).toContain("43 residual normal-label rows");
     expect(dossier).toContain("decision-curve net benefit");
     expect(dossier).toContain("IRB");
     expect(dossier).toContain("radiologist handoff");
@@ -564,6 +564,21 @@ describe("publication-readiness source-document consistency", () => {
         }
       }
     }
+  });
+
+  it("documents asymmetric-ventricle subthreshold atrial rows as clinical cutoff controls", () => {
+    const testCorpus = readFileSync(resolve(process.cwd(), "TEST.md"), "utf8");
+
+    expect(testCorpus).toContain(
+      "| Atrium-R | 9.5 mm | below 10 mm VM threshold |"
+    );
+    expect(testCorpus).toContain(
+      "| Atrium-R | 9.8 mm | below 10 mm VM threshold (just below cutoff) |"
+    );
+    expect(testCorpus).not.toContain("| Atrium-R | 9.5 mm | normal |");
+    expect(testCorpus).not.toContain(
+      "| Atrium-R | 9.8 mm | normal (just below the 10 mm threshold) |"
+    );
   });
 
   it("locks Aertsen 2019 citation metadata to the PMC AJNR article", () => {
