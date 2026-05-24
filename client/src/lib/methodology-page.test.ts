@@ -145,6 +145,14 @@ describe("publication-readiness source-document consistency", () => {
     expect(citationLines.join("\n")).not.toMatch(/\[[0-9]+[a-z]?\]/);
   });
 
+  it("keeps TEST.md differential expectations deterministic", () => {
+    const testCorpus = readFileSync(resolve(process.cwd(), "TEST.md"), "utf8");
+
+    expect(testCorpus).not.toMatch(/may\s+\*?or\s+may\s+not\*?\s+fire/i);
+    expect(testCorpus).not.toContain("may fire on AP vermis depending");
+    expect(testCorpus).not.toContain("depends on the specific calibration");
+  });
+
   it("locks Aertsen 2019 citation metadata to the PMC AJNR article", () => {
     const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
     const testCorpus = readFileSync(resolve(process.cwd(), "TEST.md"), "utf8");

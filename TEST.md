@@ -868,7 +868,7 @@ No DDx cards fire. This case is a clean negative control — the only abnormalit
 | Pons AP | 9.0 mm | normal |
 | (other rows) | filler | normal |
 
-`vermian_hypoplasia` fires; `dandy_walker_spectrum` may or may not fire depending on Whitehead 2022's strict 35° vs. 45° threshold. The case is included as an explicit discriminator test for the calculator's TVA threshold. The expected outcome under the Whitehead 35° threshold is: `dandy_walker_spectrum` fires.
+`vermian_hypoplasia` and `dandy_walker_spectrum` fire under the calculator's locked Whitehead 35° TVA support rule. This case is an explicit discriminator test for the calculator's TVA threshold.
 **Citation.** Whitehead 2022 vs. Klein 2003; Pinto 2016.
 
 ---
@@ -902,7 +902,7 @@ The `small_tcd` card fires when TCD z < –1.645. When the vermis is preserved, 
 | Pons AP | 10.5 mm | normal |
 | (other rows) | filler | normal |
 
-`small_tcd` fires. `vermian_hypoplasia` may fire on AP vermis depending on the GA-specific 5th centile.
+`small_tcd` and `vermian_hypoplasia` fire; the AP vermis value is below the GA-specific 5th centile.
 **Citation.** Bolduc ME, Limperopoulos C. Neurodevelopmental outcomes in children with cerebellar malformations: a systematic review. *Dev Med Child Neurol.* 2009;51(4):256–267. doi:10.1111/j.1469-8749.2008.03224.x.
 
 ### Case CH3 — Unilateral cerebellar hypoplasia at 32 weeks (with vermis preserved)
@@ -1940,7 +1940,7 @@ Cross-reference: see §4, Case S1. All four pattern-defining features are presen
 | Skull BPD | 88 mm | normal |
 | (others) | filler | normal |
 
-`mild_ventriculomegaly`, `third_ventricle_dilatation` fire. **`aqueductal_stenosis_pattern`** may *or may not* fire depending on whether the calculator requires *severe* VM — per SPEC.md §4.6, the pattern requires "atrial > 95th + third ventricle > 3.5 mm + preserved CSP" without requiring severe VM specifically. Expected behaviour: `aqueductal_stenosis_pattern` fires.
+`mild_ventriculomegaly`, `third_ventricle_dilatation`, and **`aqueductal_stenosis_pattern`** fire. Per SPEC.md §4.6, the aqueductal-stenosis pattern requires atrial diameter >95th percentile + third ventricle >3.5 mm + preserved CSP, without a separate severe-VM requirement.
 **Citation.** Heaphy-Henault 2018.
 
 ### Case AS-P3 — Severe VM with absent CSP — negative control for aqueductal stenosis (the absent CSP rules out aqueductal stenosis and points instead to ACC/HPE)
@@ -2033,7 +2033,7 @@ The `chiari_ii_open_ntd` card fires when CSA z < –2 AND TDPF z < –2 AND the 
 | Cerebellar herniation level | –0.7 mm | qualitative |
 | (others) | filler | normal |
 
-`chiari_ii_open_ntd` may *or may not* fire depending on whether CSA crosses back above the threshold; if Mahalanobis posterior < 0.5, the card does not fire — verifying the post-surgical normalisation.
+`chiari_ii_open_ntd` does *not* fire when the post-operative CSA/TDPF pattern normalizes and the Mahalanobis posterior is <0.5. This is the post-surgical-normalisation negative-control fixture.
 **Citation.** Aertsen 2019.
 
 ### Case CII3 — Severe Chiari II at 24 weeks (COHORT-MEAN)
@@ -2100,7 +2100,7 @@ The `chiari_ii_open_ntd` card fires when CSA z < –2 AND TDPF z < –2 AND the 
 | TDPF | mildly reduced | borderline |
 | (others) | filler | normal |
 
-`chiari_ii_open_ntd` may fire only if Mahalanobis posterior ≥ 0.5 — depends on the specific calibration; the case is included to test the boundary behaviour of the Mahalanobis classifier.
+`chiari_ii_open_ntd` is treated as a calibration-boundary fixture: it fires only after a locked Mahalanobis posterior ≥0.5 is documented in the validation analysis lock. Without that locked posterior, this case remains exploratory and is not a clinical positive control.
 **Citation.** Aertsen 2019.
 
 ---
@@ -2148,7 +2148,7 @@ The `hemispheric_asymmetry` card fires when the difference between the two cereb
 | Atrium-L | 14 mm | >95th |
 | (others) | filler | normal |
 
-Brain-volume-loss + `mild_ventriculomegaly` + `asymmetric_ventricles` fire; `hemispheric_asymmetry` may or may not fire depending on whether the Δ exceeds the threshold (5 mm at 30 w is ~ 2 SD).
+`mild_ventriculomegaly` / moderate-range ventriculomegaly context fires from the atrial measurements. `hemispheric_asymmetry` does *not* fire unless the brain OFD left-right z-score gap exceeds the locked >2 SD threshold; this fixture remains below that threshold and is a negative control for the hemispheric-asymmetry card.
 **Citation.** Garel 2004.
 
 ### Case HA4 — Symmetric brain (negative control) at 28 weeks

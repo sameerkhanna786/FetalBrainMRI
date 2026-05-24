@@ -1291,3 +1291,9 @@
 - Add failing-first source-document coverage that the source verification dossier names the ROC-AUC confidence interval after the metric-layer update.
 - Update the calibration and clinical-utility blocker wording without changing its open status or external-data dependencies.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## TEST Corpus Deterministic DDx Language Increment
+
+- Add failing-first source-document coverage that TEST.md no longer uses permissive "may or may not fire" DDx language.
+- Rewrite the ambiguous Dandy-Walker, aqueductal-stenosis, Chiari II post-op, and hemispheric-asymmetry fixture notes as deterministic expected behavior.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.
