@@ -173,6 +173,26 @@ describe("SPEC §4.9 client privacy shell", () => {
       "@builder.io/vite-plugin-jsx-loc"
     );
   });
+
+  it("does not label production-facing source as a prototype or scaffold", () => {
+    const productionFacingFiles = [
+      "client/src/lib/report.ts",
+      "client/src/lib/genai.ts",
+      "client/src/pages/Home.tsx",
+      "client/src/pages/Methodology.tsx",
+      "python_app/__init__.py",
+      "python_app/biometry.py",
+      "pyproject.toml",
+    ];
+
+    const offenders = productionFacingFiles.filter(path =>
+      /\bprototype\b|\bscaffold(?:ed)?\b/i.test(
+        readFileSync(resolve(process.cwd(), path), "utf8")
+      )
+    );
+
+    expect(offenders).toEqual([]);
+  });
 });
 
 describe("SPEC §4.2 reference cohort removal", () => {

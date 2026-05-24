@@ -904,3 +904,9 @@
 - Add privacy-shell coverage that public assets and Vite config do not ship Manus telemetry collectors or storage proxies.
 - Remove the copied debug collector asset from `client/public`.
 - Strip Manus/Builder dev plugins and proxy middleware from the Vite config and package manifest.
+
+## Production Label Cleanup Increment
+
+- Add coverage that user-facing source and package metadata no longer label the calculator as a prototype or scaffold.
+- Replace report, methodology, and home-screen prototype language with release-neutral wording.
+- Update Python package/docstring metadata to describe implemented modules.

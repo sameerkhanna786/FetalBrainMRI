@@ -156,7 +156,7 @@ const TOTAL_MEASUREMENT_FIELDS =
   AUXILIARY_MEASUREMENTS.length +
   QUALITATIVE_FINDINGS.length;
 
-// Reference cases for the prototype's sample loader.
+// Reference cases for the sample loader.
 //
 // Both samples are pinned to the *50th-percentile prediction* of Luis 2025 at
 // the chosen GA, so the resulting z-scores cluster around zero in the normal
@@ -305,7 +305,7 @@ export default function Home() {
                 Fetal Brain MRI Biometry
               </div>
               <div className="smallcaps text-[10px] text-[color:var(--ink-soft)]">
-                Prototype · Client-side · No PHI
+                Offline · Client-side · No PHI
               </div>
             </div>
           </div>
@@ -671,13 +671,12 @@ export default function Home() {
       <footer className="border-t border-[color:var(--rule)] bg-white/50">
         <div className="container py-8 flex flex-wrap gap-4 items-start justify-between text-[12px] text-[color:var(--ink-soft)]">
           <div className="max-w-xl">
-            Prototype of a workflow-integrated fetal brain MRI biometry
-            calculator. Normative reference data: Luis&nbsp;2025
-            (auto-proc-SVRTK), with cross-validation against Tilea&nbsp;2009,
-            Kyriakopoulou&nbsp;2017, Vatansever&nbsp;2013, Dovjak&nbsp;2021,
-            Kertes&nbsp;2021, Conte&nbsp;2018, and Birnbaum&nbsp;2018. No
-            patient data is transmitted or stored; refreshing the page clears
-            all inputs.
+            Workflow-integrated fetal brain MRI biometry calculator. Normative
+            reference data: Luis&nbsp;2025 (auto-proc-SVRTK), with
+            cross-validation against Tilea&nbsp;2009, Kyriakopoulou&nbsp;2017,
+            Vatansever&nbsp;2013, Dovjak&nbsp;2021, Kertes&nbsp;2021,
+            Conte&nbsp;2018, and Birnbaum&nbsp;2018. No patient data is
+            transmitted or stored; refreshing the page clears all inputs.
           </div>
           <div className="flex items-center gap-5">
             <Link href="/methodology" className="cite">

@@ -1,3 +1,17 @@
+## 2026-05-23, Production Label Cleanup Increment
+
+- Added coverage that user-facing source and package metadata no longer label the calculator as a prototype or scaffold.
+- Replaced report, Methodology, footer, and home-screen prototype/scaffold language with release-neutral wording.
+- Updated Python package/docstring metadata to describe implemented modules.
+
+Verification:
+
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 161 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/client-shell.test.ts client/src/lib/report.ts client/src/lib/genai.ts client/src/pages/Home.tsx client/src/pages/Methodology.tsx package.json` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, SPEC 4.9 Public Telemetry Removal Increment
 
 - Added privacy-shell coverage that public assets and Vite config do not ship Manus telemetry collectors or storage proxies.

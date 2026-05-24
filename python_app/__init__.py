@@ -1,1 +1,1 @@
-"""FastAPI scaffold for the fetal brain MRI biometry calculator."""
+"""FastAPI package for the fetal brain MRI biometry calculator."""

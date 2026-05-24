@@ -1,5 +1,5 @@
 /*
- * Optional GenAI/RAG scaffold from SPEC §4.11.
+ * Optional GenAI/RAG module from SPEC §4.11.
  *
  * This module intentionally contains only deterministic metadata and prompt /
  * query construction. It does not execute LLM inference, PubMed requests, or

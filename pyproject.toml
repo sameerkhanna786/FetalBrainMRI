@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "fetal-brain-mri-python-app"
 version = "0.1.0"
-description = "Offline-capable FastAPI/Jinja scaffold for the fetal brain MRI biometry calculator."
+description = "Offline-capable FastAPI/Jinja app for the fetal brain MRI biometry calculator."
 requires-python = ">=3.11"
 dependencies = [
   "fastapi>=0.115",

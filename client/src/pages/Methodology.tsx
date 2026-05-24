@@ -344,7 +344,7 @@ export default function Methodology() {
             Optional GenAI / RAG report module
           </h2>
           <p>
-            The optional GenAI / RAG report module is scaffolded as a guarded
+            The optional GenAI / RAG report module is implemented as a guarded
             report-generation path. Findings remain deterministic string
             interpolation, and any impression synthesis is constrained by the
             prompt: "You must only use the provided numerical data and retrieved
@@ -367,7 +367,7 @@ export default function Methodology() {
             recommendations remain deployment metadata: llama.cpp for local
             inference and Google AI Studio, Groq Cloud, Hugging Face Serverless
             Inference API, or OpenRouter for free-tier cloud evaluation.
-            networkCallsEnabled remains false in this client-side prototype.
+            networkCallsEnabled remains false in the client-side calculator.
           </p>
         </section>
 
@@ -388,7 +388,7 @@ export default function Methodology() {
             breaks only, with no HTML or PHI-bearing fields.
           </p>
           <p>
-            The prototype is entirely client-side. No patient data is ever
+            The calculator is entirely client-side. No patient data is ever
             transmitted, stored, or logged. Refreshing the page clears every
             input. Because no PHI is handled, the calculator sits outside HIPAA
             data-hosting scope — which is what makes the TI-RADS-style

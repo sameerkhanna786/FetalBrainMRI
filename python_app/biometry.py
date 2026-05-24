@@ -1,4 +1,4 @@
-"""Python biometry model-family scaffold for SPEC §4.2 / §4.3."""
+"""Python biometry model families for SPEC §4.2 / §4.3."""
 
 from collections.abc import Sequence
 from dataclasses import dataclass
