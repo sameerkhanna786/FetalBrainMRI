@@ -3424,22 +3424,22 @@ const CARDS: CardSpec[] = [
     rows: [
       {
         dx: "PCH Type 2 (TSEN54-related)",
-        likelihood: "~50%",
+        likelihood: "Most common",
         rationale: "Most common subtype.",
       },
       {
         dx: "PCH Type 1",
-        likelihood: "~15%",
+        likelihood: "Minority",
         rationale: "Associated motor neuronopathy.",
       },
       {
         dx: "Other PCH (3–11) / CASK / tubulinopathy",
-        likelihood: "~20%",
+        likelihood: "Minority",
         rationale: "Genetic panel needed.",
       },
       {
         dx: "Acquired (CMV)",
-        likelihood: "~5%",
+        likelihood: "Rare",
         rationale: "Distinct calcifications and microcephaly.",
       },
     ],

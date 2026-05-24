@@ -983,6 +983,33 @@ describe("SPEC §7.4 DWM-pattern likelihood manifest", () => {
   });
 });
 
+describe("SPEC §7.4 PCH-pattern likelihood manifest", () => {
+  it("qualitative-labels the estimate-only pontocerebellar-hypoplasia combined-pattern rows", () => {
+    const ga = { weeks: 28, days: 0 };
+    const gaWeeks = 28;
+    const values = {
+      pons_ap:
+        mu(byId("pons_ap"), gaWeeks) - 1.9 * sigma(byId("pons_ap"), gaWeeks),
+      vermis_cc:
+        mu(byId("vermis_cc"), gaWeeks) -
+        1.9 * sigma(byId("vermis_cc"), gaWeeks),
+      tcd: mu(byId("tcd"), gaWeeks),
+    };
+    const { dxs } = evaluateAll(values, ga);
+    const pch = dxs.find(dx => dx.id === "pch-pattern");
+
+    expect(pch?.rows.map(row => row.likelihood)).toEqual([
+      "Most common",
+      "Minority",
+      "Minority",
+      "Rare",
+    ]);
+    expect(pch?.rows.map(row => row.likelihood).join(" ")).not.toMatch(
+      /~50|~15|~20|~5/
+    );
+  });
+});
+
 describe("aqueductal-stenosis pattern report impression", () => {
   it("uses the TEST.md Case S1 triventricular hydrocephalus impression line", () => {
     const ga = { weeks: 26, days: 0 };
