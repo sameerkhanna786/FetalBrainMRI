@@ -1556,3 +1556,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/biometry.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 7.4 Macrocephaly Likelihood Qualitative Increment
+
+- Added DDx coverage for the SPEC §7.4 macrocephaly likelihood manifest.
+- Confirmed the macrocephaly card no longer surfaces estimate-only numeric percentages.
+- Replaced the hydrocephalus, benign familial macrocephaly, megalencephaly, and tumor/cyst likelihood labels with qualitative wording.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 124 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/biometry.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

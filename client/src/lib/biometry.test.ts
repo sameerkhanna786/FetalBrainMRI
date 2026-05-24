@@ -850,6 +850,29 @@ describe("SPEC §7.4 microcephaly likelihood manifest", () => {
   });
 });
 
+describe("SPEC §7.4 macrocephaly likelihood manifest", () => {
+  it("qualitative-labels the estimate-only macrocephaly likelihood rows", () => {
+    const ga = { weeks: 30, days: 0 };
+    const gaWeeks = 30;
+    const skullBpd = byId("skull_bpd");
+    const values = {
+      skull_bpd: mu(skullBpd, gaWeeks) + 1.9 * sigma(skullBpd, gaWeeks),
+    };
+    const { dxs } = evaluateAll(values, ga);
+    const macrocephaly = dxs.find(dx => dx.id === "macrocephaly");
+
+    expect(macrocephaly?.rows.map(row => row.likelihood)).toEqual([
+      "Common",
+      "Minority",
+      "Minority",
+      "Rare",
+    ]);
+    expect(macrocephaly?.rows.map(row => row.likelihood).join(" ")).not.toMatch(
+      /~30|~20|~15|~5/
+    );
+  });
+});
+
 describe("aqueductal-stenosis pattern report impression", () => {
   it("uses the TEST.md Case S1 triventricular hydrocephalus impression line", () => {
     const ga = { weeks: 26, days: 0 };

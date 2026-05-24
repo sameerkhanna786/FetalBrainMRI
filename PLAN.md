@@ -712,3 +712,9 @@
 - Add DDx coverage for the SPEC §7.4 microcephaly likelihood manifest.
 - Confirm the microcephaly card no longer surfaces estimate-only numeric percentages.
 - Replace the genetic, infection, malformation, chromosomal, and constitutional likelihood labels with qualitative wording.
+
+## SPEC 7.4 Macrocephaly Likelihood Qualitative Increment
+
+- Add DDx coverage for the SPEC §7.4 macrocephaly likelihood manifest.
+- Confirm the macrocephaly card no longer surfaces estimate-only numeric percentages.
+- Replace the hydrocephalus, benign familial macrocephaly, megalencephaly, and tumor/cyst likelihood labels with qualitative wording.

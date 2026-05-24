@@ -2849,22 +2849,22 @@ const CARDS: CardSpec[] = [
     rows: [
       {
         dx: "Hydrocephalus",
-        likelihood: "~30%",
+        likelihood: "Common",
         rationale: "Especially when atrial diameter is also enlarged.",
       },
       {
         dx: "Benign familial macrocephaly",
-        likelihood: "~20%",
+        likelihood: "Minority",
         rationale: "Compare with parental head circumferences.",
       },
       {
         dx: "Megalencephaly syndromes (PTEN, MPPH, MCAP)",
-        likelihood: "~15%",
+        likelihood: "Minority",
         rationale: "Correlate with cortical malformation.",
       },
       {
         dx: "Tumor / cyst",
-        likelihood: "~5%",
+        likelihood: "Rare",
         rationale: "Rare; correlate with parenchymal MRI.",
       },
     ],
