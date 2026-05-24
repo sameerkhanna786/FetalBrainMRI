@@ -1608,3 +1608,10 @@
 - Apply the existing exclusive lower-bound validation metadata to `field_strength_t`.
 - Update the data dictionary so scanner field strength is documented as a positive Tesla value.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Case-Log Gestational Age Range Guard Increment
+
+- Add failing-first coverage for `case_log.csv` `ga_weeks` values outside the calculator-supported 18-40 week range.
+- Align validation export preflight with the SPEC/UI gestational-age bounds and TEST stress cases.
+- Update the data dictionary so analysts know case logs must stay within the supported GA range.
+- Update the audit/progress trail, then run targeted/full gates before committing.

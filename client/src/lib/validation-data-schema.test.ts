@@ -353,6 +353,48 @@ describe("validation data export schema guard", () => {
     );
   });
 
+  it("rejects case-log gestational age weeks outside the calculator-supported range", () => {
+    expect(
+      validateValidationDataRows("case_log.csv", [
+        {
+          study_id: "S1",
+          cohort: "institutional",
+          site_id: "single_site",
+          scanner_vendor: "unknown",
+          field_strength_t: 1.5,
+          svr_method: "none",
+          image_quality_tier: "diagnostic",
+          ga_weeks: 17,
+          ga_days: 6,
+          included: true,
+          reference_standard_available: true,
+          prediction_available: true,
+          pathology_label_available: true,
+        },
+        {
+          study_id: "S2",
+          cohort: "institutional",
+          site_id: "single_site",
+          scanner_vendor: "unknown",
+          field_strength_t: 1.5,
+          svr_method: "none",
+          image_quality_tier: "diagnostic",
+          ga_weeks: 41,
+          ga_days: 0,
+          included: true,
+          reference_standard_available: true,
+          prediction_available: true,
+          pathology_label_available: true,
+        },
+      ])
+    ).toEqual(
+      expect.arrayContaining([
+        "case_log.csv row 1 field ga_weeks must be between 18 and 40",
+        "case_log.csv row 2 field ga_weeks must be between 18 and 40",
+      ])
+    );
+  });
+
   it("rejects reader-study washouts shorter than the locked two-week interval", () => {
     expect(
       validateValidationDataRows("reader_study_rows.csv", [

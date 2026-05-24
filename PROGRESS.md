@@ -1,3 +1,21 @@
+## 2026-05-24, Case-Log Gestational Age Range Guard Increment
+
+- Added failing-first coverage for `case_log.csv` `ga_weeks` values outside the calculator-supported 18-40 week range.
+- Aligned validation export preflight with the SPEC/UI gestational-age bounds and TEST stress cases at 18w0d and 40w0d.
+- Updated `validation_data_dictionary.md` so analysts know case logs must stay within the supported gestational-age range.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "gestational age weeks"` failed before implementation because `ga_weeks=17` and `ga_weeks=41` produced no schema errors.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "gestational age weeks"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 24 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 269 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Case-Log Field Strength Positivity Guard Increment
 
 - Added failing-first coverage for `case_log.csv` rows with zero Tesla scanner field strength.

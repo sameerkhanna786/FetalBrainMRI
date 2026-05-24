@@ -49,7 +49,7 @@ checked against the runtime schema.
 | field_strength_t             | yes         | Positive numeric Tesla value such as `0.55`, `1.5`, or `3`.                                                                                  |
 | svr_method                   | yes         | `none`, `clinical_svr`, `research_svr`, or `unknown`.                                                                                        |
 | image_quality_tier           | yes         | `diagnostic`, `motion_limited`, `nondiagnostic`, or local locked categories.                                                                 |
-| ga_weeks                     | yes         | Integer gestational age weeks at MRI.                                                                                                        |
+| ga_weeks                     | yes         | Integer gestational age weeks at MRI; supported range is 18-40.                                                                              |
 | ga_days                      | yes         | Integer 0-6 gestational age days.                                                                                                            |
 | included                     | yes         | `true` or `false`.                                                                                                                           |
 | exclusion_reason             | conditional | Required when `included=false` and must be blank when `included=true`; examples: `motion-degraded`, `missing-sequence`, `outside-ga-window`. |

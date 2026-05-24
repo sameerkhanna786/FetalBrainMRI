@@ -107,7 +107,8 @@ export const VALIDATION_DATA_SCHEMAS: Record<
         name: "ga_weeks",
         required: "yes",
         numeric: true,
-        min: 0,
+        min: 18,
+        max: 40,
         integer: true,
       },
       {
