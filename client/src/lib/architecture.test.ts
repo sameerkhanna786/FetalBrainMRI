@@ -34,6 +34,26 @@ describe("SPEC §4.3 Python/FastAPI architecture scaffold", () => {
     expect(app).toContain("offline-capable");
   });
 
+  it("renders a Python Jinja worksheet shell with SPEC §4.4 controls", () => {
+    const app = read("python_app/main.py");
+    const template = read("python_app/templates/index.html");
+
+    expect(app).toContain("weeks_options");
+    expect(app).toContain("parameter_groups");
+    expect(app).toContain('@app.post("/calculate"');
+    expect(template).not.toContain("TypeScript calculator remains");
+    expect(template).toContain('name="weeks"');
+    expect(template).toContain("{% for week in weeks_options %}");
+    expect(template).toContain('name="days"');
+    expect(template).toContain('hx-post="/calculate"');
+    expect(template).toContain(
+      'hx-trigger="change, keyup changed delay:300ms"'
+    );
+    expect(template).toContain("Structured report preview");
+    expect(template).toContain("Copy to Clipboard");
+    expect(template).toContain("Clear All");
+  });
+
   it("uses local HTMX and Tailwind assets rather than remote scripts", () => {
     const templatePath = resolve(
       process.cwd(),

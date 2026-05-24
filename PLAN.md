@@ -850,3 +850,9 @@
 - Add architecture coverage for the optional Python Bio.Entrez agentic-search backend hook.
 - Declare Biopython as an optional GenAI dependency without enabling network calls in the client.
 - Add a Python plan module that builds the PubMed query shape, top-3 abstract limit, and PMID transparency metadata.
+
+## SPEC 4.4 Python Jinja Worksheet Shell Increment
+
+- Add architecture coverage that the FastAPI/Jinja first screen is a worksheet shell rather than scaffold copy.
+- Render GA week/day controls, imaging context, parameter inputs, and a structured-report preview from Jinja.
+- Add a lightweight HTMX `/calculate` endpoint hook for report-preview updates without storing PHI.

@@ -1862,3 +1862,17 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/architecture.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.4 Python Jinja Worksheet Shell Increment
+
+- Added architecture coverage that the FastAPI/Jinja first screen is a worksheet shell rather than scaffold copy.
+- Rendered GA week/day controls, imaging context, parameter inputs, and a structured-report preview from Jinja.
+- Added a lightweight HTMX `/calculate` endpoint hook for report-preview updates without storing PHI.
+
+Verification:
+
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 152 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/architecture.test.ts python_app/templates/index.html` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
