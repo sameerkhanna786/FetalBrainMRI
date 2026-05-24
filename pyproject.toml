@@ -1,0 +1,20 @@
+[project]
+name = "fetal-brain-mri-python-app"
+version = "0.1.0"
+description = "Offline-capable FastAPI/Jinja scaffold for the fetal brain MRI biometry calculator."
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.115",
+  "jinja2>=3.1",
+  "numpy>=2.0",
+  "scipy>=1.14",
+  "uvicorn[standard]>=0.30",
+]
+
+[project.optional-dependencies]
+standalone = [
+  "pyinstaller>=6.0",
+]
+
+[tool.pyinstaller]
+entry-point = "python_app.main:app"

@@ -1764,3 +1764,17 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/genai.ts client/src/lib/genai.test.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 4.3 Python/FastAPI Architecture Scaffold Increment
+
+- Added architecture coverage for the SPEC §4.3 Python/FastAPI/Jinja deployment surface.
+- Required local HTMX and Tailwind assets so the scaffold remains offline-capable.
+- Declared the required numpy/scipy math dependencies and standalone packaging dependency.
+
+Verification:
+
+- `python3 -m py_compile python_app/__init__.py python_app/main.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 146 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md python_app/templates/index.html python_app/static/tailwind.css python_app/static/htmx.min.js client/src/lib/architecture.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.

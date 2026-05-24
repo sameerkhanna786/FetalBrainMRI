@@ -808,3 +808,9 @@
 - Add GenAI coverage that prompt payloads include the strict RAG system prompt.
 - Inject exact numerical inputs, z-scores, and percentiles into the prompt payload.
 - Inject retrieved evidence chunks with source labels so generated impressions stay literature-grounded.
+
+## SPEC 4.3 Python/FastAPI Architecture Scaffold Increment
+
+- Add architecture coverage for the SPEC §4.3 Python/FastAPI/Jinja deployment surface.
+- Require local HTMX and Tailwind assets so the scaffold remains offline-capable.
+- Declare the required numpy/scipy math dependencies and standalone packaging dependency.
