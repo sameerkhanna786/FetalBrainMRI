@@ -1671,3 +1671,10 @@
 - Add failing-first source-document coverage requiring TRIPOD+AI and DECIDE-AI errata metadata in the handoff packet.
 - Update the publication handoff checklist and source-verification dossier so radiologist collaborators see the errata alongside the guideline citations.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## GenAI Contradictory Measurement Guard Increment
+
+- Add failing-first coverage that generated-report verification rejects contradictory duplicate numeric mentions even when the expected anchor is present.
+- Extend the deterministic verifier to scan report text for label-linked numeric values that disagree with the original measurement input.
+- Keep the fallback path as the safe deterministic template whenever a contradiction is detected.
+- Update the audit/progress trail, then run targeted/full gates before committing.

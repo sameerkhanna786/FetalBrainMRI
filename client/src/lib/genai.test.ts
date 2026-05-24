@@ -96,12 +96,12 @@ describe("SPEC §4.11.4 hallucination guardrails", () => {
     expect(result).toMatchObject({
       ok: false,
       fallback: "safe deterministic template",
-      failures: [
-        {
+      failures: expect.arrayContaining([
+        expect.objectContaining({
           label: "Left atrium",
           expectedAnchor: "Left atrium: 12.0 mm",
-        },
-      ],
+        }),
+      ]),
     });
   });
 
@@ -119,6 +119,23 @@ describe("SPEC §4.11.4 hallucination guardrails", () => {
       failures: [],
       fallback: null,
     });
+  });
+
+  it("fails generated-report verification when a duplicate numeric mention contradicts the input", () => {
+    const result = verifyGeneratedReportAgainstNumericInputs(
+      "FINDINGS\nLeft atrium: 12.0 mm.\nLeft atrium: 22.0 mm.",
+      [{ label: "Left atrium", value: 12, unit: "mm" }]
+    );
+
+    expect(result.ok).toBe(false);
+    expect(result.fallback).toBe("safe deterministic template");
+    expect(result.failures).toContainEqual(
+      expect.objectContaining({
+        label: "Left atrium",
+        expectedAnchor: "Left atrium: 12.0 mm",
+        observedAnchor: "Left atrium: 22.0 mm",
+      })
+    );
   });
 });
 

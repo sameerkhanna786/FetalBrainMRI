@@ -81,6 +81,7 @@ export type NumericReportInput = {
 export type NumericVerificationFailure = {
   label: string;
   expectedAnchor: string;
+  observedAnchor?: string;
 };
 
 export type NumericVerificationResult = {
@@ -91,6 +92,9 @@ export type NumericVerificationResult = {
 
 const normalizeFinding = (finding: string): string =>
   finding.trim().replace(/\s+/g, " ");
+
+const escapeRegExp = (value: string): string =>
+  value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 const numericAnchorFor = (input: NumericReportInput): string =>
   `${input.label}: ${input.value.toFixed(1)} ${input.unit}`;
@@ -146,12 +150,45 @@ export function verifyGeneratedReportAgainstNumericInputs(
   report: string,
   inputs: NumericReportInput[]
 ): NumericVerificationResult {
-  const failures = inputs
+  const missingAnchorFailures = inputs
     .map(input => ({
       label: input.label,
       expectedAnchor: numericAnchorFor(input),
     }))
     .filter(anchor => !report.includes(anchor.expectedAnchor));
+  const contradictoryMentionFailures = inputs.flatMap(input => {
+    const labelPattern = escapeRegExp(input.label).replace(/\s+/g, "\\s+");
+    const mentionPattern = new RegExp(
+      `${labelPattern}\\s*(?::|measures|=)?\\s*(-?\\d+(?:\\.\\d+)?)\\s*(mm|degrees?)\\b`,
+      "gi"
+    );
+    const failures: NumericVerificationFailure[] = [];
+
+    const matches = Array.from(report.matchAll(mentionPattern));
+    for (const match of matches) {
+      const observedValue = Number(match[1]);
+      const observedUnit = match[2].toLowerCase();
+      const expectedUnit =
+        input.unit === "degrees" ? "degree" : input.unit.toLowerCase();
+      const unitMatches =
+        observedUnit === expectedUnit || observedUnit === `${expectedUnit}s`;
+
+      if (
+        !unitMatches ||
+        !Number.isFinite(observedValue) ||
+        Math.abs(observedValue - input.value) > 0.05
+      ) {
+        failures.push({
+          label: input.label,
+          expectedAnchor: numericAnchorFor(input),
+          observedAnchor: match[0].trim(),
+        });
+      }
+    }
+
+    return failures;
+  });
+  const failures = [...missingAnchorFailures, ...contradictoryMentionFailures];
 
   return {
     ok: failures.length === 0,

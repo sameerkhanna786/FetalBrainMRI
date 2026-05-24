@@ -1,3 +1,21 @@
+## 2026-05-24, GenAI Contradictory Measurement Guard Increment
+
+- Added failing-first coverage that a generated report fails verification when it includes the correct numeric anchor plus a contradictory duplicate measurement.
+- Extended `verifyGeneratedReportAgainstNumericInputs` to scan label-linked numeric mentions and reject values or units that disagree with the original measurement input.
+- Preserved the safe deterministic-template fallback for missing anchors and contradictory mentions.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/genai.test.ts -- --runInBand -t "duplicate numeric"` failed before implementation because contradictory duplicate measurements still passed verification.
+- `npx pnpm@10.4.1 test client/src/lib/genai.test.ts -- --runInBand -t "duplicate numeric|original numeric"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/genai.test.ts -- --runInBand` passes with 8 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 277 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md client/src/lib/genai.ts client/src/lib/genai.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Reporting Guideline Errata Handoff Increment
 
 - Rechecked guideline and FeTA 2024 metadata through PubMed E-utilities after the external web-search endpoint timed out.
