@@ -656,14 +656,19 @@ export const validateValidationDataRows = (
         : isFalseLike(row.predicted_label)
           ? false
           : null;
+      if (threshold != null && (threshold <= 0 || threshold >= 1)) {
+        errors.push(
+          `${rowLabel} field threshold must be greater than 0 and less than 1`
+        );
+      }
       if (
         predictedProbability != null &&
         threshold != null &&
         predictedLabel != null &&
         predictedProbability >= 0 &&
         predictedProbability <= 1 &&
-        threshold >= 0 &&
-        threshold <= 1
+        threshold > 0 &&
+        threshold < 1
       ) {
         const expectedLabel = predictedProbability >= threshold;
         if (predictedLabel !== expectedLabel) {

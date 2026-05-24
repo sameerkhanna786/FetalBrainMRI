@@ -331,6 +331,34 @@ describe("validation data export schema guard", () => {
     );
 
     expect(
+      validateValidationDataRows("diagnostic_labels.csv", [
+        {
+          study_id: "S1",
+          trigger_id: "mild-vm",
+          reference_label: false,
+          predicted_label: true,
+          predicted_probability: 0,
+          threshold: 0,
+          indeterminate: false,
+        },
+        {
+          study_id: "S2",
+          trigger_id: "severe-vm",
+          reference_label: false,
+          predicted_label: false,
+          predicted_probability: 1,
+          threshold: 1,
+          indeterminate: false,
+        },
+      ])
+    ).toEqual(
+      expect.arrayContaining([
+        "diagnostic_labels.csv row 1 field threshold must be greater than 0 and less than 1",
+        "diagnostic_labels.csv row 2 field threshold must be greater than 0 and less than 1",
+      ])
+    );
+
+    expect(
       validateValidationDataRows("reader_study_rows.csv", [
         {
           reader_id: "R1",

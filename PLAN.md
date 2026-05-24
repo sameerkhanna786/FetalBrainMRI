@@ -1706,3 +1706,10 @@
 - Extend row validation so calibration and diagnostic-accuracy exports cannot carry internally contradictory prediction fields.
 - Update the data dictionary so analysts know `predicted_label` is derived from `predicted_probability >= threshold` when probabilities are exported.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Diagnostic Threshold Open-Interval Guard Increment
+
+- Add failing-first validation-data-schema coverage that `diagnostic_labels.csv` thresholds reject degenerate `0` and `1` values.
+- Align export validation with validation-metrics helpers that require thresholds strictly between zero and one for accuracy, calibration, and decision-curve analysis.
+- Update the data dictionary wording from inclusive 0-1 to open-interval threshold guidance.
+- Update the audit/progress trail, then run targeted/full gates before committing.
