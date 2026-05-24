@@ -228,6 +228,28 @@ describe("publication-readiness source-document consistency", () => {
     );
   });
 
+  it("locks Vatansever 2013 posterior-fossa metadata to the Cerebellum article", () => {
+    const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
+    const biometry = readFileSync(
+      resolve(process.cwd(), "client/src/lib/biometry.ts"),
+      "utf8"
+    );
+
+    expect(spec).toContain("10.1007/s12311-013-0470-2");
+    expect(spec).toContain("23553467");
+    expect(spec).toContain(
+      "Multidimensional Analysis of Fetal Posterior Fossa in Health and Disease"
+    );
+    expect(spec).toContain(
+      "| VATANSEVER_2013 | Vatansever D, Kyriakopoulou V, Allsop JM, Fox M, Chew A, Hajnal JV, Rutherford MA."
+    );
+    expect(spec).not.toContain(
+      "| VATANSEVER_2013 | Vatansever D et al. Normative MR biometry of the fetal cerebellum."
+    );
+    expect(biometry).toContain("10.1007/s12311-013-0470-2");
+    expect(biometry).toContain("PMID 23553467");
+  });
+
   it("locks the Woitek 2014 Table 3 control rows to the PMC source audit", () => {
     const spec = readFileSync(resolve(process.cwd(), "SPEC.md"), "utf8");
     const dossier = readFileSync(

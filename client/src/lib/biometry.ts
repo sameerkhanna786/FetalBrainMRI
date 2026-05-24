@@ -93,7 +93,7 @@ const S_KYRIA: Source = {
 };
 const S_VATANSEVER: Source = {
   label: "Vatansever 2013",
-  full: "Vatansever D, Kyriakopoulou V, Allsop JM, et al. Multidimensional analysis of fetal posterior fossa in health and disease. Cerebellum. 2013;12(5):632–644.",
+  full: "Vatansever D, Kyriakopoulou V, Allsop JM, Fox M, Chew A, Hajnal JV, Rutherford MA. Multidimensional Analysis of Fetal Posterior Fossa in Health and Disease. Cerebellum. 2013;12(5):632–644. doi:10.1007/s12311-013-0470-2. PMID 23553467.",
   url: "https://link.springer.com/article/10.1007/s12311-013-0470-2",
 };
 const S_DOVJAK: Source = {

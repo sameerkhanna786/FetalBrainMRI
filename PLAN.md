@@ -1110,3 +1110,10 @@
 - Correct the SPEC tooltip, source inventory, and atrial-diameter cross-validation row to DOI `10.1097/MD.0000000000016118`, PMID `31261528`, and PMCID `PMC6616102`.
 - Preserve Ma 2019 as a teaching/cross-validation source for atrial diameter, not an active computational coefficient source.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Vatansever 2013 Posterior-Fossa Source Metadata Increment
+
+- Add source-document coverage that `VATANSEVER_2013` resolves to the Cerebellum posterior-fossa MRI paper with DOI `10.1007/s12311-013-0470-2` and PMID `23553467`.
+- Correct the SPEC source-inventory row and reference metadata away from placeholder `(varies)` values.
+- Add the same DOI / PMID lock to the runtime Vatansever source record used on posterior-fossa cards and source details.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

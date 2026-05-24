@@ -1,3 +1,20 @@
+## 2026-05-23, Vatansever 2013 Posterior-Fossa Source Metadata Increment
+
+- Added failing-first source-document coverage that locks `VATANSEVER_2013` to the Cerebellum posterior-fossa MRI article with DOI `10.1007/s12311-013-0470-2` and PMID `23553467`.
+- Verified via Crossref and PubMed that the article is Vatansever et al. _Multidimensional Analysis of Fetal Posterior Fossa in Health and Disease_, Cerebellum 2013;12(5):632-644.
+- Verified via NCBI ID Converter that the article does not have a PMC record.
+- Corrected the SPEC source inventory and reference metadata, and added the DOI / PMID lock to the runtime Vatansever source record used by posterior-fossa details and DDx cards.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before the citation update because SPEC.md did not contain `10.1007/s12311-013-0470-2`.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 196 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 196 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md client/src/lib/biometry.ts client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, Ma 2019 Atrial-Diameter Source Metadata Increment
 
 - Added failing-first source-document coverage that locks `MA_2019` to the Medicine fetal-MRI lateral-ventricle article and rejects the unrelated Wiley `10.1002/jum.15003` ovarian cystadenofibroma article.
