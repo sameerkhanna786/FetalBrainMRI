@@ -36,7 +36,7 @@ checked against the runtime schema.
 | measurement_rows.csv  | one row per case, parameter, source role, and reader if applicable | `computeAgreementMetrics`, `computeGroupedAgreementMetrics`, `computeIntraclassCorrelation` |
 | diagnostic_labels.csv | one row per case and diagnostic trigger                            | `computeBinaryValidationMetrics`, `computeDecisionCurve`                                    |
 | reader_study_rows.csv | one row per reader, case, and reading condition                    | `computeReaderStudyCrossoverSummary`, `computeCohenKappa`, `computeFleissKappa`             |
-| report_audit_rows.csv | one row per baseline or post-tool report                           | `computeQiAuditSummary`, `compareQiAuditPhases`                                             |
+| report_audit_rows.csv | one row per baseline or post-tool report linked to a case          | `computeQiAuditSummary`, `compareQiAuditPhases`                                             |
 
 ## case_log.csv
 
@@ -140,10 +140,14 @@ SUS item is present, all ten item responses must be present.
 Use this file for the QI pre/post report audit modeled after the TI-RADS
 calculator study. `required_measurement_count` must be greater than zero, and
 `documented_measurement_count` cannot exceed `required_measurement_count`.
+Each row keeps a report-level key and the de-identified `study_id` from
+`case_log.csv` so report-audit exports can be linked to the same cohort flow as
+the other validation files.
 
 | Column                         | Required    | Values / notes                                              |
 | ------------------------------ | ----------- | ----------------------------------------------------------- |
 | report_id                      | yes         | De-identified report key.                                   |
+| study_id                       | yes         | Links to `case_log.csv`.                                    |
 | phase                          | yes         | `baseline` or `post_tool`.                                  |
 | duration_sec                   | yes         | Time to complete report.                                    |
 | required_measurement_count     | yes         | Number of measurements required by the locked audit rubric. |

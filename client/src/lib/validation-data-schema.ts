@@ -341,6 +341,7 @@ export const VALIDATION_DATA_SCHEMAS: Record<
     fileName: "report_audit_rows.csv",
     columns: [
       { name: "report_id", required: "yes" },
+      { name: "study_id", required: "yes" },
       {
         name: "phase",
         required: "yes",
@@ -648,6 +649,12 @@ export const validateValidationDataExport = (
     errors,
     "reader_study_rows.csv",
     data["reader_study_rows.csv"] ?? [],
+    caseIds
+  );
+  pushMissingCaseReferences(
+    errors,
+    "report_audit_rows.csv",
+    data["report_audit_rows.csv"] ?? [],
     caseIds
   );
 

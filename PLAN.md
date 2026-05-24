@@ -1559,3 +1559,10 @@
 - Expose runtime differential card IDs from the DDx engine and validate diagnostic-label exports against that list.
 - Document that diagnostic trigger IDs must match runtime card IDs rather than free-text labels.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Report-Audit Study ID Link Guard Increment
+
+- Add failing-first coverage for `report_audit_rows.csv` rows that cannot be linked to `case_log.csv`.
+- Require `study_id` in the report-audit export schema and header template while keeping `report_id` as the report-level key.
+- Extend package-level validation so report-audit rows participate in the same cross-file case-reference guard as measurement, diagnostic-label, and reader-study rows.
+- Update the data dictionary, audit/progress trail, and full verification gate before committing.

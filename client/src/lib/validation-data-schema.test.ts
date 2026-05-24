@@ -92,6 +92,7 @@ describe("validation data export schema guard", () => {
       "report_audit_rows.csv": [
         {
           report_id: "P1",
+          study_id: "S1",
           phase: "baseline",
           duration_sec: 600,
           required_measurement_count: 8,
@@ -222,6 +223,7 @@ describe("validation data export schema guard", () => {
       validateValidationDataRows("report_audit_rows.csv", [
         {
           report_id: "P1",
+          study_id: "S1",
           phase: "pilot",
           duration_sec: 600,
           required_measurement_count: 8,
@@ -426,6 +428,7 @@ describe("validation data export schema guard", () => {
       validateValidationDataRows("report_audit_rows.csv", [
         {
           report_id: "P1",
+          study_id: "S1",
           phase: "baseline",
           duration_sec: 600,
           required_measurement_count: 0,
@@ -435,6 +438,7 @@ describe("validation data export schema guard", () => {
         },
         {
           report_id: "P2",
+          study_id: "S2",
           phase: "post_tool",
           duration_sec: 480,
           required_measurement_count: 8,
@@ -498,6 +502,7 @@ describe("validation data export schema guard", () => {
       validateValidationDataRows("report_audit_rows.csv", [
         {
           report_id: "P1",
+          study_id: "S1",
           phase: "baseline",
           duration_sec: 600,
           required_measurement_count: 8.5,
@@ -739,6 +744,44 @@ describe("validation data export schema guard", () => {
         "reader_study_rows.csv reader R1 study S1 must include both without_tool and with_tool rows",
         "reader_study_rows.csv reader R2 study S4 must include both without_tool and with_tool rows",
       ])
+    );
+  });
+
+  it("rejects report-audit rows that do not link to the case log", () => {
+    expect(
+      validateValidationDataExport({
+        "case_log.csv": [
+          {
+            study_id: "S1",
+            cohort: "report_audit",
+            site_id: "single_site",
+            scanner_vendor: "unknown",
+            field_strength_t: 1.5,
+            svr_method: "none",
+            image_quality_tier: "diagnostic",
+            ga_weeks: 28,
+            ga_days: 0,
+            included: true,
+            reference_standard_available: true,
+            prediction_available: true,
+            pathology_label_available: true,
+          },
+        ],
+        "report_audit_rows.csv": [
+          {
+            report_id: "P1",
+            study_id: "S2",
+            phase: "baseline",
+            duration_sec: 600,
+            required_measurement_count: 8,
+            documented_measurement_count: 6,
+            explicit_zscore_documented: false,
+            explicit_percentile_documented: false,
+          },
+        ],
+      })
+    ).toContain(
+      "report_audit_rows.csv row 1 references missing study_id S2 in case_log.csv"
     );
   });
 
