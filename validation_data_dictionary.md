@@ -23,6 +23,9 @@ reject non-finite numeric values, ensure exported rows reference known
 `case_log.csv` study IDs, and require paired `without_tool` / `with_tool`
 reader-study rows before downstream analysis code runs.
 
+Starter CSV header templates live in `validation_export_templates/` and are
+checked against the runtime schema.
+
 ## File set
 
 | File                  | Grain                                                              | Primary helper or use                                                                       |
@@ -93,26 +96,35 @@ The reader-study protocol uses counter-balanced with-tool / without-tool reads
 with a two-week washout. Each reader-case pair needs exactly one `without_tool`
 and one `with_tool` row before paired deltas are computed.
 
-| Column                         | Required    | Values / notes                                            |
-| ------------------------------ | ----------- | --------------------------------------------------------- |
-| reader_id                      | yes         | De-identified reader key.                                 |
-| study_id                       | yes         | Links to `case_log.csv`.                                  |
-| condition                      | yes         | `without_tool` or `with_tool`.                            |
-| read_order                     | yes         | Integer order within the reader's assigned sequence.      |
-| washout_days                   | yes         | Days between paired reads; target is at least 14.         |
-| duration_sec                   | yes         | Reading or reporting duration in seconds.                 |
-| completeness_score             | yes         | Locked rubric score, same scale in both conditions.       |
-| zscore_documentation_rate      | yes         | Fraction 0-1 of required z-scores documented.             |
-| recommendation_congruent       | yes         | `true`, `false`, or blank if not applicable.              |
-| categorical_label              | optional    | Reader's final categorical diagnostic label for kappa.    |
-| continuous_measurement         | optional    | Repeated continuous measurement for ICC(2,1).             |
-| nasa_tlx_mental_demand         | conditional | NASA Task Load Index 0-100 subscale.                      |
-| nasa_tlx_physical_demand       | conditional | NASA Task Load Index 0-100 subscale.                      |
-| nasa_tlx_temporal_demand       | conditional | NASA Task Load Index 0-100 subscale.                      |
-| nasa_tlx_performance           | conditional | NASA Task Load Index 0-100 subscale.                      |
-| nasa_tlx_effort                | conditional | NASA Task Load Index 0-100 subscale.                      |
-| nasa_tlx_frustration           | conditional | NASA Task Load Index 0-100 subscale.                      |
-| sus_item_1 through sus_item_10 | conditional | System Usability Scale responses 1-5 after with-tool use. |
+| Column                    | Required    | Values / notes                                           |
+| ------------------------- | ----------- | -------------------------------------------------------- |
+| reader_id                 | yes         | De-identified reader key.                                |
+| study_id                  | yes         | Links to `case_log.csv`.                                 |
+| condition                 | yes         | `without_tool` or `with_tool`.                           |
+| read_order                | yes         | Integer order within the reader's assigned sequence.     |
+| washout_days              | yes         | Days between paired reads; target is at least 14.        |
+| duration_sec              | yes         | Reading or reporting duration in seconds.                |
+| completeness_score        | yes         | Locked rubric score, same scale in both conditions.      |
+| zscore_documentation_rate | yes         | Fraction 0-1 of required z-scores documented.            |
+| recommendation_congruent  | yes         | `true`, `false`, or blank if not applicable.             |
+| categorical_label         | optional    | Reader's final categorical diagnostic label for kappa.   |
+| continuous_measurement    | optional    | Repeated continuous measurement for ICC(2,1).            |
+| nasa_tlx_mental_demand    | conditional | NASA Task Load Index 0-100 subscale.                     |
+| nasa_tlx_physical_demand  | conditional | NASA Task Load Index 0-100 subscale.                     |
+| nasa_tlx_temporal_demand  | conditional | NASA Task Load Index 0-100 subscale.                     |
+| nasa_tlx_performance      | conditional | NASA Task Load Index 0-100 subscale.                     |
+| nasa_tlx_effort           | conditional | NASA Task Load Index 0-100 subscale.                     |
+| nasa_tlx_frustration      | conditional | NASA Task Load Index 0-100 subscale.                     |
+| sus_item_1                | conditional | System Usability Scale response 1-5 after with-tool use. |
+| sus_item_2                | conditional | System Usability Scale response 1-5 after with-tool use. |
+| sus_item_3                | conditional | System Usability Scale response 1-5 after with-tool use. |
+| sus_item_4                | conditional | System Usability Scale response 1-5 after with-tool use. |
+| sus_item_5                | conditional | System Usability Scale response 1-5 after with-tool use. |
+| sus_item_6                | conditional | System Usability Scale response 1-5 after with-tool use. |
+| sus_item_7                | conditional | System Usability Scale response 1-5 after with-tool use. |
+| sus_item_8                | conditional | System Usability Scale response 1-5 after with-tool use. |
+| sus_item_9                | conditional | System Usability Scale response 1-5 after with-tool use. |
+| sus_item_10               | conditional | System Usability Scale response 1-5 after with-tool use. |
 
 ## report_audit_rows.csv
 

@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 import { describe, expect, it } from "vitest";
@@ -375,5 +375,32 @@ describe("validation data export schema guard", () => {
         "reader_study_rows.csv reader R2 study S4 must include both without_tool and with_tool rows",
       ])
     );
+  });
+
+  it("keeps CSV header templates aligned with runtime schemas", () => {
+    const readerStudyColumns = VALIDATION_DATA_SCHEMAS[
+      "reader_study_rows.csv"
+    ].columns.map(column => column.name);
+
+    expect(readerStudyColumns).toEqual(
+      expect.arrayContaining(["sus_item_1", "sus_item_10"])
+    );
+    expect(readerStudyColumns).not.toContain("sus_item_1 through sus_item_10");
+
+    for (const fileName of VALIDATION_DATA_FILE_ORDER) {
+      const templatePath = resolve(
+        process.cwd(),
+        "validation_export_templates",
+        fileName
+      );
+      expect(existsSync(templatePath)).toBe(true);
+      const header = readFileSync(templatePath, "utf8")
+        .trim()
+        .split("\n")[0]
+        .split(",");
+      expect(header).toEqual(
+        VALIDATION_DATA_SCHEMAS[fileName].columns.map(column => column.name)
+      );
+    }
   });
 });

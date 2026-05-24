@@ -1,3 +1,21 @@
+## 2026-05-24, Validation CSV Template Handoff Increment
+
+- Added failing-first coverage requiring CSV header templates under `validation_export_templates/` to match the runtime validation-data schemas.
+- Expanded the reader-study System Usability Scale schema from the prose shorthand into explicit `sus_item_1` through `sus_item_10` columns.
+- Added checked header templates for `case_log.csv`, `measurement_rows.csv`, `diagnostic_labels.csv`, `reader_study_rows.csv`, and `report_audit_rows.csv`, and linked them from `validation_data_dictionary.md`.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "CSV header"` failed before implementation because the SUS schema still used the shorthand `sus_item_1 through sus_item_10` and templates were missing.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes.
+- `npx pnpm@10.4.1 test client/src/lib/methodology-page.test.ts -- --runInBand -t "validation data-collection"` passes.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 250 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Validation Data Cross-File Guard Increment
 
 - Added failing-first coverage for package-level validation export checks across `case_log.csv`, `measurement_rows.csv`, `diagnostic_labels.csv`, and `reader_study_rows.csv`.

@@ -1468,3 +1468,10 @@
 - Implement `validateValidationDataExport` so measurement, diagnostic-label, and reader-study rows cannot reference absent `case_log.csv` rows.
 - Add reader-study pair validation so every reader/case pair includes both `without_tool` and `with_tool` rows before paired deltas are computed.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Validation CSV Template Handoff Increment
+
+- Add failing-first coverage requiring checked CSV header templates for each validation export file.
+- Expand the System Usability Scale schema shorthand into explicit `sus_item_1` through `sus_item_10` columns.
+- Add `validation_export_templates/*.csv` header templates generated from the runtime schema order and link them from the data dictionary.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.
