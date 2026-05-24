@@ -880,3 +880,9 @@
 - Add architecture coverage that the Python report endpoint propagates per-source z values.
 - Add SOURCE-AGREEMENT NOTES for Python rows whose registry sources disagree.
 - Keep the report preview plain text for PowerScribe paste compatibility.
+
+## SPEC 4.6 Python Core DDx Bridge Increment
+
+- Add architecture coverage for Python endpoint differential-consideration output.
+- Implement deterministic threshold triggers for the core ventriculomegaly, CSP, third-ventricle, size-summary, posterior-fossa, and pons patterns.
+- Use the Python DDx rows to make the report impression more specific when a core trigger fires.

@@ -115,6 +115,70 @@ def _source_detail_text(source_details: list[dict[str, object]]) -> str:
     )
 
 
+def _z_value(results: dict[str, dict[str, object]], parameter_id: str) -> float | None:
+    result = results.get(parameter_id)
+    return None if result is None else float(result["z"])
+
+
+def _python_differential_rows(
+    values: dict[str, float], results: dict[str, dict[str, object]]
+) -> list[str]:
+    rows: list[str] = []
+    atrial_values = [
+        value
+        for parameter_id in ("atrial_left", "atrial_right")
+        if (value := values.get(parameter_id)) is not None
+    ]
+    max_atrium = max(atrial_values) if atrial_values else None
+    if max_atrium is not None and max_atrium >= 15:
+        rows.append("severe ventriculomegaly: atrial diameter is >= 15 mm.")
+    elif max_atrium is not None and max_atrium >= 12:
+        rows.append("moderate ventriculomegaly: atrial diameter is 12-15 mm.")
+    elif max_atrium is not None and max_atrium >= 10:
+        rows.append("mild ventriculomegaly: atrial diameter is 10-12 mm.")
+
+    csp_width = values.get("csp_width")
+    if csp_width is not None and csp_width < 1:
+        rows.append("absent CSP: CSP width is < 1 mm.")
+    elif csp_width is not None and csp_width > 10:
+        rows.append("enlarged CSP: CSP width is > 10 mm.")
+
+    third_ventricle = values.get("third_ventricle")
+    if third_ventricle is not None and third_ventricle > 3.5:
+        rows.append("wide third ventricle: third-ventricle width is > 3.5 mm.")
+
+    head_z_values = [
+        z_value
+        for parameter_id in ("skull_bpd", "brain_bpd")
+        if (z_value := _z_value(results, parameter_id)) is not None
+    ]
+    if head_z_values and min(head_z_values) < -1.88:
+        rows.append("microcephaly: skull or brain BPD is below the 3rd percentile.")
+    if head_z_values and max(head_z_values) > 1.88:
+        rows.append("macrocephaly: skull or brain BPD is above the 97th percentile.")
+
+    tcd_z = _z_value(results, "tcd")
+    if tcd_z is not None and tcd_z < -1.645:
+        rows.append("cerebellar hypoplasia: TCD is below the 5th percentile.")
+
+    vermis_z_values = [
+        z_value
+        for parameter_id in ("vermis_cc", "vermis_ap")
+        if (z_value := _z_value(results, parameter_id)) is not None
+    ]
+    if vermis_z_values and min(vermis_z_values) < -1.645:
+        if (values.get("tva") or 0) > 23:
+            rows.append("Dandy-Walker spectrum: small vermis with elevated TVA.")
+        else:
+            rows.append("vermian hypoplasia: vermian measurement is below the 5th percentile.")
+
+    pons_z = _z_value(results, "pons_ap")
+    if pons_z is not None and pons_z < -1.645:
+        rows.append("pontocerebellar hypoplasia pattern: pons AP is below the 5th percentile.")
+
+    return rows
+
+
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request) -> HTMLResponse:
     """Render the offline-capable calculator shell."""
@@ -148,6 +212,8 @@ async def calculate(request: Request) -> PlainTextResponse:
     measurements = _entered_measurements(form)
     has_abnormal_z = False
     disagreeing_rows: list[tuple[str, dict[str, object]]] = []
+    numeric_values: dict[str, float] = {}
+    results_by_id: dict[str, dict[str, object]] = {}
 
     ga_label = f"{weeks}w {days}d ({weeks + days / 7:.1f} weeks)"
     ga_weeks = weeks + days / 7
@@ -173,7 +239,9 @@ async def calculate(request: Request) -> PlainTextResponse:
                 lines.append(f"-- {group_name.upper()} --")
             try:
                 numeric_value = float(value)
+                numeric_values[parameter_id] = numeric_value
                 result = evaluate_parameter(parameter_id, ga_weeks, numeric_value)
+                results_by_id[parameter_id] = result
                 z_value = float(result["z"])
                 has_abnormal_z = has_abnormal_z or abs(z_value) > 2
                 source_details = result["source_details"]
@@ -201,8 +269,16 @@ async def calculate(request: Request) -> PlainTextResponse:
                 f"{source_text}."
             )
 
+    differential_rows = _python_differential_rows(numeric_values, results_by_id)
+    if differential_rows:
+        lines.extend(["", "DIFFERENTIAL CONSIDERATIONS"])
+        for row in differential_rows:
+            lines.append(f"  * {row}")
+
     impression = (
-        "One or more measurements fall outside the expected range; review source details."
+        differential_rows[0]
+        if differential_rows
+        else "One or more measurements fall outside the expected range; review source details."
         if has_abnormal_z
         else "No abnormal biometric findings."
     )

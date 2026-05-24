@@ -160,6 +160,18 @@ describe("SPEC §4.3 Python/FastAPI architecture scaffold", () => {
     expect(app).toContain("agreement:");
   });
 
+  it("scaffolds Python endpoint DDx output for core threshold patterns", () => {
+    const app = read("python_app/main.py");
+
+    expect(app).toContain("DIFFERENTIAL CONSIDERATIONS");
+    expect(app).toContain("mild ventriculomegaly");
+    expect(app).toContain("severe ventriculomegaly");
+    expect(app).toContain("absent CSP");
+    expect(app).toContain("wide third ventricle");
+    expect(app).toContain("microcephaly");
+    expect(app).toContain("Dandy-Walker");
+  });
+
   it("scaffolds scipy curve fitting for offline centile-table registry builds", () => {
     const core = read("python_app/biometry.py");
 
