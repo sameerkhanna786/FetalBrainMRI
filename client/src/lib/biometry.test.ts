@@ -897,6 +897,34 @@ describe("SPEC §7.4 hydrocephalus-pattern likelihood manifest", () => {
   });
 });
 
+describe("SPEC §7.4 HPE-pattern likelihood manifest", () => {
+  it("qualitative-labels the estimate-only HPE combined-pattern rows", () => {
+    const ga = { weeks: 32, days: 0 };
+    const values = {
+      skull_bpd: 75,
+      skull_ofd: 95,
+      brain_bpd: 73,
+      brain_ofd_left: 92,
+      brain_ofd_right: 92,
+      atrial_right: 20,
+      atrial_left: 20,
+      csp_width: 0,
+      cc_length: 0,
+    };
+    const { dxs } = evaluateAll(values, ga);
+    const hpe = dxs.find(dx => dx.id === "hpe-pattern");
+
+    expect(hpe?.rows.map(row => row.likelihood)).toEqual([
+      "Most common",
+      "Minority",
+      "Rare",
+    ]);
+    expect(hpe?.rows.map(row => row.likelihood).join(" ")).not.toMatch(
+      /~70|~15|~5/
+    );
+  });
+});
+
 describe("aqueductal-stenosis pattern report impression", () => {
   it("uses the TEST.md Case S1 triventricular hydrocephalus impression line", () => {
     const ga = { weeks: 26, days: 0 };

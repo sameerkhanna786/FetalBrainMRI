@@ -3060,17 +3060,17 @@ const CARDS: CardSpec[] = [
     rows: [
       {
         dx: "Alobar / semilobar HPE",
-        likelihood: "~70%",
+        likelihood: "Most common",
         rationale: "Classic ultrasound/MRI pattern.",
       },
       {
         dx: "Lobar HPE",
-        likelihood: "~15%",
+        likelihood: "Minority",
         rationale: "Subtler presentation.",
       },
       {
         dx: "Septo-optic dysplasia",
-        likelihood: "~5%",
+        likelihood: "Rare",
         rationale: "Optic findings hard to confirm prenatally.",
       },
     ],

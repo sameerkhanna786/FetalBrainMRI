@@ -724,3 +724,9 @@
 - Add DDx coverage for the SPEC §7.4 hydrocephalus combined-pattern likelihood manifest.
 - Confirm the hydrocephalus-pattern card no longer surfaces estimate-only numeric percentages.
 - Replace the aqueductal-stenosis, L1CAM, and posterior-fossa/Chiari II likelihood labels with qualitative wording.
+
+## SPEC 7.4 HPE-Pattern Likelihood Qualitative Increment
+
+- Add DDx coverage for the SPEC §7.4 HPE combined-pattern likelihood manifest.
+- Confirm the HPE-pattern card no longer surfaces estimate-only numeric percentages.
+- Replace the alobar/semilobar, lobar, and septo-optic-dysplasia likelihood labels with qualitative wording.
