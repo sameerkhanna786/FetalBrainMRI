@@ -699,6 +699,17 @@ describe("publication handoff checklist", () => {
     expect(lock).toContain("cohort-flow and missing-data summary");
   });
 
+  it("keeps the source-verification dossier aligned to ROC-AUC interval reporting", () => {
+    const dossier = readFileSync(
+      resolve(process.cwd(), "source_verification_dossier.md"),
+      "utf8"
+    );
+
+    expect(dossier).toContain("ROC-AUC confidence interval");
+    expect(dossier).toContain("Calibration and clinical utility");
+    expect(dossier).toContain("Open");
+  });
+
   it("records PubMed-verified SPIRIT-AI and CONSORT-AI handoff evidence", () => {
     const dossier = readFileSync(
       resolve(process.cwd(), "source_verification_dossier.md"),

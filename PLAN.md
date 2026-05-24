@@ -1285,3 +1285,9 @@
 - Implement a deterministic Hanley-McNeil large-sample ROC-AUC interval using the same confidence level as the locked-threshold proportion intervals.
 - Update the publication handoff docs so AUC uncertainty is listed with discrimination and calibration results.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Source Dossier ROC-AUC Interval Consistency Increment
+
+- Add failing-first source-document coverage that the source verification dossier names the ROC-AUC confidence interval after the metric-layer update.
+- Update the calibration and clinical-utility blocker wording without changing its open status or external-data dependencies.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

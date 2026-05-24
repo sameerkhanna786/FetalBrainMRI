@@ -1,3 +1,19 @@
+## 2026-05-24, Source Dossier ROC-AUC Interval Consistency Increment
+
+- Added failing-first source-document coverage that the source verification dossier names the ROC-AUC confidence interval after the metric-layer update.
+- Updated the calibration and clinical-utility blocker wording without changing its open status or external-data dependencies.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before implementation because `source_verification_dossier.md` still said `ROC-AUC` without the confidence interval.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 222 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 222 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md source_verification_dossier.md client/src/lib/methodology-page.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, ROC-AUC Confidence Interval Increment
 
 - Added failing-first validation-metrics coverage that binary validation summaries expose a ROC-AUC confidence interval, not only a point estimate.
