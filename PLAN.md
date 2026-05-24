@@ -1762,3 +1762,10 @@
 - Extend cross-file export validation so duplicate sequence positions are caught before counterbalanced reader-study analysis.
 - Update the data dictionary export checks to document `read_order` uniqueness within each reader.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Reader Study Washout Consistency Guard Increment
+
+- Add failing-first package-level validation coverage that paired `without_tool` and `with_tool` reader-study rows use the same `washout_days` value.
+- Extend cross-file export validation so each reader-case pair has one consistent washout interval before paired analysis.
+- Update the data dictionary export checks to document pair-level washout consistency.
+- Update the audit/progress trail, then run targeted/full gates before committing.

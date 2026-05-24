@@ -1018,6 +1018,7 @@ export const validateValidationDataExport = (
   });
 
   const readerPairs = new Map<string, Map<string, number>>();
+  const readerPairWashouts = new Map<string, Set<number>>();
   for (const row of data["reader_study_rows.csv"] ?? []) {
     const readerId = stringValue(row.reader_id);
     const studyId = stringValue(row.study_id);
@@ -1033,6 +1034,13 @@ export const validateValidationDataExport = (
     const conditionCounts = readerPairs.get(key) ?? new Map<string, number>();
     conditionCounts.set(condition, (conditionCounts.get(condition) ?? 0) + 1);
     readerPairs.set(key, conditionCounts);
+
+    const washoutDays = numericValue(row.washout_days);
+    if (washoutDays != null) {
+      const washouts = readerPairWashouts.get(key) ?? new Set<number>();
+      washouts.add(washoutDays);
+      readerPairWashouts.set(key, washouts);
+    }
   }
 
   readerPairs.forEach((conditionCounts, key) => {
@@ -1054,6 +1062,16 @@ export const validateValidationDataExport = (
         `reader_study_rows.csv reader ${readerId} study ${studyId} must include both without_tool and with_tool rows`
       );
     }
+  });
+  readerPairWashouts.forEach((washouts, key) => {
+    if (washouts.size <= 1) return;
+    const [readerId, studyId] = key.split("\u0000");
+    const values = Array.from(washouts).sort((left, right) => left - right);
+    const valueText =
+      values.length === 2 ? `${values[0]} and ${values[1]}` : values.join(", ");
+    errors.push(
+      `reader_study_rows.csv reader ${readerId} study ${studyId} has inconsistent washout_days values ${valueText}; expected one paired interval`
+    );
   });
 
   return errors;

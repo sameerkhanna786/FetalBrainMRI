@@ -1,3 +1,25 @@
+## 2026-05-24, Reader Study Washout Consistency Guard Increment
+
+- Added failing-first package-level validation-data-schema coverage that paired
+  `without_tool` and `with_tool` reader-study rows must use the same
+  `washout_days` value.
+- Extended export validation so each reader-case pair has one consistent
+  washout interval before paired analysis.
+- Updated `validation_data_dictionary.md` to document pair-level washout
+  consistency.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "inconsistent washout"` failed before implementation because conflicting paired washout intervals produced no export errors.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "inconsistent washout"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 39 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 289 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Reader Study Read-Order Uniqueness Guard Increment
 
 - Added failing-first package-level validation-data-schema coverage that each

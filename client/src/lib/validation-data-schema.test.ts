@@ -1652,6 +1652,54 @@ describe("validation data export schema guard", () => {
     );
   });
 
+  it("rejects inconsistent washout days within a reader-study pair", () => {
+    expect(
+      validateValidationDataExport({
+        "case_log.csv": [
+          {
+            study_id: "S1",
+            cohort: "reader_study",
+            site_id: "single_site",
+            scanner_vendor: "unknown",
+            field_strength_t: 1.5,
+            svr_method: "none",
+            image_quality_tier: "diagnostic",
+            ga_weeks: 28,
+            ga_days: 0,
+            included: true,
+            reference_standard_available: true,
+            prediction_available: true,
+            pathology_label_available: true,
+          },
+        ],
+        "reader_study_rows.csv": [
+          {
+            reader_id: "R1",
+            study_id: "S1",
+            condition: "without_tool",
+            read_order: 1,
+            washout_days: 14,
+            duration_sec: 300,
+            completeness_score: 0.8,
+            zscore_documentation_rate: 0.75,
+          },
+          {
+            reader_id: "R1",
+            study_id: "S1",
+            condition: "with_tool",
+            read_order: 2,
+            washout_days: 21,
+            duration_sec: 240,
+            completeness_score: 0.95,
+            zscore_documentation_rate: 1,
+          },
+        ],
+      })
+    ).toContain(
+      "reader_study_rows.csv reader R1 study S1 has inconsistent washout_days values 14 and 21; expected one paired interval"
+    );
+  });
+
   it("rejects duplicate reader-study condition rows before paired analysis", () => {
     expect(
       validateValidationDataExport({

@@ -109,7 +109,9 @@ manuscript. Lock the threshold before analysis in
 The reader-study protocol uses counter-balanced with-tool / without-tool reads
 with a two-week washout. Each reader-case pair needs exactly one `without_tool`
 and one `with_tool` row before paired deltas are computed. Within each reader,
-`read_order` values must be unique so every row has one sequence position.
+`read_order` values must be unique so every row has one sequence position. The
+paired rows for one reader-case pair must use the same `washout_days` value
+because it is the interval between those two reads.
 
 NASA Task Load Index and System Usability Scale fields are all-or-none groups:
 if any NASA TLX subscale is present, all six subscales must be present; if any
@@ -183,8 +185,9 @@ the other validation files.
    `prediction_available=true`.
 7. Every reader-study case has exactly one `without_tool` and exactly one
    `with_tool` row for each reader, and every `read_order` value is unique
-   within each reader; duplicate condition or sequence rows are fixed before
-   paired deltas are computed.
+   within each reader; paired rows for one reader-case pair use the same
+   `washout_days` value. Duplicate condition rows, duplicate sequence rows, or
+   conflicting paired intervals are fixed before paired deltas are computed.
 8. Locked thresholds and endpoint definitions are copied into
    `validation_analysis_lock.md` before analysis.
 9. Indeterminate diagnostic-label rows include `indeterminate_reason` and leave
