@@ -110,7 +110,7 @@ describe("publication-readiness source-document consistency", () => {
     expect(dossier).toContain("DECIDE-AI");
     expect(dossier).toContain("FeTA 2024 biometry gap");
     expect(dossier).toContain("TEST corpus numeric audit");
-    expect(dossier).toContain("43 residual normal-label rows");
+    expect(dossier).toContain("40 residual normal-label rows");
     expect(dossier).toContain("decision-curve net benefit");
     expect(dossier).toContain("IRB");
     expect(dossier).toContain("radiologist handoff");
@@ -579,6 +579,89 @@ describe("publication-readiness source-document consistency", () => {
     expect(testCorpus).not.toContain(
       "| Atrium-R | 9.8 mm | normal (just below the 10 mm threshold) |"
     );
+  });
+
+  it("keeps TEST.md vermian-hypoplasia fixtures calibrated to runtime bands and cards", () => {
+    const testCorpus = readFileSync(resolve(process.cwd(), "TEST.md"), "utf8");
+    const parameterLabels = new Map([
+      ["Atrium-R", "atrial_right"],
+      ["Atrium-L", "atrial_left"],
+      ["TCD", "tcd"],
+      ["Vermis CC", "vermis_cc"],
+      ["Vermis AP", "vermis_ap"],
+      ["Pons AP", "pons_ap"],
+    ]);
+    const expectations = [
+      ["V1", ["vermis-small"], ["dwm-pattern", "tcd-small", "pons-small"]],
+      [
+        "V2",
+        ["vermis-small"],
+        ["dwm-pattern", "pch-pattern", "tcd-small", "pons-small"],
+      ],
+      ["V3", ["vermis-small"], ["dwm-pattern", "tcd-small", "pons-small"]],
+      ["V4", ["vermis-small", "mild-vm"], ["dwm-pattern", "pons-small"]],
+      ["V5", ["vermis-small", "tcd-small"], ["dwm-pattern", "pons-small"]],
+      [
+        "V6",
+        [],
+        ["vermis-small", "tcd-small", "tcd-large", "pons-small", "dwm-pattern"],
+      ],
+    ] as const;
+
+    for (const [caseId, expectedDxIds, forbiddenDxIds] of expectations) {
+      const start = testCorpus.indexOf(`### Case ${caseId} `);
+      expect(start).toBeGreaterThanOrEqual(0);
+      const nextCase = testCorpus.indexOf("\n### Case ", start + 1);
+      const caseText = testCorpus.slice(start, nextCase);
+      const values: Record<string, number> = {};
+      const bandChecks: { parameterId: string; expectedBand: string }[] = [];
+      let ga: { weeks: number; days: number } | null = null;
+
+      for (const rawLine of caseText.split("\n")) {
+        if (!rawLine.startsWith("|")) continue;
+        const [label, rawValue, expectedBand] = rawLine
+          .split("|")
+          .slice(1, -1)
+          .map(cell => cell.replaceAll("**", "").trim());
+
+        if (label === "GA") {
+          const match = rawValue.match(/(\d+) w (\d+) d/);
+          expect(match).not.toBeNull();
+          ga = { weeks: Number(match![1]), days: Number(match![2]) };
+          continue;
+        }
+
+        const parameterId = parameterLabels.get(label);
+        if (!parameterId) continue;
+        const valueMatch = rawValue.match(/(-?\d+(?:\.\d+)?)/);
+        if (!valueMatch) continue;
+        values[parameterId] = Number(valueMatch[1]);
+        bandChecks.push({ parameterId, expectedBand });
+      }
+
+      expect(ga).not.toBeNull();
+      const { zs, dxs } = evaluateAll(values, ga!);
+      const dxIds = dxs.map(dx => dx.id);
+      for (const expectedDxId of expectedDxIds) {
+        expect(dxIds).toContain(expectedDxId);
+      }
+      for (const forbiddenDxId of forbiddenDxIds) {
+        expect(dxIds).not.toContain(forbiddenDxId);
+      }
+
+      for (const { parameterId, expectedBand } of bandChecks) {
+        const band = expectedBand.toLowerCase();
+        const z = zs[parameterId]?.z;
+        if (z == null) continue;
+        if (band.includes("normal")) {
+          expect(Math.abs(z)).toBeLessThan(1.6448536269514722);
+        } else if (band.includes("<5th")) {
+          expect(z).toBeLessThan(-1.6448536269514722);
+        } else if (band.includes(">95th")) {
+          expect(z).toBeGreaterThan(1.6448536269514722);
+        }
+      }
+    }
   });
 
   it("locks Aertsen 2019 citation metadata to the PMC AJNR article", () => {

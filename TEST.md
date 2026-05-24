@@ -587,7 +587,7 @@ The `vermian_hypoplasia` card fires when vermis CC or vermis AP is < 5th percent
 | Parameter | Value | Expected band |
 |---|---|---|
 | GA | 24 w 0 d | — |
-| Vermis CC | 10.9 mm (vs. expected 14.8 mm, z ≈ –2.6) | <5th |
+| Vermis CC | 10.9 mm (source-specific low; active registry z ≈ –0.5) | normal |
 | Vermis AP | 4.8 mm | <5th |
 | TVA | 18° (normal-low) | qualitative |
 | TCD | 27.5 mm | normal |
@@ -605,8 +605,8 @@ The `vermian_hypoplasia` card fires when vermis CC or vermis AP is < 5th percent
 | Vermis CC | 9.0 mm (Nagaraj VH cohort mean) | <5th |
 | Vermis AP | 4.5 mm | <5th |
 | TVA | 52.13° (Nagaraj VH cohort mean) | borderline qualitative |
-| TCD | 24.5 mm | normal |
-| Pons AP | 7.0 mm | normal |
+| TCD | 26.8 mm | normal |
+| Pons AP | 8.2 mm | normal |
 | (other rows) | filler | normal |
 
 `vermian_hypoplasia` fires. `dandy_walker_spectrum` should not fire (Nagaraj-VH cohort TVA mean 52° vs. DWM-cohort 109.5° — squarely separates the two).
@@ -650,8 +650,8 @@ The `vermian_hypoplasia` card fires when vermis CC or vermis AP is < 5th percent
 | Vermis CC | 11.0 mm (vs. expected 19.4 mm) | <5th |
 | Vermis AP | 5.0 mm | <5th |
 | TVA | 30° | qualitative |
-| TCD | 38.0 mm | <5th (mild associated cerebellar volume loss) |
-| Pons AP | 10.0 mm | normal |
+| TCD | 35.5 mm | <5th (mild associated cerebellar volume loss) |
+| Pons AP | 11.2 mm | normal |
 | (other rows) | filler | normal |
 
 `vermian_hypoplasia`, `small_tcd` fire. The combined small-TCD + small-vermis pattern raises concern for cerebellar agenesis or PCH; the report should flag the combined pattern even if no single combined-pattern card formally fires.
@@ -663,9 +663,9 @@ The `vermian_hypoplasia` card fires when vermis CC or vermis AP is < 5th percent
 |---|---|---|
 | GA | 22 w 0 d | — |
 | Vermis CC | 9.5 mm (z ≈ –1.6) | normal (5th–95th) |
-| Vermis AP | 4.7 mm | normal |
-| TCD | 24.5 mm | normal |
-| Pons AP | 6.5 mm | normal |
+| Vermis AP | 6.0 mm | normal |
+| TCD | 22.2 mm | normal |
+| Pons AP | 7.2 mm | normal |
 | (other rows) | filler | normal |
 
 `vermian_hypoplasia` should *not* fire (z is –1.6, above the –1.645 cut). This case verifies that the calculator does not over-call hypoplasia at borderline values, especially in the early-second-trimester window where Limperopoulos 2006 documents a high false-positive rate.

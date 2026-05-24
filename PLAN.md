@@ -1342,3 +1342,10 @@
 - Update TEST.md wording for the sub-10 mm atrial rows so the residual numeric audit no longer misclassifies intentional clinical-threshold cases as stale normal fillers.
 - Update the residual TEST corpus numeric audit blocker count.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## TEST Vermian-Hypoplasia Fixture Runtime Consistency Increment
+
+- Add failing-first source-document coverage that parses TEST.md cases V1-V6 and verifies expected vermis, TCD, pons, and VM cards against the runtime engine.
+- Correct V1-V6 rows so source-specific notes, normal filler rows, and negative controls match active registry z-scores without accidental extra posterior-fossa cards.
+- Update the residual TEST corpus numeric audit blocker count.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

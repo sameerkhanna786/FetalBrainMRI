@@ -1,3 +1,20 @@
+## 2026-05-24, TEST Vermian-Hypoplasia Fixture Runtime Consistency Increment
+
+- Added failing-first source-document coverage that parses TEST.md cases V1-V6, evaluates their numeric rows with the runtime engine, and verifies vermis, TCD, pons, VM, and forbidden posterior-fossa card expectations.
+- Corrected V1-V6 rows so source-specific notes, normal filler rows, and negative controls match active registry z-scores without accidental extra posterior-fossa cards.
+- Updated the TEST corpus numeric audit blocker from 43 to 40 residual normal-label rows.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` failed before implementation because V1 labelled a runtime-normal vermis-CC row as <5th and V2/V6 could fire unintended posterior-fossa cards.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/methodology-page.test.ts` passes with 230 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 230 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md source_verification_dossier.md client/src/lib/methodology-page.test.ts` passes after formatting the dossier table.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, TEST Asymmetric-Ventricle Threshold Wording Increment
 
 - Added failing-first source-document coverage that AS1-AS2 right-atrial edge cases are documented as below-threshold clinical controls instead of z-normal filler rows.
