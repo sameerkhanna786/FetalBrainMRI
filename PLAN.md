@@ -1566,3 +1566,10 @@
 - Require `study_id` in the report-audit export schema and header template while keeping `report_id` as the report-level key.
 - Extend package-level validation so report-audit rows participate in the same cross-file case-reference guard as measurement, diagnostic-label, and reader-study rows.
 - Update the data dictionary, audit/progress trail, and full verification gate before committing.
+
+## Reader-Study Washout Guard Increment
+
+- Add failing-first coverage for `reader_study_rows.csv` rows with `washout_days` below the locked two-week washout.
+- Tighten the validation export schema so paired reader-study rows require at least 14 washout days before analysis.
+- Update the data dictionary and reader-study protocol wording from a target to a runtime-enforced minimum.
+- Update the audit/progress trail, then run targeted/full gates before committing.

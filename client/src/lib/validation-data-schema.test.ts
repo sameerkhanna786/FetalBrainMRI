@@ -304,6 +304,26 @@ describe("validation data export schema guard", () => {
     );
   });
 
+  it("rejects reader-study washouts shorter than the locked two-week interval", () => {
+    expect(
+      validateValidationDataRows("reader_study_rows.csv", [
+        {
+          reader_id: "R1",
+          study_id: "S1",
+          condition: "with_tool",
+          read_order: 2,
+          washout_days: 7,
+          duration_sec: 240,
+          completeness_score: 0.95,
+          zscore_documentation_rate: 1,
+          recommendation_congruent: true,
+        },
+      ])
+    ).toContain(
+      "reader_study_rows.csv row 1 field washout_days must be greater than or equal to 14"
+    );
+  });
+
   it("rejects invalid boolean tokens and allows blank recommendation congruence when not applicable", () => {
     expect(
       validateValidationDataRows("case_log.csv", [

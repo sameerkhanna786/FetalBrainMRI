@@ -1,3 +1,21 @@
+## 2026-05-24, Reader-Study Washout Guard Increment
+
+- Added failing-first coverage for `reader_study_rows.csv` rows with `washout_days` shorter than the locked two-week interval.
+- Tightened the runtime export schema so reader-study rows require at least 14 washout days before analysis.
+- Updated `validation_data_dictionary.md` and `reader_study_protocol.md` to describe the washout as a runtime-enforced minimum.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "washouts"` failed before implementation because `washout_days=7` produced no schema errors.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "washouts"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 19 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 264 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md reader_study_protocol.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Report-Audit Study ID Link Guard Increment
 
 - Added failing-first coverage for `report_audit_rows.csv` rows whose `study_id` is absent from `case_log.csv`.

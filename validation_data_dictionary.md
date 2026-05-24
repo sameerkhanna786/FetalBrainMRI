@@ -111,7 +111,7 @@ SUS item is present, all ten item responses must be present.
 | study_id                  | yes         | Links to `case_log.csv`.                                 |
 | condition                 | yes         | `without_tool` or `with_tool`.                           |
 | read_order                | yes         | Integer order within the reader's assigned sequence.     |
-| washout_days              | yes         | Days between paired reads; target is at least 14.        |
+| washout_days              | yes         | Days between paired reads; minimum is 14.                |
 | duration_sec              | yes         | Reading or reporting duration in seconds.                |
 | completeness_score        | yes         | Locked rubric score, same scale in both conditions.      |
 | zscore_documentation_rate | yes         | Fraction 0-1 of required z-scores documented.            |
@@ -173,10 +173,11 @@ the other validation files.
 8. Probability, rate, NASA Task Load Index, System Usability Scale, gestational
    age day, duration, and count fields stay inside the documented numeric
    ranges.
-9. Partial NASA Task Load Index or System Usability Scale rows are fixed before
-   scoring; do not export only selected subscales or selected SUS items.
-10. Report-audit rows have a non-zero required-measurement denominator and never
+9. Reader-study paired reads have at least 14 washout days.
+10. Partial NASA Task Load Index or System Usability Scale rows are fixed before
+    scoring; do not export only selected subscales or selected SUS items.
+11. Report-audit rows have a non-zero required-measurement denominator and never
     document more measurements than the locked audit rubric requires.
-11. Integer fields such as `ga_weeks`, `ga_days`, `read_order`,
+12. Integer fields such as `ga_weeks`, `ga_days`, `read_order`,
     `required_measurement_count`, and `documented_measurement_count` do not use
     fractional values.

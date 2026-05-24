@@ -206,7 +206,7 @@ export const VALIDATION_DATA_SCHEMAS: Record<
         min: 1,
         integer: true,
       },
-      { name: "washout_days", required: "yes", numeric: true, min: 0 },
+      { name: "washout_days", required: "yes", numeric: true, min: 14 },
       { name: "duration_sec", required: "yes", numeric: true, min: 0 },
       { name: "completeness_score", required: "yes", numeric: true },
       {

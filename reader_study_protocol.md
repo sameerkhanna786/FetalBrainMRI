@@ -66,7 +66,7 @@ not duplicated in the reader-study export.
 | study_id                  | De-identified case identifier linked to `case_log.csv`.  |
 | condition                 | `without_tool` or `with_tool`.                           |
 | read_order                | Integer order within the reader's assigned sequence.     |
-| washout_days              | Days between paired reads; target is at least 14.        |
+| washout_days              | Days between paired reads; minimum is 14.                |
 | duration_sec              | Interpretation time in seconds.                          |
 | completeness_score        | Predefined report-completeness score.                    |
 | zscore_documentation_rate | Per-case proportion from 0 to 1.                         |
@@ -93,9 +93,9 @@ not duplicated in the reader-study export.
 ## Go / No-Go
 
 The study can begin only after local IRB / QI determination, de-identification
-workflow approval, reader recruitment, counter-balanced reading schedule, and
-pilot-case training are complete. Manuscript submission remains blocked until
-paired within-reader / within-case reader-study timing, report-completeness
-endpoint, recommendation congruence, paired delta confidence intervals, NASA
-Task Load Index, System Usability Scale, and qualitative feedback tables are
-exported and reviewed by the PI.
+workflow approval, reader recruitment, counter-balanced reading schedule,
+minimum 14-day paired-read washouts, and pilot-case training are complete.
+Manuscript submission remains blocked until paired within-reader / within-case
+reader-study timing, report-completeness endpoint, recommendation congruence,
+paired delta confidence intervals, NASA Task Load Index, System Usability Scale,
+and qualitative feedback tables are exported and reviewed by the PI.
