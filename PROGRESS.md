@@ -1,3 +1,19 @@
+## 2026-05-23, FeTA Agreement Metrics Utility Increment
+
+- Extended `client/src/lib/validation-metrics.ts` with per-parameter agreement helpers for MAE, MAPE, bias, error standard deviation, and Bland-Altman 95% limits of agreement.
+- Added grouped agreement summaries so FeTA and institutional validation can stratify results by site, vendor, field strength, SVR method, or image-quality tier.
+- Added Vitest coverage for agreement metrics, Bland-Altman limits, grouped FeTA robustness summaries, and input validation.
+- Updated the publication handoff checklist and source-verification dossier to point analysts at the helper while keeping FeTA access, measurements, and exported results open.
+
+Verification:
+
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand client/src/lib/validation-metrics.test.ts` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 177 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md publication_handoff_checklist.md source_verification_dossier.md client/src/lib/validation-metrics.ts client/src/lib/validation-metrics.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
 ## 2026-05-23, Reader-Study Protocol Handoff Increment
 
 - Added `reader_study_protocol.md` as the implementation-side handoff packet for the radiologist reader study.

@@ -216,6 +216,12 @@
 - Create the protocol as a radiologist handoff packet and link it from the publication checklist.
 - Update the verification dossier to show the implementation side is prepared while local IRB / QI approval remains clinician-owned.
 
+## FeTA agreement metrics utility increment
+
+- Add unit coverage for per-parameter agreement metrics: MAE, MAPE, bias, and Bland-Altman 95% limits of agreement.
+- Add grouped agreement summaries so FeTA results can be stratified by site, vendor, field strength, SVR method, and image-quality tier.
+- Update handoff and dossier notes to point analysts at the agreement helper while preserving FeTA access/results as open.
+
 ## Isolated third-ventricle report increment
 
 - Add Vitest coverage for TEST.md §21 Case TV2: isolated third-ventricle dilatation at 30w0d should fire `third-v-wide` without ventriculomegaly or aqueductal-stenosis cards.

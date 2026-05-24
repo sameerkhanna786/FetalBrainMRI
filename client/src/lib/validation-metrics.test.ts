@@ -3,6 +3,8 @@ import { describe, expect, it } from "vitest";
 import {
   computeBinaryValidationMetrics,
   computeDecisionCurve,
+  computeAgreementMetrics,
+  computeGroupedAgreementMetrics,
 } from "./validation-metrics";
 
 describe("publication validation metrics", () => {
@@ -75,5 +77,45 @@ describe("publication validation metrics", () => {
         [1]
       )
     ).toThrow("threshold");
+  });
+
+  it("computes per-parameter agreement and Bland-Altman summaries", () => {
+    const metrics = computeAgreementMetrics([
+      { reference: 10, observed: 12 },
+      { reference: 20, observed: 18 },
+      { reference: 30, observed: 33 },
+    ]);
+
+    expect(metrics.n).toBe(3);
+    expect(metrics.meanAbsoluteError).toBeCloseTo(7 / 3, 6);
+    expect(metrics.meanAbsolutePercentageError).toBeCloseTo(13.333333, 6);
+    expect(metrics.bias).toBeCloseTo(1, 6);
+    expect(metrics.errorStandardDeviation).toBeCloseTo(Math.sqrt(7), 6);
+    expect(metrics.lowerLimitOfAgreement).toBeCloseTo(
+      1 - 1.96 * Math.sqrt(7),
+      6
+    );
+    expect(metrics.upperLimitOfAgreement).toBeCloseTo(
+      1 + 1.96 * Math.sqrt(7),
+      6
+    );
+  });
+
+  it("groups agreement summaries by FeTA robustness strata", () => {
+    const grouped = computeGroupedAgreementMetrics(
+      [
+        { reference: 10, observed: 11, strata: { site: "Kispi" } },
+        { reference: 20, observed: 18, strata: { site: "Kispi" } },
+        { reference: 30, observed: 36, strata: { site: "UCSF" } },
+      ],
+      "site"
+    );
+
+    expect(grouped).toHaveLength(2);
+    expect(grouped[0].stratum).toBe("Kispi");
+    expect(grouped[0].metrics.n).toBe(2);
+    expect(grouped[0].metrics.meanAbsoluteError).toBeCloseTo(1.5, 6);
+    expect(grouped[1].stratum).toBe("UCSF");
+    expect(grouped[1].metrics.meanAbsolutePercentageError).toBeCloseTo(20, 6);
   });
 });

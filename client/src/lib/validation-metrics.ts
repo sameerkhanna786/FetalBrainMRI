@@ -5,6 +5,28 @@ export interface ValidationPrediction {
   probability: number;
 }
 
+export interface AgreementPair {
+  reference: number;
+  observed: number;
+  strata?: Record<string, string>;
+}
+
+export interface AgreementMetrics {
+  n: number;
+  meanError: number;
+  bias: number;
+  meanAbsoluteError: number;
+  meanAbsolutePercentageError: number;
+  errorStandardDeviation: number | null;
+  lowerLimitOfAgreement: number | null;
+  upperLimitOfAgreement: number | null;
+}
+
+export interface GroupedAgreementMetrics {
+  stratum: string;
+  metrics: AgreementMetrics;
+}
+
 export interface BinaryValidationMetrics {
   n: number;
   positives: number;
@@ -312,4 +334,96 @@ export const computeDecisionCurve = (
       treatNoneNetBenefit: 0,
     };
   });
+};
+
+const normalizeAgreementPairs = (pairs: AgreementPair[]) => {
+  if (pairs.length === 0) {
+    throw new Error("agreement pairs must not be empty");
+  }
+
+  pairs.forEach(pair => {
+    if (!Number.isFinite(pair.reference) || !Number.isFinite(pair.observed)) {
+      throw new Error("agreement reference and observed values must be finite");
+    }
+    if (pair.reference === 0) {
+      throw new Error("agreement reference values must be non-zero for MAPE");
+    }
+  });
+
+  return pairs;
+};
+
+export const computeAgreementMetrics = (
+  pairs: AgreementPair[]
+): AgreementMetrics => {
+  const normalized = normalizeAgreementPairs(pairs);
+  const errors = normalized.map(pair => pair.observed - pair.reference);
+  const meanError =
+    errors.reduce((sum, error) => sum + error, 0) / normalized.length;
+  const meanAbsoluteError =
+    errors.reduce((sum, error) => sum + Math.abs(error), 0) / normalized.length;
+  const meanAbsolutePercentageError =
+    (normalized.reduce(
+      (sum, pair) =>
+        sum + Math.abs((pair.observed - pair.reference) / pair.reference),
+      0
+    ) /
+      normalized.length) *
+    100;
+
+  const errorStandardDeviation =
+    normalized.length < 2
+      ? null
+      : Math.sqrt(
+          errors.reduce((sum, error) => {
+            const centered = error - meanError;
+            return sum + centered * centered;
+          }, 0) /
+            (normalized.length - 1)
+        );
+
+  return {
+    n: normalized.length,
+    meanError,
+    bias: meanError,
+    meanAbsoluteError,
+    meanAbsolutePercentageError,
+    errorStandardDeviation,
+    lowerLimitOfAgreement:
+      errorStandardDeviation == null
+        ? null
+        : meanError - 1.96 * errorStandardDeviation,
+    upperLimitOfAgreement:
+      errorStandardDeviation == null
+        ? null
+        : meanError + 1.96 * errorStandardDeviation,
+  };
+};
+
+export const computeGroupedAgreementMetrics = (
+  pairs: AgreementPair[],
+  stratumKey: string
+): GroupedAgreementMetrics[] => {
+  if (stratumKey.trim() === "") {
+    throw new Error("stratum key must not be empty");
+  }
+
+  const normalized = normalizeAgreementPairs(pairs);
+  const groups = new Map<string, AgreementPair[]>();
+
+  normalized.forEach(pair => {
+    const stratum = pair.strata?.[stratumKey];
+    if (stratum == null || stratum === "") {
+      throw new Error(`agreement pair is missing stratum ${stratumKey}`);
+    }
+
+    const group = groups.get(stratum) ?? [];
+    group.push(pair);
+    groups.set(stratum, group);
+  });
+
+  return Array.from(groups.entries()).map(([stratum, group]) => ({
+    stratum,
+    metrics: computeAgreementMetrics(group),
+  }));
 };
