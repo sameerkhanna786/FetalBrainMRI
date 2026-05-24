@@ -712,11 +712,22 @@ export const validateValidationDataExport = (
     errors.push(...validateValidationDataRows(fileName, data[fileName] ?? []));
   }
 
-  const caseIds = new Set(
-    (data["case_log.csv"] ?? [])
-      .map(row => stringValue(row.study_id))
-      .filter((studyId): studyId is string => studyId != null)
-  );
+  const caseIdCounts = new Map<string, number>();
+  for (const row of data["case_log.csv"] ?? []) {
+    const studyId = stringValue(row.study_id);
+    if (studyId == null) continue;
+    caseIdCounts.set(studyId, (caseIdCounts.get(studyId) ?? 0) + 1);
+  }
+
+  caseIdCounts.forEach((count, studyId) => {
+    if (count > 1) {
+      errors.push(
+        `case_log.csv study_id ${studyId} appears ${count} times; expected exactly one`
+      );
+    }
+  });
+
+  const caseIds = new Set(caseIdCounts.keys());
 
   pushMissingCaseReferences(
     errors,

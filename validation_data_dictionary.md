@@ -42,7 +42,7 @@ checked against the runtime schema.
 
 | Column                       | Required    | Values / notes                                                                                                                               |
 | ---------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| study_id                     | yes         | De-identified case key shared across all files.                                                                                              |
+| study_id                     | yes         | Unique de-identified case key shared across all files.                                                                                       |
 | cohort                       | yes         | `feta_2024`, `institutional`, `reader_study`, or `report_audit`.                                                                             |
 | site_id                      | yes         | De-identified site key; use `single_site` if only one institution.                                                                           |
 | scanner_vendor               | yes         | Vendor label or `unknown`.                                                                                                                   |

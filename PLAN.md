@@ -1629,3 +1629,10 @@
 - Align validation export preflight with the data dictionary's repeated-reader measurement contract.
 - Update the data dictionary so reader IDs are explicitly tied to `source_role=reader`.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Case-Log Duplicate Study ID Guard Increment
+
+- Add failing-first coverage for duplicate `case_log.csv` `study_id` rows before cross-file validation.
+- Extend package-level validation so de-identified case IDs remain unique before cohort-flow and join-based metrics run.
+- Update the data dictionary so `study_id` is documented as a unique case key.
+- Update the audit/progress trail, then run targeted/full gates before committing.
