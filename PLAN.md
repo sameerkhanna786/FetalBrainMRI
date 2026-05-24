@@ -1278,3 +1278,10 @@
 - Implement a reusable validation cohort-flow helper that counts included/excluded cases, exclusion reasons, available reference standards, available predictions, available pathology labels, complete-case denominators, and per-parameter missingness.
 - Update the handoff artifacts so final manuscript preparation cannot skip exclusion-reason and missing-data accounting.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## ROC-AUC Confidence Interval Increment
+
+- Add failing-first validation-metrics coverage that binary validation summaries expose a ROC-AUC confidence interval, not only a point estimate.
+- Implement a deterministic Hanley-McNeil large-sample ROC-AUC interval using the same confidence level as the locked-threshold proportion intervals.
+- Update the publication handoff docs so AUC uncertainty is listed with discrimination and calibration results.
+- Run targeted/full tests, typecheck, formatting checks, and build before committing.

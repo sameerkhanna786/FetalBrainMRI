@@ -48,6 +48,9 @@ describe("publication validation metrics", () => {
     expect(metrics.accuracyInterval.estimate).toBe(1);
     expect(metrics.brierScore).toBeCloseTo(0.025, 6);
     expect(metrics.rocAuc).toBe(1);
+    expect(metrics.rocAucInterval.estimate).toBe(1);
+    expect(metrics.rocAucInterval.lower).toBe(1);
+    expect(metrics.rocAucInterval.upper).toBe(1);
     expect(metrics.prAuc).toBe(1);
     expect(metrics.observedEventRate).toBe(0.5);
     expect(metrics.meanPredictedRisk).toBe(0.5);
@@ -94,6 +97,24 @@ describe("publication validation metrics", () => {
     expect(plan.alpha).toBe(0.05);
     expect(plan.power).toBe(0.8);
     expect(plan.normalApproximation).toBe(true);
+  });
+
+  it("computes ROC-AUC confidence intervals for imperfect discrimination", () => {
+    const metrics = computeBinaryValidationMetrics(
+      [
+        { label: true, probability: 0.9 },
+        { label: false, probability: 0.8 },
+        { label: true, probability: 0.7 },
+        { label: false, probability: 0.4 },
+      ],
+      { threshold: 0.5 }
+    );
+
+    expect(metrics.rocAuc).toBe(0.75);
+    expect(metrics.rocAucInterval.estimate).toBe(0.75);
+    expect(metrics.rocAucInterval.lower).toBeGreaterThan(0.2);
+    expect(metrics.rocAucInterval.lower).toBeLessThan(0.21);
+    expect(metrics.rocAucInterval.upper).toBe(1);
   });
 
   it("summarizes validation cohort flow and per-parameter missingness", () => {

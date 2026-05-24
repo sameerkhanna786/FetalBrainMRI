@@ -597,6 +597,7 @@ describe("publication handoff checklist", () => {
     expect(checklist).toContain("Owner");
     expect(checklist).toContain("calibration-in-the-large");
     expect(checklist).toContain("Wilson confidence intervals");
+    expect(checklist).toContain("ROC-AUC confidence interval");
     expect(checklist).toContain("decision-curve net benefit");
     expect(checklist).toContain("client/src/lib/validation-metrics.ts");
     expect(checklist).toContain("Cohen's kappa");

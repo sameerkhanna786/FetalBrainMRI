@@ -38,7 +38,7 @@ assembled and before any analyst computes manuscript endpoints.
 | Cohort flow / missingness        | Included/excluded counts, exclusion reasons, complete-case denominators, per-parameter missingness |
 | FeTA pathology contrast          | Welch two-sample comparison between pathological and neurotypical z-score distributions            |
 | Sample-size / precision plan     | Wilson half-width targets for sensitivity/specificity and paired reader-study effect assumptions   |
-| Binary discrimination            | ROC-AUC, PR-AUC, locked-threshold sensitivity/specificity, Wilson intervals                        |
+| Binary discrimination            | ROC-AUC confidence interval, PR-AUC, locked-threshold sensitivity/specificity, Wilson intervals    |
 | Calibration and clinical utility | calibration-in-the-large, calibration slope, Brier score, decision-curve net benefit               |
 | Reader-study paired analysis     | paired within-reader / within-case deltas and confidence intervals                                 |
 | Reader-study reliability         | Cohen's kappa, Fleiss's kappa, and ICC(2,1) as applicable                                          |

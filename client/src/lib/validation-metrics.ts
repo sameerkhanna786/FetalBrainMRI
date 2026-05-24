@@ -114,6 +114,7 @@ export interface BinaryValidationMetrics {
   accuracyInterval: ConfidenceInterval;
   brierScore: number;
   rocAuc: number;
+  rocAucInterval: ConfidenceInterval;
   prAuc: number;
   observedEventRate: number;
   meanPredictedRisk: number;
@@ -674,6 +675,30 @@ const rocAuc = (predictions: NormalizedPrediction[]) => {
   );
 };
 
+const rocAucConfidenceInterval = (
+  auc: number,
+  positives: number,
+  negatives: number,
+  confidenceLevel: number
+): ConfidenceInterval => {
+  const q1 = auc / (2 - auc);
+  const q2 = (2 * auc * auc) / (1 + auc);
+  const variance =
+    (auc * (1 - auc) +
+      (positives - 1) * (q1 - auc * auc) +
+      (negatives - 1) * (q2 - auc * auc)) /
+    (positives * negatives);
+  const standardError = Math.sqrt(Math.max(0, variance));
+  const margin = criticalZScore(confidenceLevel) * standardError;
+
+  return {
+    estimate: auc,
+    lower: Math.max(0, auc - margin),
+    upper: Math.min(1, auc + margin),
+    confidenceLevel,
+  };
+};
+
 const prAuc = (predictions: NormalizedPrediction[]) => {
   const sorted = [...predictions].sort(
     (left, right) => right.probability - left.probability
@@ -764,6 +789,7 @@ export const computeBinaryValidationMetrics = (
 
   const positives = truePositive + falseNegative;
   const negatives = trueNegative + falsePositive;
+  const auc = rocAuc(normalized);
   const observedEventRate = positives / normalized.length;
   const meanPredictedRisk =
     normalized.reduce((sum, prediction) => sum + prediction.probability, 0) /
@@ -821,7 +847,13 @@ export const computeBinaryValidationMetrics = (
       confidenceLevel
     ),
     brierScore: brierScore(normalized),
-    rocAuc: rocAuc(normalized),
+    rocAuc: auc,
+    rocAucInterval: rocAucConfidenceInterval(
+      auc,
+      positives,
+      negatives,
+      confidenceLevel
+    ),
     prAuc: prAuc(normalized),
     observedEventRate,
     meanPredictedRisk,
