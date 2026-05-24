@@ -1,3 +1,21 @@
+## 2026-05-24, Measurement Unit Column Guard Increment
+
+- Added failing-first coverage for `measurement_rows.csv` rows that put millimetre parameters in `value_deg` or degree parameters in `value_mm`.
+- Used runtime `PARAMETERS_ALL` unit metadata to validate the populated measurement value column for each `parameter_id`.
+- Updated `validation_data_dictionary.md` so analysts know the value column must match the runtime parameter unit.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "runtime parameter unit"` failed before implementation because `tcd` in `value_deg` and `csa` in `value_mm` produced no schema errors.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "runtime parameter unit"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 25 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 270 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, Case-Log Gestational Age Range Guard Increment
 
 - Added failing-first coverage for `case_log.csv` `ga_weeks` values outside the calculator-supported 18-40 week range.

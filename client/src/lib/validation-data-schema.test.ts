@@ -591,6 +591,34 @@ describe("validation data export schema guard", () => {
     );
   });
 
+  it("rejects measurement value columns that do not match the runtime parameter unit", () => {
+    expect(
+      validateValidationDataRows("measurement_rows.csv", [
+        {
+          study_id: "S1",
+          parameter_id: "tcd",
+          source_role: "reference",
+          value_deg: 32,
+          measurement_available: true,
+          image_quality_tier: "diagnostic",
+        },
+        {
+          study_id: "S2",
+          parameter_id: "csa",
+          source_role: "reference",
+          value_mm: 62,
+          measurement_available: true,
+          image_quality_tier: "diagnostic",
+        },
+      ])
+    ).toEqual(
+      expect.arrayContaining([
+        "measurement_rows.csv row 1 field value_deg is not allowed for millimetre parameter tcd",
+        "measurement_rows.csv row 2 field value_mm is not allowed for degree parameter csa",
+      ])
+    );
+  });
+
   it("rejects impossible report-audit measurement counts before QI analysis", () => {
     expect(
       validateValidationDataRows("report_audit_rows.csv", [

@@ -1615,3 +1615,10 @@
 - Align validation export preflight with the SPEC/UI gestational-age bounds and TEST stress cases.
 - Update the data dictionary so analysts know case logs must stay within the supported GA range.
 - Update the audit/progress trail, then run targeted/full gates before committing.
+
+## Measurement Unit Column Guard Increment
+
+- Add failing-first coverage for `measurement_rows.csv` rows that put millimetre parameters in `value_deg` or degree parameters in `value_mm`.
+- Use runtime `PARAMETERS_ALL` unit metadata to validate the populated value column for each `parameter_id`.
+- Update the data dictionary so analysts know the value column must match the runtime parameter unit.
+- Update the audit/progress trail, then run targeted/full gates before committing.

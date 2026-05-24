@@ -62,6 +62,9 @@ const SOURCE_ROLE_VALUES = [
   "ai_prefill",
 ] as const;
 const PARAMETER_ID_VALUES = PARAMETERS_ALL.map(parameter => parameter.id);
+const PARAMETER_UNITS_BY_ID = new Map(
+  PARAMETERS_ALL.map(parameter => [parameter.id, parameter.unit])
+);
 const TRIGGER_ID_VALUES = DIFFERENTIAL_CARD_IDS;
 const NASA_TLX_COLUMNS = [
   "nasa_tlx_mental_demand",
@@ -564,6 +567,11 @@ export const validateValidationDataRows = (
     if (schema.fileName === "measurement_rows.csv") {
       const hasValueMm = !isMissing(row.value_mm);
       const hasValueDeg = !isMissing(row.value_deg);
+      const parameterId = isMissing(row.parameter_id)
+        ? null
+        : String(row.parameter_id);
+      const parameterUnit =
+        parameterId == null ? null : PARAMETER_UNITS_BY_ID.get(parameterId);
       if (isTrueLike(row.measurement_available)) {
         if (!hasValueMm && !hasValueDeg) {
           errors.push(
@@ -573,6 +581,16 @@ export const validateValidationDataRows = (
         if (hasValueMm && hasValueDeg) {
           errors.push(
             `${rowLabel} requires exactly one of value_mm or value_deg when measurement_available is true`
+          );
+        }
+        if (parameterUnit === "mm" && hasValueDeg) {
+          errors.push(
+            `${rowLabel} field value_deg is not allowed for millimetre parameter ${parameterId}`
+          );
+        }
+        if (parameterUnit === "degrees" && hasValueMm) {
+          errors.push(
+            `${rowLabel} field value_mm is not allowed for degree parameter ${parameterId}`
           );
         }
       }
