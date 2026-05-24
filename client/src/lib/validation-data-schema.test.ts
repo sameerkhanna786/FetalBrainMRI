@@ -235,6 +235,73 @@ describe("validation data export schema guard", () => {
     );
   });
 
+  it("rejects out-of-range validation export values before analysis", () => {
+    expect(
+      validateValidationDataRows("case_log.csv", [
+        {
+          study_id: "S1",
+          cohort: "institutional",
+          site_id: "single_site",
+          scanner_vendor: "unknown",
+          field_strength_t: 1.5,
+          svr_method: "none",
+          image_quality_tier: "diagnostic",
+          ga_weeks: 28,
+          ga_days: 8,
+          included: true,
+          reference_standard_available: true,
+          prediction_available: true,
+          pathology_label_available: true,
+        },
+      ])
+    ).toContain("case_log.csv row 1 field ga_days must be between 0 and 6");
+
+    expect(
+      validateValidationDataRows("diagnostic_labels.csv", [
+        {
+          study_id: "S1",
+          trigger_id: "mild-vm",
+          reference_label: false,
+          predicted_label: true,
+          predicted_probability: 1.2,
+          threshold: -0.1,
+          indeterminate: false,
+        },
+      ])
+    ).toEqual(
+      expect.arrayContaining([
+        "diagnostic_labels.csv row 1 field predicted_probability must be between 0 and 1",
+        "diagnostic_labels.csv row 1 field threshold must be between 0 and 1",
+      ])
+    );
+
+    expect(
+      validateValidationDataRows("reader_study_rows.csv", [
+        {
+          reader_id: "R1",
+          study_id: "S1",
+          condition: "with_tool",
+          read_order: 1,
+          washout_days: 14,
+          duration_sec: 300,
+          completeness_score: 0.8,
+          zscore_documentation_rate: 1.2,
+          recommendation_congruent: true,
+          nasa_tlx_frustration: 101,
+          sus_item_1: 0,
+          sus_item_10: 6,
+        },
+      ])
+    ).toEqual(
+      expect.arrayContaining([
+        "reader_study_rows.csv row 1 field zscore_documentation_rate must be between 0 and 1",
+        "reader_study_rows.csv row 1 field nasa_tlx_frustration must be between 0 and 100",
+        "reader_study_rows.csv row 1 field sus_item_1 must be between 1 and 5",
+        "reader_study_rows.csv row 1 field sus_item_10 must be between 1 and 5",
+      ])
+    );
+  });
+
   it("validates cross-file study IDs and reader-study pair completeness", () => {
     expect(
       validateValidationDataExport({

@@ -12,6 +12,8 @@ export interface ValidationDataColumnSchema {
   required: ValidationDataRequirement;
   allowedValues?: readonly string[];
   numeric?: boolean;
+  min?: number;
+  max?: number;
 }
 
 export interface ValidationDataFileSchema {
@@ -47,11 +49,11 @@ export const VALIDATION_DATA_SCHEMAS: Record<
       { name: "cohort", required: "yes" },
       { name: "site_id", required: "yes" },
       { name: "scanner_vendor", required: "yes" },
-      { name: "field_strength_t", required: "yes", numeric: true },
+      { name: "field_strength_t", required: "yes", numeric: true, min: 0 },
       { name: "svr_method", required: "yes" },
       { name: "image_quality_tier", required: "yes" },
-      { name: "ga_weeks", required: "yes", numeric: true },
-      { name: "ga_days", required: "yes", numeric: true },
+      { name: "ga_weeks", required: "yes", numeric: true, min: 0 },
+      { name: "ga_days", required: "yes", numeric: true, min: 0, max: 6 },
       { name: "included", required: "yes" },
       { name: "exclusion_reason", required: "conditional" },
       { name: "reference_standard_available", required: "yes" },
@@ -81,8 +83,14 @@ export const VALIDATION_DATA_SCHEMAS: Record<
       { name: "trigger_id", required: "yes" },
       { name: "reference_label", required: "yes" },
       { name: "predicted_label", required: "yes" },
-      { name: "predicted_probability", required: "conditional", numeric: true },
-      { name: "threshold", required: "yes", numeric: true },
+      {
+        name: "predicted_probability",
+        required: "conditional",
+        numeric: true,
+        min: 0,
+        max: 1,
+      },
+      { name: "threshold", required: "yes", numeric: true, min: 0, max: 1 },
       { name: "indeterminate", required: "yes" },
       { name: "indeterminate_reason", required: "conditional" },
     ],
@@ -97,11 +105,17 @@ export const VALIDATION_DATA_SCHEMAS: Record<
         required: "yes",
         allowedValues: ["without_tool", "with_tool"],
       },
-      { name: "read_order", required: "yes", numeric: true },
-      { name: "washout_days", required: "yes", numeric: true },
-      { name: "duration_sec", required: "yes", numeric: true },
+      { name: "read_order", required: "yes", numeric: true, min: 1 },
+      { name: "washout_days", required: "yes", numeric: true, min: 0 },
+      { name: "duration_sec", required: "yes", numeric: true, min: 0 },
       { name: "completeness_score", required: "yes", numeric: true },
-      { name: "zscore_documentation_rate", required: "yes", numeric: true },
+      {
+        name: "zscore_documentation_rate",
+        required: "yes",
+        numeric: true,
+        min: 0,
+        max: 1,
+      },
       { name: "recommendation_congruent", required: "yes" },
       { name: "categorical_label", required: "optional" },
       { name: "continuous_measurement", required: "optional", numeric: true },
@@ -109,30 +123,114 @@ export const VALIDATION_DATA_SCHEMAS: Record<
         name: "nasa_tlx_mental_demand",
         required: "conditional",
         numeric: true,
+        min: 0,
+        max: 100,
       },
       {
         name: "nasa_tlx_physical_demand",
         required: "conditional",
         numeric: true,
+        min: 0,
+        max: 100,
       },
       {
         name: "nasa_tlx_temporal_demand",
         required: "conditional",
         numeric: true,
+        min: 0,
+        max: 100,
       },
-      { name: "nasa_tlx_performance", required: "conditional", numeric: true },
-      { name: "nasa_tlx_effort", required: "conditional", numeric: true },
-      { name: "nasa_tlx_frustration", required: "conditional", numeric: true },
-      { name: "sus_item_1", required: "conditional", numeric: true },
-      { name: "sus_item_2", required: "conditional", numeric: true },
-      { name: "sus_item_3", required: "conditional", numeric: true },
-      { name: "sus_item_4", required: "conditional", numeric: true },
-      { name: "sus_item_5", required: "conditional", numeric: true },
-      { name: "sus_item_6", required: "conditional", numeric: true },
-      { name: "sus_item_7", required: "conditional", numeric: true },
-      { name: "sus_item_8", required: "conditional", numeric: true },
-      { name: "sus_item_9", required: "conditional", numeric: true },
-      { name: "sus_item_10", required: "conditional", numeric: true },
+      {
+        name: "nasa_tlx_performance",
+        required: "conditional",
+        numeric: true,
+        min: 0,
+        max: 100,
+      },
+      {
+        name: "nasa_tlx_effort",
+        required: "conditional",
+        numeric: true,
+        min: 0,
+        max: 100,
+      },
+      {
+        name: "nasa_tlx_frustration",
+        required: "conditional",
+        numeric: true,
+        min: 0,
+        max: 100,
+      },
+      {
+        name: "sus_item_1",
+        required: "conditional",
+        numeric: true,
+        min: 1,
+        max: 5,
+      },
+      {
+        name: "sus_item_2",
+        required: "conditional",
+        numeric: true,
+        min: 1,
+        max: 5,
+      },
+      {
+        name: "sus_item_3",
+        required: "conditional",
+        numeric: true,
+        min: 1,
+        max: 5,
+      },
+      {
+        name: "sus_item_4",
+        required: "conditional",
+        numeric: true,
+        min: 1,
+        max: 5,
+      },
+      {
+        name: "sus_item_5",
+        required: "conditional",
+        numeric: true,
+        min: 1,
+        max: 5,
+      },
+      {
+        name: "sus_item_6",
+        required: "conditional",
+        numeric: true,
+        min: 1,
+        max: 5,
+      },
+      {
+        name: "sus_item_7",
+        required: "conditional",
+        numeric: true,
+        min: 1,
+        max: 5,
+      },
+      {
+        name: "sus_item_8",
+        required: "conditional",
+        numeric: true,
+        min: 1,
+        max: 5,
+      },
+      {
+        name: "sus_item_9",
+        required: "conditional",
+        numeric: true,
+        min: 1,
+        max: 5,
+      },
+      {
+        name: "sus_item_10",
+        required: "conditional",
+        numeric: true,
+        min: 1,
+        max: 5,
+      },
     ],
   },
   "report_audit_rows.csv": {
@@ -144,9 +242,19 @@ export const VALIDATION_DATA_SCHEMAS: Record<
         required: "yes",
         allowedValues: ["baseline", "post_tool"],
       },
-      { name: "duration_sec", required: "yes", numeric: true },
-      { name: "required_measurement_count", required: "yes", numeric: true },
-      { name: "documented_measurement_count", required: "yes", numeric: true },
+      { name: "duration_sec", required: "yes", numeric: true, min: 0 },
+      {
+        name: "required_measurement_count",
+        required: "yes",
+        numeric: true,
+        min: 0,
+      },
+      {
+        name: "documented_measurement_count",
+        required: "yes",
+        numeric: true,
+        min: 0,
+      },
       { name: "explicit_zscore_documented", required: "yes" },
       { name: "explicit_percentile_documented", required: "yes" },
       { name: "recommendation_congruent", required: "conditional" },
@@ -177,6 +285,26 @@ const isFiniteNumericValue = (
   return Number.isFinite(Number(value));
 };
 
+const numericValue = (
+  value: string | number | boolean | null | undefined
+): number | null => {
+  if (!isFiniteNumericValue(value)) return null;
+  return Number(value);
+};
+
+const rangeMessage = (
+  rowLabel: string,
+  column: ValidationDataColumnSchema
+): string => {
+  if (column.min != null && column.max != null) {
+    return `${rowLabel} field ${column.name} must be between ${column.min} and ${column.max}`;
+  }
+  if (column.min != null) {
+    return `${rowLabel} field ${column.name} must be greater than or equal to ${column.min}`;
+  }
+  return `${rowLabel} field ${column.name} must be less than or equal to ${column.max}`;
+};
+
 export const validateValidationDataRows = (
   fileName: string,
   rows: readonly ValidationDataRow[]
@@ -204,6 +332,17 @@ export const validateValidationDataRows = (
       if (isMissing(value)) continue;
       if (column.numeric && !isFiniteNumericValue(value)) {
         errors.push(`${rowLabel} field ${column.name} must be finite`);
+        continue;
+      }
+      if (column.numeric && (column.min != null || column.max != null)) {
+        const numberValue = numericValue(value);
+        if (
+          numberValue != null &&
+          ((column.min != null && numberValue < column.min) ||
+            (column.max != null && numberValue > column.max))
+        ) {
+          errors.push(rangeMessage(rowLabel, column));
+        }
       }
       if (
         column.allowedValues &&

@@ -1,3 +1,21 @@
+## 2026-05-24, Validation Numeric Range Guard Increment
+
+- Added failing-first coverage for impossible validation export values, including GA day 8, probability >1, negative diagnostic thresholds, NASA Task Load Index >100, and System Usability Scale items outside 1-5.
+- Extended the runtime validation-data schema with min/max bounds for high-risk numeric fields used by cohort flow, diagnostic calibration, reader-study usability, and report-audit exports.
+- Updated `validation_data_dictionary.md` so analysts see that export guards reject non-finite and out-of-range values before metrics are computed.
+
+Verification:
+
+- Failing-first check: `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "out-of-range"` failed before implementation because `ga_days=8` produced no schema error.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand -t "out-of-range"` passes.
+- `npx pnpm@10.4.1 test client/src/lib/validation-data-schema.test.ts -- --runInBand` passes with 8 tests.
+- `python3 -m py_compile python_app/__init__.py python_app/main.py python_app/biometry.py python_app/genai.py python_app/registry.py` passes.
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 253 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md PROGRESS.md completion_audit.md validation_data_dictionary.md client/src/lib/validation-data-schema.ts client/src/lib/validation-data-schema.test.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+- `git diff --check` passes.
+
 ## 2026-05-24, DECIDE-AI Citation Evidence Increment
 
 - Added failing-first source-document coverage requiring PubMed and DOI evidence for DECIDE-AI wherever it is used in the publication handoff packet.

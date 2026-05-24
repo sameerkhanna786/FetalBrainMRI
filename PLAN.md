@@ -1489,3 +1489,10 @@
 - Add the PubMed-verified DECIDE-AI reporting guideline citation to `publication_handoff_checklist.md` and `source_verification_dossier.md`.
 - Keep the current retrospective/QI scope clear while documenting when DECIDE-AI applies to early-stage clinical decision-support evaluation.
 - Run targeted/full tests, typecheck, formatting checks, and build before committing.
+
+## Validation Numeric Range Guard Increment
+
+- Add failing-first coverage for impossible validation export values such as GA day 8, probability >1, NASA TLX >100, and SUS items outside 1-5.
+- Extend validation-data column schemas with minimum and maximum bounds for high-risk numeric fields.
+- Implement generic range validation so malformed exports fail before metrics, calibration, or reader-study scoring runs.
+- Update the data dictionary and audit/progress trail, then run targeted/full gates before committing.

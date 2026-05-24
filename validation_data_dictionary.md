@@ -19,8 +19,8 @@ Before metrics are computed, export rows should be checked with
 contains the required fields documented below, catch blank required values,
 enforce high-risk conditional fields such as exclusion and missingness reasons,
 check locked enum values such as reader-study condition and report-audit phase,
-reject non-finite numeric values, ensure exported rows reference known
-`case_log.csv` study IDs, and require paired `without_tool` / `with_tool`
+reject non-finite or out-of-range numeric values, ensure exported rows reference
+known `case_log.csv` study IDs, and require paired `without_tool` / `with_tool`
 reader-study rows before downstream analysis code runs.
 
 Starter CSV header templates live in `validation_export_templates/` and are
@@ -85,8 +85,8 @@ the threshold before analysis in `validation_analysis_lock.md`.
 | trigger_id            | yes         | Runtime card id such as `mild-vm`, `severe-vm`, `macrocephaly`, `microcephaly`, `acc-pattern`, `hpe-pattern`, `dwm-pattern`, `pch-pattern`, `extra-axial-wide`, or `chiari-ii-ontd`. |
 | reference_label       | yes         | `true` or `false` expert truth label.                                                                                                                                                |
 | predicted_label       | yes         | `true` or `false` calculator label at the locked threshold.                                                                                                                          |
-| predicted_probability | conditional | Required when computing calibration, ROC-AUC, PR-AUC, Brier score, or decision-curve net benefit.                                                                                    |
-| threshold             | yes         | Locked threshold used for `predicted_label`.                                                                                                                                         |
+| predicted_probability | conditional | 0-1 probability; required when computing calibration, ROC-AUC, PR-AUC, Brier score, or decision-curve net benefit.                                                                   |
+| threshold             | yes         | Locked 0-1 threshold used for `predicted_label`.                                                                                                                                     |
 | indeterminate         | yes         | `true` if the case is excluded from the trigger analysis because truth is not adjudicable.                                                                                           |
 | indeterminate_reason  | conditional | Required when `indeterminate=true`.                                                                                                                                                  |
 
@@ -154,3 +154,6 @@ calculator study.
    each reader.
 7. Locked thresholds and endpoint definitions are copied into
    `validation_analysis_lock.md` before analysis.
+8. Probability, rate, NASA Task Load Index, System Usability Scale, gestational
+   age day, duration, and count fields stay inside the documented numeric
+   ranges.
