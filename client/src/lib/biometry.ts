@@ -2206,12 +2206,12 @@ const CARDS: CardSpec[] = [
       },
       {
         dx: "Monogenic syndromic disorder",
-        likelihood: "~30%",
+        likelihood: "Minority",
         rationale: "Identified in 30% of a recent cohort (Sun 2024).",
       },
       {
         dx: "Chromosomal abnormality / pathogenic CNV",
-        likelihood: "~15–20%",
+        likelihood: "Minority",
         rationale: "Includes trisomies and pathogenic CNVs.",
       },
       {

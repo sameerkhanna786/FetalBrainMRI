@@ -710,6 +710,33 @@ describe("SPEC §7.4 enlarged-CSP likelihood manifest", () => {
   });
 });
 
+describe("SPEC §7.4 complete-ACC likelihood manifest", () => {
+  it("keeps the Santo isolated-ACC statistic but qualitative-labels approximate rows", () => {
+    const ga = { weeks: 28, days: 0 };
+    const values = {
+      cc_length: 1,
+    };
+    const { dxs } = evaluateAll(values, ga);
+    const completeAcc = dxs.find(dx => dx.id === "cc-absent");
+
+    expect(completeAcc?.rows.map(row => row.likelihood)).toEqual([
+      "~65–75%",
+      "Minority",
+      "Minority",
+      "Variable",
+    ]);
+    expect(completeAcc?.rows[0].rationale).toContain(
+      "Normal neurodevelopment in 65–75% of isolated ACC (Santo 2012)."
+    );
+    expect(
+      completeAcc?.rows
+        .slice(1)
+        .map(row => row.likelihood)
+        .join(" ")
+    ).not.toMatch(/~30|~15/);
+  });
+});
+
 describe("aqueductal-stenosis pattern report impression", () => {
   it("uses the TEST.md Case S1 triventricular hydrocephalus impression line", () => {
     const ga = { weeks: 26, days: 0 };

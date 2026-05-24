@@ -1478,3 +1478,16 @@ Verification:
 - `npx pnpm@10.4.1 check` passes.
 - `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/biometry.ts` passes.
 - `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
+
+## 2026-05-23, SPEC 7.4 Complete-ACC Likelihood Qualitative Increment
+
+- Added DDx coverage for the SPEC §7.4 complete-ACC likelihood manifest.
+- Preserved the transcribed Santo 2012 isolated complete-ACC likelihood label and rationale.
+- Replaced approximate or estimate-only monogenic and chromosomal likelihood labels with qualitative wording.
+
+Verification:
+
+- `npx pnpm@10.4.1 test -- --runInBand` passes with 118 tests.
+- `npx pnpm@10.4.1 check` passes.
+- `npx pnpm@10.4.1 exec prettier --check PLAN.md client/src/lib/biometry.test.ts client/src/lib/biometry.ts` passes.
+- `npx pnpm@10.4.1 build` passes with only the pre-existing chunk-size warning.
